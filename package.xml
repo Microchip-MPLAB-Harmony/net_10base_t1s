@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Package name="replaceme">
+<Package name="net_10base_t1s">
     <Dependencies>
+        <Dependency name="net" version="v3.7.0"/>
     </Dependencies>
 </Package>

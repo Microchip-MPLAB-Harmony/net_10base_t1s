@@ -285,7 +285,7 @@ static DRV_ETHPHY_RESULT DRV_ETHPHY_Detect( const struct DRV_ETHPHY_OBJECT_BASE_
         } else if (miimRes != DRV_MIIM_RES_OK) {
             res = DRV_ETHPHY_RES_PENDING;
         } else {
-            /* verify the phy is Lan867x, else return error.*/
+            /* Verify the PHY is LAN867x, else return error.*/
             if (registerValue != (uint16_t)0x07) {
                 res = DRV_ETHPHY_RES_CPBL_ERR;
             } else {
@@ -305,7 +305,7 @@ static DRV_ETHPHY_RESULT DRV_ETHPHY_Detect( const struct DRV_ETHPHY_OBJECT_BASE_
         } else if (miimRes != DRV_MIIM_RES_OK) {
             res = DRV_ETHPHY_RES_PENDING;
         } else {
-            /* verify the phy is Lan867x, else return error.*/
+            /* Verify the PHY is LAN867x, else return error.*/
             if (registerValue != (uint16_t)0xC162) {
                 res = DRV_ETHPHY_RES_CPBL_ERR;
             } else {

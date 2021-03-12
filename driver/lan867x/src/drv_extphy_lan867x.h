@@ -171,11 +171,51 @@ typedef struct {
 /******************************************************************************
 *  VENDOR REGISTER MACRO
 ******************************************************************************/
-/* MMD ACCESS CONTROL REGISTER           : 13 */
+
+/* PHY_REG_BMCON                         : 0 */
+#define PHY_BMCON_UNIDIR_EN              FIELD_DESCRIPTOR(5,1)
+#define PHY_BMCON_SPD_SEL_1              FIELD_DESCRIPTOR(6,1)
+#define PHY_BMCON_COL_TEST               FIELD_DESCRIPTOR(7,1)
+#define PHY_BMCON_DUPLEX_MODE            FIELD_DESCRIPTOR(8,1)
+#define PHY_BMCON_RE_AUTO_NEG            FIELD_DESCRIPTOR(9,1)
+#define PHY_BMCON_ISOLATE                FIELD_DESCRIPTOR(10,1)
+#define PHY_BMCON_PD                     FIELD_DESCRIPTOR(11,1)
+#define PHY_BMCON_AUTO_NEG_EN            FIELD_DESCRIPTOR(12,1)
+#define PHY_BMCON_SPD_SEL_0              FIELD_DESCRIPTOR(13,1)
+#define PHY_BMCON_LOOPBACK               FIELD_DESCRIPTOR(14,1)
+#define PHY_BMCON_SW_RESET               FIELD_DESCRIPTOR(15,1)
+
+/* PHY_REG_BMSTAT                        : 1 */
+#define PHY_BMSTAT_EXT_CAP               FIELD_DESCRIPTOR(0,1)
+#define PHY_BMSTAT_JAB_DET               FIELD_DESCRIPTOR(1,1)
+#define PHY_BMSTAT_LINK_STAT             FIELD_DESCRIPTOR(2,1)
+#define PHY_BMSTAT_AUTO_NEG              FIELD_DESCRIPTOR(3,1)
+#define PHY_BMSTAT_RMT_FAULT             FIELD_DESCRIPTOR(4,1)
+#define PHY_BMSTAT_AUTO_NEG_COMP         FIELD_DESCRIPTOR(5,1)
+#define PHY_BMSTAT_MF_PRE_SUP            FIELD_DESCRIPTOR(6,1)
+#define PHY_BMSTAT_UNIDIR_ABL            FIELD_DESCRIPTOR(7,1)
+#define PHY_BMSTAT_EXT_STATUS            FIELD_DESCRIPTOR(8,1)
+#define PHY_BMSTAT_100T2_HALF_DUPLEX     FIELD_DESCRIPTOR(9,1)
+#define PHY_BMSTAT_100T2_FULL_DUPLEX     FIELD_DESCRIPTOR(10,1)
+#define PHY_BMSTAT_10T_HALF_DUPLEX       FIELD_DESCRIPTOR(11,1)
+#define PHY_BMSTAT_10T_FULL_DUPLEX       FIELD_DESCRIPTOR(12,1)
+#define PHY_BMSTAT_100TX_HALF_DUPLEX     FIELD_DESCRIPTOR(13,1)
+#define PHY_BMSTAT_100TX_FULL_DUPLEX     FIELD_DESCRIPTOR(14,1)
+#define PHY_BMSTAT_100T4                 FIELD_DESCRIPTOR(15,1)
+
+/* PHY_REG_PHYID0                        : 2 */
+#define PHY_PHY_ID0_OUI                  FIELD_DESCRIPTOR(0,16)
+
+/* PHY_REG_PHYID1                        : 3 */
+#define PHY_PHY_ID1_REV                  FIELD_DESCRIPTOR(0,4)
+#define PHY_PHY_ID1_MODEL                FIELD_DESCRIPTOR(4,6)
+#define PHY_PHY_ID1_OUI                  FIELD_DESCRIPTOR(10,6)
+
+/* PHY_MMD_ACCESS_CONTROL                : 13 */
 #define PHY_MMDCTRL_DEVAD                FIELD_DESCRIPTOR(0,5)
 #define PHY_MMDCTRL_FNCTN                FIELD_DESCRIPTOR(14,2)
 
-/* MMD ACCESS ADDRESS DATA REGISTER      : 14 */
+/* PHY_MMD_ACCESS_DATA_ADDR              : 14 */
 #define PHY_MMDAD_ADR_DATA               FIELD_DESCRIPTOR(0,16)
 
 /* PHY_STRAP_CONTROL0                    : 18 */
@@ -258,6 +298,7 @@ typedef struct {
 #define PHY_IMSK1_EMPCYCM                FIELD_DESCRIPTOR(7,1)
 #define PHY_IMSK1_TXBABLM                FIELD_DESCRIPTOR(9,1)
 #define PHY_IMSK1_TXCOLM                 FIELD_DESCRIPTOR(10,1)
+
 /* PHY_INTERRUPT_MASK_2                  : 0x1F001D */
 #define PHY_IMSK2_RESETCM                FIELD_DESCRIPTOR(11,1)
 

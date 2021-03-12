@@ -289,7 +289,6 @@ static DRV_ETHPHY_RESULT DRV_ETHPHY_Detect( const struct DRV_ETHPHY_OBJECT_BASE_
             if (registerValue != (uint16_t)0x07) {
                 res = DRV_ETHPHY_RES_CPBL_ERR;
             } else {
-                /* If operation is completed continue to below code. */
                 ++state;
                 clientObj.vendorData = F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
                 res = DRV_ETHPHY_RES_PENDING;
@@ -309,7 +308,6 @@ static DRV_ETHPHY_RESULT DRV_ETHPHY_Detect( const struct DRV_ETHPHY_OBJECT_BASE_
             if (registerValue != (uint16_t)0xC162) {
                 res = DRV_ETHPHY_RES_CPBL_ERR;
             } else {
-                /* If operation is completed continue to below code. */
                 ++state;
                 clientObj.vendorData = F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
                 res = DRV_ETHPHY_RES_PENDING;
@@ -368,7 +366,7 @@ DRV_MIIM_RESULT Lan867x_Write_Register(LAN867X_REG_OBJ* clientObj, const uint32_
 {
     DRV_MIIM_RESULT res;
 
-    /* Find operation is Clause 22 or Clause 45 based.*/
+    /* Check register operation type is Clause 22 or Clause 45 type. */
     if (R2F(clientObj->vendorData, VENDOR_INTERNAL_STATE) == IDLE_PHASE) {
         /* Set the phase for the new operation. */
         uint8_t initialState = 0;
@@ -409,7 +407,7 @@ DRV_MIIM_RESULT Lan867x_Read_Register(LAN867X_REG_OBJ* clientObj, const uint32_t
 {
     DRV_MIIM_RESULT res;
 
-    /* Find operation is Clause 22 or Clause 45 based.*/
+    /* Check register operation type is Clause 22 or Clause 45 type. */
     if (R2F(clientObj->vendorData, VENDOR_INTERNAL_STATE) == IDLE_PHASE) {
         /* Set the phase for the new operation. */
         uint8_t initialState = 0;
@@ -453,11 +451,12 @@ DRV_MIIM_RESULT Lan867x_Write_Bit_Register(LAN867X_REG_OBJ* clientObj, const uin
     uint8_t internalState = 0;
     DRV_MIIM_RESULT res = DRV_MIIM_RES_OK;
 
+    /* Check register operation type is Clause 22 or Clause 45 type. */
     if (IDLE_PHASE == R2F(clientObj->vendorData, VENDOR_INTERNAL_STATE)) {
         /* Set the phase for the new operation. */
         Set_Operation_Flow(regAddr, DRV_MIIM_OP_READ, &internalState);
         clientObj->vendorData = F2R(internalState, VENDOR_INTERNAL_STATE, clientObj->vendorData);
-        /* Set it understand it as the first stage of Bit operation. */
+        /* Set the bit value as true, to understand it as the first stage of Bit operation. */
         clientObj->vendorData = F2R(true, VENDOR_IS_BIT_OP, clientObj->vendorData);
     }
 
@@ -519,12 +518,10 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ* clientObj, DRV_MIIM_OP
     DRV_MIIM_RESULT opRes = DRV_MIIM_RES_OK;
 
     switch (R2F(clientObj->vendorData, VENDOR_INTERNAL_STATE)) {
-
     case WRITE_22_PHASE: /* Write to clause 22 register. */
         *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(clientObj->miimHandle, regAddr, clientObj->phyAddress, *data, DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
         if (*clientObj->miimOpHandle != 0) /* If success in queuing the request, go to next state, else retry. */
         {
-            /* Write vendor data specifying operation for the current register is complete. */
             /* Operation successfully completed.*/
             clientObj->vendorData = F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
             opRes = DRV_MIIM_RES_OK;
@@ -535,7 +532,7 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ* clientObj, DRV_MIIM_OP
         *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Read(clientObj->miimHandle, regAddr, clientObj->phyAddress, DRV_MIIM_OPERATION_FLAG_NONE, &opRes);
         if (*clientObj->miimOpHandle != 0) /* If success in queuing the request, go to next state, else retry. */
         {
-            /* Read vendor data specifying operation for the current register is complete. */
+            /* advance to the next phase. */
             clientObj->vendorData = F2R(READ_RESULT_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
             opRes = DRV_MIIM_RES_PENDING;
         }
@@ -545,7 +542,7 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ* clientObj, DRV_MIIM_OP
         opRes = clientObj->miimBase->DRV_MIIM_OperationResult(clientObj->miimHandle, *clientObj->miimOpHandle, data);
         if (opRes != DRV_MIIM_RES_PENDING) /* Check operation is in progress or not. */
         {
-            /* Operation completed.*/
+            /* Operation successfully completed.*/
             clientObj->vendorData = F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
             *clientObj->miimOpHandle = 0;
         }
@@ -605,7 +602,6 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ* clientObj, DRV_MIIM_OP
 
         if (*clientObj->miimOpHandle != 0) /* If success in queuing the request, go to next state, else retry. */
         {
-            /* Write vendor data specifying operation for the current register is complete. */
             /* Operation successfully completed.*/
             clientObj->vendorData = F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
             opRes = DRV_MIIM_RES_OK;

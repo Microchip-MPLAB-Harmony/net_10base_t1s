@@ -42,7 +42,7 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 ----------------------------------------------------------------------------->
 
 #define TCPIP_INTMAC_PHY_CONFIG_FLAGS              	( 0 \
-<#if TCPIP_INTMAC_PHY_CONFIG_RMII>				
+<#if TCPIP_INTMAC_PHY_CONFIG_RMII>
                                                     | DRV_ETHPHY_CFG_RMII \
 </#if>
 <#if TCPIP_INTMAC_PHY_CONFIG_ALTERNATE?has_content && TCPIP_INTMAC_PHY_CONFIG_ALTERNATE == true>

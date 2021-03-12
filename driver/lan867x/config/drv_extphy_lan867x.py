@@ -22,7 +22,7 @@
 *****************************************************************************"""
 
 def instantiateComponent(drvExtPhyLan867xComponent):
-    print("Lan867x PHY Driver Component")
+    print("LAN867x PHY Driver Component")
     configName = Variables.get("__CONFIGURATION_NAME")
     
     # PHY Address

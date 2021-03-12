@@ -452,7 +452,7 @@ DRV_MIIM_RESULT Lan867x_Write_Bit_Register(LAN867X_REG_OBJ* clientObj, const uin
     DRV_MIIM_RESULT res = DRV_MIIM_RES_OK;
 
     /* Check register operation type is Clause 22 or Clause 45 type. */
-    if (IDLE_PHASE == R2F(clientObj->vendorData, VENDOR_INTERNAL_STATE)) {
+    if (R2F(clientObj->vendorData, VENDOR_INTERNAL_STATE) == IDLE_PHASE) {
         /* Set the phase for the new operation. */
         Set_Operation_Flow(regAddr, DRV_MIIM_OP_READ, &internalState);
         clientObj->vendorData = F2R(internalState, VENDOR_INTERNAL_STATE, clientObj->vendorData);
@@ -461,7 +461,7 @@ DRV_MIIM_RESULT Lan867x_Write_Bit_Register(LAN867X_REG_OBJ* clientObj, const uin
     }
 
     /* The read part of the bit set operation. */
-    if (true == R2F(clientObj->vendorData, VENDOR_IS_BIT_OP)) {
+    if (R2F(clientObj->vendorData, VENDOR_IS_BIT_OP) == true) {
         res = Lan867x_Miim_Task(clientObj, DRV_MIIM_OP_READ, regAddr, &regValue);
         if (res == DRV_MIIM_RES_OK) {
             /* Set the bit false to start the write operation. */

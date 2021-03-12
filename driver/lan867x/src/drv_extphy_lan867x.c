@@ -37,7 +37,7 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *  PRIVATE FUNCTION DECLARATIONS
 ******************************************************************************/
 static void Set_Operation_Flow(const uint32_t regAddr, const DRV_MIIM_OP_TYPE opType, ePHY_REG_ACCESS_PHASE * opState);
-static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ * clientObj,  DRV_MIIM_OP_TYPE opType, uint32_t regAddr, uint16_t *data);
+static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ * clientObj, DRV_MIIM_OP_TYPE opType, uint32_t regAddr, uint16_t *data);
 
 /******************************************************************************
 *  FUNCTION DEFINITIONS
@@ -368,7 +368,7 @@ DRV_MIIM_RESULT Lan867x_Write_Register(LAN867X_REG_OBJ* clientObj, const uint32_
 {
     DRV_MIIM_RESULT res;
 
-    /* Find operation is Clause 22  or Clause 45 based.*/
+    /* Find operation is Clause 22 or Clause 45 based.*/
     if (R2F(clientObj->vendorData, VENDOR_INTERNAL_STATE) == IDLE_PHASE) {
         /* Set the phase for the new operation. */
         uint8_t initialState = 0;
@@ -409,7 +409,7 @@ DRV_MIIM_RESULT Lan867x_Read_Register(LAN867X_REG_OBJ* clientObj, const uint32_t
 {
     DRV_MIIM_RESULT res;
 
-    /* Find operation is Clause 22  or Clause 45 based.*/
+    /* Find operation is Clause 22 or Clause 45 based.*/
     if (R2F(clientObj->vendorData, VENDOR_INTERNAL_STATE) == IDLE_PHASE) {
         /* Set the phase for the new operation. */
         uint8_t initialState = 0;

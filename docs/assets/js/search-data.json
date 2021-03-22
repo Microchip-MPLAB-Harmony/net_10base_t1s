@@ -1,0 +1,44 @@
+{"0": {
+    "doc": "Harmony 3 TCP/IP Application for 10BASE-T1S Ethernet PHY",
+    "title": "Examples applications",
+    "content": "The following applications are provided to demonstrate the typical usecase of 10BASE-T1S PHY. ",
+    "url": "http://localhost:4000/net_10base_t1s/apps/readme.html#examples-applications",
+    "relUrl": "/apps/readme.html#examples-applications"
+  },"1": {
+    "doc": "Harmony 3 TCP/IP Application for 10BASE-T1S Ethernet PHY",
+    "title": "LAN867x Examples",
+    "content": ". | TCP/IP Client with Iperf support | . ",
+    "url": "http://localhost:4000/net_10base_t1s/apps/readme.html#lan867x-examples",
+    "relUrl": "/apps/readme.html#lan867x-examples"
+  },"2": {
+    "doc": "Harmony 3 TCP/IP Application for 10BASE-T1S Ethernet PHY",
+    "title": "Harmony 3 TCP/IP Application for 10BASE-T1S Ethernet PHY",
+    "content": " ",
+    "url": "http://localhost:4000/net_10base_t1s/apps/readme.html",
+    "relUrl": "/apps/readme.html"
+  },"3": {
+    "doc": "LAN867x (10BASE-T1S) application",
+    "title": "10BASE-T1S TCP/IP application with Iperf support",
+    "content": "The example showcases, how to configure LAN867x ethernet phy in Harmony 3 and establish a network. It also contains example about, how to access and modify the register of LAN867x from user code space. ",
+    "url": "http://localhost:4000/net_10base_t1s/apps/tcpip_iperf_10base_t1s/readme.html#10base-t1s-tcpip-application-with-iperf-support",
+    "relUrl": "/apps/tcpip_iperf_10base_t1s/readme.html#10base-t1s-tcpip-application-with-iperf-support"
+  },"4": {
+    "doc": "LAN867x (10BASE-T1S) application",
+    "title": "Development kits",
+    "content": "The following table provides details of the hardware used for the example. | Development Kit | . | Sam E54 Curiosity Ultra | . | LAN867x RMII board | . ",
+    "url": "http://localhost:4000/net_10base_t1s/apps/tcpip_iperf_10base_t1s/readme.html#development-kits",
+    "relUrl": "/apps/tcpip_iperf_10base_t1s/readme.html#development-kits"
+  },"5": {
+    "doc": "LAN867x (10BASE-T1S) application",
+    "title": "Harmony 3 Setting for LAN867x",
+    "content": "GMAC Setting . To use the LAN867x Ethernet PHY, configure the GMAC to operate in 10BASE-T1S setting . | 10 Mbps | Half Duplex | Auto Negotiation - Disabled | MDIX - Disabled | . PLCA Setting . 10BASE-T1S can be used in PLCA or CSMA/CD mode. In PLCA mode, kindly set Node Id and Node Count. ",
+    "url": "http://localhost:4000/net_10base_t1s/apps/tcpip_iperf_10base_t1s/readme.html#harmony-3-setting-for-lan867x",
+    "relUrl": "/apps/tcpip_iperf_10base_t1s/readme.html#harmony-3-setting-for-lan867x"
+  },"6": {
+    "doc": "LAN867x (10BASE-T1S) application",
+    "title": "LAN867x (10BASE-T1S) application",
+    "content": ". ",
+    "url": "http://localhost:4000/net_10base_t1s/apps/tcpip_iperf_10base_t1s/readme.html",
+    "relUrl": "/apps/tcpip_iperf_10base_t1s/readme.html"
+  }
+}

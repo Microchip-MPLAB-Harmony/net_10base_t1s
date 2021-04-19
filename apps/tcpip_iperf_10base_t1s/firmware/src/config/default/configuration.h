@@ -157,7 +157,7 @@ extern "C" {
 #define DRV_ETHPHY_RESET_CLR_TMO                    500
 #define DRV_ETHPHY_PLCA_ENABLED
 #define DRV_ETHPHY_PLCA_LOCAL_NODE_ID               0
-#define DRV_ETHPHY_PLCA_NODE_COUNT                  10
+#define DRV_ETHPHY_PLCA_NODE_COUNT                  8
 #define DRV_ETHPHY_PLCA_MAX_BURST_COUNT             8
 #define DRV_ETHPHY_PLCA_BURST_TIMER                 128
 

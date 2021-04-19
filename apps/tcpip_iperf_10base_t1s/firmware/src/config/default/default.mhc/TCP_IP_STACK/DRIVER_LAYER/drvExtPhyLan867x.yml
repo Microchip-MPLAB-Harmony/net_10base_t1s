@@ -20,5 +20,12 @@ children:
       children:
       - type: User
         attributes: {value: PLCA}
+  - type: Integer
+    attributes: {id: PLCA_NODE_COUNT}
+    children:
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: '8'}
 - type: ElementPosition
-  attributes: {x: '148', y: '114', id: drvExtPhyLan867x}
+  attributes: {x: '139', y: '82', id: drvExtPhyLan867x}

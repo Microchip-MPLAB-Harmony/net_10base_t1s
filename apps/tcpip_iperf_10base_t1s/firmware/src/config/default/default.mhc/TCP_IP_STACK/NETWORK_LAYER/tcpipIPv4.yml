@@ -12,4 +12,4 @@ children:
       - type: User
         attributes: {value: 'true'}
 - type: ElementPosition
-  attributes: {x: '133', y: '57', id: tcpipIPv4}
+  attributes: {x: '131', y: '74', id: tcpipIPv4}

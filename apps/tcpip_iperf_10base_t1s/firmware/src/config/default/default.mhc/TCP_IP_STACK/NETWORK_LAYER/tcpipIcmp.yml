@@ -97,4 +97,4 @@ children:
       - type: User
         attributes: {value: 'true'}
 - type: ElementPosition
-  attributes: {x: '249', y: '80', id: tcpipIcmp}
+  attributes: {x: '243', y: '74', id: tcpipIcmp}

@@ -3,4 +3,4 @@ type: UniqueComponent
 attributes: {id: eic}
 children:
 - type: ElementPosition
-  attributes: {x: '346', y: '20', id: eic}
+  attributes: {x: '350', y: '23', id: eic}

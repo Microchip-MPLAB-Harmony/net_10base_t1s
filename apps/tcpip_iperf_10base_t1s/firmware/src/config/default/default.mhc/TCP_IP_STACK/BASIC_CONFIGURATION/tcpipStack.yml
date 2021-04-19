@@ -28,4 +28,4 @@ children:
         children:
         - {type: Value, value: 'false'}
 - type: ElementPosition
-  attributes: {x: '19', y: '60', id: tcpipStack}
+  attributes: {x: '181', y: '90', id: tcpipStack}

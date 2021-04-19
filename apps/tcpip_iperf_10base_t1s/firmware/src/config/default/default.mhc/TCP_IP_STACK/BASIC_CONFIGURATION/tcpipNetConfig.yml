@@ -73,4 +73,4 @@ children:
           - type: Dynamic
             attributes: {id: tcpipNetConfig_0, value: '0'}
 - type: ElementPosition
-  attributes: {x: '184', y: '60', id: tcpipNetConfig}
+  attributes: {x: '20', y: '87', id: tcpipNetConfig}

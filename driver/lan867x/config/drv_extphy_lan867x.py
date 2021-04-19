@@ -163,7 +163,7 @@ def instantiateComponent(drvExtPhyLan867xComponent):
     drvExtPhyLan867xMaxId.setLabel("Node Count")
     drvExtPhyLan867xMaxId.setVisible(True)
     drvExtPhyLan867xMaxId.setDescription("Set PLCA Node Count.")
-    drvExtPhyLan867xMaxId.setDefaultValue(10)
+    drvExtPhyLan867xMaxId.setDefaultValue(8)
     drvExtPhyLan867xMaxId.setMin(0)
     drvExtPhyLan867xMaxId.setMax(255)
 

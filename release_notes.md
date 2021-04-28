@@ -21,7 +21,7 @@ The following table provides the list of the new applications including bare met
 
 | Application                 | Platform          | Description                                                                                      |
 | ------------ | ------------ |  ------------     |
-| tcpip_iperf_10base_t1s | SAME54 | 10BASE-T1S TCP/IP application with Iperf support |
+| tcpip_iperf_10base_t1s | SAM E54 | 10BASE-T1S TCP/IP application with Iperf support |
 
 ### TESTED WITH:
 

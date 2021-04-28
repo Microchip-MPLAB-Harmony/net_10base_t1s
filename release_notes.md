@@ -8,7 +8,7 @@
 
 - **New features**
 
-The following table provides the list of the new features included in the 1..0.0 dot release:
+The following table provides the list of the new features included in the 1.0.0 dot release:
 
 | Module                | Description                          |
 | ------ | ------ |

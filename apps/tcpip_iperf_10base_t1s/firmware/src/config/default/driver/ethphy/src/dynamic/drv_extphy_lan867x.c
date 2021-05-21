@@ -87,19 +87,19 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE* p
 
     switch (state) {
     case 0:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00CB, 0xC000, 0x0000);
-        break;
-
-    case 1:
         miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00D0, 0x0E00, 0x0000);
         break;
 
-    case 2:
+    case 1:
         miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00D1, 0x0300, 0x0000);
         break;
 
-    case 3:
+    case 2:
         miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0084, 0xFFC0, 0x4380);
+        break;
+
+    case 3:
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0085, 0x000F, 0x0006);
         break;
 
     case 4:

@@ -172,7 +172,7 @@ def instantiateComponent(drvExtPhyLan867xComponent):
     drvExtPhyLan867xBurstCount.setLabel("Max Burst Count")
     drvExtPhyLan867xBurstCount.setVisible(True)
     drvExtPhyLan867xBurstCount.setDescription("Set maximum Burst Count.")
-    drvExtPhyLan867xBurstCount.setDefaultValue(8)
+    drvExtPhyLan867xBurstCount.setDefaultValue(0)
     drvExtPhyLan867xBurstCount.setMin(0)
     drvExtPhyLan867xBurstCount.setMax(255)
     

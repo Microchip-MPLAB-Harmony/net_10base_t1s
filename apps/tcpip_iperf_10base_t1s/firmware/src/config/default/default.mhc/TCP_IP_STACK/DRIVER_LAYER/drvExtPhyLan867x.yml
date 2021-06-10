@@ -4,15 +4,6 @@ attributes: {id: drvExtPhyLan867x}
 children:
 - type: Symbols
   children:
-  - type: Comment
-    attributes: {id: BURST_TIMER_COMMENT}
-    children:
-    - type: Attributes
-      children:
-      - type: String
-        attributes: {id: text}
-        children:
-        - {type: Value, value: '**** Burst Timer value is 12.8 us ****'}
   - type: Combo
     attributes: {id: DRV_ETHPHY_10BASE_T1S_MODE}
     children:
@@ -20,12 +11,5 @@ children:
       children:
       - type: User
         attributes: {value: PLCA}
-  - type: Integer
-    attributes: {id: PLCA_NODE_COUNT}
-    children:
-    - type: Values
-      children:
-      - type: User
-        attributes: {value: '8'}
 - type: ElementPosition
-  attributes: {x: '139', y: '82', id: drvExtPhyLan867x}
+  attributes: {x: '146', y: '86', id: drvExtPhyLan867x}

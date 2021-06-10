@@ -12,13 +12,6 @@ children:
       - type: User
         attributes: {value: 'true'}
   - type: Boolean
-    attributes: {id: TCPIP_AUTOCONFIG_ENABLE_LAN867x}
-    children:
-    - type: Values
-      children:
-      - type: User
-        attributes: {value: 'true'}
-  - type: Boolean
     attributes: {id: TCPIP_AUTOCONFIG_ENABLE_MIIM_Driver}
     children:
     - type: Values

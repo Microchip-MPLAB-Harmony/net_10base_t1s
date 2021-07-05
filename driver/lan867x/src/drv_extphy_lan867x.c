@@ -695,7 +695,7 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP
  * Note:
  *****************************************************************************/
 static void Set_Operation_Flow(const uint32_t regAddr, const DRV_MIIM_OP_TYPE opType,
-                               uint8_t *opState)
+                               ePHY_REG_ACCESS_PHASE *opState)
 {
     if (regAddr < (uint32_t)0x20) {
         if (opType == DRV_MIIM_OP_READ) {

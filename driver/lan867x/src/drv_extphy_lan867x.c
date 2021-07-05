@@ -96,7 +96,7 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
 
     switch (state) {
     case 0:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00D0, 0x0E00, 0x0000);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00D0, 0x0E03, 0x0002);
         break;
 
     case 1:
@@ -104,7 +104,7 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
         break;
 
     case 2:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0084, 0xFFC0, 0x4380);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0084, 0xFFC0, 0x3380);
         break;
 
     case 3:
@@ -116,7 +116,7 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
         break;
 
     case 5:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0087, 0x001C, 0x001C);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0087, 0x801C, 0x801C);
         break;
 
     case 6:
@@ -124,15 +124,15 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
         break;
 
     case 7:
-        miimRes = Lan867x_Write_Register(&clientObj, 0x1F008B, 0x0404);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F008B, 0xFFFF, 0x0404);
         break;
 
     case 8:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00F1, 0x7F00, 0x2400);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0080, 0x0600, 0x0600);
         break;
 
     case 9:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00D0, 0x000F, 0x000A);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00F1, 0x7F00, 0x2400);
         break;
 
     case 10:
@@ -140,7 +140,7 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
         break;
 
     case 11:
-        miimRes = Lan867x_Write_Register(&clientObj, 0x1F0099, 0x7F80);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0099, 0xFFFF, 0x7F80);
         break;
 
     case 12: /* Set the PLCA Burst setting. */

@@ -69,12 +69,12 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
                                                  DRV_ETHPHY_CONFIG_FLAGS cFlags)
 {
     (void)cFlags;
-    uint16_t registerValue    = 0;
-    uint16_t state            = 0;
+    uint16_t registerValue = 0;
+    uint16_t state = 0;
     LAN867X_REG_OBJ clientObj = {0};
-    DRV_MIIM_RESULT miimRes   = DRV_MIIM_RES_OK;
-    DRV_ETHPHY_RESULT res     = DRV_ETHPHY_RES_OK;
-    bool inProgress           = true;
+    DRV_MIIM_RESULT miimRes = DRV_MIIM_RES_OK;
+    DRV_ETHPHY_RESULT res = DRV_ETHPHY_RES_OK;
+    bool inProgress = true;
 
     /* Get the miim client instance data. */
     clientObj.miimBase =
@@ -170,11 +170,11 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
         break;
 
     default:
-        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->operRes        = DRV_ETHPHY_RES_OK;
-        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->miimOpHandle   = 0;
+        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->operRes = DRV_ETHPHY_RES_OK;
+        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->miimOpHandle = 0;
         ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->smiTxferStatus = DRV_ETHPHY_SMI_TXFER_OP_NONE;
-        res                                                   = DRV_ETHPHY_RES_OK;
-        inProgress                                            = false;
+        res = DRV_ETHPHY_RES_OK;
+        inProgress = false;
         break;
     }
 
@@ -276,11 +276,11 @@ static unsigned int DRV_EXTPHY_SMIClockGet(const DRV_ETHPHY_OBJECT_BASE *pBaseOb
 static DRV_ETHPHY_RESULT DRV_ETHPHY_Detect(const struct DRV_ETHPHY_OBJECT_BASE_TYPE *pBaseObj,
                                            DRV_HANDLE hClientObj)
 {
-    uint16_t registerValue    = 0;
-    uint16_t state            = 0;
+    uint16_t registerValue = 0;
+    uint16_t state = 0;
     LAN867X_REG_OBJ clientObj = {0};
-    DRV_MIIM_RESULT miimRes   = DRV_MIIM_RES_OK;
-    DRV_ETHPHY_RESULT res     = DRV_ETHPHY_RES_OK;
+    DRV_MIIM_RESULT miimRes = DRV_MIIM_RES_OK;
+    DRV_ETHPHY_RESULT res = DRV_ETHPHY_RES_OK;
 
     /* Get the miim client instance data. */
     /* MIIM driver base object to use. */
@@ -342,10 +342,10 @@ static DRV_ETHPHY_RESULT DRV_ETHPHY_Detect(const struct DRV_ETHPHY_OBJECT_BASE_T
         break;
 
     default:
-        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->operRes        = DRV_ETHPHY_RES_OK;
-        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->miimOpHandle   = 0;
+        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->operRes = DRV_ETHPHY_RES_OK;
+        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->miimOpHandle = 0;
         ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->smiTxferStatus = DRV_ETHPHY_SMI_TXFER_OP_NONE;
-        res                                                   = DRV_ETHPHY_RES_OK;
+        res = DRV_ETHPHY_RES_OK;
         break;
     }
     /* Write back the state to vendor data. */
@@ -356,11 +356,11 @@ static DRV_ETHPHY_RESULT DRV_ETHPHY_Detect(const struct DRV_ETHPHY_OBJECT_BASE_T
 
 /* the DRV_ETHPHY_OBJECT */
 const DRV_ETHPHY_OBJECT DRV_ETHPHY_OBJECT_LAN867x = {
-    .miiConfigure  = DRV_EXTPHY_MIIConfigure,
+    .miiConfigure = DRV_EXTPHY_MIIConfigure,
     .mdixConfigure = DRV_EXTPHY_MDIXConfigure,
-    .smiClockGet   = DRV_EXTPHY_SMIClockGet,
-    .wolConfigure  = 0, // no WOL functionality yet
-    .phyDetect     = DRV_ETHPHY_Detect,
+    .smiClockGet = DRV_EXTPHY_SMIClockGet,
+    .wolConfigure = 0, // no WOL functionality yet
+    .phyDetect = DRV_ETHPHY_Detect,
 };
 
 /******************************************************************************
@@ -405,7 +405,7 @@ DRV_MIIM_RESULT Lan867x_Write_Register(LAN867X_REG_OBJ *clientObj, const uint32_
     res = Lan867x_Miim_Task(clientObj, DRV_MIIM_OP_WRITE, regAddr, &wData);
     if (res == DRV_MIIM_RES_OK) {
         clientObj->vendorData = F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
-        res                   = DRV_MIIM_RES_OK;
+        res = DRV_MIIM_RES_OK;
     }
     return res;
 }
@@ -479,9 +479,9 @@ DRV_MIIM_RESULT Lan867x_Read_Register(LAN867X_REG_OBJ *clientObj, const uint32_t
 DRV_MIIM_RESULT Lan867x_Write_Bit_Register(LAN867X_REG_OBJ *clientObj, const uint32_t regAddr,
                                            uint16_t mask, uint16_t wData)
 {
-    uint16_t regValue     = 0;
+    uint16_t regValue = 0;
     uint8_t internalState = 0;
-    DRV_MIIM_RESULT res   = DRV_MIIM_RES_OK;
+    DRV_MIIM_RESULT res = DRV_MIIM_RES_OK;
 
     /* Check register operation type is Clause 22 or Clause 45 type. */
     if (R2F(clientObj->vendorData, VENDOR_INTERNAL_STATE) == IDLE_PHASE) {
@@ -513,7 +513,7 @@ DRV_MIIM_RESULT Lan867x_Write_Bit_Register(LAN867X_REG_OBJ *clientObj, const uin
     /* The write part of the bit set operation. */
     else {
         regValue = R2F(clientObj->vendorData, VENDOR_DATA);
-        res      = Lan867x_Miim_Task(clientObj, DRV_MIIM_OP_WRITE, regAddr, &regValue);
+        res = Lan867x_Miim_Task(clientObj, DRV_MIIM_OP_WRITE, regAddr, &regValue);
         if (res == DRV_MIIM_RES_OK) {
             clientObj->vendorData =
                 F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
@@ -553,7 +553,7 @@ DRV_MIIM_RESULT Lan867x_Write_Bit_Register(LAN867X_REG_OBJ *clientObj, const uin
 static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP_TYPE opType,
                                          uint32_t regAddr, uint16_t *data)
 {
-    uint16_t mmdData      = 0;
+    uint16_t mmdData = 0;
     DRV_MIIM_RESULT opRes = DRV_MIIM_RES_OK;
 
     switch (R2F(clientObj->vendorData, VENDOR_INTERNAL_STATE)) {

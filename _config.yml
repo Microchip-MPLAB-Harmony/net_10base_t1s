@@ -15,11 +15,11 @@
 # in the templates via {{ site.myvariable }}.
 
 name: Microchip Technology
-title: Microchip MPLAB Harmony 10Base-T1S Ethernet PHY help.
+title: Microchip MPLAB Harmony 3 10BASE-T1S help.
 lang: en-US
 timezone: America/Phoenix
 
-description: Harmony 3 TCP/IP Application for 10Base-T1S Ethernet PHY.
+description: Harmony 3 10BASE-T1S package
 url: "https://microchip-mplab-harmony.github.io"
 baseurl: "/net_10base_t1s"
 remote_theme: "Microchip-MPLAB-Harmony/just-the-docs@mchp-harmony"

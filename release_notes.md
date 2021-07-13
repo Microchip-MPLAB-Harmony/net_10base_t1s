@@ -1,43 +1,46 @@
-﻿![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
+﻿---
+title: Release notes
+nav_order: 99
+---
+
+![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
 # Microchip MPLAB® Harmony 3 Release Notes
-## 10BASE-T1S Release 1.0.0 (May, 2021)
-### ADDITIONS AND UPDATES FOR  1.0.0:
 
+## 10BASE-T1S Release v1.0.0
+### New Features
 
-- **New features**
+- **New device support** - 
+  This release introduces support for
 
-The following table provides the list of the new features included in the 1.0.0 dot release:
+    | Device    | Description             |
+    | ------    | ------                  |
+    | LAN867x   | 10BASE-T1S Ethernet PHY |
 
-| Module                | Description                          |
-| ------ | ------ |
-| LAN867x            | Added support for 10BASE-T1S Ethernet PHY |
+- **Demo application support** -
+  The following table provides a list of of new applications
 
+    | Application               | Platform  | Description                                               |
+    | ------                    | ------    | ------                                                    |
+    | tcpip_iperf_10base_t1s    | SAM E54   | TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY   |
 
-- **New Applications**
+- **Development kit support** -
+  The following table provides a list of supported development kits
 
-The following table provides the list of the new applications including bare metal and FreeRTOS configurations:
+    | Development Kits                                                                                                  |
+    | ------                                                                                                            |
+    | [SAM E54 Curiosity Ultra Development Board](https://www.microchip.com/Developmenttools/ProductDetails/DM320210)   |
 
-| Application                 | Platform          | Description                                                                                      |
-| ------------ | ------------ |  ------------     |
-| tcpip_iperf_10base_t1s | SAM E54 | 10BASE-T1S TCP/IP application with Iperf support |
+  In addition to the listed development kits above, a 10BASE-T1S PHY RMII Card is required.
+  Please contact [10BASE-T1S Support](10BASE-T1S-Info@microchip.com) for more information.
 
-### TESTED WITH:
+### Known Issues
 
-#### Software Dependencies
+* No known issues
 
-Before using MPLAB Harmony Net, ensure that the following are installed:
+### Dependencies
 
-- [MPLAB X IDE v5.45](https://www.microchip.com/mplab/mplab-x-ide) or later
-- [MPLAB XC32 C/C++ Compiler v2.50](https://www.microchip.com/mplab/compilers) or later
-- Harmony net repository, 3.7.2
-
-#### Development Kit Support
-
-This release supports applications for the following development kits
-
-| Development Kits |
-| --- |
-|[Sam E54 Curiosity Ultra](https://www.microchip.com/Developmenttools/ProductDetails/DM320210) |
-|LAN867x RMII board|
+* [MPLAB® X IDE v5.45](https://www.microchip.com/mplab/mplab-x-ide) or later
+* [MPLAB® XC32 C/C++ Compiler v2.50](https://www.microchip.com/mplab/compilers) or later
+* [net](https://github.com/Microchip-MPLAB-Harmony/net/tree/v3.7.2)

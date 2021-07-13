@@ -1,39 +1,72 @@
 ---
-parent: Harmony 3 TCP/IP Application for 10BASE-T1S Ethernet PHY
-title: LAN867x (10BASE-T1S) application
-has_children: true
-has_toc: false
+parent: Example applications
+title: TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY
+nav_order: 2
 ---
-[![MCHP](https://www.microchip.com/ResourcePackages/Microchip/assets/dist/images/logo.png)](https://www.microchip.com)
 
-# 10BASE-T1S TCP/IP application with Iperf support
+![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
+![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
-The example showcases, how to configure LAN867x ethernet phy in Harmony 3 and establish a network. It also contains example about, how to access and modify the register of LAN867x from user code space.
+# TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY
 
-## Development kits
-The following table provides details of the hardware used for the example.
+This example shows how to configure the LAN867x to be used in a 10BASE-T1S Multi-Drop
+Ethernet network in either PLCA and CSMA/CD mode. It also shows how to r/w registers
+of the LAN867x during normal operation.
+Additionally, common Ethernet network functionalites are supported, e.g. ping and iperf.
 
-| Development Kit |
-|:---------|
-|[Sam E54 Curiosity Ultra](https://www.microchip.com/Developmenttools/ProductDetails/DM320210) |
-|LAN867x RMII board|
+## Building The Application
+The parent folder for all the MPLAB X IDE projects for this application is given below:
 
-![Setup](docs/SamE54_cult_Lan867x.jpg)
+**Application Path** : net_10base_t1s\apps\tcpip_iperf_10base_t1s\firmware
+
+To build the application, refer to the table below and open the appropriate project file
+in MPLABX IDE.
+
+| Project Name              | Description                                               |
+| ---                       | ---                                                       |
+| tcpip_iperf_10base_t1s.X  | TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY   |
+
+## Hardware setup
+
+![Setup](images/SamE54_cult_Lan867x.jpg)
+
+* Hard used
+    * [Sam E54 Curiosity Ultra](https://www.microchip.com/Developmenttools/ProductDetails/DM320210)
+    * 10BASE-T1S PHY RMII Card  
+      Please contact [10BASE-T1S Support](10BASE-T1S-Info@microchip.com) for more information.
+* Hardware setup
+    * Connect the DEBUG USB port on the board to the computer using a micro USB cable
+    * Connect the 10BASE-T1S PHY RMII Card to another 10BASE-T1S node (e.g. a second
+      instance of this setup)
 
 ## Harmony 3 Setting for LAN867x
-### GMAC Setting
-To use the LAN867x Ethernet PHY, configure the GMAC to operate in 10BASE-T1S setting
+**GMAC Settings**
+
+10BASE-T1S is a 10 Mbps, half-duplex network.
+Therefore, the GMAC must be configured accordinegly to:
 * 10 Mbps
 * Half Duplex
 * Auto Negotiation - Disabled
 * MDIX - Disabled
 
+![GMAC](images/Gmac_setting.jpg)
 
-![GMAC](docs/Gmac_setting.jpg)
+**PLCA Settings**
 
-
-### PLCA Setting
 10BASE-T1S can be used in PLCA or CSMA/CD mode.
-In PLCA mode, kindly set Node Id and Node Count.
+When using PLCA, the parameters for _Local Node ID_, _Node Count_,
+_Max Burst Count_ and _Burst Timer_ must be configured.
 
-![PLCA](docs/Plca_setting.jpg)
+![PLCA](images/Plca_setting.jpg)
+
+## Running the Application
+
+1. Open a Terminal application (e.g. Tera term) on the computer
+2. Connect to the Virtual COM port and configure the serial settings as follows:
+    * Baud : 115200
+    * Data : 8 Bits
+    * Parity : None
+    * Stop : 1 Bit
+    * Flow Control : None
+3. Build and Program the application using the MPLAB X IDE
+4. See the messages in the console

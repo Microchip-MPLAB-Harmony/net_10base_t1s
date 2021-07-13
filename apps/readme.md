@@ -1,17 +1,22 @@
 ---
-title:  Harmony 3 TCP/IP Application for 10BASE-T1S Ethernet PHY
+title:  Example applications
 has_children: true
 has_toc: false
 nav_order: 2
 
+family: SAM E54
 market:
   - industrial
   - automotive
 ---
 
-# Examples applications
+![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
+![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
-The following applications are provided to demonstrate the typical usecase of 10BASE-T1S PHY.
+# Example applications
+
+The following applications are provided to demonstrate the typical
+or interesting usage models of one or more 10BASE-T1S devices.
 
 ## LAN867x Examples
-* [TCP/IP Client with Iperf support](./tcpip_iperf_10base_t1s/readme.md)
+* [TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY](./tcpip_iperf_10base_t1s/readme.md)

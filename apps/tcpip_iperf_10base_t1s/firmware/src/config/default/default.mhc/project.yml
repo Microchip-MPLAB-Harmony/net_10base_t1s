@@ -307,13 +307,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: CF364B09187F915D4880D8B3E960A3B1
-- generatedChecksum: 8710B1E8F82926D96A872F1FE04BAC4A
+- generatedChecksum: 4204C28D7483DA2D0126CFAF6E6AE388
   logicalPath: config/default/driver/ethphy/src/dynamic
   name: drv_extphy_lan867x.c
   physicalPath: driver/ethphy/src/dynamic
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 8710B1E8F82926D96A872F1FE04BAC4A
+  userChecksum: 4204C28D7483DA2D0126CFAF6E6AE388
 - generatedChecksum: DD34766DA88BDE595B60584675A6E55B
   logicalPath: config/default/driver/gmac/src/dynamic
   name: drv_gmac.c
@@ -1616,13 +1616,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 15AB6693CC2E1EE7AB845EE42A6AC762
-- generatedChecksum: 9483FC7DAB0E84232BDB72F0A490D35F
+- generatedChecksum: 2761E729A80329D58D16CDCA3F00E893
   logicalPath: config/default
   name: configuration.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: 9483FC7DAB0E84232BDB72F0A490D35F
+  userChecksum: 2761E729A80329D58D16CDCA3F00E893
 - generatedChecksum: 624A16D50759D7A491C523D747764B49
   logicalPath: packs/CMSIS/CMSIS/Core/Include
   name: core_cm4.h
@@ -2043,13 +2043,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 480E7A2EDA7D0D8C87419AC73D07F39C
-- generatedChecksum: 5CD841003DB752FE8BDC6CE7D5DE51D1
+- generatedChecksum: FC12EAB0D7970E24B43CC19A945F2005
   logicalPath: config/default/driver/ethphy/src/dynamic
   name: drv_extphy_lan867x.h
   physicalPath: driver/ethphy/src/dynamic
   security: NON_SECURE
   type: HEADER
-  userChecksum: 5CD841003DB752FE8BDC6CE7D5DE51D1
+  userChecksum: FC12EAB0D7970E24B43CC19A945F2005
 - generatedChecksum: 7903EEEDDF8FF93523B69EEEB1056519
   logicalPath: config/default/driver/ethphy/src/dynamic
   name: drv_extphy_regs.h

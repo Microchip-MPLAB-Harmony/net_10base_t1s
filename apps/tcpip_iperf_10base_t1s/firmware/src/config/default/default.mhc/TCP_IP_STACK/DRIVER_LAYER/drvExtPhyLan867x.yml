@@ -12,4 +12,4 @@ children:
       - type: User
         attributes: {value: PLCA}
 - type: ElementPosition
-  attributes: {x: '146', y: '86', id: drvExtPhyLan867x}
+  attributes: {x: '183', y: '82', id: drvExtPhyLan867x}

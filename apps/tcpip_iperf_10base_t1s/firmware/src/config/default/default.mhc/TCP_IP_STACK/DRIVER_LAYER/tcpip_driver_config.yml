@@ -12,11 +12,20 @@ children:
       - type: User
         attributes: {value: 'true'}
   - type: Boolean
-    attributes: {id: TCPIP_AUTOCONFIG_ENABLE_MIIM_Driver}
+    attributes: {id: TCPIP_AUTOCONFIG_ENABLE_LAN867x}
     children:
     - type: Values
       children:
       - type: User
         attributes: {value: 'true'}
+  - type: Boolean
+    attributes: {id: TCPIP_AUTOCONFIG_ENABLE_MIIM_Driver}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tcpip_driver_config, value: 'true'}
+      - type: User
+        attributes: {value: 'true'}
 - type: ElementPosition
-  attributes: {x: '21', y: '17', id: tcpip_driver_config}
+  attributes: {x: '21', y: '16', id: tcpip_driver_config}

@@ -105,15 +105,15 @@ void APP_Tasks(void)
 		{
 			appData.state = APP_MIIM_INIT;
 		}
-		
+
 		break;
 	}
-	
+
 	/* Initialize the MIIM instance. */
 	case APP_MIIM_INIT:
 	{
 		/*  Setup the MIIM driver instance. */
-		if (local_miim_init() < 0) 
+		if (local_miim_init() < 0)
 		{
 			SYS_CONSOLE_PRINT("App: miim setup failed !\r\n");
 		}
@@ -127,7 +127,7 @@ void APP_Tasks(void)
 	{
 		// Example for Read register.
 		opRes = Read_Phy_Register(&clientObj, 0, PHY_PLCA_CONTROL_0, &data);
-		
+
 		if (opRes < 0)
 		{
 			/* In case of an error, report and close miim instance. */
@@ -136,20 +136,20 @@ void APP_Tasks(void)
 		}
 		else if (opRes == DRV_MIIM_RES_OK) /* Check operation is completed. */
 		{
-			if(1 == R2F(data, PHY_PLCA_CTRL0_EN))
+			if (1 == R2F(data, PHY_PLCA_CTRL0_EN))
 			{
 				SYS_CONSOLE_PRINT(" Lan867x is in PLCA mode. \r\n", data);
 				appData.state = APP_READ_PLCA_CONFIGURATION;
 			}
 			else
 			{
-				SYS_CONSOLE_PRINT(" Lan867x is in CSMA mode. \r\n", data);				
+				SYS_CONSOLE_PRINT(" Lan867x is in CSMA mode. \r\n", data);
 				appData.state = APP_MIIM_CLOSE;
 			}
 		}
 		break;
 	}
-	
+
 #if 0
 	/* Write register example: Set the PLCA configuration, node ID and node count. */
 	case APP_WRITE_PLCA_CONFIGURATION:
@@ -157,7 +157,7 @@ void APP_Tasks(void)
 		/* Set the Node id as 0 and Node count as 5*/
 		data = F2R_(0, PHY_PLCA_CTRL1_ID0) | F2R_(5, PHY_PLCA_CTRL1_NCNT);
 		opRes = Write_Phy_Register(&clientObj, 0, PHY_PLCA_CONTROL_1, data);
-		
+
 		if (opRes < 0)
 		{
 			/* In case of an error, report and close miim instance. */
@@ -189,10 +189,9 @@ void APP_Tasks(void)
 			appData.state = APP_MIIM_CLOSE;
 		}
 		break;
-		
 	}
-	
-	
+
+
 	/* Close miim driver instance. */
 	case APP_MIIM_CLOSE:
 	{
@@ -202,10 +201,10 @@ void APP_Tasks(void)
 		appData.state = APP_STATE_SERVICE_TASKS;
 		break;
 	}
-	
+
 	case APP_STATE_SERVICE_TASKS:
 	{
-		/* Any operation to be done. */		
+		/* Any operation to be done. */
 		break;
 	}
 
@@ -227,7 +226,7 @@ static DRV_MIIM_RESULT local_miim_init(void)
 {
 	DRV_MIIM_SETUP miimSetup;
 	DRV_MIIM_RESULT res;
-	
+
 	opHandle                    = 0;
 	clientObj.miimOpHandle      = &opHandle;
 	clientObj.miimBase          = &DRV_MIIM_OBJECT_BASE_Default;
@@ -235,7 +234,7 @@ static DRV_MIIM_RESULT local_miim_init(void)
 
 	/*  Open the MIIM driver and get an instance to it. */
 	clientObj.miimHandle = clientObj.miimBase->DRV_MIIM_Open(miimObjIx, DRV_IO_INTENT_SHARED);
-	if ( (clientObj.miimHandle == DRV_HANDLE_INVALID) || (clientObj.miimHandle == 0)) 
+	if ( (clientObj.miimHandle == DRV_HANDLE_INVALID) || (clientObj.miimHandle == 0))
 	{
 		SYS_CONSOLE_PRINT("> Local miim open: failed!\r\n");
 		clientObj.miimHandle = 0;
@@ -250,7 +249,7 @@ static DRV_MIIM_RESULT local_miim_init(void)
 
 		/*  Setup the miim driver instance. */
 		res = clientObj.miimBase->DRV_MIIM_Setup(clientObj.miimHandle, &miimSetup);
-		if( res < 0)
+		if (res < 0)
 		{
 			SYS_CONSOLE_PRINT("> Local miim setup: failed!\r\n");
 		}
@@ -263,7 +262,7 @@ static DRV_MIIM_RESULT local_miim_init(void)
 }
 
 static void local_miim_close(void)
-{	
+{
 	clientObj.miimBase->DRV_MIIM_Close(clientObj.miimHandle);
 	clientObj.miimHandle = 0;
 	SYS_CONSOLE_PRINT("> Miim closed. \r\n");

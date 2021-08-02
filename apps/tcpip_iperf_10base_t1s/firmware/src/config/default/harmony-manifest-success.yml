@@ -4,7 +4,7 @@
 
 
 project: tcpip_iperf_10base_t1s
-creation_date: 2021-07-28T22:00:04.037+02:00[Europe/Berlin]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2021-08-02T09:49:54.015+02:00[Europe/Berlin]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mhc_mode: IDE            # [IDE|Standalone|Headless]
 mhc_version: v3.8.0
@@ -18,7 +18,7 @@ modules:
     - {name: "core", version: "v3.9.2"}
     - {name: "dev_packs", version: "v3.9.0"}
     - {name: "wolfssl", version: "v4.7.0"}
-    - {name: "net", version: "v3.7.2"}
+    - {name: "net", version: "v3.7.3"}
     - {name: "bsp", version: "v3.9.0"}
     - {name: "crypto", version: "v3.7.1"}
 

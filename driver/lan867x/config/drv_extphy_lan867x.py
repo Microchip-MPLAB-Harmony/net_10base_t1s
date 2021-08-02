@@ -190,6 +190,20 @@ def instantiateComponent(drvExtPhyLan867xComponent):
     drvExtPhyLan867xBurstTimer_comment.setLabel("**** Burst Timer value is "  + str(0.1 * int (drvExtPhyLan867xBurstTimer.getValue())) +" us ****")
     drvExtPhyLan867xBurstTimer_comment.setDependencies(drvExtPhyLan867xSetBurstComment, ["PLCA_BURST_TIMER"])
     
+    # Add forward declaration to initialization.c
+    drvExtPhyLan867xInitDataSourceFtl = drvExtPhyLan867xComponent.createFileSymbol(None, None)
+    drvExtPhyLan867xInitDataSourceFtl.setType("STRING")
+    drvExtPhyLan867xInitDataSourceFtl.setOutputName("core.LIST_SYSTEM_INIT_C_DRIVER_INITIALIZATION_DATA")
+    drvExtPhyLan867xInitDataSourceFtl.setSourcePath("../net/driver/ethphy/templates/system/system_driver_initialize.c.ftl")
+    drvExtPhyLan867xInitDataSourceFtl.setMarkup(True)    
+    
+    # Add to initialization.c
+    drvExtPhyLan867xSysInitDataSourceFtl = drvExtPhyLan867xComponent.createFileSymbol(None, None)
+    drvExtPhyLan867xSysInitDataSourceFtl.setType("STRING")
+    drvExtPhyLan867xSysInitDataSourceFtl.setOutputName("core.LIST_SYSTEM_INIT_C_LIBRARY_INITIALIZATION_DATA")
+    drvExtPhyLan867xSysInitDataSourceFtl.setSourcePath("../net/driver/ethphy/templates/system/system_data_initialize.c.ftl")
+    drvExtPhyLan867xSysInitDataSourceFtl.setMarkup(True)
+
     #Add to system_config.h
     drvExtPhyLan867xHeaderFtl = drvExtPhyLan867xComponent.createFileSymbol(None, None)
     drvExtPhyLan867xHeaderFtl.setSourcePath("driver/lan867x/config/drv_extphy_lan867x.h.ftl")

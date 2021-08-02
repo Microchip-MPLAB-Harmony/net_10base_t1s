@@ -64,9 +64,11 @@ static DRV_MIIM_OPERATION_HANDLE opHandle;
 ******************************************************************************/
 static DRV_MIIM_RESULT local_miim_init(void);
 static void local_miim_close(void);
-static DRV_MIIM_RESULT Write_Phy_Register (LAN867X_REG_OBJ * clientObj, int phyAddress, const uint32_t regAddr, uint16_t wData);
-static DRV_MIIM_RESULT Read_Phy_Register (LAN867X_REG_OBJ * clientObj, int phyAddress, const uint32_t regAddr, uint16_t *rData);
-static DRV_MIIM_RESULT Write_Bit_Phy_Register (LAN867X_REG_OBJ * clientObj, int phyAddress, const uint32_t regAddr, uint16_t mask, uint16_t wData);
+#if 0
+static DRV_MIIM_RESULT Write_Phy_Register (LAN867X_REG_OBJ *clientObj, int phyAddress, const uint32_t regAddr, uint16_t wData);
+static DRV_MIIM_RESULT Write_Bit_Phy_Register (LAN867X_REG_OBJ *clientObj, int phyAddress, const uint32_t regAddr, uint16_t mask, uint16_t wData);
+#endif
+static DRV_MIIM_RESULT Read_Phy_Register (LAN867X_REG_OBJ *clientObj, int phyAddress, const uint32_t regAddr, uint16_t *rData);
 
 /******************************************************************************
 *  Function Definitions
@@ -96,124 +98,122 @@ void APP_Tasks(void)
 {
 	DRV_MIIM_RESULT opRes = DRV_MIIM_RES_OK;
 	/* Check the application's current state. */
-	switch (appData.state) {
+	switch (appData.state)
+    {
+        /* Wait till TCP stack is initialized. */
+        case APP_WAIT_STACK_INIT:
+        {
+            if (TCPIP_STACK_Status(sysObj.tcpip) == SYS_STATUS_READY)
+            {
+                appData.state = APP_MIIM_INIT;
+            }
+            break;
+        }
 
-	/* Wait till TCP stack is initialized. */
-	case APP_WAIT_STACK_INIT:
-	{
-		if (TCPIP_STACK_Status(sysObj.tcpip) == SYS_STATUS_READY)
-		{
-			appData.state = APP_MIIM_INIT;
-		}
+        /* Initialize the MIIM instance. */
+        case APP_MIIM_INIT:
+        {
+            /*  Setup the MIIM driver instance. */
+            if (local_miim_init() < 0)
+            {
+                SYS_CONSOLE_PRINT("App: miim setup failed !\r\n");
+            }
 
-		break;
-	}
+            appData.state = APP_READ_OPERATION_MODE;
+            break;
+        }
 
-	/* Initialize the MIIM instance. */
-	case APP_MIIM_INIT:
-	{
-		/*  Setup the MIIM driver instance. */
-		if (local_miim_init() < 0)
-		{
-			SYS_CONSOLE_PRINT("App: miim setup failed !\r\n");
-		}
+        /* Read in which mode of 10BaseT1s is working, CSMA/CD or PLCA. */
+        case APP_READ_OPERATION_MODE:
+        {
+            // Example for Read register.
+            opRes = Read_Phy_Register(&clientObj, 0, PHY_PLCA_CONTROL_0, &data);
 
-		appData.state = APP_READ_OPERATION_MODE;
-		break;
-	}
-
-	/* Read in which mode of 10BaseT1s is working, CSMA/CD or PLCA. */
-	case APP_READ_OPERATION_MODE:
-	{
-		// Example for Read register.
-		opRes = Read_Phy_Register(&clientObj, 0, PHY_PLCA_CONTROL_0, &data);
-
-		if (opRes < 0)
-		{
-			/* In case of an error, report and close miim instance. */
-			SYS_CONSOLE_PRINT("Error occured:%d\r\n", opRes);
-			appData.state = APP_MIIM_CLOSE;
-		}
-		else if (opRes == DRV_MIIM_RES_OK) /* Check operation is completed. */
-		{
-			if (1 == R2F(data, PHY_PLCA_CTRL0_EN))
-			{
-				SYS_CONSOLE_PRINT(" Lan867x is in PLCA mode. \r\n", data);
-				appData.state = APP_READ_PLCA_CONFIGURATION;
-			}
-			else
-			{
-				SYS_CONSOLE_PRINT(" Lan867x is in CSMA mode. \r\n", data);
-				appData.state = APP_MIIM_CLOSE;
-			}
-		}
-		break;
-	}
+            if (opRes < 0)
+            {
+                /* In case of an error, report and close miim instance. */
+                SYS_CONSOLE_PRINT("Error occured:%d\r\n", opRes);
+                appData.state = APP_MIIM_CLOSE;
+            }
+            else if (opRes == DRV_MIIM_RES_OK) /* Check operation is completed. */
+            {
+                if(1 == R2F(data, PHY_PLCA_CTRL0_EN))
+                {
+                    SYS_CONSOLE_PRINT(" Lan867x is in PLCA mode. \r\n", data);
+                    appData.state = APP_READ_PLCA_CONFIGURATION;
+                }
+                else
+                {
+                    SYS_CONSOLE_PRINT(" Lan867x is in CSMA mode. \r\n", data);
+                    appData.state = APP_MIIM_CLOSE;
+                }
+            }
+            break;
+        }
 
 #if 0
-	/* Write register example: Set the PLCA configuration, node ID and node count. */
-	case APP_WRITE_PLCA_CONFIGURATION:
-	{
-		/* Set the Node id as 0 and Node count as 5*/
-		data = F2R_(0, PHY_PLCA_CTRL1_ID0) | F2R_(5, PHY_PLCA_CTRL1_NCNT);
-		opRes = Write_Phy_Register(&clientObj, 0, PHY_PLCA_CONTROL_1, data);
+        /* Write register example: Set the PLCA configuration, node ID and node count. */
+        case APP_WRITE_PLCA_CONFIGURATION:
+        {
+            /* Set the Node id as 0 and Node count as 5*/
+            data = F2R_(0, PHY_PLCA_CTRL1_ID0) | F2R_(5, PHY_PLCA_CTRL1_NCNT);
+            opRes = Write_Phy_Register(&clientObj, 0, PHY_PLCA_CONTROL_1, data);
 
-		if (opRes < 0)
-		{
-			/* In case of an error, report and close miim instance. */
-			SYS_CONSOLE_PRINT("Error occured:%d\r\n", opRes);
-			appData.state = APP_MIIM_CLOSE;
-		}
-		else if (opRes == DRV_MIIM_RES_OK) /* Check operation is completed. */
-		{
-			SYS_CONSOLE_PRINT(" Register set, Node Id: %d, Node count: %d. \r\n", R2F(data, PHY_PLCA_CTRL1_ID0), R2F(data, PHY_PLCA_CTRL1_NCNT));
-			appData.state = APP_READ_PLCA_CONFIGURATION;
-		}
-		break;
-	}
+            if (opRes < 0)
+            {
+                /* In case of an error, report and close miim instance. */
+                SYS_CONSOLE_PRINT("Error occured:%d\r\n", opRes);
+                appData.state = APP_MIIM_CLOSE;
+            }
+            else if (opRes == DRV_MIIM_RES_OK) /* Check operation is completed. */
+            {
+                SYS_CONSOLE_PRINT(" Register set, Node Id: %d, Node count: %d. \r\n", R2F(data, PHY_PLCA_CTRL1_ID0), R2F(data, PHY_PLCA_CTRL1_NCNT));
+                appData.state = APP_READ_PLCA_CONFIGURATION;
+            }
+            break;
+        }
 #endif
 
-	/* Read the PLCA configuration. */
-	case APP_READ_PLCA_CONFIGURATION:
-	{
-		opRes = Read_Phy_Register(&clientObj, 0, PHY_PLCA_CONTROL_1, &data);
-		if (opRes < 0)
-		{
-			/* In case of an error, report and close miim instance. */
-			SYS_CONSOLE_PRINT("Error occured:%d\r\n", opRes);
-			appData.state = APP_MIIM_CLOSE;
-		}
-		else if (opRes == DRV_MIIM_RES_OK) /* Check operation is completed. */
-		{
-			SYS_CONSOLE_PRINT(" Node Id: %d, Node count: %d. \r\n", R2F(data, PHY_PLCA_CTRL1_ID0), R2F(data, PHY_PLCA_CTRL1_NCNT));
-			appData.state = APP_MIIM_CLOSE;
-		}
-		break;
-	}
+        /* Read the PLCA configuration. */
+        case APP_READ_PLCA_CONFIGURATION:
+        {
+            opRes = Read_Phy_Register(&clientObj, 0, PHY_PLCA_CONTROL_1, &data);
+            if (opRes < 0)
+            {
+                /* In case of an error, report and close miim instance. */
+                SYS_CONSOLE_PRINT("Error occured:%d\r\n", opRes);
+                appData.state = APP_MIIM_CLOSE;
+            }
+            else if (opRes == DRV_MIIM_RES_OK) /* Check operation is completed. */
+            {
+                SYS_CONSOLE_PRINT(" Node Id: %d, Node count: %d. \r\n", R2F(data, PHY_PLCA_CTRL1_ID0), R2F(data, PHY_PLCA_CTRL1_NCNT));
+                appData.state = APP_MIIM_CLOSE;
+            }
+            break;
+        }
 
+        /* Close miim driver instance. */
+        case APP_MIIM_CLOSE:
+        {
+            /* Close and release the handle(instance) to miim, as I do not need access to miim register anymore. */
+            local_miim_close();
 
-	/* Close miim driver instance. */
-	case APP_MIIM_CLOSE:
-	{
-		/* Close and release the handle(instance) to miim, as I do not need access to miim register anymore. */
-		local_miim_close();
+            appData.state = APP_STATE_SERVICE_TASKS;
+            break;
+        }
 
-		appData.state = APP_STATE_SERVICE_TASKS;
-		break;
-	}
+        case APP_STATE_SERVICE_TASKS:
+        {
+            /* Any operation to be done. */
+            break;
+        }
 
-	case APP_STATE_SERVICE_TASKS:
-	{
-		/* Any operation to be done. */
-		break;
-	}
-
-	/* The default state should never be executed. */
-	default:
-	{
-		/* TODO: Handle error in application's state machine. */
-		break;
-	}
+        /* The default state should never be executed. */
+        default:
+        {
+            /* TODO: Handle error in application's state machine. */
+            break;
+        }
 	}
 }
 
@@ -258,6 +258,7 @@ static DRV_MIIM_RESULT local_miim_init(void)
 			SYS_CONSOLE_PRINT("> Miim Successfully opened. \r\n");
 		}
 	}
+
 	return res;
 }
 
@@ -268,23 +269,24 @@ static void local_miim_close(void)
 	SYS_CONSOLE_PRINT("> Miim closed. \r\n");
 }
 
-
-static DRV_MIIM_RESULT Write_Phy_Register (LAN867X_REG_OBJ * clientObj, int phyAddress, const uint32_t regAddr, uint16_t wData)
+#if 0
+static DRV_MIIM_RESULT Write_Phy_Register (LAN867X_REG_OBJ *clientObj, int phyAddress, const uint32_t regAddr, uint16_t wData)
 {
 	clientObj->phyAddress = phyAddress;
 	return Lan867x_Write_Register(clientObj, regAddr, wData);
 }
 
-static DRV_MIIM_RESULT Read_Phy_Register (LAN867X_REG_OBJ * clientObj, int phyAddress, const uint32_t regAddr, uint16_t *rData)
-{
-	clientObj->phyAddress = phyAddress;
-	return Lan867x_Read_Register(clientObj, regAddr, rData);
-}
-
-static DRV_MIIM_RESULT Write_Bit_Phy_Register (LAN867X_REG_OBJ * clientObj, int phyAddress, const uint32_t regAddr, uint16_t mask, uint16_t wData)
+static DRV_MIIM_RESULT Write_Bit_Phy_Register (LAN867X_REG_OBJ *clientObj, int phyAddress, const uint32_t regAddr, uint16_t mask, uint16_t wData)
 {
 	clientObj->phyAddress = phyAddress;
 	return Lan867x_Write_Bit_Register(clientObj, regAddr, mask, wData);
+}
+#endif
+
+static DRV_MIIM_RESULT Read_Phy_Register (LAN867X_REG_OBJ *clientObj, int phyAddress, const uint32_t regAddr, uint16_t *rData)
+{
+	clientObj->phyAddress = phyAddress;
+	return Lan867x_Read_Register(clientObj, regAddr, rData);
 }
 
 /*********************************** End of File *******************************/

@@ -1,4 +1,4 @@
-﻿---
+---
 title: Release notes
 nav_order: 99
 ---
@@ -11,7 +11,7 @@ nav_order: 99
 ## 10BASE-T1S Release v1.0.0
 ### New Features
 
-- **New device support** - 
+- **New device support** -
   This release introduces support for
 
     | Device    | Description             |
@@ -43,4 +43,4 @@ nav_order: 99
 
 * [MPLAB® X IDE v5.45](https://www.microchip.com/mplab/mplab-x-ide) or later
 * [MPLAB® XC32 C/C++ Compiler v2.50](https://www.microchip.com/mplab/compilers) or later
-* [net](https://github.com/Microchip-MPLAB-Harmony/net/tree/v3.7.2)
+* [net v3.7.2](https://github.com/Microchip-MPLAB-Harmony/net/tree/v3.7.2) or later

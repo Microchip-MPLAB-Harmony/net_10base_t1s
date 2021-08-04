@@ -1,8 +1,9 @@
 ---
+parent: Harmony 3 10BASE-T1S Package
 title:  Example applications
+nav_order: 2
 has_children: true
 has_toc: false
-nav_order: 2
 
 family: SAM E54
 market:

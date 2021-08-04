@@ -1,7 +1,13 @@
 ---
 parent: Example applications
 title: TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY
-nav_order: 2
+has_children: false
+has_toc: false
+
+family: SAM E54
+market:
+  - industrial
+  - automotive
 ---
 
 ![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
@@ -32,7 +38,7 @@ in MPLABX IDE.
 
 * Hard used
     * [Sam E54 Curiosity Ultra](https://www.microchip.com/Developmenttools/ProductDetails/DM320210)
-    * 10BASE-T1S PHY RMII Card  
+    * 10BASE-T1S PHY RMII Card
       Please contact [10BASE-T1S Support](10BASE-T1S-Info@microchip.com) for more information.
 * Hardware setup
     * Connect the DEBUG USB port on the board to the computer using a micro USB cable

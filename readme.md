@@ -1,6 +1,8 @@
 ﻿---
 title: Harmony 3 10BASE-T1S Package
 nav_order: 1
+has_children: true
+has_toc: false
 ---
 
 ![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)

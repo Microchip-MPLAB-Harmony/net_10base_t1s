@@ -55,6 +55,11 @@ using MPLAB® Harmony 3 modules.
 
 [Create TCP/IP New Application Example](https://github.com/Microchip-MPLAB-Harmony/net/wiki/Create-your-first-tcpip-application)
 
+Note: Please refer to AN4131 provided on the Microchip LAN867x product websites:
+- [LAN8670](https://www.microchip.com/en-us/product/lan8670)
+- [LAN8671](https://www.microchip.com/en-us/product/lan8671)
+- [LAN8672](https://www.microchip.com/en-us/product/lan8672)
+
 ____
 
 [![License](https://img.shields.io/badge/license-Harmony%20license-orange.svg)](https://github.com/Microchip-MPLAB-Harmony/net_10base_t1s/blob/master/mplab_harmony_license.md)

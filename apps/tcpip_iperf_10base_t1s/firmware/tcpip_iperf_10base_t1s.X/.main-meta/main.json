@@ -1,0 +1,91 @@
+{
+    "metaDataVersion": "1.0.0",
+    "category": "com.microchip.ide.project",
+    "content": {
+        "metaDataVersion": "1.1.0",
+        "name": "com.microchip.mcu32.mplabx.project.net_10base_t1s_tcpip_iperf_10baset1s",
+        "version": "1.0.0",
+        "displayName": "TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY",
+        "projectName": "tcpip_iperf_10baset1s",
+        "shortDescription": "TCP/IP Client with iperf support using the LAN867x 10BASE-T1S Ethernet PHY",
+        "ide": {
+            "name": "MPLABX",
+            "semverRange": ">=5.45.0"
+        },
+        "compiler": [
+            {
+                "name": "XC32",
+                "semverRange": ">=2.50.0"
+            }
+        ],
+        "dfp": {
+            "name": "SAME54_DFP",
+            "semverRange": "^3.3.64"
+        },
+        "configurator": {
+            "name": "MHC",
+            "semverRange": ">=3.6.2"
+        },
+        "device": {
+            "metaDataVersion": "1.0.0",
+            "category": "com.microchip.portal.contentRef",
+            "content": {
+                "metaDataVersion": "1.0.0",
+                "category": "com.microchip.device",
+                "name": "ATSAME54P20A",
+                "versionRange": "*"
+            }
+        },
+        "author": "Microchip",
+        "subcategories": [
+            [
+                "Development Kit",
+                "SAM E54 Xplained Pro Evaluation Kit"
+            ],
+            [
+                "Harmony",
+                "Middleware",
+                "TCP/IP",
+                "IPERF_DEMO",
+                "10BASE-T1S",
+                "LAN867x"
+            ],
+            [
+                "Middleware",
+                "TCP/IP",
+                "TCPIP_TCP_CLIENT",
+                "10BASE-T1S",
+                "LAN867x"
+            ]
+        ],
+        "peripherals": [
+            "MAC",
+            "PHY",
+            "LAN867x"
+        ],
+        "keywords": [
+            "MHC",
+            "Harmony",
+            "Middleware",
+            "TCP/IP",
+            "ATSAME54P20A",
+            "SAM D5x/E5x Family",
+            "Ethernet MAC",
+            "GMAC",
+            "10BASE-T1S",
+            "LAN867x",
+            "PHY"
+        ],
+        "additionalData": {
+            "longDescription": {
+                "metaDataVersion": "1.0.0",
+                "category": "com.microchip.portal.fileRef",
+                "content": {
+                    "metaDataVersion": "1.0.0",
+                    "fileName": "./../../readme.md",
+                    "mimeType": "text/markdown"
+                }
+            }
+        }
+    }
+}

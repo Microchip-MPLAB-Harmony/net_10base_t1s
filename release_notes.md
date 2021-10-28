@@ -8,6 +8,18 @@ nav_order: 99
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## 10BASE-T1S Release v1.0.1
+
+### Bug Fixes
+
+The following table provides the list of bug fixes in the v1.0.1 release:
+
+| Module    | Description                               |
+| ------    | ------                                    |
+| LAN867x   | Use correct data type for initialState    |
+
+- **Release notes for v1.0.0 apply**
+
 ## 10BASE-T1S Release v1.0.0
 ### New Features
 

@@ -395,7 +395,7 @@ DRV_MIIM_RESULT Lan867x_Write_Register(LAN867X_REG_OBJ *clientObj, const uint32_
     /* Check register operation type is Clause 22 or Clause 45 type. */
     if (R2F(clientObj->vendorData, VENDOR_INTERNAL_STATE) == IDLE_PHASE) {
         /* Set the phase for the new operation. */
-        uint8_t initialState = 0;
+        ePHY_REG_ACCESS_PHASE initialState = 0;
         Set_Operation_Flow(regAddr, DRV_MIIM_OP_WRITE, &initialState);
         clientObj->vendorData =
             F2R(initialState, VENDOR_INTERNAL_STATE, clientObj->vendorData);
@@ -405,8 +405,8 @@ DRV_MIIM_RESULT Lan867x_Write_Register(LAN867X_REG_OBJ *clientObj, const uint32_
     res = Lan867x_Miim_Task(clientObj, DRV_MIIM_OP_WRITE, regAddr, &wData);
     if (res == DRV_MIIM_RES_OK) {
         clientObj->vendorData = F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
-        res = DRV_MIIM_RES_OK;
     }
+
     return res;
 }
 
@@ -439,7 +439,7 @@ DRV_MIIM_RESULT Lan867x_Read_Register(LAN867X_REG_OBJ *clientObj, const uint32_t
     /* Check register operation type is Clause 22 or Clause 45 type. */
     if (R2F(clientObj->vendorData, VENDOR_INTERNAL_STATE) == IDLE_PHASE) {
         /* Set the phase for the new operation. */
-        uint8_t initialState = 0;
+        ePHY_REG_ACCESS_PHASE initialState = 0;
         Set_Operation_Flow(regAddr, DRV_MIIM_OP_READ, &initialState);
         clientObj->vendorData =
             F2R(initialState, VENDOR_INTERNAL_STATE, clientObj->vendorData);
@@ -480,7 +480,7 @@ DRV_MIIM_RESULT Lan867x_Write_Bit_Register(LAN867X_REG_OBJ *clientObj, const uin
                                            uint16_t mask, uint16_t wData)
 {
     uint16_t regValue = 0;
-    uint8_t internalState = 0;
+    ePHY_REG_ACCESS_PHASE internalState = 0;
     DRV_MIIM_RESULT res = DRV_MIIM_RES_OK;
 
     /* Check register operation type is Clause 22 or Clause 45 type. */

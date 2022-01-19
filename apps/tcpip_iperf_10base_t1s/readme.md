@@ -85,6 +85,12 @@ In the System configuration update the heap size as 96960 bytes(based on the app
 
 ![SYSTEM](images/System_setting.jpg)
 
+**SYS_CONSOLE Settings**
+
+In SYS_CONSOLE configure the required stack size for the application. In this case 10240 bytes.
+
+![SYS_CONSOLE](images/Sys_cmd_setting.jpg)
+
 ## Running the Application
 
 1. Open a Terminal application (e.g. Tera term) on the computer

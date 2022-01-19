@@ -31,6 +31,7 @@ in MPLABX IDE.
 | Project Name              | Description                                               |
 | ---                       | ---                                                       |
 | tcpip_iperf_10base_t1s.X  | TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY   |
+| tcpip_iperf_10base_t1s_freertos.X  | TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY in FreeRTOS environment  |
 
 ## Hardware setup
 

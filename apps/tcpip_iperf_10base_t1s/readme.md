@@ -73,6 +73,12 @@ Set the SERCOM RX and TX buffer size as 4096.
 
 ![SERCOM](images/Sercom_setting.jpg)
 
+**CORE Settings**
+
+According to the application update the Task delay field.
+
+![CORE](images/Core_setting.jpg)
+
 ## Running the Application
 
 1. Open a Terminal application (e.g. Tera term) on the computer

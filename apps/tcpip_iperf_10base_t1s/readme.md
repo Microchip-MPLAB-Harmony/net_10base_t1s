@@ -66,6 +66,13 @@ _Max Burst Count_ and _Burst Timer_ must be configured.
 
 ![PLCA](images/Plca_setting.jpg)
 
+## Harmony 3 Setting for FreeRTOS
+**SERCOM Settings**
+
+Set the SERCOM RX and TX buffer size as 4096.
+
+![SERCOM](images/Sercom_setting.jpg)
+
 ## Running the Application
 
 1. Open a Terminal application (e.g. Tera term) on the computer

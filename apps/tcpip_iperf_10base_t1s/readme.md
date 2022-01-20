@@ -50,7 +50,7 @@ in MPLABX IDE.
 **GMAC Settings**
 
 10BASE-T1S is a 10 Mbps, half-duplex network.
-Therefore, the GMAC must be configured accordinegly to:
+Therefore, the GMAC must be configured accordingly to:
 * 10 Mbps
 * Half Duplex
 * Auto Negotiation - Disabled
@@ -67,6 +67,9 @@ _Max Burst Count_ and _Burst Timer_ must be configured.
 ![PLCA](images/Plca_setting.jpg)
 
 ## Harmony 3 Setting for FreeRTOS
+
+**Note:** The following settings applicable only for FreeRTOS application. For Bare Metal application, the below settings are not required.
+
 **SERCOM Settings**
 
 Set the SERCOM RX and TX buffer size as 4096.
@@ -85,11 +88,11 @@ In the System configuration update the heap size as 96960 bytes(based on the app
 
 ![SYSTEM](images/System_setting.jpg)
 
-**SYS_CONSOLE Settings**
+**SYSTEM COMMAND Settings**
 
-In SYS_CONSOLE configure the required stack size for the application. In this case 10240 bytes.
+In SYSTEM COMMAND configure the required stack size for the application. In this case 10240 bytes.
 
-![SYS_CONSOLE](images/Sys_cmd_setting.jpg)
+![SYSTEM COMMAND](images/Sys_cmd_setting.jpg)
 
 ## Running the Application
 

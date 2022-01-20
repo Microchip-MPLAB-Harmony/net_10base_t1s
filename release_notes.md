@@ -8,6 +8,13 @@ nav_order: 99
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## 10BASE-T1S Release v1.1.0
+### New Features
+
+This release introduces LAN867x working in FreeRTOS environment.
+
+- **Release notes for v1.0.1 apply**
+
 ## 10BASE-T1S Release v1.0.1
 
 ### Bug Fixes

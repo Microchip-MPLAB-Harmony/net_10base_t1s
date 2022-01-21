@@ -11,9 +11,11 @@ nav_order: 99
 ## 10BASE-T1S Release v1.1.0
 ### New Features
 
-This release introduces LAN867x working in FreeRTOS environment.
+New features added in this release are as follows:
 
-- **Release notes for v1.0.1 apply**
+- Added FreeRTOS example project for LAN867x.
+
+**Release notes for v1.0.1 apply**
 
 ## 10BASE-T1S Release v1.0.1
 

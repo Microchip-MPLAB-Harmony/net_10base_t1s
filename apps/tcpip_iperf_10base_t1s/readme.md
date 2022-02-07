@@ -45,7 +45,7 @@ in MPLABX IDE.
     * Connect the RMII to 10BASE-T1S interface card to another 10BASE-T1S node (e.g. a second
       instance of this setup)
 
-## Harmony 3 Setting for LAN867x
+## Harmony 3 Settings for LAN867x
 **GMAC Settings**
 
 10BASE-T1S is a 10 Mbps, half-duplex network.
@@ -65,7 +65,7 @@ _Max Burst Count_ and _Burst Timer_ must be configured.
 
 ![PLCA](images/Plca_setting.jpg)
 
-## Harmony 3 Setting for FreeRTOS
+## Harmony 3 Settings for FreeRTOS
 
 **Note:** The following settings applicable only for FreeRTOS application. For Bare Metal application, the below settings are not required.
 

@@ -39,8 +39,7 @@ in MPLABX IDE.
 
 * Hardware used
     * [Sam E54 Curiosity Ultra](https://www.microchip.com/Developmenttools/ProductDetails/DM320210)
-    * 10BASE-T1S PHY RMII Card
-      Please contact [10BASE-T1S Support](10BASE-T1S-Info@microchip.com) for more information.
+    * [RMII to 10BASE-T1S interface card](https://www.microchip.com/en-us/development-tool/EV06P90A)
 * Hardware setup
     * Connect the DEBUG USB port on the board to the computer using a micro USB cable
     * Connect the 10BASE-T1S PHY RMII Card to another 10BASE-T1S node (e.g. a second

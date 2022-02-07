@@ -30,7 +30,7 @@ and interface reference information.
 
 - [Release Notes](release_notes.md)
 - [MPLAB® Harmony License](mplab_harmony_license.md)
-- [10BASE-T1S Support](10BASE-T1S-Info@microchip.com)
+- [10BASE-T1S Support](https://www.microchip.com/support)
 
 # Contents Summary
 

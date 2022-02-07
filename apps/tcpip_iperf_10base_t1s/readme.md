@@ -42,7 +42,7 @@ in MPLABX IDE.
     * [RMII to 10BASE-T1S interface card](https://www.microchip.com/en-us/development-tool/EV06P90A)
 * Hardware setup
     * Connect the DEBUG USB port on the board to the computer using a micro USB cable
-    * Connect the 10BASE-T1S PHY RMII Card to another 10BASE-T1S node (e.g. a second
+    * Connect the RMII to 10BASE-T1S interface card to another 10BASE-T1S node (e.g. a second
       instance of this setup)
 
 ## Harmony 3 Setting for LAN867x

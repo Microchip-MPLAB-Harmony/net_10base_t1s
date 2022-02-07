@@ -83,7 +83,7 @@ According to the application update the Task delay field.
 
 **SYSTEM Settings**
 
-In the System configuration update the heap size as 96960 bytes(based on the application).
+In the System configuration update the heap size as 96960 bytes (based on the application).
 
 ![SYSTEM](images/System_setting.jpg)
 

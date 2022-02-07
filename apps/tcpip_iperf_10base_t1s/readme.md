@@ -37,7 +37,7 @@ in MPLABX IDE.
 
 ![Setup](images/SamE54_cult_Lan867x.jpg)
 
-* Hard used
+* Hardware used
     * [Sam E54 Curiosity Ultra](https://www.microchip.com/Developmenttools/ProductDetails/DM320210)
     * 10BASE-T1S PHY RMII Card
       Please contact [10BASE-T1S Support](10BASE-T1S-Info@microchip.com) for more information.

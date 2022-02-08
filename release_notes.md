@@ -54,7 +54,7 @@ The following table provides the list of bug fixes in the v1.0.1 release:
     | [SAM E54 Curiosity Ultra Development Board](https://www.microchip.com/Developmenttools/ProductDetails/DM320210)   |
 
   In addition to the listed development kits above, a 10BASE-T1S PHY RMII Card is required.
-  Please contact [10BASE-T1S Support](10BASE-T1S-Info@microchip.com) for more information.
+  Please contact [10BASE-T1S Support](https://www.microchip.com/support) for more information.
 
 ### Known Issues
 

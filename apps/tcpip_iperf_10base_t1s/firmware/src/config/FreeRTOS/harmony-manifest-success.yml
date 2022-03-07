@@ -4,7 +4,7 @@
 
 
 project: tcpip_iperf_10base_t1s
-creation_date: 2022-02-01T18:37:17.286+05:30[Asia/Calcutta]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2022-03-07T14:14:12.951+05:30[Asia/Calcutta]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mhc_mode: Standalone            # [IDE|Standalone|Headless]
 mhc_version: v3.8.2
@@ -13,12 +13,12 @@ plugin_version: NA        # if MPLAB X plugin only
 compiler: xc32
 
 modules:
-    - {name: "csp", version: "v3.10.0"}
-    - {name: "net_10base_t1s", version: "v1.0.0"}
+    - {name: "csp", version: "v3.11.0"}
+    - {name: "net_10base_t1s", version: "v1.0.1"}
     - {name: "core", version: "v3.10.0"}
-    - {name: "dev_packs", version: "v3.10.0"}
+    - {name: "dev_packs", version: "v3.11.1"}
     - {name: "wolfssl", version: "v4.7.0"}
     - {name: "net", version: "v3.7.4"}
-    - {name: "crypto", version: "v3.7.4"}
+    - {name: "crypto", version: "v3.7.5"}
     - {name: "CMSIS-FreeRTOS", version: "v10.3.1"}
 

@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Module name="net_10base_t1s" id="48ec1089-cf31-45fe-ba4c-96260cc75ad1" version="1.1.0">
+<Module name="net_10base_t1s" id="48ec1089-cf31-45fe-ba4c-96260cc75ad1" version="1.1.1">
     <ConfigRoot path="config/module.py"/>
 </Module>

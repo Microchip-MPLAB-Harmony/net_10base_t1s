@@ -2,7 +2,7 @@
 <keywords publicationid="GUID-62DF519A-5876-4E28-8BC9-4B47D851D2E0"
           language="en-US"
           version="1"
-          documenttitle="MPLAB® Harmony 10Base-T1s Application"
+          documenttitle="MPLAB® Harmony 10BASE-T1S Package"
           pubtype="Online Reference"
           pubsubtype=""
           pubuserguidesubtype=""
@@ -14,5 +14,6 @@
           pubid=""
           reachid=""
           description=""
-          lastmodified="27/06/2022 03:51:23"
-          covertitle="MPLAB® Harmony 10Base-T1s Application"/>
+          lastmodified="30/06/2022 16:38:03"
+          covertitle="MPLAB® Harmony 3 10BASE-T1S Package"
+          frontcover=""/>

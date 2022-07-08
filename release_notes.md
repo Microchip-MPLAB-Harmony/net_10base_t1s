@@ -20,6 +20,12 @@ The following table provides the list of bug fixes in the v1.1.1 release:
 | tcpip_iperf_10base_t1s.X   | Update meta-data JSON file to register Bare-metal content into MCHP Discover portal   |
 | tcpip_iperf_10base_t1s_freertos.X  | Update meta-data JSON file to register FreeRTOS content into MCHP Discover portal   |
 
+### Dependencies
+
+* [MPLAB® X IDE v6.00](https://www.microchip.com/mplab/mplab-x-ide) or later
+* [MPLAB® XC32 C/C++ Compiler v4.00](https://www.microchip.com/mplab/compilers) or later
+* [net v3.7.4](https://github.com/Microchip-MPLAB-Harmony/net/tree/v3.7.4) or later
+
 **Release notes for v1.1.0 apply**
 
 ## 10BASE-T1S Release v1.1.0

@@ -76,6 +76,6 @@ The following table provides the list of bug fixes in the v1.0.1 release:
 
 ### Dependencies
 
-* [MPLAB® X IDE v5.45](https://www.microchip.com/mplab/mplab-x-ide) or later
-* [MPLAB® XC32 C/C++ Compiler v2.50](https://www.microchip.com/mplab/compilers) or later
-* [net v3.7.2](https://github.com/Microchip-MPLAB-Harmony/net/tree/v3.7.2) or later
+* [MPLAB® X IDE v6.00](https://www.microchip.com/mplab/mplab-x-ide) or later
+* [MPLAB® XC32 C/C++ Compiler v4.00](https://www.microchip.com/mplab/compilers) or later
+* [net v3.7.4](https://github.com/Microchip-MPLAB-Harmony/net/tree/v3.7.4) or later

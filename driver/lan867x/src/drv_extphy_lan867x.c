@@ -1,6 +1,6 @@
 /*******************************************************************************
   MCHP LAN867x PHY API for Microchip TCP/IP Stack
- *******************************************************************************/
+*******************************************************************************/
 /*****************************************************************************
  Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
 
@@ -41,20 +41,9 @@ static void Set_Operation_Flow(const uint32_t regAddr, const DRV_MIIM_OP_TYPE op
 static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP_TYPE opType,
                                          uint32_t regAddr, uint16_t *data);
 
-typedef struct {
-    uint8_t efuseA4; //{[4:0]
-    uint8_t efuseA8;
-    bool chipTrimmed;
-    int8_t sigdetOffset;
-    int8_t sigdetOffsetCalc;
-} EFUSE_DATA;
-
-static EFUSE_DATA efuseData = {0};
-
-/************************************************************************
+/******************************************************************************
  *  FUNCTION DEFINITIONS
  *****************************************************************************/
-
 /****************************************************************************
  * Function:        DRV_EXTPHY_MIIConfigure
  *
@@ -79,27 +68,25 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
                                                  DRV_HANDLE hClientObj,
                                                  DRV_ETHPHY_CONFIG_FLAGS cFlags)
 {
-    (void) cFlags;
+    (void)cFlags;
     uint16_t registerValue = 0;
     uint16_t state = 0;
     LAN867X_REG_OBJ clientObj = {0};
     DRV_MIIM_RESULT miimRes = DRV_MIIM_RES_OK;
     DRV_ETHPHY_RESULT res = DRV_ETHPHY_RES_OK;
-    uint8_t revId = 0;
-    uint16_t value = 0;
     bool inProgress = true;
 
     /* Get the miim client instance data. */
     clientObj.miimBase =
-            ((DRV_ETHPHY_CLIENT_OBJ *) hClientObj)->pMiimBase; /* MIIM driver base object to use. */
+        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->pMiimBase; /* MIIM driver base object to use. */
     clientObj.miimHandle =
-            ((DRV_ETHPHY_CLIENT_OBJ *) hClientObj)->miimHandle; /* MMIM client handle. */
-    clientObj.miimOpHandle = &((DRV_ETHPHY_CLIENT_OBJ *) hClientObj)
-            ->miimOpHandle; /* current MIIM op in progress. */
+        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->miimHandle; /* MMIM client handle. */
+    clientObj.miimOpHandle = &((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)
+                                  ->miimOpHandle; /* current MIIM op in progress. */
 
     /* Get the phy address. */
     pBaseObj->DRV_ETHPHY_PhyAddressGet(hClientObj, DRV_ETHPHY_INF_IDX_ALL_EXTERNAL,
-            &clientObj.phyAddress);
+                                       &clientObj.phyAddress);
 
     /* Get the vendor data. */
     pBaseObj->DRV_ETHPHY_VendorDataGet(hClientObj, &clientObj.vendorData);
@@ -108,244 +95,87 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
     state = R2F(clientObj.vendorData, VENDOR_STATE);
 
     switch (state) {
-        case 0: /* check chip version */
-            miimRes = Lan867x_Read_Register(&clientObj, PHY_REG_PHYID1, &registerValue);
-            break;
+    case 0:
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00D0, 0x0E03, 0x0002);
+        break;
 
-        case 1: /* check if trimmed */
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_ANALOG_SET_8, EFUSE_A5);
-            break;
+    case 1:
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00D1, 0x0300, 0x0000);
+        break;
 
-        case 2:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_ANALOG_SET_A, 0x0002);
-            break;
+    case 2:
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0084, 0xFFC0, 0x3380);
+        break;
 
-        case 3:
-            miimRes = Lan867x_Read_Register(&clientObj, PHY_ANALOG_SET_9, &registerValue);
-            break;
+    case 3:
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0085, 0x000F, 0x0006);
+        break;
 
-        case 4: /* read efuseA4 value */
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_ANALOG_SET_8, EFUSE_A4);
-            break;
+    case 4:
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F008A, 0xF800, 0xC000);
+        break;
 
-        case 5:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_ANALOG_SET_A, 0x00002);
-            break;
+    case 5:
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0087, 0x801C, 0x801C);
+        break;
 
-        case 6:
-            miimRes = Lan867x_Read_Register(&clientObj, PHY_ANALOG_SET_9, &registerValue);
-            break;
+    case 6:
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0088, 0x1FFF, 0x033F);
+        break;
 
-        case 7: /*read efuseA8 value */
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_ANALOG_SET_8, EFUSE_A8);
-            break;
+    case 7:
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F008B, 0xFFFF, 0x0404);
+        break;
 
-        case 8:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_ANALOG_SET_A, 0x0002);
-            break;
+    case 8:
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0080, 0x0600, 0x0600);
+        break;
 
-        case 9:
-            miimRes = Lan867x_Read_Register(&clientObj, PHY_ANALOG_SET_9, &registerValue);
-            break;
+    case 9:
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00F1, 0x7F00, 0x2400);
+        break;
 
-            /*Rev.C0 Standard Setting*/
-        case 10:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_ANALOG_SET_0, 0x5F21);
-            break;
+    case 10:
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0096, 0x2000, 0x2000);
+        break;
 
-        case 11:
-            value = (9 + efuseData.sigdetOffset) << (FIELD_OFFSET(PHY_SIG_THRESHOLD_RX));
-            value |= (14 + efuseData.sigdetOffset) << (FIELD_OFFSET(PHY_SIG_THRESHOLD_TX));
-            value |= 0x0003;
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SIGNAL_DETECTOR0, value);
-            break;
+    case 11:
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0099, 0xFFFF, 0x7F80);
+        break;
 
-        case 12:
-            value = (40 + efuseData.sigdetOffsetCalc) << FIELD_OFFSET(PHY_COL_DET_THRESHOLD);
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_COL_DET_CTRL3, value);
-            break;
-
-        case 13:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_DCDR_CONTROL_1, 0x9E50);
-            break;
-
-        case 14:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_MATCH_FILTER_CONTROL_1, 0x1CF8);
-            break;
-
-        case 15:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_DEEP_SLEEP_CTRL_0, 0x0740);
-            break;
-
-        case 16:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_CABLE_DIAGNOSIS3, 0x0015);
-            break;
-
-        case 17:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_CABLE_DIAGNOSIS2, 0x10C3);
-            break;
-
-        case 18:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_MATCH_FILTER_CONTROL_0, 0xC020);
-            break;
-
-        case 19:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_MF_SIGNAL_DETECTOR_CONTROL_0, 0x9B00);
-            break;
-
-        case 20:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_MF_SIGNAL_DETECTOR_CONTROL_1, 0x4E53);
-            break;
-
-        case 21:
-            value = (5 + efuseData.sigdetOffset) << FIELD_OFFSET(PHY_SQI_3_THLD_0_L);
-            value |= (9 + efuseData.sigdetOffset);
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_3, value);
-            break;
-
-        case 22:
-            value = (9 + efuseData.sigdetOffset) << FIELD_OFFSET(PHY_SQI_4_THLD_1_L);
-            value |= (14 + efuseData.sigdetOffset);
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_4, value);
-            break;
-
-        case 23:
-            value = (17 + efuseData.sigdetOffset) << FIELD_OFFSET(PHY_SQI_5_THLD_2_L);
-            value |= (22 + efuseData.sigdetOffset);
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_5, value);
-            break;
-
-        case 24:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_6, 0x0103);
-            break;
-
-        case 25:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_7, 0x0910);
-            break;
-
-        case 26:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_8, 0x1D26);
-            break;
-
-        case 27:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_9, 0x002A);
-            break;
-
-        case 28:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_10, 0x0103);
-            break;
-
-        case 29:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_11, 0x070D);
-            break;
-
-        case 30:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_12, 0x1720);
-            break;
-
-        case 31:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_13, 0x0027);
-            break;
-
-        case 32:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_14, 0x0509);
-            break;
-
-        case 33:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_15, 0x0E13);
-            break;
-
-        case 34:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_16, 0x1C25);
-            break;
-
-        case 35:
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_SQI_CONFIGURE_17, 0x002B);
-            break;
-            /*Rev.C0 End*/
-
-            /*Rev.B1 Start*/
-        case 40:
-            miimRes = Lan867x_Write_Bit_Register(&clientObj, PHY_ANALOG_SET_0, 0x0E03, 0x0002);
-            break;
-
-        case 41:
-            miimRes = Lan867x_Write_Bit_Register(&clientObj, PHY_ANALOG_SET_1, 0x0300, 0x0000);
-            break;
-
-        case 42:
-            miimRes = Lan867x_Write_Bit_Register(&clientObj, PHY_SIGNAL_DETECTOR0, 0xFFC0, 0x3380);
-            break;
-
-        case 43:
-            miimRes = Lan867x_Write_Bit_Register(&clientObj, PHY_SIGNAL_DETECTOR1, 0x000F, 0x0006);
-            break;
-
-        case 44:
-            miimRes = Lan867x_Write_Bit_Register(&clientObj, PHY_COL_DET_CTRL3, 0xF800, 0xC000);
-            break;
-
-        case 45:
-            miimRes = Lan867x_Write_Bit_Register(&clientObj, PHY_COL_DET_CTRL1, 0x801C, 0x801C);
-            break;
-
-        case 46:
-            miimRes = Lan867x_Write_Bit_Register(&clientObj, PHY_COL_DET_CTRL2, 0x1FFF, 0x033F);
-            break;
-
-        case 47:
-            miimRes = Lan867x_Write_Bit_Register(&clientObj, PHY_COL_DET_STATS0, 0xFFFF, 0x0404);
-            break;
-
-        case 48:
-            miimRes = Lan867x_Write_Bit_Register(&clientObj, PHY_DEEP_SLEEP_CTRL_0, 0x0600, 0x0600);
-            break;
-
-        case 49:
-            miimRes = Lan867x_Write_Bit_Register(&clientObj, PHY_4B5B_DECODER_CONTROL_0, 0x7F00, 0x2400);
-            break;
-
-        case 50:
-            miimRes = Lan867x_Write_Bit_Register(&clientObj, PHY_CABLE_DIAGNOSIS0, 0x2000, 0x2000);
-            break;
-
-        case 51:
-            miimRes = Lan867x_Write_Bit_Register(&clientObj, PHY_CABLE_DIAGNOSIS3, 0xFFFF, 0x7F80);
-            break;
-
-        case 52: /* Set the PLCA Burst setting. */
+    case 12: /* Set the PLCA Burst setting. */
 #ifdef DRV_ETHPHY_PLCA_ENABLED
-            registerValue = F2R_(DRV_ETHPHY_PLCA_BURST_TIMER, PHY_PLCA_BURST_BTMR) |
-                    F2R_(DRV_ETHPHY_PLCA_MAX_BURST_COUNT, PHY_PLCA_BURST_MAXBC);
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_PLCA_BURST, registerValue);
+        registerValue = F2R_(DRV_ETHPHY_PLCA_BURST_TIMER, PHY_PLCA_BURST_BTMR) |
+                        F2R_(DRV_ETHPHY_PLCA_MAX_BURST_COUNT, PHY_PLCA_BURST_MAXBC);
+        miimRes = Lan867x_Write_Register(&clientObj, PHY_PLCA_BURST, registerValue);
 #endif
-            break;
+        break;
 
-        case 53: /* Set the PLCA node setting.*/
+    case 13: /* Set the PLCA node setting.*/
 #ifdef DRV_ETHPHY_PLCA_ENABLED
-            registerValue = F2R_(DRV_ETHPHY_PLCA_LOCAL_NODE_ID, PHY_PLCA_CTRL1_ID0) |
-                    F2R_(DRV_ETHPHY_PLCA_NODE_COUNT, PHY_PLCA_CTRL1_NCNT);
-            miimRes = Lan867x_Write_Register(&clientObj, PHY_PLCA_CONTROL_1, registerValue);
+        registerValue = F2R_(DRV_ETHPHY_PLCA_LOCAL_NODE_ID, PHY_PLCA_CTRL1_ID0) |
+                        F2R_(DRV_ETHPHY_PLCA_NODE_COUNT, PHY_PLCA_CTRL1_NCNT);
+        miimRes = Lan867x_Write_Register(&clientObj, PHY_PLCA_CONTROL_1, registerValue);
 #endif
-            break;
+        break;
 
-        case 54: /* Enable the PLCA. */
+    case 14: /* Enable the PLCA. */
 #ifdef DRV_ETHPHY_PLCA_ENABLED
-            miimRes =
-                    Lan867x_Write_Register(&clientObj, PHY_PLCA_CONTROL_0, F2R_(1, PHY_PLCA_CTRL0_EN));
+        miimRes =
+            Lan867x_Write_Register(&clientObj, PHY_PLCA_CONTROL_0, F2R_(1, PHY_PLCA_CTRL0_EN));
 #else
-            miimRes =
-                    Lan867x_Write_Register(&clientObj, PHY_PLCA_CONTROL_0, F2R_(0, PHY_PLCA_CTRL0_EN));
+        miimRes =
+            Lan867x_Write_Register(&clientObj, PHY_PLCA_CONTROL_0, F2R_(0, PHY_PLCA_CTRL0_EN));
 #endif
-            break;
-            /*Rev.B1  End*/
-        default:
-            ((DRV_ETHPHY_CLIENT_OBJ *) hClientObj)->operRes = DRV_ETHPHY_RES_OK;
-            ((DRV_ETHPHY_CLIENT_OBJ *) hClientObj)->miimOpHandle = 0;
-            ((DRV_ETHPHY_CLIENT_OBJ *) hClientObj)->smiTxferStatus = DRV_ETHPHY_SMI_TXFER_OP_NONE;
-            res = DRV_ETHPHY_RES_OK;
-            inProgress = false;
-            break;
+        break;
+
+    default:
+        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->operRes = DRV_ETHPHY_RES_OK;
+        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->miimOpHandle = 0;
+        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->smiTxferStatus = DRV_ETHPHY_SMI_TXFER_OP_NONE;
+        res = DRV_ETHPHY_RES_OK;
+        inProgress = false;
+        break;
     }
 
     if (inProgress == true) {
@@ -355,58 +185,9 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
             res = DRV_ETHPHY_RES_PENDING;
         } else {
             /* If operation is completed continue to below code. */
-            switch (state) {
-                case 0:/*check Lan867x version*/
-                    revId = R2F(registerValue, PHY_PHY_ID1_REV);
-                    if (revId == LAN867x_PHY_ID_REV_B1) {
-                        state = 39;
-                    }
-                    break;
-
-                case 3:
-                    value = R2F(registerValue, EFUSE_NONBLANK);
-                    if (value == 0x1) {
-                        efuseData.chipTrimmed = true;
-                    }
-                    break;
-
-                case 6:
-                    efuseData.efuseA4 = R2F(registerValue, SIGDET_OFFSET);
-                    if ((efuseData.efuseA4 & (1 << 4))) {
-                        efuseData.sigdetOffset = efuseData.efuseA4 | 0xE0;
-                        if (efuseData.sigdetOffset < -5) {
-                            efuseData.sigdetOffset = -5;
-                        }
-                    } else {
-                        efuseData.sigdetOffset = efuseData.efuseA4;
-                    }
-                    break;
-
-                case 9:
-                    efuseData.efuseA8 = R2F(registerValue, SIGDET_OFFSET_CALC);
-                    if ((efuseData.efuseA8 & (1 << 4))) {
-                        efuseData.sigdetOffsetCalc = efuseData.efuseA8 | 0xE0;
-                    } else {
-                        efuseData.sigdetOffsetCalc = efuseData.efuseA8;
-                    }
-                    break;
-
-                case 14:
-                    if (efuseData.chipTrimmed) {
-                        state = 15; // not need to configurate DEEP_SLEEP_CTRL_0 
-                    }
-                    break;
-
-                case 35:
-                    state = 51;
-                    break;
-
-                default:
-                    break;
-            }
             ++state;
             clientObj.vendorData =
-                    F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
+                F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
             res = DRV_ETHPHY_RES_PENDING;
         }
     }
@@ -441,9 +222,9 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MDIXConfigure(const DRV_ETHPHY_OBJECT_BASE *
                                                   DRV_HANDLE hClientObj,
                                                   TCPIP_ETH_OPEN_FLAGS oFlags)
 {
-    (void) pBaseObj;
-    (void) hClientObj;
-    (void) oFlags;
+    (void)pBaseObj;
+    (void)hClientObj;
+    (void)oFlags;
     return DRV_ETHPHY_RES_OK;
 }
 
@@ -468,8 +249,8 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MDIXConfigure(const DRV_ETHPHY_OBJECT_BASE *
 static unsigned int DRV_EXTPHY_SMIClockGet(const DRV_ETHPHY_OBJECT_BASE *pBaseObj,
                                            DRV_HANDLE handle)
 {
-    (void) pBaseObj;
-    (void) handle;
+    (void)pBaseObj;
+    (void)handle;
     return 2500000; /*  2.5 MHz max clock supported. */
 }
 
@@ -503,15 +284,15 @@ static DRV_ETHPHY_RESULT DRV_ETHPHY_Detect(const struct DRV_ETHPHY_OBJECT_BASE_T
 
     /* Get the miim client instance data. */
     /* MIIM driver base object to use. */
-    clientObj.miimBase = ((DRV_ETHPHY_CLIENT_OBJ *) hClientObj)->pMiimBase;
+    clientObj.miimBase = ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->pMiimBase;
     /* MMIM client handle. */
-    clientObj.miimHandle = ((DRV_ETHPHY_CLIENT_OBJ *) hClientObj)->miimHandle;
+    clientObj.miimHandle = ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->miimHandle;
     /* current MIIM op in progress. */
-    clientObj.miimOpHandle = &((DRV_ETHPHY_CLIENT_OBJ *) hClientObj)->miimOpHandle;
+    clientObj.miimOpHandle = &((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->miimOpHandle;
 
     /* Get the phy address. */
     pBaseObj->DRV_ETHPHY_PhyAddressGet(hClientObj, DRV_ETHPHY_INF_IDX_ALL_EXTERNAL,
-            &clientObj.phyAddress);
+                                       &clientObj.phyAddress);
 
     /* Get the vendor data. */
     pBaseObj->DRV_ETHPHY_VendorDataGet(hClientObj, &clientObj.vendorData);
@@ -520,52 +301,52 @@ static DRV_ETHPHY_RESULT DRV_ETHPHY_Detect(const struct DRV_ETHPHY_OBJECT_BASE_T
     state = R2F(clientObj.vendorData, VENDOR_STATE);
 
     switch (state) {
-        case 0: /* Check if PHY ID 1 matches. */
-            miimRes = Lan867x_Read_Register(&clientObj, PHY_REG_PHYID0, &registerValue);
+    case 0: /* Check if PHY ID 1 matches. */
+        miimRes = Lan867x_Read_Register(&clientObj, PHY_REG_PHYID1, &registerValue);
 
-            if (miimRes < 0) {
-                res = DRV_ETHPHY_RES_MIIM_ERR;
-            } else if (miimRes != DRV_MIIM_RES_OK) {
-                res = DRV_ETHPHY_RES_PENDING;
+        if (miimRes < 0) {
+            res = DRV_ETHPHY_RES_MIIM_ERR;
+        } else if (miimRes != DRV_MIIM_RES_OK) {
+            res = DRV_ETHPHY_RES_PENDING;
+        } else {
+            /* Verify the PHY is LAN867x, else return error.*/
+            if (registerValue != (uint16_t)0x07) {
+                res = DRV_ETHPHY_RES_CPBL_ERR;
             } else {
-                /* Verify the PHY is LAN867x, else return error.*/
-                if (registerValue != (uint16_t) 0x07) {
-                    res = DRV_ETHPHY_RES_CPBL_ERR;
-                } else {
-                    ++state;
-                    clientObj.vendorData =
-                            F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
-                    res = DRV_ETHPHY_RES_PENDING;
-                }
-            }
-            break;
-
-        case 1: /* Check if PHY ID 2 matches. */
-            miimRes = Lan867x_Read_Register(&clientObj, PHY_REG_PHYID1, &registerValue);
-
-            if (miimRes < 0) {
-                res = DRV_ETHPHY_RES_MIIM_ERR;
-            } else if (miimRes != DRV_MIIM_RES_OK) {
+                ++state;
+                clientObj.vendorData =
+                    F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
                 res = DRV_ETHPHY_RES_PENDING;
-            } else {
-                /* Verify the PHY is LAN867x, else return error.*/
-                if ((registerValue | LAN867x_PHY_ID1_MASK) != LAN867x_PHY_ID1_MASK) {
-                    res = DRV_ETHPHY_RES_CPBL_ERR;
-                } else {
-                    ++state;
-                    clientObj.vendorData =
-                            F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
-                    res = DRV_ETHPHY_RES_PENDING;
-                }
             }
-            break;
+        }
+        break;
 
-        default:
-            ((DRV_ETHPHY_CLIENT_OBJ *) hClientObj)->operRes = DRV_ETHPHY_RES_OK;
-            ((DRV_ETHPHY_CLIENT_OBJ *) hClientObj)->miimOpHandle = 0;
-            ((DRV_ETHPHY_CLIENT_OBJ *) hClientObj)->smiTxferStatus = DRV_ETHPHY_SMI_TXFER_OP_NONE;
-            res = DRV_ETHPHY_RES_OK;
-            break;
+    case 1: /* Check if PHY ID 2 matches. */
+        miimRes = Lan867x_Read_Register(&clientObj, PHY_REG_PHYID2, &registerValue);
+
+        if (miimRes < 0) {
+            res = DRV_ETHPHY_RES_MIIM_ERR;
+        } else if (miimRes != DRV_MIIM_RES_OK) {
+            res = DRV_ETHPHY_RES_PENDING;
+        } else {
+            /* Verify the PHY is LAN867x, else return error.*/
+            if (registerValue != (uint16_t)0xC162) {
+                res = DRV_ETHPHY_RES_CPBL_ERR;
+            } else {
+                ++state;
+                clientObj.vendorData =
+                    F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
+                res = DRV_ETHPHY_RES_PENDING;
+            }
+        }
+        break;
+
+    default:
+        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->operRes = DRV_ETHPHY_RES_OK;
+        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->miimOpHandle = 0;
+        ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->smiTxferStatus = DRV_ETHPHY_SMI_TXFER_OP_NONE;
+        res = DRV_ETHPHY_RES_OK;
+        break;
     }
     /* Write back the state to vendor data. */
     clientObj.vendorData = F2R(state, VENDOR_STATE, clientObj.vendorData);
@@ -585,7 +366,6 @@ const DRV_ETHPHY_OBJECT DRV_ETHPHY_OBJECT_LAN867x = {
 /******************************************************************************
  *  PUBLIC FUNCTION DEFINITIONS
  ******************************************************************************/
-
 /****************************************************************************
  * Function:        Lan867x_Write_Register
  *
@@ -618,7 +398,7 @@ DRV_MIIM_RESULT Lan867x_Write_Register(LAN867X_REG_OBJ *clientObj, const uint32_
         ePHY_REG_ACCESS_PHASE initialState = 0;
         Set_Operation_Flow(regAddr, DRV_MIIM_OP_WRITE, &initialState);
         clientObj->vendorData =
-                F2R(initialState, VENDOR_INTERNAL_STATE, clientObj->vendorData);
+            F2R(initialState, VENDOR_INTERNAL_STATE, clientObj->vendorData);
         clientObj->vendorData = F2R(false, VENDOR_IS_BIT_OP, clientObj->vendorData);
     }
 
@@ -662,7 +442,7 @@ DRV_MIIM_RESULT Lan867x_Read_Register(LAN867X_REG_OBJ *clientObj, const uint32_t
         ePHY_REG_ACCESS_PHASE initialState = 0;
         Set_Operation_Flow(regAddr, DRV_MIIM_OP_READ, &initialState);
         clientObj->vendorData =
-                F2R(initialState, VENDOR_INTERNAL_STATE, clientObj->vendorData);
+            F2R(initialState, VENDOR_INTERNAL_STATE, clientObj->vendorData);
         clientObj->vendorData = F2R(false, VENDOR_IS_BIT_OP, clientObj->vendorData);
     }
 
@@ -708,7 +488,7 @@ DRV_MIIM_RESULT Lan867x_Write_Bit_Register(LAN867X_REG_OBJ *clientObj, const uin
         /* Set the phase for the new operation. */
         Set_Operation_Flow(regAddr, DRV_MIIM_OP_READ, &internalState);
         clientObj->vendorData =
-                F2R(internalState, VENDOR_INTERNAL_STATE, clientObj->vendorData);
+            F2R(internalState, VENDOR_INTERNAL_STATE, clientObj->vendorData);
         /* Set the bit value as true, to understand it as the first stage of Bit
          * operation. */
         clientObj->vendorData = F2R(true, VENDOR_IS_BIT_OP, clientObj->vendorData);
@@ -720,22 +500,23 @@ DRV_MIIM_RESULT Lan867x_Write_Bit_Register(LAN867X_REG_OBJ *clientObj, const uin
         if (res == DRV_MIIM_RES_OK) {
             /* Set the bit false to start the write operation. */
             clientObj->vendorData = F2R(false, VENDOR_IS_BIT_OP, clientObj->vendorData);
-            clientObj->vendorData = F2R(((regValue & (uint16_t) ~mask) | (wData & mask)),
-                    VENDOR_DATA, clientObj->vendorData);
+            clientObj->vendorData = F2R(((regValue & (uint16_t)~mask) | (wData & mask)),
+                                        VENDOR_DATA, clientObj->vendorData);
 
             /* Set the phase for the new operation. */
             Set_Operation_Flow(regAddr, DRV_MIIM_OP_WRITE, &internalState);
             clientObj->vendorData =
-                    F2R(internalState, VENDOR_INTERNAL_STATE, clientObj->vendorData);
+                F2R(internalState, VENDOR_INTERNAL_STATE, clientObj->vendorData);
             res = DRV_MIIM_RES_PENDING;
         }
-    }        /* The write part of the bit set operation. */
+    }
+    /* The write part of the bit set operation. */
     else {
         regValue = R2F(clientObj->vendorData, VENDOR_DATA);
         res = Lan867x_Miim_Task(clientObj, DRV_MIIM_OP_WRITE, regAddr, &regValue);
         if (res == DRV_MIIM_RES_OK) {
             clientObj->vendorData =
-                    F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
+                F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
             res = DRV_MIIM_RES_OK;
         }
     }
@@ -776,122 +557,123 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP
     DRV_MIIM_RESULT opRes = DRV_MIIM_RES_OK;
 
     switch (R2F(clientObj->vendorData, VENDOR_INTERNAL_STATE)) {
-        case WRITE_22_PHASE: /* Write to clause 22 register. */
-            *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
-                    clientObj->miimHandle, regAddr, clientObj->phyAddress, *data,
-                    DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
-            /* If success in queuing the request, go to next state, else retry. */
-            if (*clientObj->miimOpHandle != 0) {
-                /* Operation successfully completed.*/
-                clientObj->vendorData =
-                        F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
-                opRes = DRV_MIIM_RES_OK;
-            }
-            break;
-
-        case READ_22_PHASE: /* Read from clause 22 register. */
-            *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Read(
-                    clientObj->miimHandle, regAddr, clientObj->phyAddress,
-                    DRV_MIIM_OPERATION_FLAG_NONE, &opRes);
-            /* If success in queuing the request, go to next state, else retry. */
-            if (*clientObj->miimOpHandle != 0) {
-                /* advance to the next phase. */
-                clientObj->vendorData =
-                        F2R(READ_RESULT_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
-                opRes = DRV_MIIM_RES_PENDING;
-            }
-            break;
-
-        case READ_RESULT_PHASE: /* Get read result. */
-            opRes = clientObj->miimBase->DRV_MIIM_OperationResult(clientObj->miimHandle,
-                    *clientObj->miimOpHandle, data);
-            if (opRes != DRV_MIIM_RES_PENDING) /* Check operation is in progress or not. */ {
-                /* Operation successfully completed.*/
-                clientObj->vendorData =
-                        F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
-                *clientObj->miimOpHandle = 0;
-            }
-            break;
-
-        case MMD_ADDR_CONFIG_PHASE: /* Initiate clause 45 operation. */
-            *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
-                    clientObj->miimHandle, PHY_MMD_ACCESS_CONTROL, clientObj->phyAddress,
-                    (regAddr >> 16), DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
-            /* If success in queuing the request, go to next state, else retry. */
-            if (*clientObj->miimOpHandle != 0) {
-                /* advance to the next phase. */
-                clientObj->vendorData =
-                        F2R(MMD_ADDR_SET_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
-                opRes = DRV_MIIM_RES_PENDING;
-            }
-            break;
-
-        case MMD_ADDR_SET_PHASE: /* Set clause 45 address phase operation. */
-            *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
-                    clientObj->miimHandle, PHY_MMD_ACCESS_DATA_ADDR, clientObj->phyAddress,
-                    (regAddr & (uint16_t) 0xffff), DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
-            /* If success in queuing the request, go to next state, else retry. */
-            if (*clientObj->miimOpHandle != 0) {
-                /* advance to the next phase. */
-                clientObj->vendorData =
-                        F2R(MMD_DATA_CONFIG_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
-                opRes = DRV_MIIM_RES_PENDING;
-            }
-            break;
-
-        case MMD_DATA_CONFIG_PHASE: /* Set clause 45 data phase operation. */
-            mmdData = (F2R_((regAddr >> 16), PHY_MMDCTRL_DEVAD) | F2R_(1, PHY_MMDCTRL_FNCTN));
-            *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
-                    clientObj->miimHandle, PHY_MMD_ACCESS_CONTROL, clientObj->phyAddress, mmdData,
-                    DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
-            /* If success in queuing the request, go to next state, else retry. */
-            if (*clientObj->miimOpHandle != 0) {
-                /* advance to the next phase. */
-                if (opType == DRV_MIIM_OP_READ) {
-                    clientObj->vendorData =
-                            F2R(MMD_DATA_READ_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
-                } else {
-                    clientObj->vendorData =
-                            F2R(MMD_DATA_WRITE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
-                }
-                opRes = DRV_MIIM_RES_PENDING;
-            }
-            break;
-
-        case MMD_DATA_READ_PHASE: /* Start clause 45 data read phase. */
-            *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Read(
-                    clientObj->miimHandle, PHY_MMD_ACCESS_DATA_ADDR, clientObj->phyAddress,
-                    DRV_MIIM_OPERATION_FLAG_NONE, &opRes);
-            /* If success in queuing the request, go to next state, else retry. */
-            if (*clientObj->miimOpHandle != 0) {
-                /* advance to the next phase. */
-                clientObj->vendorData =
-                        F2R(READ_RESULT_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
-                opRes = DRV_MIIM_RES_PENDING;
-            }
-            break;
-
-        case MMD_DATA_WRITE_PHASE: /* Start clause 45 data write phase. */
-            *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
-                    clientObj->miimHandle, PHY_MMD_ACCESS_DATA_ADDR, clientObj->phyAddress, *data,
-                    DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
-            /* If success in queuing the request, go to next state, else retry. */
-            if (*clientObj->miimOpHandle != 0) {
-                /* Operation successfully completed.*/
-                clientObj->vendorData =
-                        F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
-                opRes = DRV_MIIM_RES_OK;
-            }
-            break;
-
-        case IDLE_PHASE:
+    case WRITE_22_PHASE: /* Write to clause 22 register. */
+        *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
+            clientObj->miimHandle, regAddr, clientObj->phyAddress, *data,
+            DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
+        /* If success in queuing the request, go to next state, else retry. */
+        if (*clientObj->miimOpHandle != 0) {
+            /* Operation successfully completed.*/
+            clientObj->vendorData =
+                F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
             opRes = DRV_MIIM_RES_OK;
-            break;
+        }
+        break;
 
-        default:
-            /* shouldn't happen */
-            opRes = DRV_MIIM_RES_OP_INTERNAL_ERR;
-            break;
+    case READ_22_PHASE: /* Read from clause 22 register. */
+        *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Read(
+            clientObj->miimHandle, regAddr, clientObj->phyAddress,
+            DRV_MIIM_OPERATION_FLAG_NONE, &opRes);
+        /* If success in queuing the request, go to next state, else retry. */
+        if (*clientObj->miimOpHandle != 0) {
+            /* advance to the next phase. */
+            clientObj->vendorData =
+                F2R(READ_RESULT_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
+            opRes = DRV_MIIM_RES_PENDING;
+        }
+        break;
+
+    case READ_RESULT_PHASE: /* Get read result. */
+        opRes = clientObj->miimBase->DRV_MIIM_OperationResult(clientObj->miimHandle,
+                                                              *clientObj->miimOpHandle, data);
+        if (opRes != DRV_MIIM_RES_PENDING) /* Check operation is in progress or not. */
+        {
+            /* Operation successfully completed.*/
+            clientObj->vendorData =
+                F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
+            *clientObj->miimOpHandle = 0;
+        }
+        break;
+
+    case MMD_ADDR_CONFIG_PHASE: /* Initiate clause 45 operation. */
+        *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
+            clientObj->miimHandle, PHY_MMD_ACCESS_CONTROL, clientObj->phyAddress,
+            (regAddr >> 16), DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
+        /* If success in queuing the request, go to next state, else retry. */
+        if (*clientObj->miimOpHandle != 0) {
+            /* advance to the next phase. */
+            clientObj->vendorData =
+                F2R(MMD_ADDR_SET_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
+            opRes = DRV_MIIM_RES_PENDING;
+        }
+        break;
+
+    case MMD_ADDR_SET_PHASE: /* Set clause 45 address phase operation. */
+        *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
+            clientObj->miimHandle, PHY_MMD_ACCESS_DATA_ADDR, clientObj->phyAddress,
+            (regAddr & (uint16_t)0xffff), DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
+        /* If success in queuing the request, go to next state, else retry. */
+        if (*clientObj->miimOpHandle != 0) {
+            /* advance to the next phase. */
+            clientObj->vendorData =
+                F2R(MMD_DATA_CONFIG_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
+            opRes = DRV_MIIM_RES_PENDING;
+        }
+        break;
+
+    case MMD_DATA_CONFIG_PHASE: /* Set clause 45 data phase operation. */
+        mmdData = (F2R_((regAddr >> 16), PHY_MMDCTRL_DEVAD) | F2R_(1, PHY_MMDCTRL_FNCTN));
+        *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
+            clientObj->miimHandle, PHY_MMD_ACCESS_CONTROL, clientObj->phyAddress, mmdData,
+            DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
+        /* If success in queuing the request, go to next state, else retry. */
+        if (*clientObj->miimOpHandle != 0) {
+            /* advance to the next phase. */
+            if (opType == DRV_MIIM_OP_READ) {
+                clientObj->vendorData =
+                    F2R(MMD_DATA_READ_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
+            } else {
+                clientObj->vendorData =
+                    F2R(MMD_DATA_WRITE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
+            }
+            opRes = DRV_MIIM_RES_PENDING;
+        }
+        break;
+
+    case MMD_DATA_READ_PHASE: /* Start clause 45 data read phase. */
+        *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Read(
+            clientObj->miimHandle, PHY_MMD_ACCESS_DATA_ADDR, clientObj->phyAddress,
+            DRV_MIIM_OPERATION_FLAG_NONE, &opRes);
+        /* If success in queuing the request, go to next state, else retry. */
+        if (*clientObj->miimOpHandle != 0) {
+            /* advance to the next phase. */
+            clientObj->vendorData =
+                F2R(READ_RESULT_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
+            opRes = DRV_MIIM_RES_PENDING;
+        }
+        break;
+
+    case MMD_DATA_WRITE_PHASE: /* Start clause 45 data write phase. */
+        *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
+            clientObj->miimHandle, PHY_MMD_ACCESS_DATA_ADDR, clientObj->phyAddress, *data,
+            DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
+        /* If success in queuing the request, go to next state, else retry. */
+        if (*clientObj->miimOpHandle != 0) {
+            /* Operation successfully completed.*/
+            clientObj->vendorData =
+                F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj->vendorData);
+            opRes = DRV_MIIM_RES_OK;
+        }
+        break;
+
+    case IDLE_PHASE:
+        opRes = DRV_MIIM_RES_OK;
+        break;
+
+    default:
+        /* shouldn't happen */
+        opRes = DRV_MIIM_RES_OP_INTERNAL_ERR;
+        break;
     }
     return opRes;
 }
@@ -915,7 +697,7 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP
 static void Set_Operation_Flow(const uint32_t regAddr, const DRV_MIIM_OP_TYPE opType,
                                ePHY_REG_ACCESS_PHASE *opState)
 {
-    if (regAddr < (uint32_t) 0x20) {
+    if (regAddr < (uint32_t)0x20) {
         if (opType == DRV_MIIM_OP_READ) {
             *opState = READ_22_PHASE;
         } else {

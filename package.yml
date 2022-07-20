@@ -1,0 +1,11 @@
+package:
+  format-version: "1.0.0"
+  name: "net_10base_t1s"
+  version: "1.1.1"
+  type: "application"
+  status: "production"
+  
+  dependencies:
+    - name: "net"
+      type: "package"
+      version: "3.7.4"      

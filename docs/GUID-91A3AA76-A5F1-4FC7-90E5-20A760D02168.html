@@ -10,9 +10,8 @@
 <meta name="DC.title" content="Release notes" />
 <meta name="DC.format" content="XHTML" />
 <meta name="DC.identifier" content="release-notes" />
-<link rel="stylesheet" type="text/css" href="stylesheets/commonltr.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
-<link rel="stylesheet" type="text/css" href="./stylesheets/common-extended.css" /><title>Release notes</title>
+<title>Release notes</title>
 <meta name="Microsoft.Help.Id" content="GUID-62DF519A-5876-4E28-8BC9-4B47D851D2E0" />
 <meta name="Microsoft.Help.TocParent" content="GUID-62DF519A-5876-4E28-8BC9-4B47D851D2E0" />
 <meta name="Microsoft.Help.TocOrder" content="0" />
@@ -61,10 +60,9 @@
 			}
 
 		</script><script language="javascript">
-        function cpy(id, button) {
-        
-            var element = document.getElementById(id);
-            var content = element.getAttribute("content");
+         
+         function copyContent(content, button) {
+         
             var textArea = document.createElement("textarea");
             
             // Place in the top-left corner of screen regardless of scroll position.
@@ -88,7 +86,6 @@
             // Avoid flash of the white box if rendered for any reason.
             textArea.style.background = 'transparent';
             
-            
             textArea.value = content;
             
             document.body.appendChild(textArea);
@@ -102,16 +99,49 @@
                   button.textContent = "Copied";
                   button.classList.add("copied");
                   setTimeout(function(){
-                    button.textContent = "Copy";
-                    button.classList.remove("copied");
+                     button.textContent = "Copy";
+                     button.classList.remove("copied");
                   },1000);
                }
             } catch (err) {
-              console.log('Oops, unable to copy');
+               console.log('Oops, unable to copy');
             }
             
             document.body.removeChild(textArea);
-        }
+         }
+         
+         function cpy(id, button) {
+            var element = document.getElementById(id);
+            var content = element.getAttribute("content");
+            
+            copyContent(content, button);
+         }
+         
+         document.addEventListener("DOMContentLoaded", function(event) {
+            document.querySelectorAll(".codeblock").forEach(function(elem) {
+               elem.style.position = "relative";
+               var copy = document.createElement("button");
+               copy.textContent = "Copy";
+               copy.setAttribute("class", "copy-code");
+               
+               var content = elem.textContent;
+               
+               copy.addEventListener("click", function(){
+                  copyContent(content, copy);
+               });
+               
+               elem.addEventListener("mouseenter", function(evt){
+                  elem.prepend(copy);
+               });
+            });
+            
+            document.querySelectorAll(".codeblock").forEach(function(elem) {
+               elem.addEventListener("mouseleave", function(evt){
+                  document.querySelector(".copy-code").remove();
+               });
+            });
+         });
+         
       </script><script language="javascript">
           
           // Add the MathML namespace to html
@@ -150,7 +180,7 @@
           window.top.location = Default;
           }       
           
-        </script><style xml:space="">
+        </script><link rel="stylesheet" type="text/css" href="syntax-highlight.css" /><style xml:space="">
         
           button.copy-code{
             display:none;
@@ -192,7 +222,7 @@
           }
         
         
-      </style></head>
+      </style><link rel="stylesheet" type="text/css" href="syntax-highlight.css" /></head>
 <body>
 <div class="nested0" aria-labelledby="ariaid-title1" id="release-notes"><h1 class="title topictitle1" id="ariaid-title1">Release notes</h1><div class="body"></div>
 </div>
@@ -200,31 +230,40 @@
 <div class="topic nested1" aria-labelledby="ariaid-title3" id="10base-t1s-release-v111"><h2 class="title topictitle2" id="ariaid-title3">10BASE-T1S Release v1.1.1</h2><div class="body"></div>
 <div class="topic nested2" aria-labelledby="ariaid-title4" id="bug-fixes"><h3 class="title topictitle3" id="ariaid-title4">Bug Fixes</h3><div class="body"><p class="p">The following table provides the list of bug fixes in the v1.1.1 release:</p>
 
-<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all"><col style="width:" /><col style="width:" /><thead class="thead" style="text-align:left;"><tr class="row"><th class="entry cellrowborder" style="vertical-align:middle;" id="d794e31"><span>Module</span></th>
-<th class="entry cellrowborder" style="vertical-align:middle;" id="d794e33"><span>Description</span></th>
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all"><col style="width:" /><col style="width:" /><thead class="thead" style="text-align:left;"><tr class="row"><th class="entry cellrowborder" style="vertical-align:middle;" id="d800e31"><span>Module</span></th>
+<th class="entry cellrowborder" style="vertical-align:middle;" id="d800e33"><span>Description</span></th>
 </tr>
 </thead>
-<tbody class="tbody"><tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e31 "><span>module.py</span></td>
-<td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e33 "><span>Update LAN867x driver component path</span></td>
+<tbody class="tbody"><tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e31 "><span>module.py</span></td>
+<td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e33 "><span>Update LAN867x driver component path</span></td>
 </tr>
-<tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e31 "><span>docs</span></td>
-<td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e33 "><span>Update offline docs using SDL</span></td>
+<tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e31 "><span>docs</span></td>
+<td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e33 "><span>Update offline docs using SDL</span></td>
 </tr>
-<tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e31 "><span>tcpip_iperf_10base_t1s.X</span></td>
-<td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e33 "><span>Update meta-data JSON file to register Bare-metal content into MCHP Discover portal</span></td>
+<tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e31 "><span>tcpip_iperf_10base_t1s.X</span></td>
+<td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e33 "><span>Update meta-data JSON file to register Bare-metal content into MCHP Discover portal</span></td>
 </tr>
-<tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e31 "><span>tcpip_iperf_10base_t1s_freertos.X</span></td>
-<td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e33 "><span>Update meta-data JSON file to register FreeRTOS content into MCHP Discover portal</span></td>
+<tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e31 "><span>tcpip_iperf_10base_t1s_freertos.X</span></td>
+<td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e33 "><span>Update meta-data JSON file to register FreeRTOS content into MCHP Discover portal</span></td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
+</div>
+<div class="topic nested2" aria-labelledby="ariaid-title5" id="dependencies"><h3 class="title topictitle3" id="ariaid-title5">Dependencies</h3><div class="body"><ul class="ul"><li class="li"><p class="p"><a class="xref" href="https://www.microchip.com/mplab/mplab-x-ide" target="_blank">MPLAB® X IDE v6.00</a> or later</p>
+</li>
+<li class="li"><p class="p"><a class="xref" href="https://www.microchip.com/mplab/compilers" target="_blank">MPLAB® XC32 C/C++ Compiler v4.00</a> or later</p>
+</li>
+<li class="li"><p class="p"><a class="xref" href="https://github.com/Microchip-MPLAB-Harmony/net/tree/v3.7.4" target="_blank">net v3.7.4</a> or later</p>
+</li>
+</ul>
 <p class="p"><strong class="ph b">Release notes for v1.1.0 apply</strong></p>
 </div>
 </div>
 </div>
-<div class="topic nested1" aria-labelledby="ariaid-title5" id="10base-t1s-release-v110"><h2 class="title topictitle2" id="ariaid-title5">10BASE-T1S Release v1.1.0</h2><div class="body"></div>
-<div class="topic nested2" aria-labelledby="ariaid-title6" id="new-features"><h3 class="title topictitle3" id="ariaid-title6">New Features</h3><div class="body"><p class="p">New features added in this release are as follows:</p>
+<div class="topic nested1" aria-labelledby="ariaid-title6" id="10base-t1s-release-v110"><h2 class="title topictitle2" id="ariaid-title6">10BASE-T1S Release v1.1.0</h2><div class="body"></div>
+<div class="topic nested2" aria-labelledby="ariaid-title7" id="new-features"><h3 class="title topictitle3" id="ariaid-title7">New Features</h3><div class="body"><p class="p">New features added in this release are as follows:</p>
 <ul class="ul"><li class="li"><p class="p">Added FreeRTOS example project for LAN867x.</p>
 </li>
 </ul>
@@ -232,15 +271,15 @@
 </div>
 </div>
 </div>
-<div class="topic nested1" aria-labelledby="ariaid-title7" id="10base-t1s-release-v101"><h2 class="title topictitle2" id="ariaid-title7">10BASE-T1S Release v1.0.1</h2><div class="body"></div>
-<div class="topic nested2" aria-labelledby="ariaid-title8" id="bug-fixes-1"><h3 class="title topictitle3" id="ariaid-title8">Bug Fixes</h3><div class="body"><p class="p">The following table provides the list of bug fixes in the v1.0.1 release:</p>
+<div class="topic nested1" aria-labelledby="ariaid-title8" id="10base-t1s-release-v101"><h2 class="title topictitle2" id="ariaid-title8">10BASE-T1S Release v1.0.1</h2><div class="body"></div>
+<div class="topic nested2" aria-labelledby="ariaid-title9" id="bug-fixes-1"><h3 class="title topictitle3" id="ariaid-title9">Bug Fixes</h3><div class="body"><p class="p">The following table provides the list of bug fixes in the v1.0.1 release:</p>
 
-<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all"><col style="width:" /><col style="width:" /><thead class="thead" style="text-align:left;"><tr class="row"><th class="entry cellrowborder" style="vertical-align:middle;" id="d794e92"><span>Module</span></th>
-<th class="entry cellrowborder" style="vertical-align:middle;" id="d794e94"><span>Description</span></th>
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all"><col style="width:" /><col style="width:" /><thead class="thead" style="text-align:left;"><tr class="row"><th class="entry cellrowborder" style="vertical-align:middle;" id="d800e115"><span>Module</span></th>
+<th class="entry cellrowborder" style="vertical-align:middle;" id="d800e117"><span>Description</span></th>
 </tr>
 </thead>
-<tbody class="tbody"><tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e92 "><span>LAN867x</span></td>
-<td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e94 "><span>Use correct data type for initialState</span></td>
+<tbody class="tbody"><tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e115 "><span>LAN867x</span></td>
+<td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e117 "><span>Use correct data type for initialState</span></td>
 </tr>
 </tbody>
 </table>
@@ -251,16 +290,16 @@
 </div>
 </div>
 </div>
-<div class="topic nested1" aria-labelledby="ariaid-title9" id="10base-t1s-release-v100"><h2 class="title topictitle2" id="ariaid-title9">10BASE-T1S Release v1.0.0</h2><div class="body"></div>
-<div class="topic nested2" aria-labelledby="ariaid-title10" id="new-features-1"><h3 class="title topictitle3" id="ariaid-title10">New Features</h3><div class="body"><ul class="ul"><li class="li"><p class="p"><strong class="ph b">New device support</strong> -
+<div class="topic nested1" aria-labelledby="ariaid-title10" id="10base-t1s-release-v100"><h2 class="title topictitle2" id="ariaid-title10">10BASE-T1S Release v1.0.0</h2><div class="body"></div>
+<div class="topic nested2" aria-labelledby="ariaid-title11" id="new-features-1"><h3 class="title topictitle3" id="ariaid-title11">New Features</h3><div class="body"><ul class="ul"><li class="li"><p class="p"><strong class="ph b">New device support</strong> -
 This release introduces support for</p>
 
-<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all"><col style="width:" /><col style="width:" /><thead class="thead" style="text-align:left;"><tr class="row"><th class="entry cellrowborder" style="vertical-align:middle;" id="d794e127"><span>Device</span></th>
-<th class="entry cellrowborder" style="vertical-align:middle;" id="d794e129"><span>Description</span></th>
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all"><col style="width:" /><col style="width:" /><thead class="thead" style="text-align:left;"><tr class="row"><th class="entry cellrowborder" style="vertical-align:middle;" id="d800e150"><span>Device</span></th>
+<th class="entry cellrowborder" style="vertical-align:middle;" id="d800e152"><span>Description</span></th>
 </tr>
 </thead>
-<tbody class="tbody"><tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e127 "><span>LAN867x</span></td>
-<td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e129 "><span>10BASE-T1S Ethernet PHY</span></td>
+<tbody class="tbody"><tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e150 "><span>LAN867x</span></td>
+<td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e152 "><span>10BASE-T1S Ethernet PHY</span></td>
 </tr>
 </tbody>
 </table>
@@ -269,14 +308,14 @@ This release introduces support for</p>
 <li class="li"><p class="p"><strong class="ph b">Demo application support</strong> -
 The following table provides a list of of new applications</p>
 
-<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all"><col style="width:" /><col style="width:" /><col style="width:" /><thead class="thead" style="text-align:left;"><tr class="row"><th class="entry cellrowborder" style="vertical-align:middle;" id="d794e149"><span>Application</span></th>
-<th class="entry cellrowborder" style="vertical-align:middle;" id="d794e151"><span>Platform</span></th>
-<th class="entry cellrowborder" style="vertical-align:middle;" id="d794e153"><span>Description</span></th>
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all"><col style="width:" /><col style="width:" /><col style="width:" /><thead class="thead" style="text-align:left;"><tr class="row"><th class="entry cellrowborder" style="vertical-align:middle;" id="d800e172"><span>Application</span></th>
+<th class="entry cellrowborder" style="vertical-align:middle;" id="d800e174"><span>Platform</span></th>
+<th class="entry cellrowborder" style="vertical-align:middle;" id="d800e176"><span>Description</span></th>
 </tr>
 </thead>
-<tbody class="tbody"><tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e149 "><span>tcpip_iperf_10base_t1s</span></td>
-<td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e151 "><span>SAM E54</span></td>
-<td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e153 "><span>TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY</span></td>
+<tbody class="tbody"><tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e172 "><span>tcpip_iperf_10base_t1s</span></td>
+<td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e174 "><span>SAM E54</span></td>
+<td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e176 "><span>TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY</span></td>
 </tr>
 </tbody>
 </table>
@@ -285,10 +324,10 @@ The following table provides a list of of new applications</p>
 <li class="li"><p class="p"><strong class="ph b">Development kit support</strong> -
 The following table provides a list of supported development kits</p>
 
-<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all"><col style="width:" /><thead class="thead" style="text-align:left;"><tr class="row"><th class="entry cellrowborder" style="vertical-align:middle;" id="d794e173"><span>Development Kits</span></th>
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all"><col style="width:" /><thead class="thead" style="text-align:left;"><tr class="row"><th class="entry cellrowborder" style="vertical-align:middle;" id="d800e196"><span>Development Kits</span></th>
 </tr>
 </thead>
-<tbody class="tbody"><tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d794e173 "><span><a class="xref" href="https://www.microchip.com/Developmenttools/ProductDetails/DM320210" target="_blank">SAM E54 Curiosity Ultra Development Board</a></span></td>
+<tbody class="tbody"><tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d800e196 "><span><a class="xref" href="https://www.microchip.com/Developmenttools/ProductDetails/DM320210" target="_blank">SAM E54 Curiosity Ultra Development Board</a></span></td>
 </tr>
 </tbody>
 </table>
@@ -299,12 +338,12 @@ Please contact <a class="xref" href="https://www.microchip.com/support" target="
 </ul>
 </div>
 </div>
-<div class="topic nested2" aria-labelledby="ariaid-title11" id="known-issues"><h3 class="title topictitle3" id="ariaid-title11">Known Issues</h3><div class="body"><ul class="ul"><li class="li"><p class="p">No known issues</p>
+<div class="topic nested2" aria-labelledby="ariaid-title12" id="known-issues"><h3 class="title topictitle3" id="ariaid-title12">Known Issues</h3><div class="body"><ul class="ul"><li class="li"><p class="p">No known issues</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="topic nested2" aria-labelledby="ariaid-title12" id="dependencies"><h3 class="title topictitle3" id="ariaid-title12">Dependencies</h3><div class="body"><ul class="ul"><li class="li"><p class="p"><a class="xref" href="https://www.microchip.com/mplab/mplab-x-ide" target="_blank">MPLAB® X IDE v6.00</a> or later</p>
+<div class="topic nested2" aria-labelledby="ariaid-title13" id="dependencies-1"><h3 class="title topictitle3" id="ariaid-title13">Dependencies</h3><div class="body"><ul class="ul"><li class="li"><p class="p"><a class="xref" href="https://www.microchip.com/mplab/mplab-x-ide" target="_blank">MPLAB® X IDE v6.00</a> or later</p>
 </li>
 <li class="li"><p class="p"><a class="xref" href="https://www.microchip.com/mplab/compilers" target="_blank">MPLAB® XC32 C/C++ Compiler v4.00</a> or later</p>
 </li>

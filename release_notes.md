@@ -1,12 +1,31 @@
----
-title: Release notes
-nav_order: 99
----
-
 ![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
 # Microchip MPLAB® Harmony 3 Release Notes
+
+## 10BASE-T1S Release v1.2.0
+### New Features
+
+- **New device support** -
+  This release introduces support for
+
+    | Device    | Description             |
+    | ------    | ------                  |
+    | LAN865x   | 10BASE-T1S Ethernet MAC-PHY |
+
+- **Demo application support** -
+  The following table provides a list of of new applications
+
+    | Application               | Platform  | Description                                               |
+    | ------                    | ------    | ------                                                    |
+    | tcpip_iperf_10base_t1s    | SAM E54   | TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY   |
+
+- **Development kit support** -
+  The following table provides a list of supported development kits
+
+    | Development Kits                                                                                                  |
+    | ------                                                                                                            |
+    | [SAM E54 Curiosity Ultra Development Board](https://www.microchip.com/Developmenttools/ProductDetails/DM320210)   |
 
 ## 10BASE-T1S Release v1.1.1
 ### Bug Fixes

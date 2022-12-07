@@ -1,15 +1,3 @@
----
-parent: Example applications
-title: TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY
-has_children: false
-has_toc: false
-
-family: SAM E54
-market:
-  - industrial
-  - automotive
----
-
 ![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 

@@ -1,11 +1,4 @@
-﻿---
-title: Harmony 3 10BASE-T1S Package
-nav_order: 1
-has_children: true
-has_toc: false
----
-
-![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
+﻿![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
 # MPLAB® Harmony 3 10BASE-T1S
@@ -49,6 +42,7 @@ interesting usage models of one or more peripheral libraries.
 | Name                                                                      | Status                                                                                            |
 | ---                                                                       | ---                                                                                               |
 |[TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY](apps/tcpip_iperf_10base_t1s/readme.md)  | ![app-production](https://img.shields.io/badge/application-production-brightgreen?style=plastic)  |
+|[TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY](apps/tcpip_iperf_lan865x/readme.md)  | ![app-production](https://img.shields.io/badge/application-production-brightgreen?style=plastic)  |
 
 Note: The following link guides through the steps to create a new TCP/IP application
 using MPLAB® Harmony 3 modules.
@@ -60,11 +54,14 @@ Note: Please refer to AN4131 provided on the Microchip LAN867x product websites:
 - [LAN8671](https://www.microchip.com/en-us/product/lan8671)
 - [LAN8672](https://www.microchip.com/en-us/product/lan8672)
 
+Note: Please refer to ANXXXX provided on the Microchip LAN865x product websites:
+- [LAN8650](https://www.microchip.com/en-us/product/lan8650)
+- [LAN8651](https://www.microchip.com/en-us/product/lan8651)
+- [LAN8652](https://www.microchip.com/en-us/product/lan8652)
+
 ____
 
 [![License](https://img.shields.io/badge/license-Harmony%20license-orange.svg)](https://github.com/Microchip-MPLAB-Harmony/net_10base_t1s/blob/master/mplab_harmony_license.md)
-[![Latest release](https://img.shields.io/github/release/Microchip-MPLAB-Harmony/net_10base_t1s.svg)](https://github.com/Microchip-MPLAB-Harmony/net_10base_t1s/releases/latest)
-[![Latest release date](https://img.shields.io/github/release-date/Microchip-MPLAB-Harmony/net_10base_t1s.svg)](https://github.com/Microchip-MPLAB-Harmony/net_10base_t1s/releases/latest)
 [![Commit activity](https://img.shields.io/github/commit-activity/y/Microchip-MPLAB-Harmony/net_10base_t1s.svg)](https://github.com/Microchip-MPLAB-Harmony/net_10base_t1s/graphs/commit-activity)
 [![Contributors](https://img.shields.io/github/contributors-anon/Microchip-MPLAB-Harmony/net_10base_t1s.svg)]()
 ____

@@ -1,0 +1,83 @@
+format_version: v1.0
+type: GeneratorComponent
+attributes: {id: drvExtMacLan865x}
+children:
+- type: Instances
+  children:
+  - type: InstanceComponent
+    attributes: {instance: '0', id: drvExtMacLan865x}
+    children:
+    - type: Symbols
+      children:
+      - type: KeyValueSet
+        attributes: {id: DRV_LAN865X_INTERRUPT_PIN_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: drvExtMacLan865x_0, value: '0'}
+          - type: User
+            attributes: {value: '74'}
+      - type: Integer
+        attributes: {id: DRV_LAN865X_PLCA_NODE_ID_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: User
+            attributes: {value: '1'}
+      - type: KeyValueSet
+        attributes: {id: DRV_LAN865X_RESET_PIN_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: drvExtMacLan865x_0, value: '0'}
+          - type: User
+            attributes: {value: '78'}
+      - type: KeyValueSet
+        attributes: {id: DRV_LAN865X_SPI_CS_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: drvExtMacLan865x_0, value: '0'}
+          - type: User
+            attributes: {value: '75'}
+      - type: Integer
+        attributes: {id: DRV_LAN865X_SPI_DRIVER_INSTANCE_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: drvExtMacLan865x_0, value: '0'}
+      - type: Integer
+        attributes: {id: DRV_LAN865X_SPI_FREQ_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: User
+            attributes: {value: '15000000'}
+      - type: Boolean
+        attributes: {id: DRV_LAN865X_TX_CUT_THROUGH_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: User
+            attributes: {value: 'true'}
+    - type: Attachments
+      children:
+      - type: DirectDependency
+        attributes: {id: LAN865x_SPI_Dependency}
+        children:
+        - type: Attributes
+          children:
+          - type: String
+            attributes: {id: targetComponentID}
+            children:
+            - {type: Value, value: drv_spi_0}
+          - type: String
+            attributes: {id: targetAttachmentID}
+            children:
+            - {type: Value, value: drv_spi}
+- type: ElementPosition
+  attributes: {x: '302', y: '459', id: drvExtMacLan865x}

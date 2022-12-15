@@ -1,0 +1,86 @@
+format_version: v1.0
+type: GeneratorComponent
+attributes: {id: tcpipNetConfig}
+children:
+- type: Instances
+  children:
+  - type: InstanceComponent
+    attributes: {instance: '0', id: tcpipNetConfig}
+    children:
+    - type: Symbols
+      children:
+      - type: String
+        attributes: {id: TCPIP_NETWORK_DEFAULT_DNS_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: tcpipNetConfig_0, value: 0.0.0.0}
+          - type: User
+            attributes: {value: 192.168.0.1}
+      - type: String
+        attributes: {id: TCPIP_NETWORK_DEFAULT_GATEWAY_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: tcpipNetConfig_0, value: 0.0.0.0}
+          - type: User
+            attributes: {value: 192.168.0.1}
+      - type: String
+        attributes: {id: TCPIP_NETWORK_DEFAULT_HOST_NAME_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: tcpipNetConfig_0, value: ''}
+          - type: User
+            attributes: {value: MCHPBOARD_C}
+      - type: String
+        attributes: {id: TCPIP_NETWORK_DEFAULT_IP_ADDRESS_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: tcpipNetConfig_0, value: 0.0.0.0}
+          - type: User
+            attributes: {value: 192.168.0.100}
+      - type: String
+        attributes: {id: TCPIP_NETWORK_DEFAULT_MAC_ADDR_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: User
+            attributes: {value: '00:04:25:1C:A1:03'}
+      - type: String
+        attributes: {id: TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: tcpipNetConfig_0, value: ''}
+          - type: User
+            attributes: {value: DRV_LAN865X_MACObject}
+      - type: KeyValueSet
+        attributes: {id: TCPIP_NETWORK_INTERFACE_FLAG_DHCP_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: User
+            attributes: {value: '3'}
+      - type: Boolean
+        attributes: {id: TCPIP_STACK_NETWORK_CONFIG_IDX0}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: tcpipNetConfig_0, value: 'true'}
+      - type: Integer
+        attributes: {id: TCPIP_STACK_NETWORK_CONFIG_NUMBER}
+        children:
+        - type: Values
+          children:
+          - type: Dynamic
+            attributes: {id: tcpipNetConfig_0, value: '0'}
+- type: ElementPosition
+  attributes: {x: '20', y: '87', id: tcpipNetConfig}

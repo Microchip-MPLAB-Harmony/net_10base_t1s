@@ -56,8 +56,6 @@
 
 APP_DATA appData;
 
-extern SYSTICK_OBJECT systick; /* Instanced in plib_systick.c */
-
 /******************************************************************************
 *  Function Definitions
 ******************************************************************************/
@@ -102,11 +100,6 @@ void APP_Tasks(void)
         /* Initialize the MIIM instance. */
         case APP_GENERAL_INIT:
         {
-            SYS_CONSOLE_PRINT("\r========================================\r\n");
-            SYS_CONSOLE_PRINT("    10BASE-T1S MACPHY DEMO (V1.0.0)\r\n");
-            SYS_CONSOLE_PRINT("========================================\r\n");
-
-            SYSTICK_TimerStart();
             PwmDrv_Init();
 
             appData.state = APP_STATE_SERVICE_TASKS;
@@ -115,7 +108,7 @@ void APP_Tasks(void)
 
         case APP_STATE_SERVICE_TASKS:
         {
-            uint32_t now = systick.tickCounter;
+            uint32_t now = SYS_TIME_CounterGet();
             if (now >= appData.nextLed) {
                 uint8_t ledVal0;
                 uint8_t ledVal1;

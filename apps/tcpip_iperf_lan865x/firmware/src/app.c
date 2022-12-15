@@ -75,6 +75,29 @@ void APP_Initialize(void)
 	appData.state = APP_WAIT_STACK_INIT;
 }
 
+
+/******************************************************************************
+  Function:
+    static void OnIdRead(void *reserved1, bool success, uint32_t addr, uint32_t value, void *pTag, void *reserved2)
+
+  Remarks:
+    Callback on ID register read
+ */
+static void OnIdRead(void *reserved1, bool success, uint32_t addr, uint32_t value, void *pTag, void *reserved2)
+{
+    (void)reserved1;
+    (void)addr;
+    (void)pTag;
+    (void)reserved2;
+    if (success) {
+        uint32_t major = (value >> 4) & 0x3Fu;
+        uint32_t minor = value & 0xFu;
+        SYS_CONSOLE_PRINT("MAC-PHY ID=%d.%d\r\n", major, minor);
+    } else {
+        SYS_CONSOLE_PRINT("MAC-PHY ID register read failed\r\n");
+    }
+}
+
 /******************************************************************************
   Function:
     void APP_Tasks ( void )
@@ -100,9 +123,12 @@ void APP_Tasks(void)
         /* Initialize the MIIM instance. */
         case APP_GENERAL_INIT:
         {
-            PwmDrv_Init();
+            TCPIP_MAC_RES result = DRV_LAN865X_ReadRegister(0u /* first instance */, 0x00000000 /* ID-Register */, true /* protected */, OnIdRead, NULL);
+            if (TCPIP_MAC_RES_OK == result) {
+                PwmDrv_Init();
 
-            appData.state = APP_STATE_SERVICE_TASKS;
+                appData.state = APP_STATE_SERVICE_TASKS;
+            }
             break;
         }
 

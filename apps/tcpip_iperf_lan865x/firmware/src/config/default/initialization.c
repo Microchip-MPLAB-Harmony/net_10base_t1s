@@ -308,7 +308,6 @@ TCPIP_STACK_HEAP_INTERNAL_CONFIG tcpipHeapConfig =
     .heapFlags = TCPIP_STACK_HEAP_USE_FLAGS,
     .heapUsage = TCPIP_STACK_HEAP_USAGE_CONFIG,
     .malloc_fnc = TCPIP_STACK_MALLOC_FUNC,
-    .calloc_fnc = TCPIP_STACK_CALLOC_FUNC,
     .free_fnc = TCPIP_STACK_FREE_FUNC,
     .heapSize = TCPIP_STACK_DRAM_SIZE,
 };
@@ -404,8 +403,6 @@ const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
     .timerStop = (SYS_TIME_PLIB_STOP)TC0_TimerStop,
     .timerFrequencyGet = (SYS_TIME_PLIB_FREQUENCY_GET)TC0_TimerFrequencyGet,
     .timerPeriodSet = (SYS_TIME_PLIB_PERIOD_SET)TC0_Timer16bitPeriodSet,
-    .timerCompareSet = (SYS_TIME_PLIB_COMPARE_SET)TC0_Timer16bitCompareSet,
-    .timerCounterGet = (SYS_TIME_PLIB_COUNTER_GET)TC0_Timer16bitCounterGet,
 };
 
 const SYS_TIME_INIT sysTimeInitData =
@@ -504,9 +501,9 @@ void SYS_Initialize ( void* data )
 
     SERCOM1_USART_Initialize();
 
-    SERCOM0_SPI_Initialize();
-
     EVSYS_Initialize();
+
+    SERCOM0_SPI_Initialize();
 
 	SYSTICK_TimerInitialize();
     DMAC_Initialize();
@@ -530,9 +527,9 @@ void SYS_Initialize ( void* data )
 
 
 
-/* TCPIP Stack Initialization */
-sysObj.tcpip = TCPIP_STACK_Init();
-SYS_ASSERT(sysObj.tcpip != SYS_MODULE_OBJ_INVALID, "TCPIP_STACK_Init Failed" );
+   /* TCPIP Stack Initialization */
+   sysObj.tcpip = TCPIP_STACK_Init();
+   SYS_ASSERT(sysObj.tcpip != SYS_MODULE_OBJ_INVALID, "TCPIP_STACK_Init Failed" );
 
 
     CRYPT_WCCB_Initialize();

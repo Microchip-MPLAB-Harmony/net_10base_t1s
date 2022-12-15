@@ -2,7 +2,7 @@
   TCPIP Heap Allocation Manager
 
   Summary:
-    
+
   Description:
 *******************************************************************************/
 
@@ -11,23 +11,23 @@
 
 Microchip Technology Inc. and its subsidiaries.
 
-Subject to your compliance with these terms, you may use Microchip software 
-and any derivatives exclusively with Microchip products. It is your 
-responsibility to comply with third party license terms applicable to your 
-use of third party software (including open source software) that may 
+Subject to your compliance with these terms, you may use Microchip software
+and any derivatives exclusively with Microchip products. It is your
+responsibility to comply with third party license terms applicable to your
+use of third party software (including open source software) that may
 accompany Microchip software.
 
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR 
+THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
+EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
+WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR
 PURPOSE.
 
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE 
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN 
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY, 
+IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
+FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
+ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *****************************************************************************/
 
@@ -68,7 +68,7 @@ static void _TCPIP_HEAP_DataCacheInvalidate(const void* address, size_t nBytes)
 
     uint8_t*    pLine = (uint8_t*)((uint32_t)address & 0xfffffff0); // start on an even cache line
     nBytes += (uint8_t*)address - pLine;
-    int nLines = (nBytes + 15) / 16;   // round up the number of taken cache lines 
+    int nLines = (nBytes + 15) / 16;   // round up the number of taken cache lines
 
     for(ix = 0; ix < nLines; ix ++)
     {
@@ -114,7 +114,7 @@ const void* _TCPIP_HEAP_PointerMapCached(const void* ptr)
 #endif  // defined(__PIC32MZ__)
 
 
-#if !defined(TCPIP_STACK_DRAM_DEBUG_ENABLE) 
+#if !defined(TCPIP_STACK_DRAM_DEBUG_ENABLE)
 
 // functions needed when debugging is not enabled
 
@@ -147,6 +147,11 @@ TCPIP_STACK_HEAP_HANDLE TCPIP_HEAP_Create(const TCPIP_STACK_HEAP_CONFIG* initDat
     return 0;
 }
 
+TCPIP_STACK_HEAP_RES TCPIP_HEAP_Delete(TCPIP_STACK_HEAP_HANDLE heapH)
+{
+    return (*((TCPIP_HEAP_OBJECT*)heapH)->TCPIP_HEAP_Delete)(heapH);
+}
+
 // functions needed when not inlined
 void* TCPIP_HEAP_MallocOutline(TCPIP_STACK_HEAP_HANDLE h, size_t nBytes)
 {
@@ -163,22 +168,22 @@ size_t TCPIP_HEAP_FreeOutline(TCPIP_STACK_HEAP_HANDLE h, const void* ptr)
     return (*((TCPIP_HEAP_OBJECT*)h)->TCPIP_HEAP_Free)(h, ptr);
 }
 
-#else   // defined(TCPIP_STACK_DRAM_DEBUG_ENABLE) 
+#else   // defined(TCPIP_STACK_DRAM_DEBUG_ENABLE)
 // debug functionality
 
-#if defined(TCPIP_STACK_DRAM_TRACE_ENABLE) 
+#if defined(TCPIP_STACK_DRAM_TRACE_ENABLE)
     #define _TCPIP_STACK_DRAM_TRACE_ENABLE
     #define _TCPIP_STACK_DRAM_TRACE_NDP_COLLAPSE    1       // collapse NDP info into IPv6 since NDP allocated packets are freed by IPv6
 #else
     #undef  _TCPIP_STACK_DRAM_TRACE_ENABLE
 #endif
 
-#if defined(TCPIP_STACK_DRAM_DIST_ENABLE) 
+#if defined(TCPIP_STACK_DRAM_DIST_ENABLE)
     #define _TCPIP_STACK_DRAM_DIST_ENABLE
 
     // distribution block sizes that are monitored
     // Note: there's no way (yet) of allowing the user to specify the requested distribution
-    static const int _tcpip_heap_dist_sizes[] = 
+    static const int _tcpip_heap_dist_sizes[] =
     {
         0,      32,     64,     128,    256,    512,    640,    768,
         896,    1024,   1152,   1280,   1408,   1536,   1792,   2000,
@@ -251,7 +256,7 @@ TCPIP_STACK_HEAP_HANDLE TCPIP_HEAP_Create(const TCPIP_STACK_HEAP_CONFIG* initDat
             flags = initData->heapFlags;
             break;
 #endif  // defined (TCPIP_STACK_USE_EXTERNAL_HEAP)
-            
+
 #if defined (TCPIP_STACK_USE_INTERNAL_HEAP_POOL)
         case TCPIP_STACK_HEAP_TYPE_INTERNAL_HEAP_POOL:
             newH = TCPIP_HEAP_CreateInternalPool((const TCPIP_STACK_HEAP_POOL_CONFIG*)initData, pRes);
@@ -287,7 +292,7 @@ TCPIP_STACK_HEAP_HANDLE TCPIP_HEAP_Create(const TCPIP_STACK_HEAP_CONFIG* initDat
                 pEntry = pDcpt->_tcpip_heap_dist_array;
                 for(ix = 0; ix < sizeof(_tcpip_heap_dist_sizes)/sizeof(*_tcpip_heap_dist_sizes) - 1; ix++, pSize++, pEntry++)
                 {
-                    memset(pEntry, 0, sizeof(*pEntry)); 
+                    memset(pEntry, 0, sizeof(*pEntry));
                     pEntry->lowLimit = *pSize;
                     pEntry->highLimit = *(pSize + 1);
                 }
@@ -299,6 +304,7 @@ TCPIP_STACK_HEAP_HANDLE TCPIP_HEAP_Create(const TCPIP_STACK_HEAP_CONFIG* initDat
 
     return newH;
 }
+
 
 static TCPIP_HEAP_DBG_DCPT* _TCPIP_HEAP_FindDcpt(TCPIP_STACK_HEAP_HANDLE heapH)
 {
@@ -313,6 +319,28 @@ static TCPIP_HEAP_DBG_DCPT* _TCPIP_HEAP_FindDcpt(TCPIP_STACK_HEAP_HANDLE heapH)
     }
 
     return 0;
+}
+
+TCPIP_STACK_HEAP_RES TCPIP_HEAP_Delete(TCPIP_STACK_HEAP_HANDLE heapH)
+{
+    TCPIP_STACK_HEAP_RES res;
+    TCPIP_HEAP_DBG_DCPT* pDcpt = _TCPIP_HEAP_FindDcpt(heapH);
+
+    if(pDcpt)
+    {
+        res =  ((TCPIP_HEAP_OBJECT*)heapH)->TCPIP_HEAP_Delete(heapH);
+        if(res >= 0)
+        {   // success, deleted
+            pDcpt->heapH = 0;
+        }
+    }
+    else
+    {
+        res = TCPIP_STACK_HEAP_RES_NO_HEAP;
+    }
+
+    return res;
+
 }
 
 void* TCPIP_HEAP_MallocDebug(TCPIP_STACK_HEAP_HANDLE heapH, size_t nBytes, int moduleId, int lineNo)
@@ -481,6 +509,7 @@ static void TCPIP_HEAP_AddToEntry(TCPIP_HEAP_DBG_DCPT* hDcpt, int moduleId, size
 
     if(pEntry)
     {
+        pEntry->nAllocs++;
         if(ptr)
         {   // successful
             pEntry->totAllocated += nBytes;
@@ -503,7 +532,9 @@ static void TCPIP_HEAP_RemoveFromEntry(TCPIP_HEAP_DBG_DCPT* hDcpt, int moduleId,
 
     if(pEntry)
     {
+        pEntry->nFrees++;
         pEntry->currAllocated -= nBytes;
+        _TCPIPStack_Assert(pEntry->currAllocated >= 0 && pEntry->nFrees <= pEntry->nAllocs, __FILE__, __func__, __LINE__);
     }
 }
 
@@ -531,6 +562,11 @@ bool TCPIP_HEAP_TraceGetEntry(TCPIP_STACK_HEAP_HANDLE heapH, unsigned int entryI
 unsigned int TCPIP_HEAP_TraceGetEntriesNo(TCPIP_STACK_HEAP_HANDLE heapH, bool getUsed)
 {
     TCPIP_HEAP_DBG_DCPT* pDcpt = _TCPIP_HEAP_FindDcpt(heapH);
+
+    if(pDcpt == 0)
+    {
+        return 0;
+    }
 
     if(getUsed)
     {
@@ -622,7 +658,7 @@ static void TCPIP_HEAP_DistAdd(TCPIP_HEAP_DBG_DCPT* hDcpt, int moduleId, size_t 
         { {0} },
         0
     };
-    
+
     pEntry = bsearch(&nEntry, hDcpt->_tcpip_heap_dist_array, sizeof(hDcpt->_tcpip_heap_dist_array)/sizeof(*hDcpt->_tcpip_heap_dist_array), sizeof(*hDcpt->_tcpip_heap_dist_array), TCPIP_HEAP_DistCompare);
 
     pEntry->currHits++;
@@ -665,7 +701,7 @@ static void TCPIP_HEAP_DistRem(TCPIP_HEAP_DBG_DCPT* hDcpt, int moduleId, size_t 
         { {0} },
         0
     };
-    
+
     pEntry = bsearch(&nEntry, hDcpt->_tcpip_heap_dist_array, sizeof(hDcpt->_tcpip_heap_dist_array)/sizeof(*hDcpt->_tcpip_heap_dist_array), sizeof(*hDcpt->_tcpip_heap_dist_array), TCPIP_HEAP_DistCompare);
 
     pEntry->currHits--;
@@ -686,5 +722,5 @@ unsigned int TCPIP_HEAP_DistGetEntriesNo(TCPIP_STACK_HEAP_HANDLE heapH)
 #endif  // defined (_TCPIP_STACK_DRAM_DIST_ENABLE)
 
 
-#endif  // defined(TCPIP_STACK_DRAM_DEBUG_ENABLE) 
+#endif  // defined(TCPIP_STACK_DRAM_DEBUG_ENABLE)
 

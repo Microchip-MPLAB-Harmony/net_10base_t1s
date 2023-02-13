@@ -48,7 +48,7 @@ Microchip or any third party.
 /*                          AUTO GENERATED DEFINES                      */
 /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
-#define MEMMAP_LEN  (32u)  /* Overcome MISRA issue 8.11 */
+#define MEMMAP_LEN  (34u)  /* Overcome MISRA issue 8.11 */
 
 extern const uint32_t TC6_MEMMAP_LENGTH;
 

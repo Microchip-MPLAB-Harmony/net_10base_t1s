@@ -657,11 +657,124 @@ bool DRV_LAN865X_EventAcknowledge(DRV_HANDLE hMac, TCPIP_MAC_EVENT macEvents);
       hMac - the successfully opened handle
 
     Returns:
-      - TCPIP_MAC_EV_NONE    - Returned on an error
+      - TCPIP_MAC_EV_NONE    - Returned on success
       - List of events        - Returned on event other than an error
 
 */
 TCPIP_MAC_EVENT DRV_LAN865X_EventPendingGet(DRV_HANDLE hMac);
+
+// *****************************************************************************
+/* LAN865X Driver Callback Function Definition
+
+  Summary:
+    Defines a callback function, which is getting executed when ever a register access was finished.
+
+  Description:
+    This function may be implemented by the integrator and passed as argument with
+    DRV_LAN865X_ReadRegister() or DRV_LAN865X_WriteRegister() or DRV_LAN865X_ReadModifyWriteRegister().
+
+  Parameters:
+    reserved1   - For internal usage only. Do not use.
+    success     - true, if the register could be accessed without errors. false, there was an error while trying to access the register.
+    addr        - The register address, as passed a long with DRV_LAN865X_ReadRegister() or DRV_LAN865X_WriteRegister() or DRV_LAN865X_ReadModifyWriteRegister().
+    value       - The register value. If this belongs to a write request, it is the same value as given along with DRV_LAN865X_WriteRegister(). In case of DRV_LAN865X_ReadRegister(), this holds the register read value. In case of DRV_LAN865X_ReadModifyWriteRegister() it holds the final value, which was written back into the MAC/PHY.
+    pTag        - Tag pointer which was given along with the register access functions.
+    reserved2   - For internal usage only. Do not use.
+
+  Remarks:
+    It is safe inside this callback to call again DRV_LAN865X_ReadRegister() or DRV_LAN865X_WriteRegister() or DRV_LAN865X_ReadModifyWriteRegister().
+*/
+typedef void (*DRV_LAN865X_RegCallback_t)(void *reserved1, bool success, uint32_t addr, uint32_t value, void *pTag, void *reserved2);
+
+// *****************************************************************************
+/* Reads from the given MAC / Phy registers address
+
+    Summary:
+      Performs a read procedure to the MAC / Phy registers
+      <p><b>Implementation:</b> Dynamic</p>
+
+    Description:
+      Reads from the given register address.
+
+    Preconditions:
+      The client had to be successfully opened with DRV_LAN865X_Open.
+
+    Parameters:
+      idx           - the MAC-PHY instance number, starting with 0 for the first instance
+      addr          - The 32 Bit register offset
+      protected     - true, enables protected control data transmission (normal + inverted data). false, no protection feature is used
+      rxCallback    - Pointer to a callback handler. May left NULL, but then the result of the read procedure will be lost.
+      pTag          - Any pointer. Will be given back in given modifyCallback. May left NULL
+
+    Returns:
+      - TCPIP_MAC_RES_OK                - Returned on success
+      - TCPIP_MAC_RES_NO_DRIVER         - Given idx parameter is out of range
+      - TCPIP_MAC_RES_PENDING           - MAC-PHY Driver is currently busy, try again later
+      - TCPIP_MAC_RES_EVENT_INIT_FAIL   - MAC-PHY initialization is still in progress or failed
+
+*/
+TCPIP_MAC_RES DRV_LAN865X_ReadRegister(uint8_t idx, uint32_t addr, bool protected, DRV_LAN865X_RegCallback_t rxCallback, void *pTag);
+
+// *****************************************************************************
+/* Writes the given value into the MAC / Phy registers
+
+    Summary:
+      Performs a write procedure to the MAC / Phy registers
+      <p><b>Implementation:</b> Dynamic</p>
+
+    Description:
+      Adjusts the given register by writing the given values.
+
+    Preconditions:
+      The client had to be successfully opened with DRV_LAN865X_Open.
+
+    Parameters:
+      idx           - the MAC-PHY instance number, starting with 0 for the first instance
+      addr          - The 32 Bit register offset
+      value         - The 32 Bit register bit value to be written
+      protected     - true, enables protected control data transmission (normal + inverted data). false, no protection feature is used
+      txCallback    - Pointer to a callback handler. May left NULL
+      pTag          - Any pointer. Will be given back in given modifyCallback. May left NULL
+
+    Returns:
+      - TCPIP_MAC_RES_OK                - Returned on success
+      - TCPIP_MAC_RES_NO_DRIVER         - Given idx parameter is out of range
+      - TCPIP_MAC_RES_PENDING           - MAC-PHY Driver is currently busy, try again later
+      - TCPIP_MAC_RES_EVENT_INIT_FAIL   - MAC-PHY initialization is still in progress or failed
+
+*/
+TCPIP_MAC_RES DRV_LAN865X_WriteRegister(uint8_t idx, uint32_t addr, uint32_t value, bool protected, DRV_LAN865X_RegCallback_t txCallback, void *pTag);
+
+// *****************************************************************************
+/* Reads, modifies and writes back the changed value to MAC / Phy registers
+
+    Summary:
+      Performs a read, modify, write procedure to the MAC / Phy registers
+      <p><b>Implementation:</b> Dynamic</p>
+
+    Description:
+      Adjusts the given register by applying values according to the given mask.
+
+    Preconditions:
+      The client had to be successfully opened with DRV_LAN865X_Open.
+
+    Parameters:
+      idx               - the MAC-PHY instance number, starting with 0 for the first instance
+      addr              - The 32 Bit register offset
+      value             - The 32 Bit register bit value to be changed. This value will be set to register only if mask on the corresponding position is set to 1
+      mask              - The 32 Bit register bit mask. Only Bits set to 1 will be changed accordingly to value
+      protected         - true, enables protected control data transmission (normal + inverted data). false, no protection feature is used
+      modifyCallback    - Pointer to a callback handler. May left NULL
+      pTag              - Any pointer. Will be given back in given modifyCallback. May left NULL
+
+    Returns:
+      - TCPIP_MAC_RES_OK                - Returned on success
+      - TCPIP_MAC_RES_NO_DRIVER         - Given idx parameter is out of range
+      - TCPIP_MAC_RES_PENDING           - MAC-PHY Driver is currently busy, try again later
+      - TCPIP_MAC_RES_EVENT_INIT_FAIL   - MAC-PHY initialization is still in progress or failed
+
+*/
+TCPIP_MAC_RES DRV_LAN865X_ReadModifyWriteRegister(uint8_t idx, uint32_t addr, uint32_t value, uint32_t mask, bool protected, DRV_LAN865X_RegCallback_t modifyCallback, void *pTag);
 
 #ifdef __cplusplus
 }

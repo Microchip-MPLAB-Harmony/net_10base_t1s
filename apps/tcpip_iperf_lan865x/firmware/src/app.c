@@ -37,7 +37,7 @@
 *  Global Data Definitions
 ******************************************************************************/
 
-#define DELAY_LED               (10)
+#define DELAY_LED               (10u)
 
 // *****************************************************************************
 /* Application Data
@@ -69,7 +69,7 @@ APP_DATA appData;
  */
 void APP_Initialize(void)
 {
-    memset(&appData, 0, sizeof(appData));
+    (void)memset(&appData, 0, sizeof(appData));
 
 	/* Place the App state machine in its initial state. */
 	appData.state = APP_WAIT_STACK_INIT;
@@ -140,19 +140,21 @@ void APP_Tasks(void)
                 uint8_t ledVal1;
                 appData.nextLed = now + DELAY_LED;
                 if (appData.ledState) {
-                    ledVal0 = appData.ledVal--;
-                    if (0x00 == appData.ledVal) {
+                    appData.ledVal--;
+                    ledVal0 = appData.ledVal;
+                    if (0x00u == appData.ledVal) {
                         appData.ledState = false;
                     }
                 } else {
-                    ledVal0 = appData.ledVal++;
-                    if (0xFF == appData.ledVal) {
+                    appData.ledVal++;
+                    ledVal0 = appData.ledVal;
+                    if (0xFFu == appData.ledVal) {
                         appData.ledState = true;
                     }
                 }
-                ledVal1 = 0xFF - ledVal0;
-                PwmDrv_SetLevel(0, ledVal0);
-                PwmDrv_SetLevel(1, ledVal1);
+                ledVal1 = 0xFFu - ledVal0;
+                (void)PwmDrv_SetLevel(0, ledVal0);
+                (void)PwmDrv_SetLevel(1, ledVal1);
             }
             break;
         }

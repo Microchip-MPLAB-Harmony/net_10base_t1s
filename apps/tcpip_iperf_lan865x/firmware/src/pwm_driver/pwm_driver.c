@@ -82,15 +82,20 @@ void PwmDrv_Init(void)
 
 bool PwmDrv_SetLevel(uint8_t idx, uint8_t level)
 {
+    bool success = false;
     uint16_t gammaLevel = gamma8[level];
     switch(idx) {
     case 0:
-        TCC0_PWM24bitDutySet(TCC0_CHANNEL5, (gammaLevel * p.period0 / 0xFFFF));
-        return true;
+        TCC0_PWM24bitDutySet(TCC0_CHANNEL5, (gammaLevel * p.period0 / 0xFFFFu));
+        success = true;
+        break;
     case 1:
-        TCC0_PWM24bitDutySet(TCC0_CHANNEL4, (gammaLevel * p.period0 / 0xFFFF));
-        return true;
+        TCC0_PWM24bitDutySet(TCC0_CHANNEL4, (gammaLevel * p.period0 / 0xFFFFu));
+        success = true;
+        break;
+    default:
+        ASSERT(false);
+        break;
     }
-    ASSERT(false);
-    return false;
+    return success;
 }

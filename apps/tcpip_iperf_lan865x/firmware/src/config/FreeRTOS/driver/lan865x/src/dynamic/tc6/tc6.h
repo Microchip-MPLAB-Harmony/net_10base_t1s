@@ -135,6 +135,13 @@ TC6_t *TC6_Init(void *pGlobalTag);
  */
 bool TC6_Service(TC6_t *pInst, bool interruptLevel);
 
+/** \brief Enables or disables outgoing / incoming data traffic.
+ *  \note It make sense to enable data transfer, when configuring the registers is done.
+ *  \param pInst - The pointer returned by TC6_Init.
+ *  \param interruptLevel - The level of the interrupt pin. false is interpreted as interrupt active. true is interpreted as currently no interrupt issued.
+ */
+void TC6_EnableData(TC6_t *pInst, bool enable);
+
 /** \brief Sends a raw Ethernet packet.
  *  \param pInst - The pointer returned by TC6_Init.
  *  \param pTx - Filled byte array holding an entire Ethernet packet. Warning, the buffer must stay valid until TC6_CB_OnTxRawEthernetPacket callback with this pointer as parameter was called.
@@ -215,12 +222,6 @@ bool TC6_ReadModifyWriteRegister(TC6_t *pInst, uint32_t addr, uint32_t value, ui
  */
 uint16_t TC6_MultipleRegisterAccess(TC6_t *pInst, const MemoryMap_t *pMap, uint16_t mapLength, TC6_RegCallback_t multipleCallback, void *pTag);
 
-/** \brief Enables or disables outgoing / incoming data traffic.
- *  \note It make sense to enable data transfer, when configuring the registers is done.
- *  \param pInst - The pointer returned by TC6_Init.
- *  \param interruptLevel - The level of the interrupt pin. false is interpreted as interrupt active. true is interpreted as currently no interrupt issued.
- */
-void TC6_EnableData(TC6_t *pInst, bool enable);
 
 /** \brief Reenable the reporting of extended status flag via TC6_CB_OnExtendedStatus() callback.
  *  \note This feature was introduced to not trigger thousands of extended status callbacks, when there is a lot of traffic ongoing.

@@ -35,7 +35,7 @@ Microchip or any third party.
     Interface driver for binding LAN865X MAC-Phy to Microchip TCP/IP stack
 
   Description:
-    This file combine the TC6 low level driver with all the neccessary parts to be compatible with the MCHP TCP/IP stack
+    This file combine the TC6 low level driver with all the necessary parts to be compatible with the MCHP TCP/IP stack
 
 *******************************************************************************/
 
@@ -119,7 +119,7 @@ static bool _InitMemMap(DRV_LAN865X_DriverInfo * pDrvInst);
 static void _OnEFuseOp(TC6_t *pInst, bool success, uint32_t addr, uint32_t value, void *pTag, void *pGlobalTag);
 static bool _ReadEFuseReg(DRV_LAN865X_DriverInfo * pDrvInst, uint32_t addr, uint32_t *pVal, uint8_t subState);
 static int8_t _GetSignedVal(uint32_t val);
-static void _WriteRegisterBits(DRV_LAN865X_DriverInfo * pDrvInst, uint32_t addr, uint8_t start, uint8_t end, uint32_t value);
+static uint32_t _CalculateValueAndMask(uint8_t start, uint8_t end, uint32_t newValue, uint32_t *mask);
 static bool _InitTrim(DRV_LAN865X_DriverInfo * pDrvInst);
 static bool _InitUserSettings(DRV_LAN865X_DriverInfo * pDrvInst);
 static int32_t _OpenInterface(DRV_LAN865X_DriverInfo * pDrvInstance);
@@ -134,7 +134,7 @@ static void _OnClearStatus0(TC6_t *pInst, bool success, uint32_t addr, uint32_t 
 static void _OnStatus0(TC6_t *pInst, bool success, uint32_t addr, uint32_t value, void *tag, void *pGlobalTag);
 static void _OnPlcaStatus(TC6_t *pInst, bool success, uint32_t addr, uint32_t value, void *tag, void *pGlobalTag);
 static void _TxDone(TC6_t *pInst, const uint8_t *pTx, uint16_t len, void *pTag, void *pGlobalTag);
-static bool _RxPacketAck(TCPIP_MAC_PACKET* pkt, const void* param);
+static void _RxPacketAck(TCPIP_MAC_PACKET* pkt, const void* param);
 
 /******************************************************************************
 *  Public Function Implementations
@@ -268,7 +268,7 @@ void DRV_LAN865X_Reinitialize(SYS_MODULE_OBJ object, const SYS_MODULE_INIT * con
     Returns:
       - SYS_STATUS_ERROR            - if an invalid handle has been passed in
       - SYS_STATUS_UNINITIALIZED    - if the driver has not completed initialization
-      - SYS_STATUS_BUSY                - if the driver is closing and moving to the closed state
+      - SYS_STATUS_BUSY             - if the driver is closing and moving to the closed state
       - SYS_STATUS_READY            - if the driver is ready for client commands
 */
 SYS_STATUS DRV_LAN865X_Status(SYS_MODULE_OBJ object)
@@ -312,7 +312,7 @@ void DRV_LAN865X_Tasks(SYS_MODULE_OBJ object)
             if (SYS_TIME_CountToMS(now - pDrvInst->plcaTimer) >= PLCA_TIMER_DELAY) {
                 pDrvInst->plcaTimer = now;
                 _Lock(&pDrvInst->drvMutex);
-                (void)TC6_ReadRegister(pDrvInst->drvTc6, 0x0004CA03, CONTROL_PROTECTION, _OnPlcaStatus, NULL); /* PLCA_status_register.plca_status */
+                (void)TC6_ReadRegister(pDrvInst->drvTc6, 0x0004CA03 /* PLCA_STATUS_REGISTER */, CONTROL_PROTECTION, _OnPlcaStatus, NULL);
                  _Unlock(&pDrvInst->drvMutex);
             }
         }
@@ -567,7 +567,7 @@ void DRV_LAN865X_Close(DRV_HANDLE handle)
 */
 bool DRV_LAN865X_LinkCheck(DRV_HANDLE hMac)
 {
-    /* Link check on LAN865x chip alway returns true, so no need for query this informatio  */
+    /* Link check on LAN865x chip alway returns true, so no need for query this information  */
     (void)hMac;
     return true;
 }
@@ -1122,6 +1122,136 @@ TCPIP_MAC_EVENT DRV_LAN865X_EventPendingGet(DRV_HANDLE hMac)
     return pDrvInst->currentEvents;
 }
 
+// *****************************************************************************
+/* Reads from the given MAC / Phy registers address
+
+    Summary:
+      Performs a read procedure to the MAC / Phy registers
+      <p><b>Implementation:</b> Dynamic</p>
+
+    Description:
+      Reads from the given register address.
+
+    Preconditions:
+      The client had to be successfully opened with DRV_LAN865X_Open.
+
+    Parameters:
+      idx           - the MAC-PHY instance number, starting with 0 for the first instance
+      addr          - The 32 Bit register offset
+      protected     - true, enables protected control data transmission (normal + inverted data). false, no protection feature is used
+      rxCallback    - Pointer to a callback handler. May left NULL, but then the result of the read procedure will be lost.
+      pTag          - Any pointer. Will be given back in given modifyCallback. May left NULL
+
+    Returns:
+      - TCPIP_MAC_RES_OK                - Returned on success
+      - TCPIP_MAC_RES_NO_DRIVER         - Given idx parameter is out of range
+      - TCPIP_MAC_RES_PENDING           - MAC-PHY Driver is currently busy, try again later
+      - TCPIP_MAC_RES_EVENT_INIT_FAIL   - MAC-PHY initialization is still in progress or failed
+
+*/
+TCPIP_MAC_RES DRV_LAN865X_ReadRegister(uint8_t idx, uint32_t addr, bool protected, DRV_LAN865X_RegCallback_t rxCallback, void *pTag)
+{
+    TCPIP_MAC_RES result = TCPIP_MAC_RES_NO_DRIVER;
+    if (idx < DRV_LAN865X_INSTANCES_NUMBER) {
+        DRV_LAN865X_DriverInfo *pDrv = &drvLAN865XDrvInst[idx];
+        if (SYS_STATUS_READY == pDrv->state) {
+            bool success = TC6_ReadRegister(pDrv->drvTc6, addr, protected, (TC6_RegCallback_t)rxCallback, pTag);
+            result = (success ? TCPIP_MAC_RES_OK : TCPIP_MAC_RES_PENDING);
+        } else {
+            result = TCPIP_MAC_RES_EVENT_INIT_FAIL;
+        }
+    }
+    return result;
+}
+
+// *****************************************************************************
+/* Writes the given value into the MAC / Phy registers
+
+    Summary:
+      Performs a write procedure to the MAC / Phy registers
+      <p><b>Implementation:</b> Dynamic</p>
+
+    Description:
+      Adjusts the given register by writing the given values.
+
+    Preconditions:
+      The client had to be successfully opened with DRV_LAN865X_Open.
+
+    Parameters:
+      idx           - the MAC-PHY instance number, starting with 0 for the first instance
+      addr          - The 32 Bit register offset
+      value         - The 32 Bit register bit value to be written
+      protected     - true, enables protected control data transmission (normal + inverted data). false, no protection feature is used
+      txCallback    - Pointer to a callback handler. May left NULL
+      pTag          - Any pointer. Will be given back in given modifyCallback. May left NULL
+
+    Returns:
+      - TCPIP_MAC_RES_OK                - Returned on success
+      - TCPIP_MAC_RES_NO_DRIVER         - Given idx parameter is out of range
+      - TCPIP_MAC_RES_PENDING           - MAC-PHY Driver is currently busy, try again later
+      - TCPIP_MAC_RES_EVENT_INIT_FAIL   - MAC-PHY initialization is still in progress or failed
+
+*/
+TCPIP_MAC_RES DRV_LAN865X_WriteRegister(uint8_t idx, uint32_t addr, uint32_t value, bool protected, DRV_LAN865X_RegCallback_t txCallback, void *pTag)
+{
+    TCPIP_MAC_RES result = TCPIP_MAC_RES_NO_DRIVER;
+    if (idx < DRV_LAN865X_INSTANCES_NUMBER) {
+        DRV_LAN865X_DriverInfo *pDrv = &drvLAN865XDrvInst[idx];
+        if (SYS_STATUS_READY == pDrv->state) {
+            bool success = TC6_WriteRegister(pDrv->drvTc6, addr, value, protected, (TC6_RegCallback_t)txCallback, pTag);
+            result = (success ? TCPIP_MAC_RES_OK : TCPIP_MAC_RES_PENDING);
+        } else {
+            result = TCPIP_MAC_RES_EVENT_INIT_FAIL;
+        }
+    }
+    return result;
+}
+
+// *****************************************************************************
+/* Reads, modifies and writes back the changed value to MAC / Phy registers
+
+    Summary:
+      Performs a read, modify, write procedure to the MAC / Phy registers
+      <p><b>Implementation:</b> Dynamic</p>
+
+    Description:
+      Adjusts the given register by applying values according to the given mask.
+
+    Preconditions:
+      The client had to be successfully opened with DRV_LAN865X_Open.
+
+    Parameters:
+      idx               - the MAC-PHY instance number, starting with 0 for the first instance
+      addr              - The 32 Bit register offset
+      value             - The 32 Bit register bit value to be changed. This value will be set to register only if mask on the corresponding position is set to 1
+      mask              - The 32 Bit register bit mask. Only Bits set to 1 will be changed accordingly to value
+      protected         - true, enables protected control data transmission (normal + inverted data). false, no protection feature is used
+      modifyCallback    - Pointer to a callback handler. May left NULL
+      pTag              - Any pointer. Will be given back in given modifyCallback. May left NULL
+
+    Returns:
+      - TCPIP_MAC_RES_OK                - Returned on success
+      - TCPIP_MAC_RES_NO_DRIVER         - Given idx parameter is out of range
+      - TCPIP_MAC_RES_PENDING           - MAC-PHY Driver is currently busy, try again later
+      - TCPIP_MAC_RES_EVENT_INIT_FAIL   - MAC-PHY initialization is still in progress or failed
+
+*/
+TCPIP_MAC_RES DRV_LAN865X_ReadModifyWriteRegister(uint8_t idx, uint32_t addr, uint32_t value, uint32_t mask, bool protected, DRV_LAN865X_RegCallback_t modifyCallback, void *pTag)
+{
+    TCPIP_MAC_RES result = TCPIP_MAC_RES_NO_DRIVER;
+    if (idx < DRV_LAN865X_INSTANCES_NUMBER) {
+        DRV_LAN865X_DriverInfo *pDrv = &drvLAN865XDrvInst[idx];
+        if (SYS_STATUS_READY == pDrv->state) {
+            bool success = TC6_ReadModifyWriteRegister(pDrv->drvTc6, addr, value, mask, protected, (TC6_RegCallback_t)modifyCallback, pTag);
+            result = (success ? TCPIP_MAC_RES_OK : TCPIP_MAC_RES_PENDING);
+        } else {
+            result = TCPIP_MAC_RES_EVENT_INIT_FAIL;
+        }
+    }
+    return result;
+}
+
+
 /******************************************************************************
 *  Callbacks from TC6 Software Stack
 ******************************************************************************/
@@ -1290,7 +1420,7 @@ void TC6_CB_OnExtendedStatus(TC6_t *pInst, void *pGlobalTag)
     (void)pGlobalTag;
     DRV_LAN865X_DriverInfo *pDrvInst = _Dereference(pGlobalTag);
     pDrvInst->unlockExtTime = SYS_TIME_CounterGet();
-    if(!TC6_ReadRegister(pInst, 0x00000008u, CONTROL_PROTECTION, _OnStatus0, NULL)) {
+    if(!TC6_ReadRegister(pInst, 0x00000008u /* STATUS0 */, CONTROL_PROTECTION, _OnStatus0, NULL)) {
         (void)TC6_Service(pInst, true);
     }
 }
@@ -1428,12 +1558,12 @@ static bool _InitReset(DRV_LAN865X_DriverInfo * pDrvInst)
                 }
                 break;
             case 2:
-                if (TC6_WriteRegister(pDrvInst->drvTc6, 0x00000003u, 0x1u, false, _OnSoftResetCB, NULL)) {
+                if (TC6_WriteRegister(pDrvInst->drvTc6, 0x00000003u /* RESET */, 0x1u, false, _OnSoftResetCB, NULL)) {
                     pDrvInst->initSubState++;
                 }
                 break;
             case 3:
-                if (TC6_WriteRegister(pDrvInst->drvTc6, 0x00000003u, 0x1u, true, _OnSoftResetCB, NULL)) {
+                if (TC6_WriteRegister(pDrvInst->drvTc6, 0x00000003u /* RESET */, 0x1u, true, _OnSoftResetCB, NULL)) {
                     pDrvInst->initTimer = SYS_TIME_CounterGet();
                     pDrvInst->initSubState++;
                 }
@@ -1544,26 +1674,24 @@ static int8_t _GetSignedVal(uint32_t val)
     return result;
 }
 
-static void _WriteRegisterBits(DRV_LAN865X_DriverInfo * pDrvInst, uint32_t addr, uint8_t start, uint8_t end, uint32_t value)
+static uint32_t _CalculateValueAndMask(uint8_t start, uint8_t end, uint32_t newValue, uint32_t *mask)
 {
-    TC6_t *tc = pDrvInst->drvTc6;
-    uint32_t mask = 0;
-    uint8_t i;
-    bool success;
-    for (i = start; i <= end; i++) {
-        mask |= (1u << i);
+    if (NULL != mask) {
+        uint8_t i;
+        for (i = start; i <= end; i++) {
+            *mask |= (1u << i);
+        }
     }
-    pDrvInst->initSubState++; /* Avoid race condition error */
-    success = TC6_ReadModifyWriteRegister(tc, addr, (value << start), mask, CONTROL_PROTECTION, _OnEFuseOp, NULL);
-    if (!success) {
-        pDrvInst->initSubState--;
-    }
+    return (newValue << start);
 }
 
 static bool _InitTrim(DRV_LAN865X_DriverInfo * pDrvInst)
 {
+    TC6_t *tc = pDrvInst->drvTc6;
     uint32_t val;
+    uint32_t mask;
     bool done = false;
+    bool success;
     switch(pDrvInst->initSubState) {
         case 0:
         case 1:
@@ -1617,78 +1745,75 @@ static bool _InitTrim(DRV_LAN865X_DriverInfo * pDrvInst)
             break;
 
         case 30:
-            val = (0x9 + pDrvInst->initEfuseA4);
-            _WriteRegisterBits(pDrvInst, 0x00040084, 10, 15, val);
+            mask = 0u;
+            val = _CalculateValueAndMask(10, 15, (0x9 + pDrvInst->initEfuseA4), &mask);
+            val |= _CalculateValueAndMask(4, 9, (0xE + pDrvInst->initEfuseA4), &mask);
+            pDrvInst->initSubState++; /* Avoid race condition error */
+            success = TC6_ReadModifyWriteRegister(tc, 0x00040084, val, mask, CONTROL_PROTECTION, _OnEFuseOp, NULL);
+            if (!success) {
+                pDrvInst->initSubState--;
+            }
             break;
         case 31:
             /* Wait for _OnEFuseOp callback */
             break;
 
         case 32:
-            val = (0xE + pDrvInst->initEfuseA4);
-            _WriteRegisterBits(pDrvInst, 0x00040084, 4,  9, val);
+            mask = 0u;
+            val = _CalculateValueAndMask(10, 15, (0x28 + pDrvInst->initEfuseA8), &mask);
+            pDrvInst->initSubState++; /* Avoid race condition error */
+            success = TC6_ReadModifyWriteRegister(tc, 0x0004008A, val, mask, CONTROL_PROTECTION, _OnEFuseOp, NULL);
+            if (!success) {
+                pDrvInst->initSubState--;
+            }
             break;
         case 33:
             /* Wait for _OnEFuseOp callback */
             break;
 
         case 34:
-            val = (0x28 + pDrvInst->initEfuseA8);
-            _WriteRegisterBits(pDrvInst, 0x0004008A, 10, 15, val);
+            mask = 0u;
+            val = _CalculateValueAndMask(8, 13, (0x5 + pDrvInst->initEfuseA4), &mask);
+            val |= _CalculateValueAndMask(0, 5, (0x9 + pDrvInst->initEfuseA4), &mask);
+            pDrvInst->initSubState++; /* Avoid race condition error */
+            success = TC6_ReadModifyWriteRegister(tc, 0x000400AD, val, mask, CONTROL_PROTECTION, _OnEFuseOp, NULL);
+            if (!success) {
+                pDrvInst->initSubState--;
+            }
             break;
         case 35:
             /* Wait for _OnEFuseOp callback */
             break;
 
         case 36:
-            val = (0x5 + pDrvInst->initEfuseA4);
-            _WriteRegisterBits(pDrvInst, 0x000400AD, 8, 13, val);
+            mask = 0u;
+            val = _CalculateValueAndMask(8, 13, (0x9 + pDrvInst->initEfuseA4), &mask);
+            val |= _CalculateValueAndMask(0, 5, (0xE + pDrvInst->initEfuseA4), &mask);
+            pDrvInst->initSubState++; /* Avoid race condition error */
+            success = TC6_ReadModifyWriteRegister(tc, 0x000400AE, val, mask, CONTROL_PROTECTION, _OnEFuseOp, NULL);
+            if (!success) {
+                pDrvInst->initSubState--;
+            }
             break;
         case 37:
             /* Wait for _OnEFuseOp callback */
             break;
 
         case 38:
-            val = (0x9 + pDrvInst->initEfuseA4);
-            _WriteRegisterBits(pDrvInst, 0x000400AD, 0,  5, val);
+            mask = 0u;
+            val = _CalculateValueAndMask(8, 13, (0x11 + pDrvInst->initEfuseA4), &mask);
+            val |= _CalculateValueAndMask(0, 5, (0x16 + pDrvInst->initEfuseA4), &mask);
+            pDrvInst->initSubState++; /* Avoid race condition error */
+            success = TC6_ReadModifyWriteRegister(tc, 0x000400AF, val, mask, CONTROL_PROTECTION, _OnEFuseOp, NULL);
+            if (!success) {
+                pDrvInst->initSubState--;
+            }
             break;
         case 39:
             /* Wait for _OnEFuseOp callback */
             break;
 
         case 40:
-            val = (0x9 + pDrvInst->initEfuseA4);
-            _WriteRegisterBits(pDrvInst, 0x000400AE, 8, 13, val);
-            break;
-        case 41:
-            /* Wait for _OnEFuseOp callback */
-            break;
-
-        case 42:
-            val = (0xE + pDrvInst->initEfuseA4);
-            _WriteRegisterBits(pDrvInst, 0x000400AE,  0,  5, val);
-            break;
-        case 43:
-            /* Wait for _OnEFuseOp callback */
-            break;
-
-        case 44:
-            val = (0x11 + pDrvInst->initEfuseA4);
-            _WriteRegisterBits(pDrvInst, 0x000400AF, 8, 13, val);
-            break;
-        case 45:
-            /* Wait for _OnEFuseOp callback */
-            break;
-
-        case 46:
-            val = (0x16 + pDrvInst->initEfuseA4);
-            _WriteRegisterBits(pDrvInst, 0x000400AF, 0,  5, val);
-            break;
-        case 47:
-            /* Wait for _OnEFuseOp callback */
-            break;
-
-        case 48:
             done = true;
             break;
         default:
@@ -1709,7 +1834,7 @@ static bool _InitUserSettings(DRV_LAN865X_DriverInfo * pDrvInst)
             if (true == pDrvInst->drvCfg.plcaEnable) {
                 /* PLCA Phy Node Id and Max Node Count */
                 regVal = (pDrvInst->drvCfg.nodeCount << 8) | pDrvInst->drvCfg.nodeId;
-                if (TC6_WriteRegister(tc, 0x0004CA02u, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
+                if (TC6_WriteRegister(tc, 0x0004CA02u /* PLCA_CONTROL_1_REGISTER */, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
                     pDrvInst->initSubState++;
                 }
             } else {
@@ -1720,42 +1845,55 @@ static bool _InitUserSettings(DRV_LAN865X_DriverInfo * pDrvInst)
         case 1:
             /* PLCA Burst Count and Burst Timer */
             regVal = (pDrvInst->drvCfg.burstCount << 8) | pDrvInst->drvCfg.burstTimer;
-            if (TC6_WriteRegister(tc, 0x0004CA05u, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
+            if (TC6_WriteRegister(tc, 0x0004CA05u /* PLCA_BURST_MODE_REGISTER */, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
                 pDrvInst->initSubState++;
             }
             break;
         case 2:
             /* Enable PLCA */
             regVal = (1u << 15);
-            if (TC6_WriteRegister(tc, 0x0004CA01u, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
+            if (TC6_WriteRegister(tc, 0x0004CA01u /* PLCA_CONTROL_0_REGISTER */, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
                 pDrvInst->initSubState++;
             }
             break;
         case 3:
             /* MAC address setting (LOW) */
             regVal = (mac[3] << 24) | (mac[2] << 16) | (mac[1] << 8) | mac[0];
-            if (TC6_WriteRegister(tc, 0x00010022u, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
+            if (TC6_WriteRegister(tc, 0x00010024u /* SPEC_ADD2_BOTTOM */, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
                 pDrvInst->initSubState++;
             }
             break;
         case 4:
             /* MAC address setting (HIGH) */
             regVal = (mac[5] << 8) | mac[4];
-            if (TC6_WriteRegister(tc, 0x00010023u, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
+            if (TC6_WriteRegister(tc, 0x00010025u /* SPEC_ADD2_TOP */, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
                 pDrvInst->initSubState++;
             }
             break;
         case 5:
-            /* Promiscuous mode */
-            regVal = (pDrvInst->drvCfg.promiscuous ? 0x10u : 0x0u);
-            if (TC6_WriteRegister(tc, 0x00010001u, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
+            /* MAC address setting, setting unique lower MAC address, back off time is generated out of that */
+            regVal = (mac[5] << 24) | (mac[4] << 16) | (mac[3] << 8) | mac[2];
+            if (TC6_WriteRegister(tc, 0x00010022u /* SPEC_ADD1_BOTTOM */, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
                 pDrvInst->initSubState++;
             }
             break;
         case 6:
+            /* Promiscuous mode */
+            regVal = (pDrvInst->drvCfg.promiscuous ? 0x10u : 0x0u);
+            if (TC6_WriteRegister(tc, 0x00010001u /* NETWORK_CONFIG */, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
+                pDrvInst->initSubState++;
+            }
+            break;
+        case 7:
             /* Cut Through / Store and Forward mode */
-            regVal = (pDrvInst->drvCfg.txCutThrough ? 0x9226u : 0x9026u);
-            if (TC6_WriteRegister(tc, 0x00000004u, regVal, CONTROL_PROTECTION, _OnRegisterDoneCB, NULL)) {
+            regVal = 0x9026u;
+            if (true == pDrvInst->drvCfg.txCutThrough) {
+                regVal |= 0x200u;
+            }
+            if (true == pDrvInst->drvCfg.rxCutThrough) {
+                regVal |= 0x100u;
+            }
+            if (TC6_WriteRegister(tc, 0x00000004u /* CONFIG0 */, regVal, CONTROL_PROTECTION, _OnRegisterDoneCB, NULL)) {
                 done = true;
             }
             break;
@@ -1895,7 +2033,7 @@ static void _OnClearStatus1(TC6_t *pInst, bool success, uint32_t addr, uint32_t 
     (void)pGlobalTag;
     if (pDrvInst->extBlock) {
         pDrvInst->extBlock = false;
-        while (!TC6_ReadRegister(pInst, 0x000A0087u, CONTROL_PROTECTION, _OnExtendedBlock, NULL)) {
+        while (!TC6_ReadRegister(pInst, 0x000A0087u /* EXT_BLK_STATUS */, CONTROL_PROTECTION, _OnExtendedBlock, NULL)) {
             (void)TC6_Service(pInst, true);
         }
     }
@@ -1990,7 +2128,7 @@ static void _OnClearStatus0(TC6_t *pInst, bool success, uint32_t addr, uint32_t 
     (void)value;
     (void)tag;
     (void)pGlobalTag;
-    while (!TC6_ReadRegister(pInst, 0x00000009u, CONTROL_PROTECTION, _OnStatus1, NULL)) {
+    while (!TC6_ReadRegister(pInst, 0x00000009u /* STATUS1 */, CONTROL_PROTECTION, _OnStatus1, NULL)) {
         (void)TC6_Service(pInst, true);
     }
 }
@@ -2097,15 +2235,12 @@ static void _TxDone(TC6_t *pInst, const uint8_t *pTx, uint16_t len, void *pTag, 
     }
 }
 
-static bool _RxPacketAck(TCPIP_MAC_PACKET* pkt, const void* param)
+static void _RxPacketAck(TCPIP_MAC_PACKET* pkt, const void* param)
 {
     DRV_LAN865X_DriverInfo *pDrvInst = _Dereference(param);
-    bool enqueued = false;
     if (NULL != pDrvInst) {
         pDrvInst->rxStats.nRxPendBuffers--;
         pDrvInst->rxStats.nRxOkPackets++;
         TCPIP_Helper_ProtectedSingleListTailAdd(&pDrvInst->rxFreePackets, (SGL_LIST_NODE*) pkt);
-        enqueued = true;
     }
-    return enqueued;
 }

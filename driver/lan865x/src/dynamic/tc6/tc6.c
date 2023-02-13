@@ -148,7 +148,6 @@ struct TC6_t
     uint8_t rca;
     bool alreadyInControlService;
     bool alreadyInDataService;
-    bool initDone;
     bool enableData;
     bool intContext;
     bool synced;
@@ -222,7 +221,6 @@ void TC6_Reset(TC6_t *g)
     /* Set protocol defaults */
     g->txc = 24u;
     g->enableData = false;
-    g->initDone = false;
     g->synced = false;
 }
 
@@ -287,7 +285,7 @@ bool TC6_SendRawEthernetPacket(TC6_t *g, const uint8_t *pTx, uint16_t len, uint8
         TC6_ASSERT(false);
         success = false;
     }
-    if (success && g->enableData && g->initDone) {
+    if (success && g->enableData) {
         struct qtxeth_queue *q = &g->eth_q;
 
         success = false;
@@ -317,7 +315,7 @@ uint8_t TC6_GetRawSegments(TC6_t *g, TC6_RawTxSegment **pSegments)
 {
     bool success = false;
     TC6_ASSERT(g && (TC6_MAGIC == g->magic) && pSegments);
-    if (g->enableData && g->initDone) {
+    if (g->enableData && g->enableData) {
         struct qtxeth_queue *q = &g->eth_q;
         struct qtxeth *entry;
         if (qtxeth_stage1_enqueue_ready(q)) {
@@ -338,7 +336,8 @@ bool TC6_SendRawEthernetSegments(TC6_t *g, const TC6_RawTxSegment *pSegments, ui
     bool success = false;
     TC6_ASSERT(g && (TC6_MAGIC == g->magic));
     TC6_ASSERT(segmentCount && pSegments && (segmentCount <= TC6_TX_ETH_MAX_SEGMENTS) && qtxeth_stage1_enqueue_ready(q));
-    if (g->enableData && g->initDone) {
+    (void)pSegments;
+    if (g->enableData && g->enableData) {
         struct qtxeth *entry = qtxeth_stage1_enqueue_ptr(q);
 
         TC6_ASSERT(entry->ethSegs == pSegments);
@@ -528,15 +527,16 @@ static void addEmptyChunks(TC6_t *g, struct qspibuf *entry, bool enqueueEmpty)
     TC6_ASSERT(entry->length <= sizeof(entry->rxBuff));
 }
 
-static bool serviceData(TC6_t *g, bool enqueueEmpty)
+static bool serviceData(TC6_t *g, bool sendEmpty)
 {
     bool dataSent = false;
+    bool enqueueEmpty = sendEmpty;
     TC6_ASSERT(g && (TC6_MAGIC == g->magic));
     if (!g->alreadyInDataService) {
         /* Protect against reentrant call */
         g->alreadyInDataService = true;
 
-        if (g->enableData && g->initDone && (SPI_OP_INVALID == g->currentOp) && (qspibuf_stage1_transfer_ready(&g->qSpi))) {
+        if (g->enableData && (SPI_OP_INVALID == g->currentOp) && (qspibuf_stage1_transfer_ready(&g->qSpi))) {
             uint16_t maxTxLen;
             /**********************************/
             /* Try to enqueue Ethernet chunks */
@@ -622,10 +622,6 @@ static bool serviceControl(TC6_t *g)
             } else if (!success) {
                 TC6_CB_OnError(g, TC6Error_NoHardware, g->gTag);
             } else {} /* MISRA enforced termination */
-            if (!g->initDone && !regop_stage2_send_ready(&g->regop_q)) {
-                /* No further registers to be sent, init is finished */
-                g->initDone = true;
-            }
         }
 
         /***************/
@@ -758,9 +754,6 @@ static bool accessRegisters(TC6_t *g, enum register_op_type op, uint32_t addr, u
     }
     if (success) {
         TC6_ASSERT(payloadSize <= sizeof(reg_op->tx_buf));
-        if (!g->enableData) {
-            g->initDone = false;
-        }
         reg_op->regAddr = addr;
         reg_op->length = payloadSize;
         reg_op->op = op;

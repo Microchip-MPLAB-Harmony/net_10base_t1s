@@ -134,7 +134,7 @@ extern "C" {
 #define DRV_LAN865X_RESET_PIN_IDX0           SYS_PORT_PIN_PC18
 #define DRV_LAN865X_PROMISCUOUS_IDX0         false
 #define DRV_LAN865X_TX_CUT_THROUGH_IDX0      true
-#define DRV_LAN865X_RX_CUT_THROUGH_IDX0      false
+#define DRV_LAN865X_RX_CUT_THROUGH_IDX0      true
 #define DRV_LAN865X_CHUNK_SIZE_IDX0          64
 #define DRV_LAN865X_CHUNK_XACT_IDX0          31
 #define DRV_LAN865X_PLCA_ENABLE_IDX0         true

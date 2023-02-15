@@ -1,4 +1,4 @@
-<config configName="FreeRTOS" projectName="tcpip_iperf_10base_t1s_freertos" configVersion="1.1" device="ATSAME54P20A" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.11">
+<config configName="FreeRTOS" projectName="tcpip_iperf_10base_t1s_freertos" configVersion="1.1" device="ATSAME54P20A" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.14">
    <usedPackages class="java.util.ArrayList">
       <package packageName="CMSIS-FreeRTOS" version="10.3.1" contentType="HARMONY">
          <modules class="java.util.ArrayList"/>
@@ -903,7 +903,40 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;BASIC CONFIGURATION&quot;&gt;
+      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipCmd&quot; x=&quot;342&quot; y=&quot;92&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;tcpipNetConfig&quot; x=&quot;20&quot; y=&quot;87&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;tcpipStack&quot; x=&quot;180&quot; y=&quot;91&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;tcpip_basic_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+      &lt;/ElementPositions&gt;
+    &lt;/ComponentGraph&gt;
+    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;TRANSPORT LAYER&quot;&gt;
+      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipTcp&quot; x=&quot;136&quot; y=&quot;75&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;tcpipUdp&quot; x=&quot;25&quot; y=&quot;73&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;tcpip_transport_config&quot; x=&quot;21&quot; y=&quot;19&quot;/&gt;
+      &lt;/ElementPositions&gt;
+    &lt;/ComponentGraph&gt;
+    &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;NETWORK LAYER&quot;&gt;
+      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipArp&quot; x=&quot;19&quot; y=&quot;73&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;tcpipIPv4&quot; x=&quot;131&quot; y=&quot;74&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;tcpipIcmp&quot; x=&quot;244&quot; y=&quot;74&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;tcpip_network_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+      &lt;/ElementPositions&gt;
+    &lt;/ComponentGraph&gt;
+    &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;TCP/IP STACK&quot;&gt;
+      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;APPLICATION LAYER&quot; x=&quot;23&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;BASIC CONFIGURATION&quot; x=&quot;178&quot; y=&quot;199&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;DRIVER LAYER&quot; x=&quot;28&quot; y=&quot;199&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;NETWORK LAYER&quot; x=&quot;23&quot; y=&quot;142&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;TRANSPORT LAYER&quot; x=&quot;23&quot; y=&quot;82&quot;/&gt;
+      &lt;/ElementPositions&gt;
+    &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;593&quot; canvasWidth=&quot;1001&quot; dnOrder=&quot;4&quot;/&gt;
+    &lt;ComponentGraph dnOrder=&quot;5&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_E54_Curiosity_Ultra&quot; x=&quot;194&quot; y=&quot;166&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;FreeRTOS&quot; x=&quot;11&quot; y=&quot;656&quot;/&gt;
@@ -929,50 +962,17 @@
         &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;tcc0&quot; x=&quot;283&quot; y=&quot;355&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;GraphSettings canvasHeight=&quot;593&quot; canvasWidth=&quot;1001&quot; dnOrder=&quot;1&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;APPLICATION LAYER&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;6&quot; id=&quot;DRIVER LAYER&quot;&gt;
+      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpip_driver_config&quot; x=&quot;21&quot; y=&quot;16&quot;/&gt;
+      &lt;/ElementPositions&gt;
+    &lt;/ComponentGraph&gt;
+    &lt;ComponentGraph dnOrder=&quot;7&quot; id=&quot;APPLICATION LAYER&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipDhcp&quot; x=&quot;158&quot; y=&quot;69&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;tcpipDns&quot; x=&quot;291&quot; y=&quot;73&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;tcpipIperf&quot; x=&quot;26&quot; y=&quot;69&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;tcpip_apps_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-      &lt;/ElementPositions&gt;
-    &lt;/ComponentGraph&gt;
-    &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;TRANSPORT LAYER&quot;&gt;
-      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipTcp&quot; x=&quot;136&quot; y=&quot;75&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;tcpipUdp&quot; x=&quot;25&quot; y=&quot;73&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;tcpip_transport_config&quot; x=&quot;21&quot; y=&quot;19&quot;/&gt;
-      &lt;/ElementPositions&gt;
-    &lt;/ComponentGraph&gt;
-    &lt;ComponentGraph dnOrder=&quot;4&quot; id=&quot;BASIC CONFIGURATION&quot;&gt;
-      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipCmd&quot; x=&quot;342&quot; y=&quot;92&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;tcpipNetConfig&quot; x=&quot;20&quot; y=&quot;87&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;tcpipStack&quot; x=&quot;180&quot; y=&quot;91&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;tcpip_basic_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-      &lt;/ElementPositions&gt;
-    &lt;/ComponentGraph&gt;
-    &lt;ComponentGraph dnOrder=&quot;5&quot; id=&quot;DRIVER LAYER&quot;&gt;
-      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpip_driver_config&quot; x=&quot;21&quot; y=&quot;16&quot;/&gt;
-      &lt;/ElementPositions&gt;
-    &lt;/ComponentGraph&gt;
-    &lt;ComponentGraph dnOrder=&quot;6&quot; id=&quot;TCP/IP STACK&quot;&gt;
-      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;APPLICATION LAYER&quot; x=&quot;23&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;BASIC CONFIGURATION&quot; x=&quot;178&quot; y=&quot;199&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;DRIVER LAYER&quot; x=&quot;28&quot; y=&quot;199&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;NETWORK LAYER&quot; x=&quot;23&quot; y=&quot;142&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;TRANSPORT LAYER&quot; x=&quot;23&quot; y=&quot;82&quot;/&gt;
-      &lt;/ElementPositions&gt;
-    &lt;/ComponentGraph&gt;
-    &lt;ComponentGraph dnOrder=&quot;7&quot; id=&quot;NETWORK LAYER&quot;&gt;
-      &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;tcpipArp&quot; x=&quot;19&quot; y=&quot;73&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;tcpipIPv4&quot; x=&quot;131&quot; y=&quot;74&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;tcpipIcmp&quot; x=&quot;244&quot; y=&quot;74&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;tcpip_network_config&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
   &lt;/UserData&gt;
@@ -8208,6 +8208,17 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_command" name="SYS_COMMAND_RTOS_STACK_SIZE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_command&gt;
+  &lt;sys_command dnOrder=&quot;0&quot; id=&quot;SYS_COMMAND_RTOS_STACK_SIZE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;3072&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/sys_command&gt;
+&lt;/sys_command&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_command" name="SYS_COMMAND_RTOS_TASK_PRIORITY"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_command&gt;
   &lt;sys_command dnOrder=&quot;0&quot; id=&quot;SYS_COMMAND_RTOS_TASK_PRIORITY&quot;&gt;
@@ -9896,7 +9907,7 @@
       </entry>
       <entry>
          <file>..\src\config\FreeRTOS\driver\lan865x\src\dynamic\drv_lan865x_regs.h</file>
-         <hash>e3961f396ee8d8e10ab57391f7456f58ed06559cd09f08423589c502e95c4423</hash>
+         <hash>756ad353ba225beed2a9c9eaf46ca1ddcdd63d2beb63895e3649945b5b1df45a</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_CondCopy_pb.h</file>
@@ -9912,7 +9923,7 @@
       </entry>
       <entry>
          <file>..\src\config\FreeRTOS\driver\lan865x\src\dynamic\drv_lan865x_regs.c</file>
-         <hash>204a33bdce3986c00398df46efe9777f2ff1d4acf226c6ab21c718b3b196abe4</hash>
+         <hash>4a97490354e61a616ecc1e5228f406cee084ff147e29f21e02eaa3e2165b0fff</hash>
       </entry>
       <entry>
          <file>..\src\config\FreeRTOS\library\tcpip\http.h</file>
@@ -11516,7 +11527,7 @@
       </entry>
       <entry>
          <file>..\src\config\FreeRTOS\configuration.h</file>
-         <hash>08a4486a7bddaa47a1576effe32387543866b9372ceec6eac9676414cceaf4d3</hash>
+         <hash>4cd576f80991e76f883bcb7514395b742a0fdfcdf05ad124b418731f3f6819a6</hash>
       </entry>
       <entry>
          <file>..\src\third_party\rtos\FreeRTOS\Source\include\timers.h</file>
@@ -12268,7 +12279,7 @@
       </entry>
       <entry>
          <file>..\src\config\FreeRTOS\driver\lan865x\src\dynamic\drv_lan865x_api.c</file>
-         <hash>f7a2f5357e00114aae7edfc6bfa6165755bab3db004609436e9dd8c378b5e5f0</hash>
+         <hash>4672e80184903363e614329a08c9ad0be0b0c6d7f1417d86ba23e010b82bcbdd</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\ecc.c</file>
@@ -12328,7 +12339,7 @@
       </entry>
       <entry>
          <file>..\src\config\FreeRTOS\driver\lan865x\src\dynamic\tc6\tc6.h</file>
-         <hash>e7724b8986f3ce6fa9cfe5f60a5fe5a5dc9f9fd0e2a4641a8ac25d9ff0ee47f0</hash>
+         <hash>bc45321f6969dbd1408eba0c772f3b3a57826d8435224801f2bb58bbc7ede63d</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\port\pic32\CryptoLib_CRT_pb.h</file>
@@ -12344,7 +12355,7 @@
       </entry>
       <entry>
          <file>..\src\config\FreeRTOS\driver\lan865x\src\dynamic\tc6\tc6.c</file>
-         <hash>bf646a51d1ffb891e97547a8593550f6ddc2a50fb6586423dcacfa84b93a9629</hash>
+         <hash>06784f0c793381cfcf13598e6acd61a5b9413130b03929a803c37bb159fdc7ac</hash>
       </entry>
    </generatedFileHashHistoryMap>
 </config>

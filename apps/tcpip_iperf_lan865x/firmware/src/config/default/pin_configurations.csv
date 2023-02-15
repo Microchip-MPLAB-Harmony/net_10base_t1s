@@ -54,7 +54,7 @@
 69,PA19,,GMAC_GTX1,Digital,High Impedance,n/a,No,No,NORMAL
 70,PC16,,Available,,,,,,NORMAL
 71,PC17,,Available,,,,,,NORMAL
-72,PC18,CLICK_RESET,GPIO,Digital,Out,High,,,NORMAL
+72,PC18,CLICK_RESET,GPIO,Digital,Out,Low,,,NORMAL
 73,PC19,,Available,,,,,,NORMAL
 74,PC20,,GMAC_GRXDV,Digital,High Impedance,n/a,No,No,NORMAL
 75,PC21,USER_LED_1,TCC0_WO5,Digital,Out,High,,,NORMAL

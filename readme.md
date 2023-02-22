@@ -22,7 +22,7 @@ Refer to the following links for release notes, training materials,
 and interface reference information.
 
 - [Release Notes](release_notes.md)
-- [MPLAB® Harmony License](mplab_harmony_license.md)
+- [MPLAB® Harmony License](Microchip_SLA001.md)
 - [10BASE-T1S Support](https://www.microchip.com/support)
 
 # Contents Summary
@@ -57,7 +57,6 @@ Note: Please refer to AN4131 provided on the Microchip LAN867x product websites:
 Note: Please refer to ANXXXX provided on the Microchip LAN865x product websites:
 - [LAN8650](https://www.microchip.com/en-us/product/lan8650)
 - [LAN8651](https://www.microchip.com/en-us/product/lan8651)
-- [LAN8652](https://www.microchip.com/en-us/product/lan8652)
 
 ____
 

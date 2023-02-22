@@ -30,8 +30,8 @@
 ### Dependencies
 
 * [MPLAB® X IDE v6.05](https://www.microchip.com/mplab/mplab-x-ide) or later
-* [MPLAB® XC32 C/C++ Compiler v4.21](https://www.microchip.com/mplab/compilers) or later
-* [MPLAB® XC32 Functional Safety Compiler v4.09](https://www.microchip.com/mplab/compilers) or later
+* [MPLAB® XC32 C/C++ Compiler v4.21](https://www.microchip.com/mplab/compilers) or later 
+**(OR)** [MPLAB® XC32 Functional Safety Compiler v4.09](https://www.microchip.com/mplab/compilers) or later
 * [net v3.9.1](https://github.com/Microchip-MPLAB-Harmony/net/tree/v3.9.1) or later
 
 ## 10BASE-T1S Release v1.1.1

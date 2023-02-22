@@ -707,7 +707,7 @@ static bool modify(TC6_t *g, uint32_t value)
 
 static bool accessRegisters(TC6_t *g, enum register_op_type op, uint32_t addr, uint32_t value, bool secure, uint32_t modifyMask, TC6_RegCallback_t callback, void *tag)
 {
-    struct register_operation *reg_op;
+    struct register_operation *reg_op = NULL;
     uint16_t payloadSize = 0;
     bool write = true;
     bool success = false;

@@ -7,12 +7,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2023" />
 <meta name="DC.rights.owner" content="(C) Copyright 2023" />
 <meta name="DC.type" content="topic" />
-<meta name="DC.title" content="TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY" />
+<meta name="DC.title" content="TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY" />
 <meta name="DC.format" content="XHTML" />
-<meta name="DC.identifier" content="tcpip-client-using-the-lan867x-10base-t1s-ethernet-phy" />
+<meta name="DC.identifier" content="tcpip-client-using-the-lan865x-10base-t1s-ethernet-mac-phy" />
 <link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
-<title>TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY</title>
-<meta name="Microsoft.Help.Id" content="GUID-62DF519A-5876-4E28-8BC9-4B47D851D2E0-tcpip-client-using-the-lan867x-10base-t1s-ethernet-phy" />
+<title>TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY</title>
+<meta name="Microsoft.Help.Id" content="GUID-62DF519A-5876-4E28-8BC9-4B47D851D2E0-tcpip-client-using-the-lan865x-10base-t1s-ethernet-mac-phy" />
 <meta name="Microsoft.Help.TocParent" content="GUID-62DF519A-5876-4E28-8BC9-4B47D851D2E0" />
 <meta name="Microsoft.Help.TocOrder" content="0" />
 <meta name="Microsoft.Help.Locale" content="en-US" />
@@ -158,7 +158,7 @@
           
           if (!inIframe()) { 
           
-          var Default = "index.html?GUID-6AE7E8FC-97DB-4200-AE4C-0248CB717D96"; 
+          var Default = "index.html?GUID-AEFDC5B8-3C44-4B4A-90EB-75131E1E5BF6"; 
           
           var displaylocation = "value" + window.location.href;
           
@@ -223,80 +223,60 @@
         
         
       </style><link rel="stylesheet" type="text/css" href="syntax-highlight.css" /></head>
-<body id="tcpip-client-using-the-lan867x-10base-t1s-ethernet-phy">
-<h1 class="title topictitle1" id="ariaid-title1" style="">TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY</h1><div class="body"><p class="p">This example shows how to configure the LAN867x to be used in a 10BASE-T1S Multi-Drop
+<body id="tcpip-client-using-the-lan865x-10base-t1s-ethernet-mac-phy">
+<h1 class="title topictitle1" id="ariaid-title1" style="">TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY</h1><div class="body"><p class="p">This example shows how to configure the LAN865x to be used in a 10BASE-T1S Multi-Drop
 Ethernet network in either PLCA and CSMA/CD mode. It also shows how to r/w registers
-of the LAN867x during normal operation.
-Additionally, common Ethernet network functionalites are supported, e.g. ping and iperf.</p>
+of the LAN865x during normal operation.
+Additionally, common Ethernet network functionalities are supported, e.g. ping and iperf.</p>
 </div>
 <div class="topic nested1" aria-labelledby="ariaid-title2" id="building-the-application"><h2 class="title topictitle2" id="ariaid-title2" style="">Building The Application</h2><div class="body"><p class="p">The parent folder for all the MPLAB X IDE projects for this application is given below:</p>
-<p class="p"><strong class="ph b">Application Path</strong> : net_10base_t1s\apps\tcpip_iperf_10base_t1s\firmware</p>
+<p class="p"><strong class="ph b">Application Path</strong> : net_10base_t1s\apps\tcpip_iperf_lan865x\firmware</p>
 <p class="p">To build the application, refer to the table below and open the appropriate project file
 in MPLABX IDE.</p>
 
-<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all"><col style="width:" /><col style="width:" /><thead class="thead" style="text-align:left;"><tr class="row"><th class="entry cellrowborder" style="vertical-align:middle;" id="d1649e30"><span>Project Name</span></th>
-<th class="entry cellrowborder" style="vertical-align:middle;" id="d1649e32"><span>Description</span></th>
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all"><col style="width:" /><col style="width:" /><thead class="thead" style="text-align:left;"><tr class="row"><th class="entry cellrowborder" style="vertical-align:middle;" id="d1149e30"><span>Project Name</span></th>
+<th class="entry cellrowborder" style="vertical-align:middle;" id="d1149e32"><span>Description</span></th>
 </tr>
 </thead>
-<tbody class="tbody"><tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d1649e30 "><span>tcpip_iperf_10base_t1s.X</span></td>
-<td class="entry cellrowborder" style="vertical-align:middle;" headers="d1649e32 "><span>TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY</span></td>
+<tbody class="tbody"><tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d1149e30 "><span>tcpip_iperf_10base_t1s.X</span></td>
+<td class="entry cellrowborder" style="vertical-align:middle;" headers="d1149e32 "><span>TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY</span></td>
 </tr>
-<tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d1649e30 "><span>tcpip_iperf_10base_t1s_freertos.X</span></td>
-<td class="entry cellrowborder" style="vertical-align:middle;" headers="d1649e32 "><span>TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY in FreeRTOS environment</span></td>
+<tr class="row"><td class="entry cellrowborder" style="vertical-align:middle;" headers="d1149e30 "><span>tcpip_iperf_10base_t1s_freertos.X</span></td>
+<td class="entry cellrowborder" style="vertical-align:middle;" headers="d1149e32 "><span>TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY in FreeRTOS environment</span></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
-<div class="topic nested1" aria-labelledby="ariaid-title3" id="hardware-setup"><h2 class="title topictitle2" id="ariaid-title3" style="">Hardware setup</h2><div class="body"><br /><img class="image" src="GUID-DA99437D-3064-488E-9750-B021C0C14707-low.jpg" alt="Setup" /><br /><ul class="ul"><li class="li"><p class="p">Hardware used</p>
+<div class="topic nested1" aria-labelledby="ariaid-title3" id="hardware-setup"><h2 class="title topictitle2" id="ariaid-title3" style="">Hardware setup</h2><div class="body"><br /><img class="image" src="GUID-686BAE48-2B44-4EB4-921F-5BAA4B7B040B-low.png" alt="Setup" /><br /><ul class="ul"><li class="li"><p class="p">Hardware used</p>
 <ul class="ul"><li class="li"><p class="p"><a class="xref" href="https://www.microchip.com/Developmenttools/ProductDetails/DM320210" target="_blank">Sam E54 Curiosity Ultra</a></p>
 </li>
-<li class="li"><p class="p"><a class="xref" href="https://www.microchip.com/en-us/development-tool/EV06P90A" target="_blank">RMII to 10BASE-T1S interface card</a></p>
+<li class="li"><p class="p"><a class="xref" href="https://www.microchip.com/en-us/development-tool/TODO_REPLACE_LINK" target="_blank">SPI to 10BASE-T1S interface card</a></p>
 </li>
 </ul>
 </li>
 <li class="li"><p class="p">Hardware setup</p>
 <ul class="ul"><li class="li"><p class="p">Connect the DEBUG USB port on the board to the computer using a micro USB cable</p>
 </li>
-<li class="li"><p class="p">Connect the RMII to 10BASE-T1S interface card to another 10BASE-T1S node (e.g. a second
-instance of this setup)</p>
+<li class="li"><p class="p">Connect the SPI to 10BASE-T1S interface card to another 10BASE-T1S node (e.g. a second instance of this setup)</p>
 </li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div class="topic nested1" aria-labelledby="ariaid-title4" id="harmony-3-settings-for-lan867x"><h2 class="title topictitle2" id="ariaid-title4" style="">Harmony 3 Settings for LAN867x</h2><div class="body"><p class="p"><strong class="ph b">GMAC Settings</strong></p>
-<p class="p">10BASE-T1S is a 10 Mbps, half-duplex network.
-Therefore, the GMAC must be configured accordingly to:</p>
-<ul class="ul"><li class="li"><p class="p">10 Mbps</p>
-</li>
-<li class="li"><p class="p">Half Duplex</p>
-</li>
-<li class="li"><p class="p">Auto Negotiation - Disabled</p>
-</li>
-<li class="li"><p class="p">MDIX - Disabled</p>
-</li>
-</ul>
-<br /><img class="image" src="GUID-201C0DDC-5981-4A6D-B34C-F7E6CF143DDC-low.jpg" alt="GMAC" /><br /><p class="p"><strong class="ph b">PLCA Settings</strong></p>
+<div class="topic nested1" aria-labelledby="ariaid-title4" id="harmony-3-settings-for-lan857x"><h2 class="title topictitle2" id="ariaid-title4" style="">Harmony 3 Settings for LAN857x</h2><div class="body"><p class="p">Configuration is done via the "MPLAB(c)  Code Configurator". Start the corresponding tool via the menu "Tools" and "Embedded".</p>
+<p class="p"><strong class="ph b">MAC-PHY Settings</strong>
+The LAN865x MAC-PHY settings are available by clicking the corresponding building block in the "Root"-view.</p>
+<br /><img class="image" src="GUID-9E726E6E-4BCF-4CE4-AE60-D21F8F1C2EAF-low.png" alt="MAC-PHY-Setting" /><br /><p class="p"><strong class="ph b">PLCA Settings</strong></p>
 <p class="p">10BASE-T1S can be used in PLCA or CSMA/CD mode.
 When using PLCA, the parameters for <em class="ph i">Local Node ID</em>, <em class="ph i">Node Count</em>,
-<em class="ph i">Max Burst Count</em> and <em class="ph i">Burst Timer</em> must be configured.</p>
-<br /><img class="image" src="GUID-31EA672D-37C7-44F6-97AF-092D5887286F-low.jpg" alt="PLCA" /><br /></div>
+<em class="ph i">Max Burst Count</em> and <em class="ph i">Burst Timer</em> must be configured.
+These settings are stored in a subsection inside the MAC-PHY settings.</p>
+<br /><img class="image" src="GUID-1D09D7D5-432F-4089-964E-7C2B99E301ED-low.png" alt="PLCA" /><br /></div>
 </div>
-<div class="topic nested1" aria-labelledby="ariaid-title5" id="harmony-3-settings-for-freertos"><h2 class="title topictitle2" id="ariaid-title5" style="">Harmony 3 Settings for FreeRTOS</h2><div class="body"><p class="p"><strong class="ph b">Note:</strong> The following settings applicable only for FreeRTOS application. For Bare Metal application, the below settings are not required.</p>
-<p class="p"><strong class="ph b">SERCOM Settings</strong></p>
-<p class="p">Set the SERCOM RX and TX buffer size as 4096.</p>
-<br /><img class="image" src="GUID-22561F07-31FF-4B80-8AD2-1CDF5108762C-low.jpg" alt="SERCOM" /><br /><p class="p"><strong class="ph b">CORE Settings</strong></p>
-<p class="p">According to the application update the Task delay field.</p>
-<br /><img class="image" src="GUID-6D39A7AA-7A9C-44DD-88D3-93596DD071C8-low.jpg" alt="CORE" /><br /><p class="p"><strong class="ph b">SYSTEM Settings</strong></p>
-<p class="p">In the System configuration update the heap size as 96960 bytes (based on the application).</p>
-<br /><img class="image" src="GUID-9157D674-A53C-47B2-8C93-D381F0CB7387-low.jpg" alt="SYSTEM" /><br /><p class="p"><strong class="ph b">SYSTEM COMMAND Settings</strong></p>
-<p class="p">In SYSTEM COMMAND configure the required stack size for the application. In this case 10240 bytes.</p>
-<br /><img class="image" src="GUID-8F0C187C-3042-42B1-84F6-C5C905BD06A3-low.jpg" alt="SYSTEM COMMAND" /><br /></div>
-</div>
-<div class="topic nested1" aria-labelledby="ariaid-title6" id="running-the-application"><h2 class="title topictitle2" id="ariaid-title6" style="">Running the Application</h2><div class="body"><ol class="ol"><li class="li"><span class="indent-level-default">1.</span><p class="p">Open a Terminal application (e.g. Tera term) on the computer</p>
+<div class="topic nested1" aria-labelledby="ariaid-title5" id="running-the-application"><h2 class="title topictitle2" id="ariaid-title5" style="">Running the Application</h2><div class="body"><ol class="ol"><li class="li"><span class="indent-level-default">1.</span><p class="p">Open a Terminal application (e.g. Tera term) on the computer</p>
 </li>
 <li class="li"><span class="indent-level-default">2.</span><p class="p">Connect to the Virtual COM port and configure the serial settings as follows:</p>
 <ul class="ul"><li class="li"><p class="p">Baud : 115200</p>
@@ -311,12 +291,15 @@ When using PLCA, the parameters for <em class="ph i">Local Node ID</em>, <em cla
 </li>
 </ul>
 </li>
-<li class="li"><span class="indent-level-default">3.</span><p class="p">Build and Program the application using the MPLAB X IDE</p>
+<li class="li"><span class="indent-level-default">3.</span><p class="p">Build and Program the application using the MPLAB X IDE
+For optimum results, select "Release" Mode as build target, this requires fee-based XC32 compiler license.</p>
 </li>
 <li class="li"><span class="indent-level-default">4.</span><p class="p">See the messages in the console</p>
 </li>
+<li class="li"><span class="indent-level-default">5.</span><p class="p">Type 'help' for getting a list of available commands</p>
+</li>
 </ol>
-</div>
+<br /><img class="image" src="GUID-D5913592-1F04-48B9-8ED0-EF4FB4117765-low.png" alt="Terminal" /><br /></div>
 </div>
 </body>
 </html>

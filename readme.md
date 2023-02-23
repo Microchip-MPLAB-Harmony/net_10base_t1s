@@ -22,7 +22,7 @@ Refer to the following links for release notes, training materials,
 and interface reference information.
 
 - [Release Notes](release_notes.md)
-- [MPLAB® Harmony License](Microchip_SLA001.md)
+- [Microchip Software License Agreement](Microchip_SLA001.md)
 - [10BASE-T1S Support](https://www.microchip.com/support)
 
 # Contents Summary

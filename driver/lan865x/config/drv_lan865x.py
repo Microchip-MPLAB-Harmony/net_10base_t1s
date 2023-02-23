@@ -163,7 +163,7 @@ def instantiateComponent(drvExtMacLan865xComponent, index):
     drvLan865xInstnBurstCount.setLabel("Max Burst Count")
     drvLan865xInstnBurstCount.setVisible(True)
     drvLan865xInstnBurstCount.setDescription("Set maximum Burst Count.")
-    drvLan865xInstnBurstCount.setDefaultValue(8)
+    drvLan865xInstnBurstCount.setDefaultValue(0)
     drvLan865xInstnBurstCount.setMin(0)
     drvLan865xInstnBurstCount.setMax(255)
     

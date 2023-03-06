@@ -41,7 +41,8 @@ ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 ----------------------------------------------------------------------------->
 
-#define TCPIP_INTMAC_PHY_CONFIG_FLAGS              	( 0 \
+<#assign emac_phy_type = TCPIP_EMAC_PHY_TYPE>
+#define DRV_${emac_phy_type}_PHY_CONFIG_FLAGS              	( 0 \
 <#if TCPIP_INTMAC_PHY_CONFIG_RMII>
                                                     | DRV_ETHPHY_CFG_RMII \
 </#if>
@@ -53,21 +54,18 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 </#if>
                                                     )
 
-#define TCPIP_INTMAC_PHY_LINK_INIT_DELAY            ${TCPIP_INTMAC_PHY_LINK_INIT_DELAY}
-#define TCPIP_INTMAC_PHY_ADDRESS                    ${TCPIP_INTMAC_PHY_ADDRESS}
-#define DRV_ETHPHY_INSTANCES_NUMBER                 ${DRV_ETHPHY_INSTANCES_NUMBER}
-#define DRV_ETHPHY_CLIENTS_NUMBER                   ${DRV_ETHPHY_CLIENTS_NUMBER}
-#define DRV_ETHPHY_INDEX                            ${DRV_ETHPHY_INDEX}
-#define DRV_ETHPHY_PERIPHERAL_ID                    ${DRV_ETHPHY_PERIPHERAL_ID}
-#define DRV_ETHPHY_NEG_INIT_TMO	                    0
-#define DRV_ETHPHY_NEG_DONE_TMO                     0
-#define DRV_ETHPHY_RESET_CLR_TMO                    ${DRV_ETHPHY_RESET_CLR_TMO}
-<#if (DRV_ETHPHY_10BASE_T1S_MODE)?has_content && DRV_ETHPHY_10BASE_T1S_MODE == "PLCA">
-#define DRV_ETHPHY_PLCA_ENABLED
-#define DRV_ETHPHY_PLCA_LOCAL_NODE_ID               ${PLCA_NODE_ID}
-#define DRV_ETHPHY_PLCA_NODE_COUNT                  ${PLCA_NODE_COUNT}
-#define DRV_ETHPHY_PLCA_MAX_BURST_COUNT             ${PLCA_BURST_COUNT}
-#define DRV_ETHPHY_PLCA_BURST_TIMER                 ${PLCA_BURST_TIMER}
+#define DRV_${emac_phy_type}_PHY_LINK_INIT_DELAY            ${TCPIP_INTMAC_PHY_LINK_INIT_DELAY}
+#define DRV_${emac_phy_type}_PHY_ADDRESS                    ${TCPIP_INTMAC_PHY_ADDRESS}
+#define DRV_${emac_phy_type}_PERIPHERAL_ID                    ${DRV_ETHPHY_PERIPHERAL_ID}
+#define DRV_${emac_phy_type}_NEG_INIT_TMO	                    0
+#define DRV_${emac_phy_type}_NEG_DONE_TMO                     0
+#define DRV_${emac_phy_type}_RESET_CLR_TMO                    ${DRV_ETHPHY_RESET_CLR_TMO}
+<#if (DRV_${emac_phy_type}_10BASE_T1S_MODE)?has_content && DRV_${emac_phy_type}_10BASE_T1S_MODE == "PLCA">
+#define DRV_${emac_phy_type}_PLCA_ENABLED
+#define DRV_${emac_phy_type}_PLCA_LOCAL_NODE_ID               ${PLCA_NODE_ID}
+#define DRV_${emac_phy_type}_PLCA_NODE_COUNT                  ${PLCA_NODE_COUNT}
+#define DRV_${emac_phy_type}_PLCA_MAX_BURST_COUNT             ${PLCA_BURST_COUNT}
+#define DRV_${emac_phy_type}_PLCA_BURST_TIMER                 ${PLCA_BURST_TIMER}
 </#if>
 
 <#--

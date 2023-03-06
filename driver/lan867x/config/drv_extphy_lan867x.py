@@ -21,6 +21,7 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *****************************************************************************"""
 
+phyName = "LAN867x"
 def instantiateComponent(drvExtPhyLan867xComponent):
     print("LAN867x PHY Driver Component")
     configName = Variables.get("__CONFIGURATION_NAME")
@@ -44,7 +45,7 @@ def instantiateComponent(drvExtPhyLan867xComponent):
     drvExtPhyLan867xResetCallback.setLabel("App Function")
     drvExtPhyLan867xResetCallback.setVisible(False)
     drvExtPhyLan867xResetCallback.setDescription("App Function")
-    drvExtPhyLan867xResetCallback.setDefaultValue("AppPhyResetFunction")
+    drvExtPhyLan867xResetCallback.setDefaultValue("App" + phyName + "ResetFunction")
     drvExtPhyLan867xResetCallback.setDependencies(drvExtPhyLan867xMenuVisibleSingle, ["DRV_ETHPHY_USE_RESET_CALLBACK"])
     
     # External PHY Connection Flags
@@ -94,7 +95,7 @@ def instantiateComponent(drvExtPhyLan867xComponent):
     # External PHY Type
     drvExtPhyLan867xPhyType = drvExtPhyLan867xComponent.createStringSymbol("TCPIP_EMAC_PHY_TYPE", drvExtPhyLan867xAdvSettings)
     drvExtPhyLan867xPhyType.setVisible(False)
-    drvExtPhyLan867xPhyType.setDefaultValue("LAN867x")
+    drvExtPhyLan867xPhyType.setDefaultValue("phyName)
     
     # Driver PHY Reset Clear Time-out (mSec)
     drvExtPhyLan867xResetClearTimeout = drvExtPhyLan867xComponent.createIntegerSymbol("DRV_ETHPHY_RESET_CLR_TMO", drvExtPhyLan867xAdvSettings)
@@ -128,11 +129,11 @@ def instantiateComponent(drvExtPhyLan867xComponent):
     drvExtPhyLan867xIndexNum.setReadOnly(True)
     
     # Driver PHY Peripheral ID
-    drvExtPhyLan867xPeripheralId = drvExtPhyLan867xComponent.createIntegerSymbol("DRV_ETHPHY_PERIPHERAL_ID", drvExtPhyLan867xAdvSettings)
+    drvExtPhyLan867xPeripheralId = drvExtPhyLan867xComponent.createStringSymbol("DRV_ETHPHY_PERIPHERAL_ID", drvExtPhyLan867xAdvSettings)
     drvExtPhyLan867xPeripheralId.setLabel("PHY Peripheral ID")
     drvExtPhyLan867xPeripheralId.setVisible(True)
     drvExtPhyLan867xPeripheralId.setDescription("Driver PHY Peripheral ID")
-    drvExtPhyLan867xPeripheralId.setDefaultValue(1)
+    drvExtPhyLan867xPeripheralId.setDefaultValue("")
     drvExtPhyLan867xPeripheralId.setReadOnly(True)
     
     # Operation mode

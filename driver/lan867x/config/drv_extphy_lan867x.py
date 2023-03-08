@@ -95,7 +95,7 @@ def instantiateComponent(drvExtPhyLan867xComponent):
     # External PHY Type
     drvExtPhyLan867xPhyType = drvExtPhyLan867xComponent.createStringSymbol("TCPIP_EMAC_PHY_TYPE", drvExtPhyLan867xAdvSettings)
     drvExtPhyLan867xPhyType.setVisible(False)
-    drvExtPhyLan867xPhyType.setDefaultValue("phyName)
+    drvExtPhyLan867xPhyType.setDefaultValue(phyName)
     
     # Driver PHY Reset Clear Time-out (mSec)
     drvExtPhyLan867xResetClearTimeout = drvExtPhyLan867xComponent.createIntegerSymbol("DRV_ETHPHY_RESET_CLR_TMO", drvExtPhyLan867xAdvSettings)
@@ -138,10 +138,10 @@ def instantiateComponent(drvExtPhyLan867xComponent):
     
     # Operation mode
     drvExtPhyLan867xMode = drvExtPhyLan867xComponent.createComboSymbol("DRV_ETHPHY_10BASE_T1S_MODE",None,["CSMA/CD", "PLCA"])
-    drvExtPhyLan867xMode.setLabel("10Base-T1S Operation Mode")
+    drvExtPhyLan867xMode.setLabel("10BASE-T1S Operation Mode")
     drvExtPhyLan867xMode.setVisible(True)
     drvExtPhyLan867xMode.setDefaultValue("CSMA/CD")
-    drvExtPhyLan867xMode.setDescription("10Base-T1S Operation Mode: CSMA/CD and PLCA")
+    drvExtPhyLan867xMode.setDescription("10BASE-T1S Operation Mode: CSMA/CD and PLCA")
 
     # PLCA Settings
     drvExtPhyLan867xPLCA = drvExtPhyLan867xComponent.createMenuSymbol(None, None)

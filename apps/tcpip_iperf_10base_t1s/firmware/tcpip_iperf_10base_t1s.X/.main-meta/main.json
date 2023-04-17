@@ -45,6 +45,17 @@
 		 "Middleware",
 		 "PHY",
 		 "Bare Metal"
-      ]
+      ],
+	  "additionalData": {
+            "longDescription": {
+                "metaDataVersion": "1.0.0",
+                "category": "com.microchip.portal.fileRef",
+                "content": {
+                    "metaDataVersion": "1.0.0",
+                    "fileName": "./../../readme.md",
+                    "mimeType": "text/markdown"
+				}
+			}
+	  }
    }
 }

@@ -4,7 +4,7 @@
    "content":{
       "metaDataVersion":"1.3.0",
       "name":"com.microchip.mcu32.mplabx.project.net_10base_t1s_lan865x_tcpip_iperf_10baset1s",
-      "version":"1.2.0",
+      "version":"1.3.0",
       "displayName":"TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY",
       "projectName":"TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY",
       "shortDescription":"TCP/IP Client with iperf support using the LAN865x 10BASE-T1S Ethernet MAC-PHY",
@@ -50,10 +50,10 @@
       ],
 	  "additionalData": {
             "longDescription": {
-                "metaDataVersion": "1.3.0",
+                "metaDataVersion": "1.0.0",
                 "category": "com.microchip.portal.fileRef",
                 "content": {
-                    "metaDataVersion": "1.3.0",
+                    "metaDataVersion": "1.0.0",
                     "fileName": "./../../readme.md",
                     "mimeType": "text/markdown"
 				}

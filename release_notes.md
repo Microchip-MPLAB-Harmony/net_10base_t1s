@@ -3,6 +3,19 @@
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## 10BASE-T1S Release v1.2.2
+### Bug Fixes
+
+The following table provides the list of bug fixes in the v1.2.2 release:
+
+| Module    | Description                               |
+| ------    | ------                                    |
+| driver/lan867x/config  | Fix file generation fails with LAN867x    |
+| tcpip_iperf_lan865x/firmware   | Update meta-data JSON file to register LAN865x content into MCHP Discover portal   |
+| tcpip_iperf_10base_t1s/firmware | Update meta-data JSON file to register LAN867x content into MCHP Discover portal   |
+
+- **Release notes for v1.2.1 apply**
+
 ## 10BASE-T1S Release v1.2.1
 ### Bug Fixes
 

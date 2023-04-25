@@ -6,7 +6,7 @@
           pubtype="Online Reference"
           pubsubtype=""
           pubuserguidesubtype=""
-          pubproductheirarchy=""
+          pubproducthierarchy=""
           devices=""
           revisiondate="13/06/2022 00:00:00"
           revisionletter="A"
@@ -14,6 +14,6 @@
           pubid=""
           reachid=""
           description=""
-          lastmodified="09/03/2023 06:23:48"
+          lastmodified="25/04/2023 06:11:40"
           covertitle="MPLAB® Harmony 3 10BASE-T1S Package"
           frontcover=""/>

@@ -57,6 +57,7 @@
 #include "system/console/sys_console.h"
 #include "system/debug/sys_debug.h"
 #include "system/reset/sys_reset.h"
+#include "osal/osal.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -270,8 +271,6 @@ bool SYS_CMD_Initialize(const SYS_MODULE_INIT * const init )
 
     cmdIODevList.head = cmdIODevList.tail = 0;
 
-    SYS_CMDIO_ADD(&sysConsoleApi, &initConfig->consoleCmdIOParam, initConfig->consoleCmdIOParam);
-
     _cmdInitData.consoleIndex = initConfig->consoleIndex;
 
     return true;
@@ -334,6 +333,20 @@ bool  SYS_CMD_ADDGRP(const SYS_CMD_DESCRIPTOR* pCmdTbl, int nCmds, const char* g
 bool SYS_CMD_Tasks(void)
 {
     SYS_CMD_IO_DCPT* pCmdIO;
+    static bool error_reported = false;
+
+    if (cmdIODevList.head == 0)
+    {
+        if(SYS_CMDIO_ADD(&sysConsoleApi, &_cmdInitData.consoleCmdIOParam, _cmdInitData.consoleCmdIOParam) == 0)
+        {
+            if(error_reported == false)
+            {
+                SYS_ERROR_PRINT(SYS_ERROR_WARNING, "Failed to create the Console API\r\n");
+                error_reported = true;
+            }
+        }
+    }
+
     for(pCmdIO = cmdIODevList.head; pCmdIO != 0; pCmdIO = pCmdIO->next)
     {
         RunCmdTask(pCmdIO);
@@ -605,11 +618,12 @@ SYS_CMD_DEVICE_NODE* SYS_CMDIO_ADD(const SYS_CMD_API* opApi, const void* cmdIoPa
     // Create new node
     SYS_CMD_IO_DCPT* pNewIo;
 
-    pNewIo = (SYS_CMD_IO_DCPT*)calloc(1, sizeof(*pNewIo));
+    pNewIo = (SYS_CMD_IO_DCPT*)OSAL_Malloc(sizeof(*pNewIo));
     if (!pNewIo)
     {
         return 0;
     }
+	memset(pNewIo, 0, sizeof(*pNewIo));
     pNewIo->devNode.pCmdApi = opApi;
     pNewIo->devNode.cmdIoParam = cmdIoParam;
     pNewIo->cmdPnt = pNewIo->cmdEnd = pNewIo->cmdBuff;

@@ -12,30 +12,28 @@
   Description:
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
-/*****************************************************************************
- Copyright (C) 2012-2020 Microchip Technology Inc. and its subsidiaries.
+/*
+Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
-Microchip Technology Inc. and its subsidiaries.
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
 
-Subject to your compliance with these terms, you may use Microchip software 
-and any derivatives exclusively with Microchip products. It is your 
-responsibility to comply with third party license terms applicable to your 
-use of third party software (including open source software) that may 
-accompany Microchip software.
-
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR 
-PURPOSE.
-
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE 
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN 
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY, 
-THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*****************************************************************************/
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 
 
@@ -51,15 +49,20 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 
 // internal
 
+#if defined(TCPIP_IPV4_FORWARDING_STATS) && (TCPIP_IPV4_FORWARDING_STATS != 0)
+#define _TCPIP_IPV4_FORWARDING_STATS 1
+#else
+#define _TCPIP_IPV4_FORWARDING_STATS 0
+#endif  // defined(TCPIP_IPV4_FORWARDING_STATS) && (TCPIP_IPV4_FORWARDING_STATS != 0)
+
 // debugging
 #define TCPIP_IPV4_DEBUG_MASK_BASIC             (0x0001)
 #define TCPIP_IPV4_DEBUG_MASK_FRAGMENT          (0x0002)
 #define TCPIP_IPV4_DEBUG_MASK_RX_CHECK          (0x0004)
 #define TCPIP_IPV4_DEBUG_MASK_ARP_QUEUE         (0x0008)
 #define TCPIP_IPV4_DEBUG_MASK_PROC_EXT          (0x0010)
-#define TCPIP_IPV4_DEBUG_MASK_FWD               (0x0020)
-#define TCPIP_IPV4_DEBUG_MASK_FWD_MAC_DEST      (0x0040)
-#define TCPIP_IPV4_DEBUG_MASK_FILT_COUNT        (0x0080)
+#define TCPIP_IPV4_DEBUG_MASK_FWD_MAC_DEST      (0x0020)
+#define TCPIP_IPV4_DEBUG_MASK_FILT_COUNT        (0x0040)
 
 // enable IPV4 debugging levels
 #define TCPIP_IPV4_DEBUG_LEVEL  (0)
@@ -195,17 +198,7 @@ typedef enum
 
 // internal forwarding entry
 // NOTE: same structure as TCPIP_IPV4_FORWARD_ENTRY_BIN! 
-typedef struct
-{
-    uint32_t    netAdd;     // network destination address
-    uint32_t    mask;       // associated mask for this route entry
-    uint32_t    gwAdd;      // gw destination address
-    uint8_t     inIfIx;     // input interface
-    uint8_t     outIfIx;    // interface to go out on
-    uint8_t     metric;     // path efficiency
-    uint8_t     nOnes;      // number of leading ones in the mask
-
-}IPV4_ROUTE_TABLE_ENTRY;
+typedef TCPIP_IPV4_FORWARD_ENTRY_BIN IPV4_ROUTE_TABLE_ENTRY;
 
 // run time forwarding flags
 typedef enum
@@ -215,6 +208,8 @@ typedef enum
     IPV4_FWD_FLAG_BCAST_ENABLE  = 0x02,   // forwarding of broadcasts is enabled
     IPV4_FWD_FLAG_MCAST_ENABLE  = 0x04,   // forwarding of multicasts is enabled
 
+    //
+    IPV4_FWD_FLAG_DYN_PROC      = 0x80,   // processed dynamically 
 
 }IPV4_FORWARD_RUN_FLAGS;
 
@@ -222,11 +217,22 @@ typedef enum
 typedef struct
 {
     IPV4_ROUTE_TABLE_ENTRY* fwdTable;       // forwarding table itself
-    size_t                  usedEntries;    // number of entries that are used
-    size_t                  totEntries;     // total number of entries
+    uint16_t                usedEntries;    // number of entries that are used 
+    uint16_t                totEntries;     // total number of entries
     uint16_t                iniFlags;       // TCPIP_IPV4_FORWARD_FLAGS: initialization flags
-    uint16_t                runFlags;       // IPV4_FORWARD_RUN_FLAGS: initialization flags
+    uint8_t                 runFlags;       // IPV4_FORWARD_RUN_FLAGS: initialization flags
+    uint8_t                 saveFlags;      // IPV4_FORWARD_RUN_FLAGS: save flags when messing with the FIB
 }IPV4_FORWARD_DESCRIPTOR;
+
+// overall structure of the forward descriptor:
+//      IPV4_FORWARD_DESCRIPTOR if0
+//      IPV4_FORWARD_DESCRIPTOR if1
+//      ...
+//      IPV4_FORWARD_DESCRIPTOR ifn
+//      IPV4_ROUTE_TABLE_ENTRY[forwardTableMaxEntries] for if0
+//      IPV4_ROUTE_TABLE_ENTRY[forwardTableMaxEntries] for if1
+//      ...
+//      IPV4_ROUTE_TABLE_ENTRY[forwardTableMaxEntries] for ifn
 
 // forwarded packets that need to also be processed locally
 // these are bcast/mcast packets
@@ -241,6 +247,8 @@ typedef struct _tag_IPV4_FORWARD_NODE
     TCPIP_MAC_ADDR                  sourceMacAdd;   // original source MAC address the packet came from
     TCPIP_MAC_ADDR                  destMacAdd;     // original destination MAC address
 }IPV4_FORWARD_NODE;
+
+
 
 #endif // _IPV4_PRIVATE_H_
 

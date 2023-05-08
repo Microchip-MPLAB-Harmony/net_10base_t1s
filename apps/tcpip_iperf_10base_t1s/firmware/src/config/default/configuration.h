@@ -56,7 +56,7 @@
 */
 
 #include "user.h"
-#include "toolchain_specifics.h"
+#include "device.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -120,17 +120,15 @@ extern "C" {
 // Section: Driver Configuration
 // *****************************************************************************
 // *****************************************************************************
-
-
 /*** MIIM Driver Configuration ***/
-#define DRV_MIIM_ETH_MODULE_ID              GMAC_BASE_ADDRESS
+#define DRV_MIIM_ETH_MODULE_ID_0                GMAC_BASE_ADDRESS
+#define DRV_MIIM_DRIVER_INDEX_0                 0
 #define DRV_MIIM_INSTANCES_NUMBER           1
 #define DRV_MIIM_INSTANCE_OPERATIONS        4
 #define DRV_MIIM_INSTANCE_CLIENTS           2
 #define DRV_MIIM_CLIENT_OP_PROTECTION   false
 #define DRV_MIIM_COMMANDS   false
-#define DRV_MIIM_DRIVER_OBJECT              DRV_MIIM_OBJECT_BASE_Default
-#define DRV_MIIM_DRIVER_INDEX               DRV_MIIM_INDEX_0              
+#define DRV_MIIM_DRIVER_OBJECT              DRV_MIIM_OBJECT_BASE_Default            
 
 
 
@@ -141,25 +139,21 @@ extern "C" {
 // Section: Middleware & Other Library Configuration
 // *****************************************************************************
 // *****************************************************************************
-
-#define TCPIP_INTMAC_PHY_CONFIG_FLAGS              	( 0 \
+#define DRV_LAN867x_PHY_CONFIG_FLAGS              	( 0 \
                                                     | DRV_ETHPHY_CFG_RMII \
                                                     )
 
-#define TCPIP_INTMAC_PHY_LINK_INIT_DELAY            500
-#define TCPIP_INTMAC_PHY_ADDRESS                    0
-#define DRV_ETHPHY_INSTANCES_NUMBER                 1
-#define DRV_ETHPHY_CLIENTS_NUMBER                   1
-#define DRV_ETHPHY_INDEX                            1
-#define DRV_ETHPHY_PERIPHERAL_ID                    1
-#define DRV_ETHPHY_NEG_INIT_TMO	                    0
-#define DRV_ETHPHY_NEG_DONE_TMO                     0
-#define DRV_ETHPHY_RESET_CLR_TMO                    500
+#define DRV_LAN867x_PHY_LINK_INIT_DELAY            500
+#define DRV_LAN867x_PHY_ADDRESS                    0
+#define DRV_LAN867x_PHY_PERIPHERAL_ID                  GMAC_BASE_ADDRESS
+#define DRV_ETHPHY_LAN867x_NEG_INIT_TMO	                  0
+#define DRV_ETHPHY_LAN867x_NEG_DONE_TMO                   0
+#define DRV_ETHPHY_LAN867x_RESET_CLR_TMO                  500
 #define DRV_ETHPHY_PLCA_ENABLED
-#define DRV_ETHPHY_PLCA_LOCAL_NODE_ID               0
-#define DRV_ETHPHY_PLCA_NODE_COUNT                  8
-#define DRV_ETHPHY_PLCA_MAX_BURST_COUNT             0
-#define DRV_ETHPHY_PLCA_BURST_TIMER                 128
+#define DRV_ETHPHY_PLCA_LOCAL_NODE_ID             0
+#define DRV_ETHPHY_PLCA_NODE_COUNT                8
+#define DRV_ETHPHY_PLCA_MAX_BURST_COUNT           0
+#define DRV_ETHPHY_PLCA_BURST_TIMER               128
 
 
 
@@ -189,9 +183,9 @@ extern "C" {
 
 /*** ICMPv4 Client Configuration ***/
 #define TCPIP_STACK_USE_ICMP_CLIENT
-#define TCPIP_ICMP_CLIENT_USER_NOTIFICATION   true
 #define TCPIP_ICMP_ECHO_REQUEST_TIMEOUT        500
 #define TCPIP_ICMP_TASK_TICK_RATE              33
+#define TCPIP_STACK_MAX_CLIENT_ECHO_REQUESTS   4
 #define TCPIP_ICMP_COMMAND_ENABLE              true
 #define TCPIP_STACK_COMMANDS_ICMP_ECHO_REQUESTS         4
 #define TCPIP_STACK_COMMANDS_ICMP_ECHO_REQUEST_DELAY    1000
@@ -238,6 +232,8 @@ extern "C" {
 #define TCPIP_DHCP_TIME_SERVER_ADDRESSES            0
 #define TCPIP_DHCP_USE_OPTION_NTP_SERVER            0
 #define TCPIP_DHCP_NTP_SERVER_ADDRESSES             0
+#define TCPIP_DHCP_ARP_LEASE_CHECK_TMO              1000
+#define TCPIP_DHCP_WAIT_ARP_FAIL_CHECK_TMO          10
 
 
 
@@ -264,24 +260,24 @@ extern "C" {
 
 
 /* Network Configuration Index 0 */
-#define TCPIP_NETWORK_DEFAULT_INTERFACE_NAME_IDX0	"GMAC"
-#define TCPIP_IF_GMAC
+#define TCPIP_NETWORK_DEFAULT_INTERFACE_NAME_IDX0 "GMAC"
+#define TCPIP_IF_GMAC  
 
-#define TCPIP_NETWORK_DEFAULT_HOST_NAME_IDX0				"MCHPBOARD_C"
-#define TCPIP_NETWORK_DEFAULT_MAC_ADDR_IDX0				"00:04:25:1C:A0:02"
+#define TCPIP_NETWORK_DEFAULT_HOST_NAME_IDX0              "MCHPBOARD_C"
+#define TCPIP_NETWORK_DEFAULT_MAC_ADDR_IDX0               "00:04:25:1C:A0:02"
 
-#define TCPIP_NETWORK_DEFAULT_IP_ADDRESS_IDX0			"192.168.100.11"
-#define TCPIP_NETWORK_DEFAULT_IP_MASK_IDX0			"255.255.255.0"
-#define TCPIP_NETWORK_DEFAULT_GATEWAY_IDX0			"192.168.100.1"
-#define TCPIP_NETWORK_DEFAULT_DNS_IDX0				"192.168.100.1"
-#define TCPIP_NETWORK_DEFAULT_SECOND_DNS_IDX0			"0.0.0.0"
-#define TCPIP_NETWORK_DEFAULT_POWER_MODE_IDX0			"full"
-#define TCPIP_NETWORK_DEFAULT_INTERFACE_FLAGS_IDX0			\
-													TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON |\
-													TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON |\
-													TCPIP_NETWORK_CONFIG_IP_STATIC
-													
-#define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0			DRV_GMAC_Object
+#define TCPIP_NETWORK_DEFAULT_IP_ADDRESS_IDX0         "192.168.100.11"
+#define TCPIP_NETWORK_DEFAULT_IP_MASK_IDX0            "255.255.255.0"
+#define TCPIP_NETWORK_DEFAULT_GATEWAY_IDX0            "192.168.100.1"
+#define TCPIP_NETWORK_DEFAULT_DNS_IDX0                "192.168.100.1"
+#define TCPIP_NETWORK_DEFAULT_SECOND_DNS_IDX0         "0.0.0.0"
+#define TCPIP_NETWORK_DEFAULT_POWER_MODE_IDX0         "full"
+#define TCPIP_NETWORK_DEFAULT_INTERFACE_FLAGS_IDX0            \
+                                                    TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON |\
+                                                    TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON |\
+                                                    TCPIP_NETWORK_CONFIG_IP_STATIC
+                                                    
+#define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0         DRV_GMAC_Object
 
 
 
@@ -357,63 +353,57 @@ extern "C" {
 #define TCPIP_STACK_INTERFACE_CHANGE_SIGNALING   false
 #define TCPIP_STACK_CONFIGURATION_SAVE_RESTORE   true
 #define TCPIP_STACK_EXTERN_PACKET_PROCESS   false
+#define TCPIP_STACK_RUN_TIME_INIT   false
+
+#define TCPIP_STACK_INTMAC_COUNT           1
 
 
 
 
 
-
-/*** TCPIP MAC Configuration ***/
-#define TCPIP_GMAC_TX_DESCRIPTORS_COUNT_DUMMY				1
-#define TCPIP_GMAC_RX_DESCRIPTORS_COUNT_DUMMY				1
-#define TCPIP_GMAC_RX_BUFF_SIZE_DUMMY				    	64
-#define TCPIP_GMAC_TX_BUFF_SIZE_DUMMY				    	64
-
-		/*** QUEUE 0 TX Configuration ***/
-#define TCPIP_GMAC_TX_DESCRIPTORS_COUNT_QUE0				8
-#define TCPIP_GMAC_MAX_TX_PKT_SIZE_QUE0				    	1536
-		
-		/*** QUEUE 0 RX Configuration ***/
-#define TCPIP_GMAC_RX_DESCRIPTORS_COUNT_QUE0				8
-#define TCPIP_GMAC_RX_BUFF_SIZE_QUE0				    	1536
-#define TCPIP_GMAC_RX_DEDICATED_BUFFERS_QUE0				8
-#define TCPIP_GMAC_RX_ADDL_BUFF_COUNT_QUE0				   	2
-#define TCPIP_GMAC_RX_BUFF_COUNT_THRESHOLD_QUE0			1
-#define TCPIP_GMAC_RX_BUFF_ALLOC_COUNT_QUE0				2
-
-
-
-
-
-
-
-
-
-#define TCPIP_GMAC_RX_MAX_FRAME		    			1536
+/*** GMAC Configuration ***/
+#define DRV_GMAC
+#define TCPIP_GMAC_TX_DESCRIPTORS_COUNT_DUMMY    1
+#define TCPIP_GMAC_RX_DESCRIPTORS_COUNT_DUMMY    1
+#define TCPIP_GMAC_RX_BUFF_SIZE_DUMMY            64
+#define TCPIP_GMAC_TX_BUFF_SIZE_DUMMY            64
+/*** QUEUE 0 TX Configuration ***/
+#define TCPIP_GMAC_TX_DESCRIPTORS_COUNT_QUE0            8
+#define TCPIP_GMAC_MAX_TX_PKT_SIZE_QUE0                 1536
+/*** QUEUE 0 RX Configuration ***/
+#define TCPIP_GMAC_RX_DESCRIPTORS_COUNT_QUE0            8
+#define TCPIP_GMAC_RX_BUFF_SIZE_QUE0                    1536
+#define TCPIP_GMAC_RX_DEDICATED_BUFFERS_QUE0            8
+#define TCPIP_GMAC_RX_ADDL_BUFF_COUNT_QUE0              2
+#define TCPIP_GMAC_RX_BUFF_COUNT_THRESHOLD_QUE0         1
+#define TCPIP_GMAC_RX_BUFF_ALLOC_COUNT_QUE0             2
 #define TCPIP_GMAC_RX_FILTERS                       \
-                                                    TCPIP_MAC_RX_FILTER_TYPE_BCAST_ACCEPT |\
-                                                    TCPIP_MAC_RX_FILTER_TYPE_MCAST_ACCEPT |\
-                                                    TCPIP_MAC_RX_FILTER_TYPE_UCAST_ACCEPT |\
-                                                    TCPIP_MAC_RX_FILTER_TYPE_CRC_ERROR_REJECT |\
-													0
-#define TCPIP_GMAC_SCREEN1_COUNT_QUE							0
-#define TCPIP_GMAC_SCREEN2_COUNT_QUE							0	
-													
-#define TCPIP_GMAC_ETH_OPEN_FLAGS       			\
-                                                    TCPIP_ETH_OPEN_HDUPLEX |\
-                                                    TCPIP_ETH_OPEN_10 |\
-                                                    TCPIP_ETH_OPEN_RMII |\
-                                                    0
+                                                        TCPIP_MAC_RX_FILTER_TYPE_BCAST_ACCEPT |\
+                                                        TCPIP_MAC_RX_FILTER_TYPE_MCAST_ACCEPT |\
+                                                        TCPIP_MAC_RX_FILTER_TYPE_UCAST_ACCEPT |\
+                                                        TCPIP_MAC_RX_FILTER_TYPE_CRC_ERROR_REJECT |\
+                                                          0
+       
+#define TCPIP_GMAC_SCREEN1_COUNT_QUE        0 
+#define TCPIP_GMAC_SCREEN2_COUNT_QUE        0  
 
-#define TCPIP_INTMAC_MODULE_ID		    			GMAC_BASE_ADDRESS
-#define TCPIP_INTMAC_PERIPHERAL_CLK  				120000000
+#define TCPIP_GMAC_ETH_OPEN_FLAGS                   \
+                                                        TCPIP_ETH_OPEN_HDUPLEX |\
+                                                        TCPIP_ETH_OPEN_10 |\
+                                                        TCPIP_ETH_OPEN_RMII |\
+                                                        0
 
-#define DRV_GMAC_RX_CHKSM_OFFLOAD				(TCPIP_MAC_CHECKSUM_NONE)			
-#define DRV_GMAC_TX_CHKSM_OFFLOAD				(TCPIP_MAC_CHECKSUM_NONE)		
-#define TCPIP_GMAC_TX_PRIO_COUNT				1
-#define TCPIP_GMAC_RX_PRIO_COUNT				1
-#define DRV_GMAC_NUMBER_OF_QUEUES				1
-#define DRV_GMAC_RMII_MODE						0
+#define TCPIP_GMAC_MODULE_ID                       GMAC_BASE_ADDRESS
+
+#define TCPIP_INTMAC_PERIPHERAL_CLK                 120000000
+
+#define DRV_GMAC_RX_CHKSM_OFFLOAD               (TCPIP_MAC_CHECKSUM_NONE)           
+#define DRV_GMAC_TX_CHKSM_OFFLOAD               (TCPIP_MAC_CHECKSUM_NONE)       
+#define TCPIP_GMAC_TX_PRIO_COUNT                1
+#define TCPIP_GMAC_RX_PRIO_COUNT                1
+#define DRV_GMAC_NUMBER_OF_QUEUES               1
+#define DRV_GMAC_RMII_MODE                      0
+
 
 
 
@@ -445,6 +435,7 @@ extern "C" {
 #define WOLF_CRYPTO_CB  // provide call-back support
 #define WOLFCRYPT_ONLY
 // ---------- FUNCTIONAL CONFIGURATION START ----------
+#define WOLFSSL_AES_SMALL_TABLES
 #define NO_MD4
 #define WOLFSSL_SHA224
 #define WOLFSSL_AES_128
@@ -455,6 +446,7 @@ extern "C" {
 #define HAVE_AES_ECB
 #define HAVE_AES_CBC
 #define WOLFSSL_AES_COUNTER
+#define WOLFSSL_AES_OFB
 #define HAVE_AESGCM
 #define HAVE_AESCCM
 #define NO_RC4
@@ -473,6 +465,9 @@ extern "C" {
 #define NO_ERROR_STRINGS
 #define NO_WOLFSSL_MEMORY
 // ---------- FUNCTIONAL CONFIGURATION END ----------
+
+#define TCPIP_STACK_NETWORK_INTERAFCE_COUNT  	1
+
 
 
 

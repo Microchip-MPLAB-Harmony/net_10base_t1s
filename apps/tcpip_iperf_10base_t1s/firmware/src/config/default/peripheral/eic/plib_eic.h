@@ -96,11 +96,10 @@
     None.
 */
 
-typedef enum
-{
-    EIC_PIN_MAX = 16
 
-} EIC_PIN;
+#define    EIC_PIN_MAX  (16U)
+
+typedef uint16_t EIC_PIN;
 
 
 

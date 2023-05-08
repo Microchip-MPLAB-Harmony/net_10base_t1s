@@ -55,12 +55,12 @@
 // ****************************************************************************
 // ****************************************************************************
 #pragma config BOD33_DIS = SET
-#pragma config BOD33USERLEVEL = 0x1c
+#pragma config BOD33USERLEVEL = 0x1cU
 #pragma config BOD33_ACTION = RESET
-#pragma config BOD33_HYST = 0x2
+#pragma config BOD33_HYST = 0x2U
 #pragma config NVMCTRL_BOOTPROT = 0
-#pragma config NVMCTRL_SEESBLK = 0x0
-#pragma config NVMCTRL_SEEPSZ = 0x0
+#pragma config NVMCTRL_SEESBLK = 0x0U
+#pragma config NVMCTRL_SEEPSZ = 0x0U
 #pragma config RAMECC_ECCDIS = SET
 #pragma config WDT_ENABLE = CLEAR
 #pragma config WDT_ALWAYSON = CLEAR
@@ -68,7 +68,7 @@
 #pragma config WDT_WINDOW = CYC8192
 #pragma config WDT_EWOFFSET = CYC8192
 #pragma config WDT_WEN = CLEAR
-#pragma config NVMCTRL_REGION_LOCKS = 0xffffffff
+#pragma config NVMCTRL_REGION_LOCKS = 0xffffffffU
 
 
 
@@ -81,13 +81,12 @@
 /* Forward declaration of PHY initialization data */
 const DRV_ETHPHY_INIT tcpipPhyInitData_LAN867x;
 
-/* Forward declaration of MAC initialization data */
-const TCPIP_MODULE_MAC_PIC32C_CONFIG tcpipMACPIC32CINTInitData;
+/* Forward declaration of GMAC initialization data */
+const TCPIP_MODULE_MAC_PIC32C_CONFIG tcpipGMACInitData;
 
 
-/* Forward declaration of MIIM initialization data */
-static const DRV_MIIM_INIT drvMiimInitData;
-
+/* Forward declaration of MIIM 0 initialization data */
+static const DRV_MIIM_INIT drvMiimInitData_0;
 
 
 
@@ -104,22 +103,28 @@ SYSTEM_OBJECTS sysObj;
 // Section: Library/Stack Initialization Data
 // *****************************************************************************
 // *****************************************************************************
-
-    
-    
+/*** LAN867x PHY Driver Time-Out Initialization Data ***/
+DRV_ETHPHY_TMO drvlan867xTmo = 
+{
+    .resetTmo = DRV_ETHPHY_LAN867x_RESET_CLR_TMO,
+    .aNegDoneTmo = DRV_ETHPHY_LAN867x_NEG_DONE_TMO,
+    .aNegInitTmo = DRV_ETHPHY_LAN867x_NEG_INIT_TMO,    
+};
 
 /*** ETH PHY Initialization Data ***/
 const DRV_ETHPHY_INIT tcpipPhyInitData_LAN867x =
 {    
-    .ethphyId               = TCPIP_INTMAC_MODULE_ID,
-    .phyAddress             = TCPIP_INTMAC_PHY_ADDRESS,
-    .phyFlags               = TCPIP_INTMAC_PHY_CONFIG_FLAGS,
+    .ethphyId               = DRV_LAN867x_PHY_PERIPHERAL_ID,
+    .phyAddress             = DRV_LAN867x_PHY_ADDRESS,
+    .phyFlags               = DRV_LAN867x_PHY_CONFIG_FLAGS,
     .pPhyObject             = &DRV_ETHPHY_OBJECT_LAN867x,
     .resetFunction          = 0,
+    .ethphyTmo              = &drvlan867xTmo,
     .pMiimObject            = &DRV_MIIM_OBJECT_BASE_Default,
-    .pMiimInit              = &drvMiimInitData,
-    .miimIndex              = DRV_MIIM_DRIVER_INDEX,
+    .pMiimInit              = &drvMiimInitData_0,
+    .miimIndex              = 0,
 };
+
 
 
 // <editor-fold defaultstate="collapsed" desc="TCP/IP Stack Initialization Data">
@@ -224,7 +229,6 @@ TCPIP_STACK_HEAP_INTERNAL_CONFIG tcpipHeapConfig =
     .heapFlags = TCPIP_STACK_HEAP_USE_FLAGS,
     .heapUsage = TCPIP_STACK_HEAP_USAGE_CONFIG,
     .malloc_fnc = TCPIP_STACK_MALLOC_FUNC,
-    .calloc_fnc = TCPIP_STACK_CALLOC_FUNC,
     .free_fnc = TCPIP_STACK_FREE_FUNC,
     .heapSize = TCPIP_STACK_DRAM_SIZE,
 };
@@ -265,7 +269,7 @@ const TCPIP_STACK_MODULE_CONFIG TCPIP_STACK_MODULE_CONFIG_TBL [] =
     { TCPIP_MODULE_MANAGER,         &tcpipHeapConfig },             // TCPIP_MODULE_MANAGER
 
 // MAC modules
-    {TCPIP_MODULE_MAC_PIC32C,     &tcpipMACPIC32CINTInitData},     // TCPIP_MODULE_MAC_PIC32C
+    {TCPIP_MODULE_MAC_PIC32C,     &tcpipGMACInitData},     // TCPIP_MODULE_MAC_PIC32C
 
 };
 
@@ -306,43 +310,51 @@ SYS_MODULE_OBJ TCPIP_STACK_Init(void)
 }
 // </editor-fold>
 
-	
-/*** GMAC MAC Initialization Data ***/
-const TCPIP_MODULE_MAC_PIC32C_CONFIG tcpipMACPIC32CINTInitData =
+
+uint8_t txPrioNumToQueIndxGmac [DRV_GMAC_NUMBER_OF_QUEUES];
+uint8_t rxPrioNumToQueIndxGmac [DRV_GMAC_NUMBER_OF_QUEUES];
+
+/*** GMAC Initialization Data ***/
+TCPIP_MODULE_GMAC_QUEUE_CONFIG  gmac_queue_config[DRV_GMAC_NUMBER_OF_QUEUES]=
+{
+   {   /** QUEUE 0 Initialization**/
+       .queueTxEnable = true,
+       .queueRxEnable = true,
+       .nRxDescCnt    = 8,
+       .nTxDescCnt    = 8,
+       .rxBufferSize  = 1536,
+       .txMaxPktSize  = 1536,
+       .nRxDedicatedBuffers   = 8,
+       .nRxAddlBuffCount  = 2,
+       .nRxBuffCntThres   = 1,
+       .nRxBuffAllocCnt   = 2,   
+       .queueIntSrc       = GMAC_IRQn,                               
+   },
+};
+
+const TCPIP_MODULE_MAC_PIC32C_CONFIG tcpipGMACInitData =
 { 
-	/** QUEUE 0 Intialization**/
-	.gmac_queue_config[0].queueTxEnable	= true,
-	.gmac_queue_config[0].queueRxEnable	= true,
-	.gmac_queue_config[0].nRxDescCnt	= TCPIP_GMAC_RX_DESCRIPTORS_COUNT_QUE0,
-	.gmac_queue_config[0].nTxDescCnt	= TCPIP_GMAC_TX_DESCRIPTORS_COUNT_QUE0,
-	.gmac_queue_config[0].rxBufferSize	= TCPIP_GMAC_RX_BUFF_SIZE_QUE0,
-	.gmac_queue_config[0].txMaxPktSize	= TCPIP_GMAC_MAX_TX_PKT_SIZE_QUE0,
-	.gmac_queue_config[0].nRxDedicatedBuffers	= TCPIP_GMAC_RX_DEDICATED_BUFFERS_QUE0,
-	.gmac_queue_config[0].nRxAddlBuffCount	= TCPIP_GMAC_RX_ADDL_BUFF_COUNT_QUE0,
-	.gmac_queue_config[0].nRxBuffCntThres	= TCPIP_GMAC_RX_BUFF_COUNT_THRESHOLD_QUE0,
-	.gmac_queue_config[0].nRxBuffAllocCnt	= TCPIP_GMAC_RX_BUFF_ALLOC_COUNT_QUE0,
-
-
-
-
-
-	.ethFlags               = TCPIP_GMAC_ETH_OPEN_FLAGS,	
-	.linkInitDelay          = TCPIP_INTMAC_PHY_LINK_INIT_DELAY,
-    .ethModuleId            = TCPIP_INTMAC_MODULE_ID,
-    .pPhyBase               = &DRV_ETHPHY_OBJECT_BASE_Default,
-    .pPhyInit               = &tcpipPhyInitData_LAN867x,
-	.checksumOffloadRx      = DRV_GMAC_RX_CHKSM_OFFLOAD,
-    .checksumOffloadTx      = DRV_GMAC_TX_CHKSM_OFFLOAD,
-    .macTxPrioNum           = TCPIP_GMAC_TX_PRIO_COUNT,
-    .macRxPrioNum           = TCPIP_GMAC_RX_PRIO_COUNT,
+       .gmac_queue_config = gmac_queue_config,
+       .macQueNum = DRV_GMAC_NUMBER_OF_QUEUES, 
+       .txPrioNumToQueIndx = txPrioNumToQueIndxGmac,
+       .rxPrioNumToQueIndx = rxPrioNumToQueIndxGmac,
+       .ethFlags               = TCPIP_GMAC_ETH_OPEN_FLAGS,    
+       .linkInitDelay          = DRV_LAN867x_PHY_LINK_INIT_DELAY,
+       .ethModuleId            = TCPIP_GMAC_MODULE_ID,
+       .pPhyBase               = &DRV_ETHPHY_OBJECT_BASE_Default,
+       .pPhyInit               = &tcpipPhyInitData_LAN867x,
+       .checksumOffloadRx      = DRV_GMAC_RX_CHKSM_OFFLOAD,
+       .checksumOffloadTx      = DRV_GMAC_TX_CHKSM_OFFLOAD,
+       .macTxPrioNum           = TCPIP_GMAC_TX_PRIO_COUNT,
+       .macRxPrioNum           = TCPIP_GMAC_RX_PRIO_COUNT,  
+       .macRxFilt              = TCPIP_GMAC_RX_FILTERS,
 };
 
 
-
-/* MIIM Driver Configuration */
-static const DRV_MIIM_INIT drvMiimInitData =
+/*** MIIM Driver Instance 0 Configuration ***/
+static const DRV_MIIM_INIT drvMiimInitData_0 =
 {
-	.ethphyId = DRV_MIIM_ETH_MODULE_ID,
+   .ethphyId = DRV_MIIM_ETH_MODULE_ID_0,
 };
 
 
@@ -443,6 +455,8 @@ const SYS_DEBUG_INIT debugInit =
 
 void SYS_Initialize ( void* data )
 {
+    /* MISRAC 2012 deviation block start */
+    /* MISRA C-2012 Rule 2.2 deviated in this file.  Deviation record ID -  H3_MISRAC_2012_R_2_2_DR_1 */
 
     NVMCTRL_Initialize( );
 
@@ -466,8 +480,8 @@ void SYS_Initialize ( void* data )
 
 
 
-    /* Initialize the MIIM Driver */
-    sysObj.drvMiim = DRV_MIIM_Initialize( DRV_MIIM_INDEX_0, (const SYS_MODULE_INIT *) &drvMiimInitData );
+   /* Initialize the MIIM Driver Instance 0*/
+   sysObj.drvMiim_0 = DRV_MIIM_Initialize(DRV_MIIM_DRIVER_INDEX_0, (const SYS_MODULE_INIT *) &drvMiimInitData_0); 
 
 
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
@@ -480,9 +494,9 @@ void SYS_Initialize ( void* data )
 
 
 
-/* TCPIP Stack Initialization */
-sysObj.tcpip = TCPIP_STACK_Init();
-SYS_ASSERT(sysObj.tcpip != SYS_MODULE_OBJ_INVALID, "TCPIP_STACK_Init Failed" );
+   /* TCPIP Stack Initialization */
+   sysObj.tcpip = TCPIP_STACK_Init();
+   SYS_ASSERT(sysObj.tcpip != SYS_MODULE_OBJ_INVALID, "TCPIP_STACK_Init Failed" );
 
 
     CRYPT_WCCB_Initialize();
@@ -492,6 +506,7 @@ SYS_ASSERT(sysObj.tcpip != SYS_MODULE_OBJ_INVALID, "TCPIP_STACK_Init Failed" );
 
     NVIC_Initialize();
 
+    /* MISRAC 2012 deviation block end */
 }
 
 

@@ -1,17 +1,20 @@
 /*******************************************************************************
-  HTTP internal API Headers for Microchip TCP/IP Stack
+  DHCP Server manager private API for Microchip TCP/IP Stack
 
   Company:
     Microchip Technology Inc.
     
   File Name:
-    http_manager.h
+    dhcp_server_manager.h
 
   Summary:
+    DHCP Server manager private API for Microchip TCP/IP Stack
 
   Description:
+    This file provides the TCP/IP Stack DHCP Server Manager Private API definitions.
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
+
 /*
 Copyright (C) 2012-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
@@ -41,72 +44,65 @@ Microchip or any third party.
 
 
 
-
 // DOM-IGNORE-END
 
-#ifndef __HTTP_MANAGER_H_
-#define __HTTP_MANAGER_H_
+#ifndef _DHCP_SERVER_MANAGER_H_
+#define _DHCP_SERVER_MANAGER_H_
 
 
-/****************************************************************************
-  Section:
-    Function Prototypes
-  ***************************************************************************/
-
-/*****************************************************************************
-  Function:
-    bool TCPIP_HTTP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl,
-        const TCPIP_HTTP_MODULE_CONFIG* httpInitData)
-
-  Summary:
-    Initializes the HTTP server module.
-
-  Description:
-    Sets all HTTP sockets to the listening state, and initializes the
-    state machine and file handles for each connection.
-
-  Precondition:
-    TCP must already be initialized.
-
-  Parameters:
-    None
-
-  Returns:
-    true if initialization succeeded,
-    false otherwise
-
-  Remarks:
-    This function is called only one during lifetime of the application.
-  ***************************************************************************/
-bool TCPIP_HTTP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackData, const TCPIP_HTTP_MODULE_CONFIG* httpData);
 
 
 /*****************************************************************************
   Function:
-    bool TCPIP_HTTP_Deinitialize(void)
+    bool TCPIP_DHCPS_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const TCPIP_DHCPS_MODULE_CONFIG* pDhcpConfig);
 
   Summary:
-    DeInitializes the HTTP server module.
+    Resets the DHCP server module for the specified interface.
 
   Description:
-    Takes down all HTTP sockets, the state machine and file handles for
-    each connection. 
+    Resets the DHCP server module for the specified interface.
 
   Precondition:
     None
 
   Parameters:
-    None
+    stackCtrl - pointer to stack structure specifying the interface to initialize
 
   Returns:
     None
 
   Remarks:
-    This function is called only once during lifetime of the application.
-  ***************************************************************************/
-void TCPIP_HTTP_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackData);
+    This function should be called internally just once per interface
+    by the stack manager.
+***************************************************************************/
+bool TCPIP_DHCPS_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const TCPIP_DHCPS_MODULE_CONFIG* pDhcpConfig);
 
 
+/*****************************************************************************
+  Function:
+    bool TCPIP_DHCPS_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl);
 
-#endif // __HTTP_MANAGER_H_
+  Summary:
+    Turns off the DHCP server module for the specified interface.
+
+  Description:
+    Closes out UDP socket.
+
+  Precondition:
+    None
+
+  Parameters:
+    stackData - pointer to stack structure specifying the interface to deinitialize
+
+  Returns:
+    None
+
+  Remarks:
+    This function should be called internally just once per interface
+    by the stack manager.
+***************************************************************************/
+void TCPIP_DHCPS_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl);
+
+#endif  // _DHCP_SERVER_MANAGER_H_
+
 

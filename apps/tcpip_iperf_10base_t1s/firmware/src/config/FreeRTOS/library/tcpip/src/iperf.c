@@ -8,30 +8,28 @@
     - Implements iperf benchmarking
 *******************************************************************************/
 
-/*****************************************************************************
- Copyright (C) 2016-2018 Microchip Technology Inc. and its subsidiaries.
+/*
+Copyright (C) 2016-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
-Microchip Technology Inc. and its subsidiaries.
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
 
-Subject to your compliance with these terms, you may use Microchip software 
-and any derivatives exclusively with Microchip products. It is your 
-responsibility to comply with third party license terms applicable to your 
-use of third party software (including open source software) that may 
-accompany Microchip software.
-
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR 
-PURPOSE.
-
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE 
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN 
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY, 
-THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*****************************************************************************/
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 
 #include <string.h> 
@@ -953,7 +951,10 @@ static void StateMachineRxDone(tIperfState* pIState)
 static void StateMachineTxStart(tIperfState* pIState)
 {
 
-   TCPIP_ARP_Resolve(pIState->pNetIf, &pIState->remoteSide.remoteIPaddress.v4Add);
+   if(TCPIP_STACK_NetMACTypeGet(pIState->pNetIf) != TCPIP_MAC_TYPE_PPP)
+   {
+       TCPIP_ARP_Resolve(pIState->pNetIf, &pIState->remoteSide.remoteIPaddress.v4Add);
+   }
    IperfSetState(pIState, IPERF_TX_ARP_RESOLVE_STATE);
    pIState->timer = SYS_TMR_TickCountGet();
 }
@@ -969,7 +970,11 @@ static void StateMachineTxArpResolve(tIperfState* pIState)
      return;
   }
 
-  if(!(TCPIP_Helper_IsMcastAddress(&pIState->remoteSide.remoteIPaddress.v4Add)))
+  if(TCPIP_STACK_NetMACTypeGet(pIState->pNetIf) == TCPIP_MAC_TYPE_PPP)
+  {
+      memset(pIState->remoteMACAddr.v, 0, sizeof(pIState->remoteMACAddr));
+  }
+  else if(!(TCPIP_Helper_IsMcastAddress(&pIState->remoteSide.remoteIPaddress.v4Add)))
   {
     if(!TCPIP_ARP_IsResolved(pIState->pNetIf, &pIState->remoteSide.remoteIPaddress.v4Add, &pIState->remoteMACAddr))
     {
@@ -1796,7 +1801,20 @@ static void StateMachineUDPTxOpen(tIperfState* pIState)
     {
         (pIState->pCmdIO->pCmdApi->msg)(cmdIoParam, "iperf: Set of TX buffer size failed\r\n");
     }
-    if(!TCPIP_UDP_OptionsSet(pIState->udpSock, UDP_OPTION_TX_QUEUE_LIMIT, (void*)TCPIP_IPERF_TX_QUEUE_LIMIT))
+    size_t txQLimit;
+#if defined(TCPIP_STACK_USE_PPP_INTERFACE)
+    if(TCPIP_STACK_NetMACTypeGet(pIState->pNetIf) == TCPIP_MAC_TYPE_PPP)
+    {
+        txQLimit = TCPIP_IPERF_PPP_TX_QUEUE_LIMIT;
+    }
+    else
+    {
+        txQLimit = TCPIP_IPERF_TX_QUEUE_LIMIT;
+    }
+#else
+    txQLimit = TCPIP_IPERF_TX_QUEUE_LIMIT;
+#endif  // defined(TCPIP_STACK_USE_PPP_INTERFACE)
+    if(!TCPIP_UDP_OptionsSet(pIState->udpSock, UDP_OPTION_TX_QUEUE_LIMIT, (void*)txQLimit))
     {
         (pIState->pCmdIO->pCmdApi->msg)(cmdIoParam, "iperf: Set of TX queuing limit failed\r\n");
     }
@@ -2513,12 +2531,6 @@ static void CommandIperfSize(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
     const void* cmdIoParam = pCmdIO->cmdIoParam;
 
 
-    if (argc < 3)
-    {
-        (*pCmdIO->pCmdApi->msg)(cmdIoParam, "Usage: iperfs <-tx size> <-rx size> <-i index>\r\n");
-        return;
-    }
-
     setTx = setRx = 0;
     txBuffSize = rxBuffSize = 0;
     iperfIndex = 0;     // assume index 0 if not specified
@@ -2545,7 +2557,7 @@ static void CommandIperfSize(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
         }
         else
         {
-            (*pCmdIO->pCmdApi->msg)(cmdIoParam, "iperfi: Unknown parameter\r\n");
+            (*pCmdIO->pCmdApi->msg)(cmdIoParam, "Usage: iperfs <-tx size> <-rx size> <-i index>\r\n");
         }
 
         currIx += 2;
@@ -2568,14 +2580,15 @@ static void CommandIperfSize(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
     if(setTx)
     {
         pIState->txBuffSize = txBuffSize;
-        (*pCmdIO->pCmdApi->print)(cmdIoParam, "iperfs: OK, set instance %d tx size to %d\r\n", iperfIndex, txBuffSize);
     }
 
     if(setRx)
     {
         pIState->rxBuffSize = rxBuffSize;
-        (*pCmdIO->pCmdApi->print)(cmdIoParam, "iperfs: OK, set instance %d rx size to %d\r\n", iperfIndex, rxBuffSize);
     }
+
+    (*pCmdIO->pCmdApi->print)(cmdIoParam, "iperfs: OK, instance %d tx size is %d\r\n", iperfIndex, pIState->txBuffSize);
+    (*pCmdIO->pCmdApi->print)(cmdIoParam, "iperfs: OK, instance %d rx size is %d\r\n", iperfIndex, pIState->rxBuffSize);
 
 }
 

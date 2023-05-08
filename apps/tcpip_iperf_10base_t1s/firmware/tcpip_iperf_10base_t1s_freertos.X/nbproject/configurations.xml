@@ -25,6 +25,7 @@
                 <logicalFolder name="f1" displayName="dynamic" projectFiles="true">
                   <itemPath>../src/config/FreeRTOS/driver/gmac/src/dynamic/_gmac_dcpt_lists.h</itemPath>
                   <itemPath>../src/config/FreeRTOS/driver/gmac/src/dynamic/drv_gmac_lib.h</itemPath>
+                  <itemPath>../src/config/FreeRTOS/driver/gmac/src/dynamic/drv_gmac_lib_sam.h</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/FreeRTOS/driver/gmac/src/drv_gmac_local.h</itemPath>
               </logicalFolder>
@@ -121,6 +122,8 @@
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/lldp_tlv.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp_server_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp_server_manager.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_common_ports.h</itemPath>
               <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_mac.h</itemPath>
@@ -167,6 +170,7 @@
               <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip.h</itemPath>
               <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_mac_bridge.h</itemPath>
               <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_ethernet.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/dhcp_server.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f5" displayName="net_pres" projectFiles="true">
@@ -817,6 +821,7 @@
       </logicalFolder>
       <itemPath>../src/app.c</itemPath>
       <itemPath>../src/main.c</itemPath>
+      <itemPath>../src/config/FreeRTOS/pin_configurations.csv</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

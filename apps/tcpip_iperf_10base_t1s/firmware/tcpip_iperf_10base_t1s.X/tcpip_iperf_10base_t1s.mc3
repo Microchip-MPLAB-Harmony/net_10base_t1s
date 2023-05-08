@@ -6160,7 +6160,7 @@
       </entry>
       <entry>
          <file>..\src\config\default\configuration.h</file>
-         <hash>411d3d59e0726c4ca90cd47d23c84b874fa51b9dabd5c87a985505b20d06133d</hash>
+         <hash>d56c333f71d1f86a02c66a1642f18b6a825b25f8d3bcb107ddd8a11315a02816</hash>
       </entry>
       <entry>
          <file>..\src\third_party\wolfssl\wolfssl\wolfcrypt\src\blake2b.c</file>

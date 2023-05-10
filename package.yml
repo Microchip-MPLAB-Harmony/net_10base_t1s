@@ -1,7 +1,7 @@
 package:
   format-version: "1.0.0"
   name: "net_10base_t1s"
-  version: "1.2.1"
+  version: "1.2.2"
   type: "application"
   status: "production"
   

@@ -190,7 +190,7 @@ static void     CommandReset(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 static void     CommandQuit(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);              // command quit
 static void     CommandHelp(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);              // help
 
-static int      StringToArgs(char *str, char *argv[], size_t argvSize);
+static int      StringToArgs(char *str, char *argv[], size_t argvSize); 
 static void     ParseCmdBuffer(SYS_CMD_IO_DCPT* pCmdIO);      // parse the command buffer
 
 static void     DisplayNodeMsg(SYS_CMD_IO_DCPT* pCmdIO, histCmdNode* pNext);
@@ -709,14 +709,13 @@ static void SendCommandMessage(const void* cmdIoParam, const char* message)
 
 static void SendCommandPrint(const void* cmdIoParam, const char* format, ...)
 {
-#define TMP_BUF_SIZE (80)
-    char tmpBuf[TMP_BUF_SIZE];
+    char tmpBuf[SYS_CMD_PRINT_BUFFER_SIZE];
     size_t len = 0;
     size_t padding = 0;
     va_list args = {0};
     va_start( args, format );
 
-    len = vsnprintf(tmpBuf, TMP_BUF_SIZE, format, args);
+    len = vsnprintf(tmpBuf, SYS_CMD_PRINT_BUFFER_SIZE, format, args);
 
     va_end( args );
 
@@ -944,12 +943,12 @@ static void ParseCmdBuffer(SYS_CMD_IO_DCPT* pCmdIO)
   return number of parsed tokens
   < 0 if error
 */
-static int StringToArgs(char *str, char *argv[], size_t argvSize)
+static int StringToArgs(char *str, char *argv[], size_t argvSize) 
 {
     char* pTkn;
-    char* qStart, *qEnd;   // special char '"' starting position;
+    char* qStart, *qEnd;   // special char '"' starting position;  
     int nArgs = 0;
-
+    
     while(str)
     {
         qStart = strchr(str, '"');

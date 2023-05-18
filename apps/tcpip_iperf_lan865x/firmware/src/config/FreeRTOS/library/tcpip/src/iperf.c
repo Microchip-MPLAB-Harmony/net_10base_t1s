@@ -3,38 +3,36 @@
 
   Summary:
     Runs iperf client and server
-
+    
   Description:
     - Implements iperf benchmarking
 *******************************************************************************/
 
-/*****************************************************************************
- Copyright (C) 2016-2018 Microchip Technology Inc. and its subsidiaries.
+/*
+Copyright (C) 2016-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
-Microchip Technology Inc. and its subsidiaries.
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
 
-Subject to your compliance with these terms, you may use Microchip software
-and any derivatives exclusively with Microchip products. It is your
-responsibility to comply with third party license terms applicable to your
-use of third party software (including open source software) that may
-accompany Microchip software.
-
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR
-PURPOSE.
-
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*****************************************************************************/
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 
 
-#include <string.h>
+#include <string.h> 
 
 #define TCPIP_THIS_MODULE_ID    TCPIP_MODULE_IPERF
 
@@ -111,7 +109,7 @@ typedef enum
 }tIperfTOSvalues;
 
 //****************************************************************************
-// LOCAL DATA TYPES
+// LOCAL DATA TYPES                                                             
 //****************************************************************************
 
 /* tIperfState */
@@ -124,7 +122,7 @@ typedef struct
     tIperfProto	    mProtocol;		// -b or -u
     uint16_t		mServerPort;	// -p
     uint8_t			mTypeOfService;	// -S
-
+    
     uint32_t		mTxRate;		// -b or
                                 // -x: NONE-STANDARD IPERF OPTION. Max Tx bps rate for TCP.
 
@@ -179,13 +177,13 @@ typedef struct
     uint32_t    txBuffSize;
     uint32_t    rxBuffSize;
 
-    tcpipSignalHandle  signalHandle;
+    tcpipSignalHandle  signalHandle; 
 
     // console that invoked iperf
     SYS_CMD_DEVICE_NODE* pCmdIO;
     // interface to use
     TCPIP_NET_HANDLE pNetIf;
-    //
+    // 
     uint8_t     nAttempts;
     uint8_t 	statusReported;
     uint8_t 	state;
@@ -241,7 +239,7 @@ typedef struct
 } tClientHdr;
 
 //****************************************************************************
-// LOCAL GLOBALS
+// LOCAL GLOBALS                                                             
 //****************************************************************************
 
 #define MAX_BUFFER   (sizeof(tIperfPktInfo) + sizeof(tServerHdr))
@@ -268,7 +266,7 @@ static const SYS_CMD_DESCRIPTOR    iperfCmdTbl[]=
 
 
 //****************************************************************************
-// LOCAL Prototypes
+// LOCAL Prototypes                                                             
 //****************************************************************************
 #if defined(TCPIP_STACK_USE_UDP)
 static void StateMachineUdpTxDone(tIperfState* pIState);
@@ -305,7 +303,7 @@ static void ResetIperfCounters(tIperfState* pIState);
 
 static void IperfSetState(tIperfState* pIState, int newState);
 
-static void TCPIP_IPERF_Process(tIperfState* pIState);
+static void TCPIP_IPERF_Process(tIperfState* pIState);	
 
 static void _IperfTCPRxSignalHandler(TCP_SOCKET hTCP, TCPIP_NET_HANDLE hNet, TCPIP_TCP_SIGNAL_TYPE sigType, const void* param);
 static void _IperfUDPRxSignalHandler(TCP_SOCKET hTCP, TCPIP_NET_HANDLE hNet, TCPIP_UDP_SIGNAL_TYPE sigType, const void* param);
@@ -328,7 +326,7 @@ bool TCPIP_IPERF_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, cons
     	int i;
         nIperfSessions = sizeof(gIperfState) / sizeof(*gIperfState);
 
-	    tIperfState* pIState;
+	    tIperfState* pIState;	
         for(i = 0, pIState = gIperfState; i < nIperfSessions; i++, pIState++)
     	{
 	        memset( pIState, 0, sizeof(*pIState) );
@@ -377,7 +375,7 @@ void TCPIP_IPERF_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl)
             {   // all closed
                 // release resources
                 int i;
-                tIperfState* pIState;
+                tIperfState* pIState;	
                 for(i = 0, pIState = gIperfState; i < nIperfSessions; i++, pIState++)
 				{
                 	if(pIState->signalHandle != 0)
@@ -403,7 +401,7 @@ void TCPIP_IPERF_Task(void)
     {
 		int i = 0;
 		// ASYNC or RX signals occurred
-	    tIperfState* pIState;
+	    tIperfState* pIState;	
         for(i = 0, pIState = gIperfState; i < nIperfSessions; i++, pIState++)
 		{
         	TCPIP_IPERF_Process(pIState);
@@ -419,7 +417,7 @@ static void _IperfTCPRxSignalHandler(TCP_SOCKET hTCP, TCPIP_NET_HANDLE hNet, TCP
 {
     if(sigType == TCPIP_TCP_SIGNAL_RX_DATA)
     {
-        _TCPIPStackModuleSignalRequest(TCPIP_THIS_MODULE_ID, TCPIP_MODULE_SIGNAL_RX_PENDING, true);
+        _TCPIPStackModuleSignalRequest(TCPIP_THIS_MODULE_ID, TCPIP_MODULE_SIGNAL_RX_PENDING, true); 
     }
 }
 
@@ -429,17 +427,17 @@ static void _IperfUDPRxSignalHandler(TCP_SOCKET hTCP, TCPIP_NET_HANDLE hNet, TCP
 {
     if(sigType == TCPIP_UDP_SIGNAL_RX_DATA)
     {
-        _TCPIPStackModuleSignalRequest(TCPIP_THIS_MODULE_ID, TCPIP_MODULE_SIGNAL_RX_PENDING, true);
+        _TCPIPStackModuleSignalRequest(TCPIP_THIS_MODULE_ID, TCPIP_MODULE_SIGNAL_RX_PENDING, true); 
     }
 }
 
 
 
 
-static void TCPIP_IPERF_Process(tIperfState* pIState)
+static void TCPIP_IPERF_Process(tIperfState* pIState)	
 {
 	if (pIState->state == IPERF_STANDBY_STATE)
-    {
+    { 
        return;
     }
 
@@ -678,12 +676,12 @@ static void bw_conversion(SYS_CMD_DEVICE_NODE* pCmdIO, char *ptr, uint32_t *valu
 
     if(strcmp((ptr+(len-1)),"M")==0)
         mpf1 = 1000 * 1000;
-
+    
     if(strcmp((ptr+(len-1)),"K")==0)
         mpf1 = 100 * 10;
-
-    if(mpf1!=0)
-    {
+        
+    if(mpf1!=0)    
+    { 
         mpf2 = mpf1;
         for(j=0;j<len-1;j++)
         {
@@ -706,7 +704,7 @@ static void bw_conversion(SYS_CMD_DEVICE_NODE* pCmdIO, char *ptr, uint32_t *valu
         bw2 = bw2 * mpf2;
         if(bw1 < mpf1)
             bw1 = bw1 * mpf1;
-
+        
         values[0] = bw1;
         values[1] = bw2;
         (*pCmdIO->pCmdApi->print)(pCmdIO->cmdIoParam, "\nGiven in BW: %lu+%lu=%lu",bw1,bw2,bw1+bw2);
@@ -728,7 +726,7 @@ static void ReportBW_Jitter_Loss(tIperfState* pIState, tIperfReport reportType)
 	uint32_t msec = 0;
     const void* cmdIoParam = NULL;
 
-    uint32_t tickFreq = SYS_TMR_TickCounterFrequencyGet();
+    uint32_t tickFreq = SYS_TMR_TickCounterFrequencyGet(); 
     currentTime = SYS_TMR_TickCountGet();
 
     cmdIoParam = pIState->pCmdIO->cmdIoParam;
@@ -767,7 +765,7 @@ static void ReportBW_Jitter_Loss(tIperfState* pIState, tIperfReport reportType)
             sec = (pIState->lastCheckTime - pIState->startTime) / tickFreq;
 
             (pIState->pCmdIO->pCmdApi->print)(cmdIoParam, "    - [%2lu- %2lu sec] %3lu/ %3lu (%2lu%%)    %4lu Kbps\r\n",
-                      (unsigned long)sec,
+                      (unsigned long)sec, 
                       (unsigned long)sec + ( (unsigned long) (pIState->mInterval / tickFreq) ),
                       (unsigned long)nDropped,
                       (unsigned long)nAttempted,
@@ -997,7 +995,7 @@ static void StateMachineTxArpResolve(tIperfState* pIState)
             pIState->remoteMACAddr.v[4],
             pIState->remoteMACAddr.v[5]);
   }
-
+    
 #if defined(TCPIP_STACK_USE_UDP)
   if ( pIState->mProtocol == UDP_PROTOCOL )
   {
@@ -1097,7 +1095,7 @@ static void GenericTxHeaderPreparation(tIperfState* pIState, uint8_t *pData, boo
 
     currentTime = SYS_TMR_TickCountGet();
 
-    uint32_t tickFreq = SYS_TMR_TickCounterFrequencyGet();
+    uint32_t tickFreq = SYS_TMR_TickCounterFrequencyGet(); 
     pPktInfo->tv_sec = TCPIP_Helper_htonl(currentTime / tickFreq);
 
     /* get the remainder of the ticks using modulus */
@@ -1118,10 +1116,10 @@ static tIperfTxResult GenericTxStart(tIperfState* pIState)
 {
     uint32_t currentTime;
     bool iperfKilled;
-    const void* cmdIoParam = pIState->pCmdIO->cmdIoParam;
+    const void* cmdIoParam = pIState->pCmdIO->cmdIoParam;    
     tIperfState* mpIState;
     uint8_t i;
-
+	
     currentTime = SYS_TMR_TickCountGet();
 
    	if ( currentTime < (pIState->nextTxTime - TCPIP_IPERF_TIMING_ERROR_MARGIN))
@@ -1162,7 +1160,7 @@ static tIperfTxResult GenericTxStart(tIperfState* pIState)
 
     // One Tx per mPktPeriod msec.
     pIState->nextTxTime = currentTime + pIState->mPktPeriod;
-
+	
     switch(pIState->mProtocol)
     {
 #if defined(TCPIP_STACK_USE_TCP)
@@ -1195,14 +1193,14 @@ static tIperfTxResult GenericTxStart(tIperfState* pIState)
                 TCPIP_UDP_Discard(pIState->udpSock);
                 return IPERF_TX_WAIT;
             }
-
-            //(pIState->pCmdIO->pCmdApi->print)(cmdIoParam, "\n..Present TOS:%d, Prev: ",gIperfState[iperf_task_index].mTypeOfService);
+      
+            //(pIState->pCmdIO->pCmdApi->print)(cmdIoParam, "\n..Present TOS:%d, Prev: ",gIperfState[iperf_task_index].mTypeOfService);	
             for(i = 0, mpIState = gIperfState; i < nIperfSessions; i++, mpIState++)
-    	     {
+    	     {            
     	        if(mpIState == pIState) continue;
-
+                
                 //if((mpIState != pIState) && (tie_break[i]<3))
-                if(mpIState->waitCount < 3)
+                if(mpIState->waitCount < 3)    
                 {
                 //(pIState->pCmdIO->pCmdApi->print)(cmdIoParam, "%d(wait:%d), mpt:%d  ",pIState->mTypeOfService,pIState->sockWaitToSend, mpIState->mTypeOfService);
 
@@ -1215,7 +1213,7 @@ static tIperfTxResult GenericTxStart(tIperfState* pIState)
                                 mpIState->waitCount += 1;
                                 return IPERF_TX_WAIT;
                             }
-                         break;
+                         break;   
                     case TCPIP_IPV4_RELIABILITY_HIGH:  /*0xA0 Video, check for only Voice*/
                         if(mpIState->mTypeOfService == TCPIP_IPV4_THROUGHPUT_HIGH)
                             if(mpIState->sockWaitToSend)
@@ -1239,12 +1237,12 @@ static tIperfTxResult GenericTxStart(tIperfState* pIState)
                 }
                 }
                 if(mpIState->waitCount == 3) mpIState->waitCount = 0;
-            }
+            }            
 
             if ( TCPIP_UDP_TxPutIsReady(pIState->udpSock, pIState->mDatagramSize) < pIState->mDatagramSize )
             {
                 pIState->sockWaitToSend += 1;
-
+                
                 if(pIState->txWaitTick == 0)
                 {     // beginning wait period
                     pIState->txWaitTick = SYS_TMR_TickCountGet() + ((TCPIP_IPERF_TX_WAIT_TMO * SYS_TMR_TickCounterFrequencyGet()) + 999)/1000;
@@ -1262,7 +1260,7 @@ static tIperfTxResult GenericTxStart(tIperfState* pIState)
             else
             {    // reset retry tick counter
                 pIState->txWaitTick = 0;
-                pIState->sockWaitToSend -= 1;
+                pIState->sockWaitToSend -= 1;                
             }
             break;
 #endif  // defined(TCPIP_STACK_USE_UDP)
@@ -1358,7 +1356,7 @@ static void GenericTxEnd(tIperfState* pIState)
                     pIState->mServerPort );
 
             (pIState->pCmdIO->pCmdApi->print)(cmdIoParam, "    - Target rate = %ld bps, period = %ld ms\r\n",
-                    (unsigned long)pIState->mTxRate,
+                    (unsigned long)pIState->mTxRate, 
                     (unsigned long)(pIState->mPktPeriod*1000/SYS_TMR_TickCounterFrequencyGet()) );
 
         }
@@ -1398,7 +1396,7 @@ static void GenericTxEnd(tIperfState* pIState)
 
 
     if ( pIState->isLastTransmit == true )
-    {
+    {		
         switch(pIState->mProtocol)
         {
 #if defined(TCPIP_STACK_USE_UDP)
@@ -1412,7 +1410,7 @@ static void GenericTxEnd(tIperfState* pIState)
                         pIState->stopTime = SYS_TMR_TickCountGet();
 
                         ReportBW_Jitter_Loss(pIState, SUBTOTAL_REPORT);
-                        (pIState->pCmdIO->pCmdApi->msg)(cmdIoParam, "    -----------------------------------------\r\n");
+                        (pIState->pCmdIO->pCmdApi->msg)(cmdIoParam, "    -----------------------------------------\r\n"); 
                     }
 
                     // Don't follow the same transmision rate during retransmit.
@@ -1592,7 +1590,7 @@ static void StateMachineTcpRx(tIperfState* pIState)
        if ( pIState->pktId == 0)
        {
           IPV4_ADDR lclAddress;
-
+          
           // This is the first rx pkt.
           (pIState->pCmdIO->pCmdApi->print)(cmdIoParam, "\r\niperf: instance %d session started ...\r\n", pIState - gIperfState);
 
@@ -1725,7 +1723,7 @@ static void StateMachineUdpTxDone(tIperfState* pIState)
 static void StateMachineUdpTxDatagram(tIperfState* pIState)
 {
 
-    TCPIP_UDP_OptionsSet(pIState->udpSock, UDP_OPTION_TOS, (void*)(unsigned int)pIState->mTypeOfService);
+    TCPIP_UDP_OptionsSet(pIState->udpSock, UDP_OPTION_TOS, (void*)(unsigned int)pIState->mTypeOfService);   
 
     tIperfTxResult txRes = GenericTxStart(pIState);
 
@@ -1785,10 +1783,10 @@ static uint16_t UdpTxFillDatagram(tIperfState* pIState)
 }
 
 static void StateMachineUDPTxOpen(tIperfState* pIState)
-{
+{	
 	UDP_SOCKET_INFO UdpSkt;
     const void* cmdIoParam = pIState->pCmdIO->cmdIoParam;
-
+	
     if ( (pIState->udpSock = TCPIP_UDP_ClientOpen(IP_ADDRESS_TYPE_IPV4, pIState->mServerPort, (IP_MULTI_ADDRESS*)&pIState->remoteSide.remoteIPaddress.v4Add)) == INVALID_UDP_SOCKET )
     {
         /* error case */
@@ -1798,7 +1796,7 @@ static void StateMachineUDPTxOpen(tIperfState* pIState)
     }
 
     TCPIP_UDP_SignalHandlerRegister(pIState->udpSock, TCPIP_UDP_SIGNAL_RX_DATA, _IperfUDPRxSignalHandler, 0);
-
+	
     if(!TCPIP_UDP_OptionsSet(pIState->udpSock, UDP_OPTION_TX_BUFF, (void*)pIState->mDatagramSize))
     {
         (pIState->pCmdIO->pCmdApi->msg)(cmdIoParam, "iperf: Set of TX buffer size failed\r\n");
@@ -1884,7 +1882,7 @@ static void StateMachineUdpRxDone(tIperfState* pIState)
       pServer_hdr->total_len1 = 0;
       pServer_hdr->total_len2 = TCPIP_Helper_htonl( (uint32_t) pIState->totalLen);
 
-      uint32_t tickFreq = SYS_TMR_TickCounterFrequencyGet();
+      uint32_t tickFreq = SYS_TMR_TickCounterFrequencyGet(); 
       pServer_hdr->stop_sec =  TCPIP_Helper_htonl( (uint32_t) (pIState->stopTime - pIState->startTime) / tickFreq);
 
       /* get the remainder of the ticks using modulus */
@@ -1907,7 +1905,7 @@ static void StateMachineUdpRxDone(tIperfState* pIState)
       uint8_t tmpBuffer[128-MAX_BUFFER];
       memset(tmpBuffer, 0, sizeof(tmpBuffer));
       TCPIP_UDP_ArrayPut(pIState->udpSock, tmpBuffer, sizeof(tmpBuffer));
-
+      
       TCPIP_UDP_Flush(pIState->udpSock );
 
     }
@@ -1993,8 +1991,8 @@ static void StateMachineUdpRx(tIperfState* pIState)
                            lclIpAddr.v[2],
                            lclIpAddr.v[3],
                            pIState->mServerPort);
-
-          (pIState->pCmdIO->pCmdApi->print)(cmdIoParam, "    - Remote %u.%u.%u.%u port %u\r\n",
+		  
+          (pIState->pCmdIO->pCmdApi->print)(cmdIoParam, "    - Remote %u.%u.%u.%u port %u\r\n",      
                            remIpAddr.v[0],
                            remIpAddr.v[1],
                            remIpAddr.v[2],
@@ -2109,7 +2107,7 @@ static tIperfState* GetIperfSession(void)
 
 	int i = 0;
 
-    tIperfState* pIState;
+    tIperfState* pIState;	
     for(i = 0, pIState = gIperfState; i < nIperfSessions; i++, pIState++)
 	{
 		if(pIState->state == (uint8_t)IPERF_STANDBY_STATE)
@@ -2126,13 +2124,13 @@ static void CommandIperfStart(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv
     char *ptr;
     uint32_t tickFreq;
     uint32_t values[4], bw=0;
-
+    
     float pktRate;
     uint16_t payloadSize = 0, asciTos;
     const void* cmdIoParam = pCmdIO->cmdIoParam;
 
-    tIperfState* pIState = GetIperfSession();
-
+    tIperfState* pIState = GetIperfSession();	
+	
     if(pIState == 0)
     {
         (*pCmdIO->pCmdApi->msg)(cmdIoParam, "\r\niperf: All instances busy. Retry later!\r\n");
@@ -2155,7 +2153,7 @@ static void CommandIperfStart(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv
     pIState->mTxRate = ((uint32_t) TCPIP_IPERF_TX_BW_LIMIT*1000)*((uint32_t) 1000);		// -b or -x. Target tx rate.
     // KS: default tx rate for iperf is actually 1Mbps.
 
-    tickFreq = SYS_TMR_TickCounterFrequencyGet();
+    tickFreq = SYS_TMR_TickCounterFrequencyGet(); 
     pIState->mAmount = 0;			// -n: default 0.
     pIState->mDuration = ((uint32_t) 10)*(tickFreq); // -t: default 10 sec.
     pIState->mInterval =  tickFreq; 	// -i: default 1 sec.
@@ -2164,7 +2162,7 @@ static void CommandIperfStart(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv
     // remember the console we've been invoked from
     pIState->pCmdIO = pCmdIO;
 
-
+    
     // Initialize statistics
 
     ResetIperfCounters(pIState);
@@ -2192,9 +2190,9 @@ static void CommandIperfStart(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv
             i++;
             ptr = argv[i];
             len = strlen(ptr);
-
+            
             if((strcmp((ptr+(len-1)),"M")==0) || (strcmp((ptr+(len-1)),"K")==0))
-            {
+            {  
                 bw_conversion(pCmdIO, ptr, values);
                 bw = values[0]+values[1];
             }
@@ -2204,7 +2202,7 @@ static void CommandIperfStart(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv
                 bw = values[0];
             }
 
-            //(*pCmdIO->pCmdApi->print)(cmdIoParam, "\nGiven BW:%d",bw);
+            //(*pCmdIO->pCmdApi->print)(cmdIoParam, "\nGiven BW:%d",bw);            
             pIState->mTxRate = bw;
         }
 #endif  // defined(TCPIP_STACK_USE_UDP)
@@ -2234,7 +2232,7 @@ static void CommandIperfStart(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv
             pIState->remoteSide.remoteIPaddress.v4Add.v[0] = values[0];
             pIState->remoteSide.remoteIPaddress.v4Add.v[1] = values[1];
             pIState->remoteSide.remoteIPaddress.v4Add.v[2] = values[2];
-            pIState->remoteSide.remoteIPaddress.v4Add.v[3] = values[3];
+            pIState->remoteSide.remoteIPaddress.v4Add.v[3] = values[3]; 
         }
         else if ((memcmp(argv[i], "-t", 2) == 0) || (memcmp(argv[i], "--time", 5) == 0) )
         {
@@ -2263,38 +2261,38 @@ static void CommandIperfStart(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv
             if(argv[i][1] == 'x')
             {
                 ((uint8_t*)&asciTos)[1] = argv[i][2];
-                ((uint8_t*)&asciTos)[0] = argv[i][3];
+                ((uint8_t*)&asciTos)[0] = argv[i][3];                    
                 tos = hexatob(asciTos);
             }
             else
             {
                 ptr = argv[i];
                 ascii_to_u32s(ptr, values, 1);
-                tos = values[0];
+                tos = values[0];                
             }
 
             switch(tos)
             {
                 case IPERF_TOS_VO:
-                    pIState->mTypeOfService = TCPIP_IPV4_THROUGHPUT_HIGH;
+                    pIState->mTypeOfService = TCPIP_IPV4_THROUGHPUT_HIGH;                  
                     break;
                 case IPERF_TOS_VI:
-                    pIState->mTypeOfService = TCPIP_IPV4_RELIABILITY_HIGH;
+                    pIState->mTypeOfService = TCPIP_IPV4_RELIABILITY_HIGH;                                      
                     break;
                 case IPERF_TOS_BK:
-                    pIState->mTypeOfService = TCPIP_IPV4_DELAY_LOW;
+                    pIState->mTypeOfService = TCPIP_IPV4_DELAY_LOW;                                      
                     break;
                 case IPERF_TOS_BE:
-                    pIState->mTypeOfService = TCPIP_IPV4_TOS_DEFAULT;
+                    pIState->mTypeOfService = TCPIP_IPV4_TOS_DEFAULT;                                      
                     break;
-                 default:
-                    pIState->mTypeOfService = TCPIP_IPV4_TOS_DEFAULT;
+                 default:   
+                    pIState->mTypeOfService = TCPIP_IPV4_TOS_DEFAULT;                                                          
             }
 
             (*pCmdIO->pCmdApi->print)(cmdIoParam, "\nGiven TOS value is %d, mTypeOfService:%d",tos,pIState->mTypeOfService);
-
+            
         }
-
+        
 #if defined(TCPIP_STACK_USE_TCP)
         else if ((memcmp(argv[i], "-M", 2) == 0) ||
                 (memcmp(argv[i], "--mss", 5) == 0) )
@@ -2389,26 +2387,26 @@ static void CommandIperfStart(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv
             if (pIState->mProtocol == UDP_PROTOCOL)
             {
                 (*pCmdIO->pCmdApi->msg)(cmdIoParam, (const char *)"UDP");
-            }
+            }    
 #endif  // defined(TCPIP_STACK_USE_UDP)
 #if defined(TCPIP_STACK_USE_TCP)
             if (pIState->mProtocol == TCP_PROTOCOL)
             {
                 (*pCmdIO->pCmdApi->msg)(cmdIoParam, (const char *)"TCP");
-            }
+            }    
 #endif  // defined(TCPIP_STACK_USE_TCP)
 
             (pIState->pCmdIO->pCmdApi->print)(cmdIoParam, " port %d\r\n", pIState->mServerPort);
             IperfSetState(pIState, IPERF_RX_START_STATE);
             break;
     }
-
+    
 }
 
 static void CommandIperfStop(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
     const void* cmdIoParam = pCmdIO->cmdIoParam;
-    tIperfState* pIState;
+    tIperfState* pIState;	
     bool okParam = false;
     int iperfIndex = 0;
 
@@ -2438,7 +2436,7 @@ static void CommandIperfStop(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
         return;
     }
 
-    pIState = gIperfState + iperfIndex;
+    pIState = gIperfState + iperfIndex;	
 
     if(pIState->state == IPERF_STANDBY_STATE)
     {
@@ -2455,7 +2453,7 @@ static void CommandIperfStop(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 static void CommandIperfNetIf(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
     IPV4_ADDR   ipAddr;
-    tIperfState* pIState;
+    tIperfState* pIState;	
     const void* cmdIoParam = pCmdIO->cmdIoParam;
     int iperfIndex = 0;     // assume index 0 if not specified
     bool addFound = false;
@@ -2466,7 +2464,7 @@ static void CommandIperfNetIf(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv
     {
         int currIx = 1; // 1st param is always the command name, skip it
         while(currIx + 1 < argc)
-        {
+        { 
             char* param = argv[currIx];
             char* paramVal = argv[currIx + 1];
 
@@ -2510,7 +2508,7 @@ static void CommandIperfNetIf(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv
         return;
     }
 
-    pIState = gIperfState + iperfIndex;
+    pIState = gIperfState + iperfIndex;	
 
     if (pIState->state != IPERF_STANDBY_STATE)
     {
@@ -2527,7 +2525,7 @@ static void CommandIperfSize(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
     bool        setTx, setRx;
     uint32_t    txBuffSize, rxBuffSize;
-    tIperfState* pIState;
+    tIperfState* pIState;	
     int iperfIndex;
 
     const void* cmdIoParam = pCmdIO->cmdIoParam;
@@ -2539,7 +2537,7 @@ static void CommandIperfSize(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 
     int currIx = 1; // 1st param is always the command name, skip it
     while(currIx + 1 < argc)
-    {
+    { 
         char* param = argv[currIx];
         char* paramVal = argv[currIx + 1];
 
@@ -2578,7 +2576,7 @@ static void CommandIperfSize(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
     }
 
 
-    pIState = gIperfState + iperfIndex;
+    pIState = gIperfState + iperfIndex;	
     if(setTx)
     {
         pIState->txBuffSize = txBuffSize;
@@ -2598,7 +2596,7 @@ static void IperfSetState(tIperfState* pIState, int newState)
 {
     uint8_t oldState = pIState->state;
 	static uint8_t	iperf_async_request = 0;
-
+	
     if(newState == IPERF_STANDBY_STATE)
     {
         if(oldState != IPERF_STANDBY_STATE)
@@ -2609,12 +2607,12 @@ static void IperfSetState(tIperfState* pIState, int newState)
     else if (oldState == IPERF_STANDBY_STATE)
     {   // going busy; set the async request
     	iperf_async_request++;
-		_TCPIPStackModuleSignalRequest(TCPIP_THIS_MODULE_ID, TCPIP_MODULE_SIGNAL_ASYNC, 0);
+		_TCPIPStackModuleSignalRequest(TCPIP_THIS_MODULE_ID, TCPIP_MODULE_SIGNAL_ASYNC, 0); 
     }
 
 	if(iperf_async_request == 0)
-		_TCPIPStackModuleSignalGet(TCPIP_THIS_MODULE_ID, TCPIP_MODULE_SIGNAL_ASYNC);
-
+		_TCPIPStackModuleSignalGet(TCPIP_THIS_MODULE_ID, TCPIP_MODULE_SIGNAL_ASYNC); 
+	
     pIState->state = (uint8_t)newState;
 
 }

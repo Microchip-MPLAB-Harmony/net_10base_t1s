@@ -89,14 +89,14 @@ void TC0_TimerInitialize( void )
     TC0_REGS->COUNT16.TC_WAVE = (uint8_t)TC_WAVE_WAVEGEN_MPWM;
 
     /* Configure timer period */
-    TC0_REGS->COUNT16.TC_CC[0U] = 60000U;
+    TC0_REGS->COUNT16.TC_CC[0U] = 59999U;
 
     /* Clear all interrupt flags */
     TC0_REGS->COUNT16.TC_INTFLAG = (uint8_t)TC_INTFLAG_Msk;
 
     TC0_CallbackObject.callback = NULL;
     /* Enable interrupt*/
-    TC0_REGS->COUNT16.TC_INTENSET = (uint8_t)(TC_INTENSET_OVF_Msk);
+    TC0_REGS->COUNT16.TC_INTENSET = (uint8_t)(TC_INTENSET_MC1_Msk);
 
 
     while((TC0_REGS->COUNT16.TC_SYNCBUSY) != 0U)

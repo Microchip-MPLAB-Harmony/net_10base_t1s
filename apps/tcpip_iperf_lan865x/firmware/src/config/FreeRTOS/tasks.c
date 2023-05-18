@@ -72,7 +72,7 @@ void _TCPIP_STACK_Task(  void *pvParameters  )
 TaskHandle_t xAPP_Tasks;
 
 void _APP_Tasks(  void *pvParameters  )
-{
+{   
     while(1)
     {
         APP_Tasks();
@@ -109,7 +109,7 @@ void _SYS_CMD_Tasks(  void *pvParameters  )
 void SYS_Tasks ( void )
 {
     /* Maintain system services */
-
+    
 
     xTaskCreate( _SYS_CMD_Tasks,
         "SYS_CMD_TASKS",
@@ -123,10 +123,10 @@ void SYS_Tasks ( void )
 
 
     /* Maintain Device Drivers */
-
+    
 
     /* Maintain Middleware & Other Libraries */
-
+    
     xTaskCreate( _TCPIP_STACK_Task,
         "TCPIP_STACK_Tasks",
         TCPIP_RTOS_STACK_SIZE,
@@ -151,7 +151,7 @@ void SYS_Tasks ( void )
 
 
     /* Start RTOS Scheduler. */
-
+    
      /**********************************************************************
      * Create all Threads for APP Tasks before starting FreeRTOS Scheduler *
      ***********************************************************************/

@@ -214,16 +214,16 @@ SYSTEM_OBJECTS sysObj;
 // *****************************************************************************
 /*** ARP Service Initialization Data ***/
 const TCPIP_ARP_MODULE_CONFIG tcpipARPInitData =
-{
-    .cacheEntries       = TCPIP_ARP_CACHE_ENTRIES,
-    .deleteOld          = TCPIP_ARP_CACHE_DELETE_OLD,
-    .entrySolvedTmo     = TCPIP_ARP_CACHE_SOLVED_ENTRY_TMO,
-    .entryPendingTmo    = TCPIP_ARP_CACHE_PENDING_ENTRY_TMO,
-    .entryRetryTmo      = TCPIP_ARP_CACHE_PENDING_RETRY_TMO,
-    .permQuota          = TCPIP_ARP_CACHE_PERMANENT_QUOTA,
-    .purgeThres         = TCPIP_ARP_CACHE_PURGE_THRESHOLD,
-    .purgeQuanta        = TCPIP_ARP_CACHE_PURGE_QUANTA,
-    .retries            = TCPIP_ARP_CACHE_ENTRY_RETRIES,
+{ 
+    .cacheEntries       = TCPIP_ARP_CACHE_ENTRIES,     
+    .deleteOld          = TCPIP_ARP_CACHE_DELETE_OLD,    
+    .entrySolvedTmo     = TCPIP_ARP_CACHE_SOLVED_ENTRY_TMO, 
+    .entryPendingTmo    = TCPIP_ARP_CACHE_PENDING_ENTRY_TMO, 
+    .entryRetryTmo      = TCPIP_ARP_CACHE_PENDING_RETRY_TMO, 
+    .permQuota          = TCPIP_ARP_CACHE_PERMANENT_QUOTA, 
+    .purgeThres         = TCPIP_ARP_CACHE_PURGE_THRESHOLD, 
+    .purgeQuanta        = TCPIP_ARP_CACHE_PURGE_QUANTA, 
+    .retries            = TCPIP_ARP_CACHE_ENTRY_RETRIES, 
     .gratProbeCount     = TCPIP_ARP_GRATUITOUS_PROBE_COUNT,
 };
 
@@ -232,14 +232,14 @@ const TCPIP_ARP_MODULE_CONFIG tcpipARPInitData =
 const TCPIP_UDP_MODULE_CONFIG tcpipUDPInitData =
 {
     .nSockets       = TCPIP_UDP_MAX_SOCKETS,
-    .sktTxBuffSize  = TCPIP_UDP_SOCKET_DEFAULT_TX_SIZE,
+    .sktTxBuffSize  = TCPIP_UDP_SOCKET_DEFAULT_TX_SIZE, 
 };
 
 /*** TCP Sockets Initialization Data ***/
 const TCPIP_TCP_MODULE_CONFIG tcpipTCPInitData =
 {
     .nSockets       = TCPIP_TCP_MAX_SOCKETS,
-    .sktTxBuffSize  = TCPIP_TCP_SOCKET_DEFAULT_TX_SIZE,
+    .sktTxBuffSize  = TCPIP_TCP_SOCKET_DEFAULT_TX_SIZE, 
     .sktRxBuffSize  = TCPIP_TCP_SOCKET_DEFAULT_RX_SIZE,
 };
 
@@ -248,19 +248,10 @@ const TCPIP_TCP_MODULE_CONFIG tcpipTCPInitData =
 
 
 
-/*** DHCP client Initialization Data ***/
-const TCPIP_DHCP_MODULE_CONFIG tcpipDHCPInitData =
-{
-    .dhcpEnable     = false,
-    .dhcpTmo        = TCPIP_DHCP_TIMEOUT,
-    .dhcpCliPort    = TCPIP_DHCP_CLIENT_CONNECT_PORT,
-    .dhcpSrvPort    = TCPIP_DHCP_SERVER_LISTEN_PORT,
-
-};
 
 
 /*** ICMP Server Initialization Data ***/
-const TCPIP_ICMP_MODULE_CONFIG tcpipICMPInitData =
+const TCPIP_ICMP_MODULE_CONFIG tcpipICMPInitData = 
 {
     0
 };
@@ -281,7 +272,7 @@ const TCPIP_DNS_CLIENT_MODULE_CONFIG tcpipDNSClientInitData =
 {
     .deleteOldLease         = TCPIP_DNS_CLIENT_DELETE_OLD_ENTRIES,
     .cacheEntries           = TCPIP_DNS_CLIENT_CACHE_ENTRIES,
-    .entrySolvedTmo         = TCPIP_DNS_CLIENT_CACHE_ENTRY_TMO,
+    .entrySolvedTmo         = TCPIP_DNS_CLIENT_CACHE_ENTRY_TMO,    
     .nIPv4Entries  = TCPIP_DNS_CLIENT_CACHE_PER_IPV4_ADDRESS,
     .ipAddressType       = TCPIP_DNS_CLIENT_ADDRESS_TYPE,
     .nIPv6Entries  = TCPIP_DNS_CLIENT_CACHE_PER_IPV6_ADDRESS,
@@ -292,9 +283,9 @@ const TCPIP_DNS_CLIENT_MODULE_CONFIG tcpipDNSClientInitData =
 /*** IPv4 Initialization Data ***/
 
 
-const TCPIP_IPV4_MODULE_CONFIG  tcpipIPv4InitData =
+const TCPIP_IPV4_MODULE_CONFIG  tcpipIPv4InitData = 
 {
-    .arpEntries = TCPIP_IPV4_ARP_SLOTS,
+    .arpEntries = TCPIP_IPV4_ARP_SLOTS, 
 };
 
 
@@ -342,7 +333,6 @@ const TCPIP_STACK_MODULE_CONFIG TCPIP_STACK_MODULE_CONFIG_TBL [] =
     {TCPIP_MODULE_ARP,              &tcpipARPInitData},             // TCPIP_MODULE_ARP
     {TCPIP_MODULE_UDP,              &tcpipUDPInitData},             // TCPIP_MODULE_UDP
     {TCPIP_MODULE_TCP,              &tcpipTCPInitData},             // TCPIP_MODULE_TCP
-    {TCPIP_MODULE_DHCP_CLIENT,      &tcpipDHCPInitData},            // TCPIP_MODULE_DHCP_CLIENT
     {TCPIP_MODULE_DNS_CLIENT,       &tcpipDNSClientInitData},       // TCPIP_MODULE_DNS_CLIENT
 
     { TCPIP_MODULE_MANAGER,         &tcpipHeapConfig },             // TCPIP_MODULE_MANAGER
@@ -403,6 +393,8 @@ const SYS_TIME_PLIB_INTERFACE sysTimePlibAPI = {
     .timerStop = (SYS_TIME_PLIB_STOP)TC0_TimerStop,
     .timerFrequencyGet = (SYS_TIME_PLIB_FREQUENCY_GET)TC0_TimerFrequencyGet,
     .timerPeriodSet = (SYS_TIME_PLIB_PERIOD_SET)TC0_Timer16bitPeriodSet,
+    .timerCompareSet = (SYS_TIME_PLIB_COMPARE_SET)TC0_Timer16bitCompareSet,
+    .timerCounterGet = (SYS_TIME_PLIB_COUNTER_GET)TC0_Timer16bitCounterGet,
 };
 
 const SYS_TIME_INIT sysTimeInitData =
@@ -430,7 +422,7 @@ const SYS_CONSOLE_UART_PLIB_INTERFACE sysConsole0UARTPlibAPI =
 
 const SYS_CONSOLE_UART_INIT_DATA sysConsole0UARTInitData =
 {
-    .uartPLIB = &sysConsole0UARTPlibAPI,
+    .uartPLIB = &sysConsole0UARTPlibAPI,    
 };
 
 const SYS_CONSOLE_INIT sysConsole0Init =
@@ -489,7 +481,7 @@ void SYS_Initialize ( void* data )
 
     NVMCTRL_Initialize( );
 
-
+  
     PORT_Initialize();
 
     CLOCK_Initialize();
@@ -501,17 +493,11 @@ void SYS_Initialize ( void* data )
 
     SERCOM1_USART_Initialize();
 
-    EVSYS_Initialize();
-
     SERCOM0_SPI_Initialize();
 
-	SYSTICK_TimerInitialize();
+    EVSYS_Initialize();
+
     DMAC_Initialize();
-
-	BSP_Initialize();
-    EIC_Initialize();
-
-    TCC0_PWMInitialize();
 
 
     /* Initialize SPI0 Driver Instance */

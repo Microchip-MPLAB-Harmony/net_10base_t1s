@@ -65,60 +65,52 @@
 // *****************************************************************************
 // *****************************************************************************
 
-/*** Macros for CLICK_INT pin ***/
-#define CLICK_INT_Set()               (PORT_REGS->GROUP[2].PORT_OUTSET = ((uint32_t)1U << 14U))
-#define CLICK_INT_Clear()             (PORT_REGS->GROUP[2].PORT_OUTCLR = ((uint32_t)1U << 14U))
-#define CLICK_INT_Toggle()            (PORT_REGS->GROUP[2].PORT_OUTTGL = ((uint32_t)1U << 14U))
-#define CLICK_INT_OutputEnable()      (PORT_REGS->GROUP[2].PORT_DIRSET = ((uint32_t)1U << 14U))
-#define CLICK_INT_InputEnable()       (PORT_REGS->GROUP[2].PORT_DIRCLR = ((uint32_t)1U << 14U))
-#define CLICK_INT_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 14U)) & 0x01U)
-#define CLICK_INT_PIN                  PORT_PIN_PC14
+/*** Macros for LAN865x_INT pin ***/
+#define LAN865x_INT_Set()               (PORT_REGS->GROUP[2].PORT_OUTSET = ((uint32_t)1U << 14U))
+#define LAN865x_INT_Clear()             (PORT_REGS->GROUP[2].PORT_OUTCLR = ((uint32_t)1U << 14U))
+#define LAN865x_INT_Toggle()            (PORT_REGS->GROUP[2].PORT_OUTTGL = ((uint32_t)1U << 14U))
+#define LAN865x_INT_OutputEnable()      (PORT_REGS->GROUP[2].PORT_DIRSET = ((uint32_t)1U << 14U))
+#define LAN865x_INT_InputEnable()       (PORT_REGS->GROUP[2].PORT_DIRCLR = ((uint32_t)1U << 14U))
+#define LAN865x_INT_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 14U)) & 0x01U)
+#define LAN865x_INT_PIN                  PORT_PIN_PC14
 
-/*** Macros for CLICK_SS pin ***/
-#define CLICK_SS_Set()               (PORT_REGS->GROUP[2].PORT_OUTSET = ((uint32_t)1U << 15U))
-#define CLICK_SS_Clear()             (PORT_REGS->GROUP[2].PORT_OUTCLR = ((uint32_t)1U << 15U))
-#define CLICK_SS_Toggle()            (PORT_REGS->GROUP[2].PORT_OUTTGL = ((uint32_t)1U << 15U))
-#define CLICK_SS_OutputEnable()      (PORT_REGS->GROUP[2].PORT_DIRSET = ((uint32_t)1U << 15U))
-#define CLICK_SS_InputEnable()       (PORT_REGS->GROUP[2].PORT_DIRCLR = ((uint32_t)1U << 15U))
-#define CLICK_SS_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 15U)) & 0x01U)
-#define CLICK_SS_PIN                  PORT_PIN_PC15
+/*** Macros for LAN865x_CS pin ***/
+#define LAN865x_CS_Set()               (PORT_REGS->GROUP[2].PORT_OUTSET = ((uint32_t)1U << 15U))
+#define LAN865x_CS_Clear()             (PORT_REGS->GROUP[2].PORT_OUTCLR = ((uint32_t)1U << 15U))
+#define LAN865x_CS_Toggle()            (PORT_REGS->GROUP[2].PORT_OUTTGL = ((uint32_t)1U << 15U))
+#define LAN865x_CS_OutputEnable()      (PORT_REGS->GROUP[2].PORT_DIRSET = ((uint32_t)1U << 15U))
+#define LAN865x_CS_InputEnable()       (PORT_REGS->GROUP[2].PORT_DIRCLR = ((uint32_t)1U << 15U))
+#define LAN865x_CS_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 15U)) & 0x01U)
+#define LAN865x_CS_PIN                  PORT_PIN_PC15
 
-/*** Macros for USER_LED_2 pin ***/
-#define USER_LED_2_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 16U)) & 0x01U)
-#define USER_LED_2_PIN                  PORT_PIN_PA16
+/*** Macros for LAN865x_RESET pin ***/
+#define LAN865x_RESET_Set()               (PORT_REGS->GROUP[2].PORT_OUTSET = ((uint32_t)1U << 18U))
+#define LAN865x_RESET_Clear()             (PORT_REGS->GROUP[2].PORT_OUTCLR = ((uint32_t)1U << 18U))
+#define LAN865x_RESET_Toggle()            (PORT_REGS->GROUP[2].PORT_OUTTGL = ((uint32_t)1U << 18U))
+#define LAN865x_RESET_OutputEnable()      (PORT_REGS->GROUP[2].PORT_DIRSET = ((uint32_t)1U << 18U))
+#define LAN865x_RESET_InputEnable()       (PORT_REGS->GROUP[2].PORT_DIRCLR = ((uint32_t)1U << 18U))
+#define LAN865x_RESET_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 18U)) & 0x01U)
+#define LAN865x_RESET_PIN                  PORT_PIN_PC18
 
-/*** Macros for CLICK_RESET pin ***/
-#define CLICK_RESET_Set()               (PORT_REGS->GROUP[2].PORT_OUTSET = ((uint32_t)1U << 18U))
-#define CLICK_RESET_Clear()             (PORT_REGS->GROUP[2].PORT_OUTCLR = ((uint32_t)1U << 18U))
-#define CLICK_RESET_Toggle()            (PORT_REGS->GROUP[2].PORT_OUTTGL = ((uint32_t)1U << 18U))
-#define CLICK_RESET_OutputEnable()      (PORT_REGS->GROUP[2].PORT_DIRSET = ((uint32_t)1U << 18U))
-#define CLICK_RESET_InputEnable()       (PORT_REGS->GROUP[2].PORT_DIRCLR = ((uint32_t)1U << 18U))
-#define CLICK_RESET_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 18U)) & 0x01U)
-#define CLICK_RESET_PIN                  PORT_PIN_PC18
+/*** Macros for LAN865x_MOSI pin ***/
+#define LAN865x_MOSI_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 24U)) & 0x01U)
+#define LAN865x_MOSI_PIN                  PORT_PIN_PB24
 
-/*** Macros for USER_LED_1 pin ***/
-#define USER_LED_1_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 21U)) & 0x01U)
-#define USER_LED_1_PIN                  PORT_PIN_PC21
+/*** Macros for LAN865x_SCK pin ***/
+#define LAN865x_SCK_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 25U)) & 0x01U)
+#define LAN865x_SCK_PIN                  PORT_PIN_PB25
 
-/*** Macros for CLICK_MOSI pin ***/
-#define CLICK_MOSI_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 24U)) & 0x01U)
-#define CLICK_MOSI_PIN                  PORT_PIN_PB24
+/*** Macros for LAN865x_MISO pin ***/
+#define LAN865x_MISO_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 25U)) & 0x01U)
+#define LAN865x_MISO_PIN                  PORT_PIN_PC25
 
-/*** Macros for CLICK_SCK pin ***/
-#define CLICK_SCK_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 25U)) & 0x01U)
-#define CLICK_SCK_PIN                  PORT_PIN_PB25
+/*** Macros for USART_TX pin ***/
+#define USART_TX_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 27U)) & 0x01U)
+#define USART_TX_PIN                  PORT_PIN_PC27
 
-/*** Macros for CLICK_MISO pin ***/
-#define CLICK_MISO_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 25U)) & 0x01U)
-#define CLICK_MISO_PIN                  PORT_PIN_PC25
-
-/*** Macros for USART1_TX pin ***/
-#define USART1_TX_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 27U)) & 0x01U)
-#define USART1_TX_PIN                  PORT_PIN_PC27
-
-/*** Macros for USART1_RX pin ***/
-#define USART1_RX_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 28U)) & 0x01U)
-#define USART1_RX_PIN                  PORT_PIN_PC28
+/*** Macros for USART_RX pin ***/
+#define USART_RX_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 28U)) & 0x01U)
+#define USART_RX_PIN                  PORT_PIN_PC28
 
 // *****************************************************************************
 /* PORT Group
@@ -157,7 +149,7 @@
 #define GET_PORT_GROUP(pin)  ((PORT_GROUP)(PORT_BASE_ADDRESS + (0x80U * (((uint32_t)pin) >> 5U))))
 #define GET_PIN_MASK(pin)   (((uint32_t)(0x1U)) << (((uint32_t)pin) & 0x1FU))
 
-/* Named type for port group */ 
+/* Named type for port group */
 typedef uint32_t PORT_GROUP;
 
 
@@ -510,7 +502,6 @@ typedef enum
 // Section: Generated API based on pin configurations done in Pin Manager
 // *****************************************************************************
 // *****************************************************************************
-
 // *****************************************************************************
 /* Function:
     void PORT_Initialize(void)

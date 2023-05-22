@@ -84,7 +84,7 @@ var SearchInfo = [" License THE MICROCHIP SOFTWARE AND DOCUMENTATION PROVIDED HE
 							" Running the Application Open a Terminal application (e g Tera term) on the computer Connect to the Virtual COM port and configure the serial settings as follows: Baud : 115200 Data : 8 Bits Parity : None Stop : 1 Bit Flow Control : None Build and Program the application using the MPLAB X IDE For optimum results select \"Release\" Mode as build target this requires fee-based XC32 compiler license See the messages in the console Type 'help' for getting a list of available commands Terminal ",
 							" Microchip MPLAB® Harmony 3 Release Notes ",
 							" 10BASE-T1S Release v1 2 2 ",
-							" Bug Fixes The following table provides the list of bug fixes in the v1 2 2 release: Module Description driver/lan867x/config Fix file generation fails with LAN867x apps Update LAN867x example projects with latest harmony packages tcpip_iperf_lan865x/firmware Update meta-data JSON file to register LAN865x content into MCHP Discover portal tcpip_iperf_10base_t1s/firmware Update meta-data JSON file to register LAN867x content into MCHP Discover portal Release notes for v1 2 1 apply ",
+							" Bug Fixes The following table provides the list of bug fixes in the v1 2 2 release: Module Description driver/lan867x/config Fix file generation fails with LAN867x apps Update LAN867x example projects with latest MPLAB® Harmony package Release notes for v1 2 1 apply ",
 							" 10BASE-T1S Release v1 2 1 ",
 							" Bug Fixes The following table provides the list of bug fixes in the v1 2 1 release: Module Description driver/lan867x/config Fix code generation fails with net v3 9 0 Release notes for v1 2 0 apply ",
 							" 10BASE-T1S Release v1 2 0 ",

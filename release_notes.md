@@ -3,6 +3,31 @@
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## 10BASE-T1S Release v1.3.0
+### New Features
+
+New features added in this release are as follows:
+
+- **Added support for LAN867x Rev. C1** 
+
+### Bug Fixes
+
+The following table provides the list of bug fixes in the v1.3.0 release:
+
+| Device  | Application          | Module             | Description                                    |
+| ------  | ------               | ------             | ------                                         |
+| LAN865x |tcpip_iperf_lan865x   | driver/LAN865x/src | Adding mask to indirect read registers         |
+| LAN865x |tcpip_iperf_lan865x   | apps               | Update LAN865x example project with bug fixes  |
+
+### Dependencies
+
+* [MPLAB® X IDE v6.10](https://www.microchip.com/mplab/mplab-x-ide) or later
+* [MPLAB® XC32 C/C++ Compiler v4.21](https://www.microchip.com/mplab/compilers) or later
+**(OR)** [MPLAB® XC32 Functional Safety Compiler v4.09](https://www.microchip.com/mplab/compilers) or later
+* [net v3.9.2](https://github.com/Microchip-MPLAB-Harmony/net/tree/v3.9.2) or later
+
+- **Release notes for v1.2.2 apply**
+
 ## 10BASE-T1S Release v1.2.2
 ### Bug Fixes
 

@@ -15,8 +15,8 @@ in MPLABX IDE.
 
 | Project Name              | Description                                               |
 | ---                       | ---                                                       |
-| tcpip_iperf_10base_t1s.X  | TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY   |
-| tcpip_iperf_10base_t1s_freertos.X  | TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY in FreeRTOS environment  |
+| tcpip_iperf_lan865x.X  | TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY   |
+| tcpip_iperf_lan865x_freertos.X  | TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY in FreeRTOS environment  |
 
 ## Hardware setup
 

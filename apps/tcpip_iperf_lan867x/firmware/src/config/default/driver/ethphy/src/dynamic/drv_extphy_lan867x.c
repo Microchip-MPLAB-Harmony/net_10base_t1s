@@ -1,47 +1,78 @@
+//DOM-IGNORE-BEGIN
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+ */
+//DOM-IGNORE-END
 /*******************************************************************************
-  MCHP LAN867x PHY API for Microchip TCP/IP Stack
-*******************************************************************************/
-/*****************************************************************************
- Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+  MCHP LAN867x PHY Driver for Microchip TCP/IP Stack
 
-Microchip Technology Inc. and its subsidiaries.
+  Company:
+    Microchip Technology Inc.
 
-Subject to your compliance with these terms, you may use Microchip software
-and any derivatives exclusively with Microchip products. It is your
-responsibility to comply with third party license terms applicable to your
-use of third party software (including open source software) that may
-accompany Microchip software.
+  File Name:
+    drv_extphy_lan867x.c
 
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR
-PURPOSE.
+  Summary:
+    MCHP LAN867x Phy Driver implementation
 
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *****************************************************************************/
+  Description:
+    This file provides the MCHP LAN867x PHY Driver.
+ *******************************************************************************/
 
 /******************************************************************************
  *  INCLUDES
  ******************************************************************************/
 
+#include "system/console/sys_console.h"
 #include "driver/ethphy/src/dynamic/drv_extphy_lan867x.h"
 #include "driver/ethphy/src/drv_ethphy_local.h"
 
 /******************************************************************************
  *  PRIVATE FUNCTION DECLARATIONS
  ******************************************************************************/
+
 static void Set_Operation_Flow(const uint32_t regAddr, const DRV_MIIM_OP_TYPE opType,
                                ePHY_REG_ACCESS_PHASE *opState);
 static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP_TYPE opType,
                                          uint32_t regAddr, uint16_t *data);
 
 /******************************************************************************
+ *  DEFINITION
+ ******************************************************************************/
+
+typedef struct {
+    uint8_t version;
+    uint8_t value1;
+    uint8_t value2;
+    int8_t offset1;
+    int8_t offset2;
+    bool type;
+    bool chiphealth;
+} LAN867X_INFO;
+
+static LAN867X_INFO info = {0};
+#define CHECK_SIGN  (16U)
+
+/************************************************************************
  *  FUNCTION DEFINITIONS
  *****************************************************************************/
 /****************************************************************************
@@ -75,6 +106,7 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
     DRV_MIIM_RESULT miimRes = DRV_MIIM_RES_OK;
     DRV_ETHPHY_RESULT res = DRV_ETHPHY_RES_OK;
     bool inProgress = true;
+    bool repeat = false;
 
     /* Get the miim client instance data. */
     clientObj.miimBase =
@@ -96,79 +128,235 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
 
     switch (state) {
     case 0:
+        miimRes = Lan867x_Read_Register(&clientObj, PHY_STS2, &registerValue);
+        break;
+
+        /* Rev.B1 Start */
+    case 1:
         miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00D0, 0x0E03, 0x0002);
         break;
 
-    case 1:
+    case 2:
         miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00D1, 0x0300, 0x0000);
         break;
 
-    case 2:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0084, 0xFFC0, 0x3380);
-        break;
-
     case 3:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0085, 0x000F, 0x0006);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0084, 0xFFC0u, 0x3380u);
         break;
 
     case 4:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F008A, 0xF800, 0xC000);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0085, 0x000F, 0x0006);
         break;
 
     case 5:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0087, 0x801C, 0x801C);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F008A, 0xF800u, 0xC000u);
         break;
 
     case 6:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0088, 0x1FFF, 0x033F);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0087, 0x801Cu, 0x801Cu);
         break;
 
     case 7:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F008B, 0xFFFF, 0x0404);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0088, 0x1FFF, 0x033F);
         break;
 
     case 8:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0080, 0x0600, 0x0600);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F008B, 0xFFFFu, 0x0404);
         break;
 
     case 9:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00F1, 0x7F00, 0x2400);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0080, 0x0600, 0x0600);
         break;
 
     case 10:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0096, 0x2000, 0x2000);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F00F1, 0x7F00, 0x2400);
         break;
 
     case 11:
-        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0099, 0xFFFF, 0x7F80);
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0096, 0x2000, 0x2000);
         break;
 
-    case 12: /* Set the PLCA Burst setting. */
+    case 12:
+        miimRes = Lan867x_Write_Bit_Register(&clientObj, 0x1F0099, 0xFFFFu, 0x7F80);
+        break;
+        /* Rev.B1 End */
+
+        /* Rev.C0/1 Start */
+    case 13: /* check LAN867x chip health */
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00D8, 0x0005);
+        break;
+
+    case 14:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00DA, 0x0002);
+        break;
+
+    case 15:
+        miimRes = Lan867x_Read_Register(&clientObj, 0x1F00D9, &registerValue);
+        break;
+
+    case 16: /* read value1 */
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00D8, 0x0004);
+        break;
+
+    case 17:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00DA, 0x0002);
+        break;
+
+    case 18:
+        miimRes = Lan867x_Read_Register(&clientObj, 0x1F00D9, &registerValue);
+        break;
+
+    case 19: /* read value2 */
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00D8, 0x0008);
+        break;
+
+    case 20:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00DA, 0x0002);
+        break;
+
+    case 21:
+        miimRes = Lan867x_Read_Register(&clientObj, 0x1F00D9, &registerValue);
+        break;
+
+    case 22:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00D0, 0x3F31);
+        break;
+
+    case 23:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00E0, 0xC000);
+        break;
+
+    case 24:
+        registerValue = F2R_((9 + info.offset1), FIELD_DESCRIPTOR(10, 6));
+        registerValue |= F2R_((14 + info.offset1), FIELD_DESCRIPTOR(4, 6));
+        registerValue |= 0x0003;
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F0084, registerValue);
+        break;
+
+    case 25:
+        registerValue = F2R_((40 + info.offset2), FIELD_DESCRIPTOR(10, 6));
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F008A, registerValue);
+        break;
+
+    case 26:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00E9, 0x9E50u);
+        break;
+
+    case 27:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00F5, 0x1CF8);
+        break;
+
+    case 28:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00F4, 0xC020u);
+        break;
+
+    case 29:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00F8, 0x9B00u);
+        break;
+
+    case 30:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00F9, 0x4E53);
+        break;
+
+    case 31:
+        miimRes = Lan867x_Write_Register(&clientObj, PHY_SLPCTL1, 0x0080);
+        break;
+
+    case 32:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F0091, 0x9660); /* FRAME_DECODER_CONTROL_0 */
+        break;
+
+    case 33:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F0093, 0x06E9); /* FRAME_DECODER_CONTROL_2 */
+        break;
+        /* Rev.C0/1 End */
+    case 34:
+        registerValue = F2R_((5 + info.offset1), FIELD_DESCRIPTOR(8, 6));
+        registerValue |= F2R_((9 + info.offset1), FIELD_DESCRIPTOR(0, 6));
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00AD, registerValue);
+        break;
+
+    case 35:
+        registerValue = F2R_((9 + info.offset1), FIELD_DESCRIPTOR(8, 6));
+        registerValue |= F2R_((14 + info.offset1), FIELD_DESCRIPTOR(0, 6));
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00AE, registerValue);
+        break;
+
+    case 36:
+        registerValue = F2R_((17 + info.offset1), FIELD_DESCRIPTOR(8, 6));
+        registerValue |= F2R_((22 + info.offset1), FIELD_DESCRIPTOR(0, 6));
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00AF, registerValue);
+        break;
+
+    case 37:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00B0, 0x0103);
+        break;
+
+    case 38:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00B1, 0x0910);
+        break;
+
+    case 39:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00B2, 0x1D26);
+        break;
+
+    case 40:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00B3, 0x002A);
+        break;
+
+    case 41:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00B4, 0x0103);
+        break;
+
+    case 42:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00B5, 0x070D);
+        break;
+
+    case 43:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00B6, 0x1720);
+        break;
+
+    case 44:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00B7, 0x0027);
+        break;
+
+    case 45:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00B8, 0x0509);
+        break;
+
+    case 46:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00B9, 0x0E13);
+        break;
+
+    case 47:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00BA, 0x1C25);
+        break;
+
+    case 48:
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F00BB, 0x002B);
+        break;
+
 #ifdef DRV_ETHPHY_PLCA_ENABLED
+    case 49: /* Set the PLCA Burst setting  */
         registerValue = F2R_(DRV_ETHPHY_PLCA_BURST_TIMER, PHY_PLCA_BURST_BTMR) |
                         F2R_(DRV_ETHPHY_PLCA_MAX_BURST_COUNT, PHY_PLCA_BURST_MAXBC);
         miimRes = Lan867x_Write_Register(&clientObj, PHY_PLCA_BURST, registerValue);
-#endif
         break;
 
-    case 13: /* Set the PLCA node setting.*/
-#ifdef DRV_ETHPHY_PLCA_ENABLED
-        registerValue = F2R_(DRV_ETHPHY_PLCA_LOCAL_NODE_ID, PHY_PLCA_CTRL1_ID0) |
+    case 50: /* Set the PLCA node setting */
+        registerValue = F2R_(DRV_ETHPHY_PLCA_LOCAL_NODE_ID, PHY_PLCA_CTRL1_ID) |
                         F2R_(DRV_ETHPHY_PLCA_NODE_COUNT, PHY_PLCA_CTRL1_NCNT);
-        miimRes = Lan867x_Write_Register(&clientObj, PHY_PLCA_CONTROL_1, registerValue);
-#endif
+        miimRes = Lan867x_Write_Register(&clientObj, PHY_PLCA_CTRL1, registerValue);
         break;
 
-    case 14: /* Enable the PLCA. */
-#ifdef DRV_ETHPHY_PLCA_ENABLED
-        miimRes =
-            Lan867x_Write_Register(&clientObj, PHY_PLCA_CONTROL_0, F2R_(1, PHY_PLCA_CTRL0_EN));
-#else
-        miimRes =
-            Lan867x_Write_Register(&clientObj, PHY_PLCA_CONTROL_0, F2R_(0, PHY_PLCA_CTRL0_EN));
-#endif
+    case 51: /* disable collision detection */
+        miimRes = Lan867x_Write_Register(&clientObj, 0x1F0087, 0x0083);
         break;
 
+    case 52: /* Enable PLCA */
+        miimRes = Lan867x_Write_Register(&clientObj, PHY_PLCA_CTRL0, F2R_(1, PHY_PLCA_CTRL0_EN));
+        break;
+#endif
     default:
         ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->operRes = DRV_ETHPHY_RES_OK;
         ((DRV_ETHPHY_CLIENT_OBJ *)hClientObj)->miimOpHandle = 0;
@@ -184,11 +372,84 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
         } else if (miimRes != DRV_MIIM_RES_OK) {
             res = DRV_ETHPHY_RES_PENDING;
         } else {
-            /* If operation is completed continue to below code. */
-            ++state;
-            clientObj.vendorData =
-                F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
-            res = DRV_ETHPHY_RES_PENDING;
+            // If operation is completed continue to below code.
+            switch (state) {
+            case 0:
+                /* Reading over MDIO will return 0xFFFF if PHY is not accessible.
+                 * This can be the case if e.g., the HW Reset of the PHY is not complete.
+                 * So we'll wait for the maximum time the PHY needs for a POR reset.
+                 */
+                if (registerValue == 0xFFFFu) {
+                    repeat = true;
+                } else {
+                    /* communication with PHY seems to be successful, therefore
+                     * skip the 2nd time reading the Reset status bit,
+                     * continue to initial settings
+                     */
+                    repeat = false;
+                    if ((registerValue & 0x0800u) == 0x0800u) {
+                        SYS_CONSOLE_PRINT("LAN867x Reset has occurred,pos=2 \r\n");
+                    }
+                    if (info.version != LAN867x_PHY_ID_REV_B1) {
+                        state = 12; //Start initial settings for Rev C0/C1,otherwise for Rev B
+                    }
+                }
+                break;
+
+            case 12:
+                state = 48; //After that Operation mode will be set
+                break;
+
+            case 15:/* check LAN867x chip health */
+                registerValue = R2F(registerValue, CHIP_HEALTH);
+                if (registerValue == 1u) {
+                    info.chiphealth = true;
+                } else {
+                    SYS_CONSOLE_PRINT("chip_error -1! Please contact microchip support for replacement \r\n");
+                    res = DRV_ETHPHY_RES_MIIM_ERR;
+                }
+                break;
+
+            case 18:/* read value1 */
+                info.value1 = R2F(registerValue, OFFSET1);
+                if ((info.value1 & CHECK_SIGN) != 0u) {
+                    info.offset1 = info.value1 | 0x00E0u;
+                    if (info.offset1 < -5) {
+                        SYS_CONSOLE_PRINT("chip_error -2! Please contact microchip support for replacement \r\n");
+                        res = DRV_ETHPHY_RES_MIIM_ERR;
+                    }
+                } else {
+                    info.offset1 = info.value1;
+                }
+                break;
+
+            case 21:/* read value2 */
+                info.value2 = R2F(registerValue, OFFSET2);
+                if ((info.value2 & CHECK_SIGN) != 0u) {
+                    info.offset2 = info.value2 | 0x00E0u;
+                } else {
+                    info.offset2 = info.value2;
+                }
+                break;
+
+            case 32:
+                if (!((info.type) && (info.version == LAN867x_PHY_ID_REV_C1))) {
+                    state = 33;
+                }
+                break;
+
+            default:
+                break;
+            }
+            if (!repeat) {
+                ++state;
+            }
+
+            if (res != DRV_ETHPHY_RES_MIIM_ERR) {
+                clientObj.vendorData =
+                    F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
+                res = DRV_ETHPHY_RES_PENDING;
+            }
         }
     }
 
@@ -301,9 +562,41 @@ static DRV_ETHPHY_RESULT DRV_ETHPHY_Detect(const struct DRV_ETHPHY_OBJECT_BASE_T
     state = R2F(clientObj.vendorData, VENDOR_STATE);
 
     switch (state) {
-    case 0: /* Check if PHY ID 1 matches. */
-        miimRes = Lan867x_Read_Register(&clientObj, PHY_REG_PHYID1, &registerValue);
+    case 0:
+        /* Before configuring the PHY, we need to check if the PHY is
+         * accessible and if a Reset is still pending.
+         * Therefore, try to read Status 2 Register.
+         */
+        miimRes = Lan867x_Read_Register(&clientObj, PHY_STS2, &registerValue);
+        if (miimRes < 0) {
+            res = DRV_ETHPHY_RES_MIIM_ERR;
+        } else if (miimRes != DRV_MIIM_RES_OK) {
+            res = DRV_ETHPHY_RES_PENDING;
+        } else {
+            /* Reading over MDIO will return 0xFFFF if PHY is not accessible.
+             * This can be the case if e.g., the HW Reset of the PHY is not complete.
+             * So we'll wait for the maximum time the PHY needs for a POR reset.
+             */
+            if (registerValue == (uint16_t) 0xFFFF) {
+                break;
+            } else {
+                if ((registerValue & 0x0800u) == 0x0800u) {
+                    SYS_CONSOLE_PRINT("LAN867x Reset has occurred,pos=1\r\n");
+                }
+                /* communication with PHY seems to be successful, therefore
+                 * skip the 2nd time reading the Reset status bit,
+                 * continue to PHYID check
+                 */
+                ++state;
+                clientObj.vendorData =
+                    F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
+                res = DRV_ETHPHY_RES_PENDING;
+            }
+        }
+        break;
 
+    case 1: /* Check if PHY ID 1 matches. */
+        miimRes = Lan867x_Read_Register(&clientObj, PHY_REG_PHYID1, &registerValue);
         if (miimRes < 0) {
             res = DRV_ETHPHY_RES_MIIM_ERR;
         } else if (miimRes != DRV_MIIM_RES_OK) {
@@ -321,23 +614,51 @@ static DRV_ETHPHY_RESULT DRV_ETHPHY_Detect(const struct DRV_ETHPHY_OBJECT_BASE_T
         }
         break;
 
-    case 1: /* Check if PHY ID 2 matches. */
+    case 2: /* Check if PHY ID 2 matches. */
         miimRes = Lan867x_Read_Register(&clientObj, PHY_REG_PHYID2, &registerValue);
-
         if (miimRes < 0) {
             res = DRV_ETHPHY_RES_MIIM_ERR;
         } else if (miimRes != DRV_MIIM_RES_OK) {
             res = DRV_ETHPHY_RES_PENDING;
         } else {
             /* Verify the PHY is LAN867x, else return error.*/
-            if (registerValue != (uint16_t)0xC162) {
+            if ((registerValue | LAN867x_PHY_ID2_MASK) != LAN867x_PHY_ID2_MASK) {
                 res = DRV_ETHPHY_RES_CPBL_ERR;
             } else {
+                info.version = R2F(registerValue, PHY_PHY_ID2_REV);
+                switch (info.version) {
+                    case LAN867x_PHY_ID_REV_B1:
+                        SYS_CONSOLE_PRINT("LAN867x Rev.B1 \r\n");
+                        break;
+                    case LAN867x_PHY_ID_REV_C1:
+                        SYS_CONSOLE_PRINT("LAN867x Rev.C1 \r\n");
+                        break;
+                    default:
+                        SYS_CONSOLE_PRINT("LAN867x Unknown version!\r\n");
+                        break;
+                }
                 ++state;
                 clientObj.vendorData =
                     F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
                 res = DRV_ETHPHY_RES_PENDING;
             }
+        }
+        break;
+
+    case 3:
+        miimRes = Lan867x_Read_Register(&clientObj, PHY_REG_VENDOR + 2, &registerValue);
+        if (miimRes < 0) {
+            res = DRV_ETHPHY_RES_MIIM_ERR;
+        } else if (miimRes != DRV_MIIM_RES_OK) {
+            res = DRV_ETHPHY_RES_PENDING;
+        } else {
+            if (R2F(registerValue, PHY_TYPE) == 0x01) {
+                info.type = true;
+            }
+            ++state;
+            clientObj.vendorData =
+                F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
+            res = DRV_ETHPHY_RES_PENDING;
         }
         break;
 
@@ -597,7 +918,7 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP
 
     case MMD_ADDR_CONFIG_PHASE: /* Initiate clause 45 operation. */
         *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
-            clientObj->miimHandle, PHY_MMD_ACCESS_CONTROL, clientObj->phyAddress,
+            clientObj->miimHandle, PHY_MMDCTRL, clientObj->phyAddress,
             (regAddr >> 16), DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
         /* If success in queuing the request, go to next state, else retry. */
         if (*clientObj->miimOpHandle != 0) {
@@ -610,8 +931,8 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP
 
     case MMD_ADDR_SET_PHASE: /* Set clause 45 address phase operation. */
         *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
-            clientObj->miimHandle, PHY_MMD_ACCESS_DATA_ADDR, clientObj->phyAddress,
-            (regAddr & (uint16_t)0xffff), DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
+            clientObj->miimHandle, PHY_MMDAD, clientObj->phyAddress,
+            (regAddr & 0xffffu), DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
         /* If success in queuing the request, go to next state, else retry. */
         if (*clientObj->miimOpHandle != 0) {
             /* advance to the next phase. */
@@ -624,7 +945,7 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP
     case MMD_DATA_CONFIG_PHASE: /* Set clause 45 data phase operation. */
         mmdData = (F2R_((regAddr >> 16), PHY_MMDCTRL_DEVAD) | F2R_(1, PHY_MMDCTRL_FNCTN));
         *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
-            clientObj->miimHandle, PHY_MMD_ACCESS_CONTROL, clientObj->phyAddress, mmdData,
+            clientObj->miimHandle, PHY_MMDCTRL, clientObj->phyAddress, mmdData,
             DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
         /* If success in queuing the request, go to next state, else retry. */
         if (*clientObj->miimOpHandle != 0) {
@@ -642,7 +963,7 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP
 
     case MMD_DATA_READ_PHASE: /* Start clause 45 data read phase. */
         *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Read(
-            clientObj->miimHandle, PHY_MMD_ACCESS_DATA_ADDR, clientObj->phyAddress,
+            clientObj->miimHandle, PHY_MMDAD, clientObj->phyAddress,
             DRV_MIIM_OPERATION_FLAG_NONE, &opRes);
         /* If success in queuing the request, go to next state, else retry. */
         if (*clientObj->miimOpHandle != 0) {
@@ -655,7 +976,7 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP
 
     case MMD_DATA_WRITE_PHASE: /* Start clause 45 data write phase. */
         *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
-            clientObj->miimHandle, PHY_MMD_ACCESS_DATA_ADDR, clientObj->phyAddress, *data,
+            clientObj->miimHandle, PHY_MMDAD, clientObj->phyAddress, *data,
             DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
         /* If success in queuing the request, go to next state, else retry. */
         if (*clientObj->miimOpHandle != 0) {
@@ -707,3 +1028,7 @@ static void Set_Operation_Flow(const uint32_t regAddr, const DRV_MIIM_OP_TYPE op
         *opState = MMD_ADDR_CONFIG_PHASE;
     }
 }
+
+/*******************************************************************************
+End of File
+ */

@@ -1,4 +1,4 @@
-"Pin Number","Pin ID","Custom Name","Function","Mode", "Direction","Latch","Pull Up","Pull Down","Drive Strength"
+Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,Drive Strength
 1,PA00,,Available,,,,,,NORMAL
 2,PA01,,Available,,,,,,NORMAL
 3,PC00,,Available,,,,,,NORMAL
@@ -35,7 +35,7 @@
 44,PB15,,Available,,,,,,NORMAL
 47,PD08,,Available,,,,,,NORMAL
 48,PD09,,Available,,,,,,NORMAL
-49,PD10,,Available,,,,,,NORMAL
+49,PD10,GPIO_PD10,GPIO,Digital,Out,Low,,,NORMAL
 50,PD11,,Available,,,,,,NORMAL
 51,PD12,,Available,,,,,,NORMAL
 52,PC10,,Available,,,,,,NORMAL
@@ -54,7 +54,7 @@
 69,PA19,,GMAC_GTX1,Digital,High Impedance,n/a,No,No,NORMAL
 70,PC16,,Available,,,,,,NORMAL
 71,PC17,,Available,,,,,,NORMAL
-72,PC18,,Available,,,,,,NORMAL
+72,PC18,LAN867x_RESET,GPIO,Digital,Out,Low,,,NORMAL
 73,PC19,,Available,,,,,,NORMAL
 74,PC20,,GMAC_GRXDV,Digital,High Impedance,n/a,No,No,NORMAL
 75,PC21,LED1,LED_AL,Digital,Out,High,,,NORMAL

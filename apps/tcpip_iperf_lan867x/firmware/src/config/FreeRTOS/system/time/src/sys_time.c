@@ -73,7 +73,7 @@ static uint16_t gSysTimeTokenCount = 1;
 static inline uint16_t SYS_TIME_UPDATE_TOKEN(uint16_t token)
 {
     token++;
-    if (token >= _SYS_TIME_HANDLE_TOKEN_MAX)
+    if (token >= SYS_TIME_HANDLE_TOKEN_MAX)
     {
         token = 1;
     }
@@ -137,11 +137,11 @@ static SYS_TIME_TIMER_OBJ* SYS_TIME_GetTimerObject(SYS_TIME_HANDLE handle)
     if ((handle != SYS_TIME_HANDLE_INVALID) && (handle != 0))
     {
         /* Make sure the index is within the bounds */
-        if ((handle & _SYS_TIME_INDEX_MASK) < SYS_TIME_MAX_TIMERS)
+        if ((handle & SYS_TIME_INDEX_MASK) < SYS_TIME_MAX_TIMERS)
         {
             /* The timer index is the contained in the lower 16 bits of the buffer
              * handle */
-            timerObj = &timers[handle & _SYS_TIME_INDEX_MASK];
+            timerObj = &timers[handle & SYS_TIME_INDEX_MASK];
 
             /* Make sure the timer handle is still active */
             if ((timerObj->tmrHandle == handle) && (timerObj->inUse == true))

@@ -1,3 +1,27 @@
+//DOM-IGNORE-BEGIN
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+ */
+//DOM-IGNORE-END
 /*******************************************************************************
   MCHP LAN867x definitions
 
@@ -12,34 +36,7 @@
 
   Description:
     This file provides the MCHP LAN867x definitions.
-*******************************************************************************/
-// DOM-IGNORE-BEGIN
-/*****************************************************************************
- Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
-
-Microchip Technology Inc. and its subsidiaries.
-
-Subject to your compliance with these terms, you may use Microchip software 
-and any derivatives exclusively with Microchip products. It is your 
-responsibility to comply with third party license terms applicable to your 
-use of third party software (including open source software) that may 
-accompany Microchip software.
-
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR 
-PURPOSE.
-
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE 
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN 
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY, 
-THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *****************************************************************************/
-
-// DOM-IGNORE-END
+ *******************************************************************************/
 
 #ifndef LAN867x_H_
 #define LAN867x_H_
@@ -97,50 +94,84 @@ typedef enum {
 
 typedef enum {
     /* Specific vendor registers: 16-31 */
-    PHY_MMD_ACCESS_CONTROL = 13,
-    PHY_MMD_ACCESS_DATA_ADDR = 14,
+    PHY_MMDCTRL = 13,
+    PHY_MMDAD = 14,
     PHY_STRAP_CONTROL0 = 18,
 
     /* Clause 45 registers. */
     /* PMA/PMD registers. */
-    PHY_PMA_EXT_ABILITY = 0x010012,
-    PHY_T1S_PMA_PMD_CTRL = 0x010834,
-    PHY_T1S_PMA_CTRL = 0x0108F9,
-    PHY_T1S_PMA_STATUS = 0x0108FA,
-    PHY_T1S_TEST_CTRL = 0x0108FB,
+    PHY_PMAPMDEXTA = 0x010012,
+    PHY_T1PMAPMDCTL = 0x010834,
+    PHY_T1SPMACTL = 0x0108F9,
+    PHY_T1SPMASTS = 0x0108FA,
+    PHY_T1STSTCTL = 0x0108FB,
 
     /* PCS registers. */
-    PHY_T1S_PCS_CTRL = 0x0308F3,
-    PHY_T1S_PCS_STATUS = 0x0308F4,
-    PHY_T1S_PCS_DIAG_1 = 0x0308F5,
-    PHY_T1S_PCS_DIAG_2 = 0x0308F6,
+    PHY_T1SPCSCTL = 0x0308F3,
+    PHY_T1SPCSSTS = 0x0308F4,
+    PHY_T1SPCSDIAG1 = 0x0308F5,
+    PHY_T1SPCSDIAG2 = 0x0308F6,
 
-    /* Miscellaneous registers. */
-    PHY_CONFIGURATION_PROTECTION = 0x1F000F,
-    PHY_CONTROL_1 = 0x1F0010,
-    PHY_STATUS_1 = 0x1F0018,
-    PHY_STATUS_2 = 0x1F0019,
-    PHY_STATUS_3 = 0x1F001A,
-    PHY_INTERRUPT_MASK_1 = 0x1F001C,
-    PHY_INTERRUPT_MASK_2 = 0x1F001D,
-    PHY_COUNTER_CONTROL = 0x1F0020,
-    PHY_RECEIVE_BYTE_COUNT_HIGH = 0x1F0022,
-    PHY_RECEIVE_BYTE_COUNT_LOW = 0x1F0023,
-    PHY_TRANSMIT_OPPORTUNITY_COUNT_HIGH = 0x1F0024,
-    PHY_TRANSMIT_OPPORTUNITY_COUNT_LOW = 0x1F0025,
-    PHY_BEACON_COUNT_HIGH = 0x1F0026,
-    PHY_BEACON_COUNT_LOW = 0x1F0027,
-    PHY_TSTPATGENCTL = 0x1F0078,
-    PHY_TSTPATFRM = 0x1F0079,
-    PHY_TSTPCKCTL = 0x1F007A,
-    PHY_TSTERRCNT = 0x1F007B,
-    PHY_TSTPATCKSTS = 0x1F007C,
-    PHY_PAD_CONTROL_3 = 0x1F00CB,
-    PHY_PLCA_IDVER = 0x1FCA00,
-    PHY_PLCA_CONTROL_0 = 0x1FCA01,
-    PHY_PLCA_CONTROL_1 = 0x1FCA02,
-    PHY_PLCA_STATUS = 0x1FCA03,
-    PHY_PLCA_TO_TIMER = 0x1FCA04,
+    /* Miscellaneous registers.*/
+    PHY_CFGPRTCTL = 0x1F000F,
+    PHY_CTRL1 = 0x1F0010,
+    PHY_PINCTRL = 0x1F0011,
+    PHY_STS1 = 0x1F0018,
+    PHY_STS2 = 0x1F0019,
+    PHY_STS3 = 0x1F001A,
+    PHY_IMSK1 = 0x1F001C,
+    PHY_IMSK2 = 0x1F001D,
+    PHY_CTRCTRL = 0x1F0020,
+    PHY_TOCNTH = 0x1F0024,
+    PHY_TOCNTL = 0x1F0025,
+    PHY_BCNCNTH = 0x1F0026,
+    PHY_BCNCNTL = 0x1F0027,
+    PHY_MULTID0 = 0x1F0030,
+    PHY_MULTID1 = 0x1F0031,
+    PHY_MULTID2 = 0x1F0032,
+    PHY_MULTID3 = 0x1F0033,
+    PHY_PRSSTS = 0x1F0036,
+    PHY_PRTMGMT2 = 0x1F003D,
+    PHY_IWDTOH = 0x1F003E,
+    PHY_IWDTOL = 0x1F003F,
+    PHY_TXMCTL = 0x1F0040,
+    PHY_TXMPATH = 0x1F0041,
+    PHY_TXMPATL = 0x1F0042,
+    PHY_TXMDLY = 0x1F0049,
+    PHY_RXMCTL = 0x1F0050,
+    PHY_RXMPATH = 0x1F0051,
+    PHY_RXMPATL = 0x1F0052,
+    PHY_RXMDLY = 0x1F0059,
+    PHY_CBSSPTHH = 0x1F0060,
+    PHY_CBSSPTHL = 0x1F0061,
+    PHY_CBSSTTHH = 0x1F0062,
+    PHY_CBSSTTHL = 0x1F0063,
+    PHY_CBSSLPCTL = 0x1F0064,
+    PHY_CBSTPLMTH = 0x1F0065,
+    PHY_CBSTPLMTL = 0x1F0066,
+    PHY_CBSBTLMTH = 0x1F0067,
+    PHY_CBSBTLMTL = 0x1F0068,
+    PHY_CBSCRCTRH = 0x1F0069,
+    PHY_CBSCRCTRL = 0x1F006A,
+    PHY_CBSCTRL = 0x1F006B,
+    PHY_PLCASKPCTL = 0x1F0070,
+    PHY_PLCATOSKP = 0x01F0071,
+    PHY_PLCACYCSKP = 0x01F0072,
+    PHY_ACMACTL = 0x01F0074,
+    PHY_SLPCTL0 = 0x1F0080,
+    PHY_SLPCTL1 = 0x1F0081,
+    PHY_CDCTL0 = 0x01F0087,
+    PHY_SQICTL = 0x01F00A0,
+    PHY_SQISTS0 = 0x01F00A1,
+    PHY_SQICFG0 = 0x01F00AA,
+    PHY_SQICFG2 = 0x01F00AC,
+    PHY_PADCTRL3 = 0x01F00CB,
+    PHY_ANALOG5 = 0x1F00D5,
+    PHY_MIDVER = 0x1FCA00,
+    PHY_PLCA_CTRL0 = 0x1FCA01,
+    PHY_PLCA_CTRL1 = 0x1FCA02,
+    PHY_PLCA_STS = 0x1FCA03,
+    PHY_PLCA_TOTMR = 0x1FCA04,
     PHY_PLCA_BURST = 0x1FCA05,
 } ePHY_VENDOR_REG;
 
@@ -200,13 +231,13 @@ typedef struct {
 #define PHY_BMSTAT_100TX_FULL_DUPLEX FIELD_DESCRIPTOR(14, 1)
 #define PHY_BMSTAT_100T4             FIELD_DESCRIPTOR(15, 1)
 
-/* PHY_REG_PHYID0                       : 2 */
-#define PHY_PHY_ID0_OUI FIELD_DESCRIPTOR(0, 16)
+/* PHY_REG_PHYID1                       : 2 */
+#define PHY_PHY_ID1_OUI FIELD_DESCRIPTOR(0, 16)
 
-/* PHY_REG_PHYID1                       : 3 */
-#define PHY_PHY_ID1_REV   FIELD_DESCRIPTOR(0, 4)
-#define PHY_PHY_ID1_MODEL FIELD_DESCRIPTOR(4, 6)
-#define PHY_PHY_ID1_OUI   FIELD_DESCRIPTOR(10, 6)
+/* PHY_REG_PHYID2                       : 3 */
+#define PHY_PHY_ID2_REV   FIELD_DESCRIPTOR(0, 4)
+#define PHY_PHY_ID2_MODEL FIELD_DESCRIPTOR(4, 6)
+#define PHY_PHY_ID2_OUI   FIELD_DESCRIPTOR(10, 6)
 
 /* PHY_MMD_ACCESS_CONTROL               : 13 */
 #define PHY_MMDCTRL_DEVAD FIELD_DESCRIPTOR(0, 5)
@@ -268,47 +299,67 @@ typedef struct {
 
 /* PHY_CONTROL_1                        : 0x1F0010 */
 #define PHY_CTRL1_DIGLBE FIELD_DESCRIPTOR(1, 1)
-#define PHY_CTRL1_MIWDE  FIELD_DESCRIPTOR(3, 1)
+#define PHY_CTRL1_BCAEN  FIELD_DESCRIPTOR(2, 1)
+#define PHY_CTRL1_IWDE   FIELD_DESCRIPTOR(3, 1)
+
+/* PHY_PINCTRL                         : 0x1F00011 */
+#define PHY_PINCTRL_ACMAPOL FIELD_DESCRIPTOR(0, 2)
+#define PHY_PINCTRL_RXPIPOL FIELD_DESCRIPTOR(4, 2)
+#define PHY_PINCTRL_TXPIPOL FIELD_DESCRIPTOR(6, 2)
+#define PHY_PINCTRL_GPIO0SS FIELD_DESCRIPTOR(14,2)
 
 /* PHY_STATUS_1                         : 0x1F0018 */
 #define PHY_STS1_DEC5B   FIELD_DESCRIPTOR(0, 1)
+#define PHY_STS1_ESDERR  FIELD_DESCRIPTOR(1, 1)
 #define PHY_STS1_PLCASYM FIELD_DESCRIPTOR(2, 1)
+#define PHY_STS1_UNCRS   FIELD_DESCRIPTOR(3, 1)
 #define PHY_STS1_BCNBFTO FIELD_DESCRIPTOR(4, 1)
 #define PHY_STS1_UNEXPB  FIELD_DESCRIPTOR(5, 1)
 #define PHY_STS1_RXINTO  FIELD_DESCRIPTOR(6, 1)
 #define PHY_STS1_EMPCYC  FIELD_DESCRIPTOR(7, 1)
-#define PHY_STS1_TXBABL  FIELD_DESCRIPTOR(9, 1)
+#define PHY_STS1_TSSI    FIELD_DESCRIPTOR(8, 1)
+#define PHY_STS1_TXJAB   FIELD_DESCRIPTOR(9, 1)
 #define PHY_STS1_TXCOL   FIELD_DESCRIPTOR(10, 1)
+#define PHY_STS1_PSTC    FIELD_DESCRIPTOR(11, 1)
+#define PHY_STS1_SQI     FIELD_DESCRIPTOR(12, 1)
 
 /* PHY_STATUS_2                         : 0x1F0019 */
-#define PHY_STS2_RESETC FIELD_DESCRIPTOR(11, 1)
+#define PHY_STS2_IWDTO   FIELD_DESCRIPTOR(5, 1)
+#define PHY_STS2_OT      FIELD_DESCRIPTOR(6, 1)
+#define PHY_STS2_UV33    FIELD_DESCRIPTOR(8, 1)
+#define PHY_STS2_WKEWI   FIELD_DESCRIPTOR(9, 1)
+#define PHY_STS2_WKEMDI  FIELD_DESCRIPTOR(10, 1)
+#define PHY_STS2_RESETC  FIELD_DESCRIPTOR(11, 1)
 
 /* PHY_STATUS_3                         : 0x1F001A */
-#define PHY_STS3_CURID FIELD_DESCRIPTOR(0, 8)
+#define PHY_STS3_ERRTOID FIELD_DESCRIPTOR(0, 8)
 
 /* PHY_INTERRUPT_MASK_1                 : 0x1F001C */
-#define PHY_IMSK1_DEC5B    FIELD_DESCRIPTOR(0, 1)
+#define PHY_IMSK1_DEC5BM   FIELD_DESCRIPTOR(0, 1)
+#define PHY_IMSK1_ESDERRM  FIELD_DESCRIPTOR(1, 1)
 #define PHY_IMSK1_PLCASYMM FIELD_DESCRIPTOR(2, 1)
+#define PHY_IMSK1_UNCRSM   FIELD_DESCRIPTOR(3, 1)
 #define PHY_IMSK1_BCNBFTOM FIELD_DESCRIPTOR(4, 1)
 #define PHY_IMSK1_UNEXPBM  FIELD_DESCRIPTOR(5, 1)
 #define PHY_IMSK1_RXINTOM  FIELD_DESCRIPTOR(6, 1)
 #define PHY_IMSK1_EMPCYCM  FIELD_DESCRIPTOR(7, 1)
+#define PHY_IMSK1_TSSIM    FIELD_DESCRIPTOR(8, 1)
 #define PHY_IMSK1_TXBABLM  FIELD_DESCRIPTOR(9, 1)
 #define PHY_IMSK1_TXCOLM   FIELD_DESCRIPTOR(10, 1)
+#define PHY_IMSK1_PSTCM    FIELD_DESCRIPTOR(11, 1)
+#define PHY_IMSK1_SQIM     FIELD_DESCRIPTOR(12, 1)
 
 /* PHY_INTERRUPT_MASK_2                 : 0x1F001D */
-#define PHY_IMSK2_RESETCM FIELD_DESCRIPTOR(11, 1)
+#define PHY_IMSK2_IWDTOM   FIELD_DESCRIPTOR(5, 1)
+#define PHY_IMSK2_OTM      FIELD_DESCRIPTOR(6, 1)
+#define PHY_IMSK2_UV33M    FIELD_DESCRIPTOR(8, 1)
+#define PHY_IMSK2_WKEWIM   FIELD_DESCRIPTOR(9, 1)
+#define PHY_IMSK2_WKEMDIM  FIELD_DESCRIPTOR(10, 1)
+#define PHY_IMSK2_RESETCM  FIELD_DESCRIPTOR(11, 1)
 
-/* PHY_COUNTER_CONTROL                  : 0x1F0020 */
-#define PHY_CTRCTRL_BCNCNTE FIELD_DESCRIPTOR(0, 1)
-#define PHY_CTRCTRL_TOCNTE  FIELD_DESCRIPTOR(1, 1)
-#define PHY_CTRCTRL_RXBCNTE FIELD_DESCRIPTOR(2, 1)
-
-/* PHY_RECEIVE_BYTE_COUNT_HIGH          : 0x1F0022 */
-#define PHY_RXBCNTH_RXBCNT FIELD_DESCRIPTOR(0, 16)
-
-/* PHY_RECEIVE_BYTE_COUNT_LOW           : 0x1F0023 */
-#define PHY_RXBCNTL_RXBCNT FIELD_DESCRIPTOR(0, 16)
+/* PHY_CTRCTRL                          : 0x1F0020 */
+#define PHY_CTRCTRL_BCNCTRE FIELD_DESCRIPTOR(0, 1)
+#define PHY_CTRCTRL_TOCTRE  FIELD_DESCRIPTOR(1, 1)
 
 /* PHY_TRANSMIT_OPPORTUNITY_COUNT_HIGH  : 0x1F0024 */
 #define PHY_TOCNTH_TOCNT FIELD_DESCRIPTOR(0, 16)
@@ -322,45 +373,169 @@ typedef struct {
 /* PHY_BEACON_COUNT_LOW                 : 0x1F0027 */
 #define PHY_BCNCNTL_BCNCNT FIELD_DESCRIPTOR(0, 16)
 
-/* PHY_TSTPATGENCTL                     : 0x1F0078 */
-#define PHY_TSTPATGENCTL_PATGENSEL FIELD_DESCRIPTOR(0, 2)
-#define PHY_TSTPATGENCTL_GENSEL    FIELD_DESCRIPTOR(2, 1)
-#define PHY_TSTPATGENCTL_PPREINS   FIELD_DESCRIPTOR(3, 1)
-#define PHY_TSTPATGENCTL_PATGENEN  FIELD_DESCRIPTOR(4, 1)
+/*PHY_MULTID0                           : 0x1F0030 */
+#define PHY_MULTID0_ID2 FIELD_DESCRIPTOR(0, 8)
+#define PHY_MULTID0_ID1 FIELD_DESCRIPTOR(8, 8)
 
-/* PHY_TSTPATFRM                        : 0x1F0079 */
-#define PHY_TSTPATFRM_FRMSZ FIELD_DESCRIPTOR(0, 8)
+/*PHY_MULTID1                           : 0x1F0031 */
+#define PHY_MULTID1_ID4 FIELD_DESCRIPTOR(0, 8)
+#define PHY_MULTID1_ID3 FIELD_DESCRIPTOR(8, 8)
 
-/* PHY_TSTPCKCTL                        : 0x1F007A */
-#define PHY_TSTPCKCTL_PATCHKSEL FIELD_DESCRIPTOR(0, 2)
-#define PHY_TSTPCKCTL_DCODE5B   FIELD_DESCRIPTOR(2, 1)
-#define PHY_TSTPCKCTL_CLRERRCNT FIELD_DESCRIPTOR(3, 1)
-#define PHY_TSTPCKCTL_PATCHKEN  FIELD_DESCRIPTOR(4, 1)
-#define PHY_TSTPCKCTL_SYNCN     FIELD_DESCRIPTOR(5, 6)
+/*PHY_MULTID2                           : 0x1F0032 */
+#define PHY_MULTID2_ID6 FIELD_DESCRIPTOR(0, 8)
+#define PHY_MULTID2_ID5 FIELD_DESCRIPTOR(8, 8)
 
-/* PHY_TSTERRCNT                        : 0x1F007B */
-#define PHY_TSTERRCNT_CHKERRCNT FIELD_DESCRIPTOR(0, 16)
+/*PHY_MULTID3                           : 0x1F0033 */
+#define PHY_MULTID3_ID8 FIELD_DESCRIPTOR(0, 8)
+#define PHY_MULTID3_ID7 FIELD_DESCRIPTOR(8, 8)
 
-/* PHY_TSTPATCKSTS                      : 0x1F007C */
-#define PHY_TSTPATCKSTS_PATSYNC FIELD_DESCRIPTOR(0, 1)
-#define PHY_TSTPATCKSTS_PFRERR  FIELD_DESCRIPTOR(1, 3)
+/*PHY_PRSSTS                            : 0x1F0036 */
+#define PHY_PRSSTS_MAXID FIELD_DESCRIPTOR(8, 8)
 
-/* PHY_PAD_CONTROL_3                    : 0x1F00CB */
-#define PHY_PADCTRL3_PDRV1 FIELD_DESCRIPTOR(8, 2)
-#define PHY_PADCTRL3_PDRV2 FIELD_DESCRIPTOR(10, 2)
-#define PHY_PADCTRL3_PDRV3 FIELD_DESCRIPTOR(12, 2)
-#define PHY_PADCTRL3_PDRV4 FIELD_DESCRIPTOR(14, 2)
+/*PHY_PRTMGMT2                          : 0x1F003D */
+#define PHY_PRTMGMT2_MITXWDEN FIELD_DESCRIPTOR(11, 1)
+#define PHY_PRTMGMT2_PRIWDEN  FIELD_DESCRIPTOR(12, 1)
+#define PHY_PRTMGMT2_MIRXWDEN FIELD_DESCRIPTOR(13, 1)
 
-/* PHY_PLCA_IDVER                       : 0x1FCA00 */
-#define PHY_PLCA_IDVER_VER FIELD_DESCRIPTOR(0, 8)
-#define PHY_PLCA_IDVER_IDM FIELD_DESCRIPTOR(8, 8)
+/*PHY_IWDTOH                            : 0x1F003E */
+#define PHY_IWDTOH_TIMEOUT FIELD_DESCRIPTOR(0, 16)
+
+/*PHY_IWDTOL                            : 0x1F003F */
+#define PHY_IWDTOL_TIMEOUT FIELD_DESCRIPTOR(0, 16)
+
+/*PHY_TXMCTL                            : 0x1F0040 */
+#define PHY_TXMCTL_TXME     FIELD_DESCRIPTOR(1, 1)
+#define PHY_TXMCTL_MACTXTSE FIELD_DESCRIPTOR(2, 1)
+#define PHY_TXMCTL_TXPMDET  FIELD_DESCRIPTOR(7, 1)
+
+/*PHY_TXMPATH                           : 0x1F0041 */
+#define PHY_TXMPATH_TXMPAT  FIELD_DESCRIPTOR(0, 8)
+
+/*PHY_TXMPATL                           : 0x1F0042 */
+#define PHY_TXMPATL_TXMPAT  FIELD_DESCRIPTOR(0, 16)
+
+/*PHY_TXMDLY                            : 0x1F0049 */
+#define PHY_TXMDLY_TXMPKTDLY FIELD_DESCRIPTOR(0, 10)
+#define PHY_TXMDLY_TXMDLYEN  FIELD_DESCRIPTOR(15, 1)
+
+/*PHY_RXMCTL                            : 0x1F0050 */
+#define PHY_RXMCTL_RXME     FIELD_DESCRIPTOR(1, 1)
+#define PHY_RXMCTL_RXPMDET  FIELD_DESCRIPTOR(6, 1)
+
+/*PHY_RXMPATH                           : 0x1F0051 */
+#define PHY_RXMPATH_RXMPAT  FIELD_DESCRIPTOR(0, 8)
+
+/*PHY_RXMPATL                           : 0x1F0052 */
+#define PHY_RXMPATL_RXMPAT  FIELD_DESCRIPTOR(0, 16)
+
+/*PHY_RXMDLY                            : 0x1F0059 */
+#define PHY_RXMDLY_RXMPKTDLY FIELD_DESCRIPTOR(0, 10)
+#define PHY_RXMDLY_RXMDLYEN  FIELD_DESCRIPTOR(15, 1)
+
+/*PHY_CBSSPTHH                          : 0x1F0060 */
+#define PHY_CBSSPTHH_STOPTHR FIELD_DESCRIPTOR(0, 4)
+
+/*PHY_CBSSPTHL                          : 0x1F0061 */
+#define PHY_CBSSPTHL_STOPTHR FIELD_DESCRIPTOR(0, 16)
+
+/*PHY_CBSSTTHH                          : 0x1F0062 */
+#define PHY_CBSSTTHH_STARTTHR FIELD_DESCRIPTOR(0, 4)
+
+/*PHY_CBSSTTHL                          : 0x1F0063 */
+#define PHY_CBSSTTHL_STARTTHR FIELD_DESCRIPTOR(0, 16)
+
+/*PHY_CBSSLPCTL                          : 0x1F0064 */
+#define PHY_CBSSLPCTL_RISESLP FIELD_DESCRIPTOR(0, 8)
+#define PHY_CBSSLPCTL_FALLSLP FIELD_DESCRIPTOR(8, 8)
+
+/*PHY_CBSTPLMTH                          : 0x1F0065 */
+#define PHY_CBSTPLMTH_TOPLIMIT FIELD_DESCRIPTOR(0, 16)
+
+/*PHY_CBSTPLMTL                         : 0x1F0066 */
+#define PHY_CBSSPTHH_TOPLIMIT  FIELD_DESCRIPTOR(0, 16)
+
+/*PHY_CBSBTLMTH                         : 0x1F0067 */
+#define PHY_CBSBTLMTH_BOTLIMIT FIELD_DESCRIPTOR(0, 4)
+
+/*PHY_CBSBTLMTL                         : 0x1F0068 */
+#define PHY_CBSBTLMTL_BOTLIMIT FIELD_DESCRIPTOR(0, 16)
+
+/*PHY_CBSCRCTRH                         : 0x1F0069 */
+#define PHY_CBSCRCTRH_CREDITCTR FIELD_DESCRIPTOR(0, 4)
+
+/*PHY_CBSCRCTRL                         : 0x1F006A */
+#define PHY_CBSCRCTRL_CREDITCTR FIELD_DESCRIPTOR(0, 16)
+
+/*PHY_CBSCTRL                           : 0x1F006B */
+#define PHY_CBSCTRL_CBSEN  FIELD_DESCRIPTOR(0, 1)
+#define PHY_CBSCTRL_ECCRDS FIELD_DESCRIPTOR(1, 8)
+
+/*PHY_PLCASKPCTL                        : 0x1F0070 */
+#define PHY_PLCASKPCTL_TOSKPEN FIELD_DESCRIPTOR(1, 1)
+
+/*PHY_PLCATOSKP                         : 0x1F0071 */
+#define PHY_PLCATOSKP_TOSKPNUM  FIELD_DESCRIPTOR(0, 8)
+
+/*PHY_PLCACYCSKP                        : 0x1F0072 */
+#define PHY_PLCACYCSKP_CYCSKPNUM FIELD_DESCRIPTOR(0, 8)
+
+/*PHY_ACMACTL                           : 0x1F0074 */
+#define PHY_ACMACTL_ACMAEN    FIELD_DESCRIPTOR(0, 1)
+
+/*PHY_SLPCTL0                           : 0x1F0080 */
+#define PHY_SLPCTL0_SLPCAL    FIELD_DESCRIPTOR(3, 4)
+#define PHY_SLPCTL0_SLPINHDLY FIELD_DESCRIPTOR(11, 2)
+#define PHY_SLPCTL0_MDIWKEN   FIELD_DESCRIPTOR(13, 1)
+#define PHY_SLPCTL0_WKINEN    FIELD_DESCRIPTOR(14, 1)
+#define PHY_SLPCTL0_SLPEN     FIELD_DESCRIPTOR(15, 1)
+
+/*PHY_SLPCTL1                           : 0x1F0081 */
+#define PHY_SLPCTL1_MDIFWDEN FIELD_DESCRIPTOR(0, 1)
+#define PHY_SLPCTL1_WKOFWDEN FIELD_DESCRIPTOR(1, 1)
+#define PHY_SLPCTL1_MWKFWD   FIELD_DESCRIPTOR(2, 1)
+#define PHY_SLPCTL1_CLRWKI   FIELD_DESCRIPTOR(3, 1)
+#define PHY_SLPCTL1_WAKEIND  FIELD_DESCRIPTOR(4, 1)
+#define PHY_SLPCTL1_WIPOL    FIELD_DESCRIPTOR(5, 1)
+#define PHY_SLPCTL1_WOPOL    FIELD_DESCRIPTOR(7, 1)
+
+/*PHY_CDCTL0                            : 0x1F0087 */
+#define PHY_CDCTL0_CDEN      FIELD_DESCRIPTOR(15, 1)
+
+/*PHY_SQICTL                            : 0x1F00A0 */
+#define PHY_SQICTL_SQIEN      FIELD_DESCRIPTOR(14, 1)
+#define PHY_SQICTL_SQIRST     FIELD_DESCRIPTOR(15, 1)
+
+/*PHY_SQISTS0                           : 0x1F00A1 */
+#define PHY_SQISTS0_SQIERRC   FIELD_DESCRIPTOR(0, 3)
+#define PHY_SQISTS0_SQIVAL    FIELD_DESCRIPTOR(3, 3)
+#define PHY_SQISTS0_SQIVLD    FIELD_DESCRIPTOR(6, 1)
+#define PHY_SQISTS0_SQIERR    FIELD_DESCRIPTOR(7, 1)
+
+/*PHY_SQICFG0                           : 0x1F00AA */
+#define PHY_SQICFG0_TOID      FIELD_DESCRIPTOR(4, 8)
+
+/*PHY_SQICFG2                           : 0x1F00AC */
+#define PHY_SQICFG2_SQIINTTHR FIELD_DESCRIPTOR(8, 5)
+
+/*PHY_PADCTRL3                          : 0x1F00CB */
+#define PHY_PADCTRL3_PDRV1   FIELD_DESCRIPTOR(8, 2)
+#define PHY_PADCTRL3_PDRV2   FIELD_DESCRIPTOR(10, 2)
+#define PHY_PADCTRL3_PDRV3   FIELD_DESCRIPTOR(12, 2)
+#define PHY_PADCTRL3_PDRV4   FIELD_DESCRIPTOR(14, 2)
+
+/*PHY_ANALOG5                           : 0x1F00D5 */
+#define PHY_ANALOG5_UV33FTM  FIELD_DESCRIPTOR(8, 8)
+
+/* PHY_MIDVER                           : 0x1FCA00 */
+#define PHY_MIDVER_VER FIELD_DESCRIPTOR(0, 8)
+#define PHY_MIDVER_IDM FIELD_DESCRIPTOR(8, 8)
 
 /* PHY_PLCA_CONTROL_0                   : 0x1FCA01 */
 #define PHY_PLCA_CTRL0_RST FIELD_DESCRIPTOR(14, 1)
 #define PHY_PLCA_CTRL0_EN  FIELD_DESCRIPTOR(15, 1)
 
 /* PHY_PLCA_CONTROL_1                   : 0x1FCA02 */
-#define PHY_PLCA_CTRL1_ID0  FIELD_DESCRIPTOR(0, 8)
+#define PHY_PLCA_CTRL1_ID   FIELD_DESCRIPTOR(0, 8)
 #define PHY_PLCA_CTRL1_NCNT FIELD_DESCRIPTOR(8, 8)
 
 /* PHY_PLCA_STATUS                      : 0x1FCA03 */
@@ -372,6 +547,15 @@ typedef struct {
 /* PHY_PLCA_BURST                       : 0x1FCA05 */
 #define PHY_PLCA_BURST_BTMR  FIELD_DESCRIPTOR(0, 7)
 #define PHY_PLCA_BURST_MAXBC FIELD_DESCRIPTOR(8, 8)
+
+#define CHIP_HEALTH   FIELD_DESCRIPTOR(6, 1)
+#define OFFSET1       FIELD_DESCRIPTOR(0, 5)
+#define OFFSET2       FIELD_DESCRIPTOR(0, 5)
+#define PHY_TYPE      FIELD_DESCRIPTOR(7, 2)
+
+#define LAN867x_PHY_ID2_MASK  (0xC16F)
+#define LAN867x_PHY_ID_REV_B1 (0x2)
+#define LAN867x_PHY_ID_REV_C1 (0x4)
 
 /******************************************************************************
 *  FUNCTION DECLARATIONS

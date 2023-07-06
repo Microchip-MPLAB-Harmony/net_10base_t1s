@@ -1,7 +1,7 @@
 format_version: v1.0
 configName: default
 folderName: tcpip_iperf_10base_t1s
-frameworkPath: C:\Users\I67424\Harmony3
+frameworkPath: C:\Users\m21127\.mcc\HarmonyContent
 processor: ATSAME54P20A
 projectName: tcpip_iperf_10base_t1s
 settings:
@@ -11,4 +11,4 @@ settings:
   TRUSTZONE: 'false'
   CMSISPath: dev_packs\arm\CMSIS\5.8.0
   MERGE_STRATEGY: USER_ALL
-  DFPPath: dev_packs\Microchip\SAME54_DFP\3.7.122\atdf\ATSAME54P20A.atdf
+  DFPPath: dev_packs\Microchip\SAME54_DFP\3.8.234\atdf\ATSAME54P20A.atdf

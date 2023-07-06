@@ -1,4 +1,4 @@
-"Pin Number","Pin ID","Custom Name","Function","Mode", "Direction","Latch","Pull Up","Pull Down","Drive Strength"
+Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,Drive Strength
 1,PA00,,Available,,,,,,NORMAL
 2,PA01,,Available,,,,,,NORMAL
 3,PC00,,Available,,,,,,NORMAL
@@ -44,14 +44,14 @@
 57,PC13,,Available,,,,,,NORMAL
 58,PC14,LAN865x_INT,GPIO,Digital,In,n/a,Yes,No,NORMAL
 59,PC15,LAN865x_CS,GPIO,Digital,Out,High,,,STRONG
-60,PA12,,GMAC_GRX1,Digital,High Impedance,n/a,No,No,NORMAL
-61,PA13,,GMAC_GRX0,Digital,High Impedance,n/a,No,No,NORMAL
-62,PA14,,GMAC_GTXCK,Digital,High Impedance,n/a,No,No,NORMAL
-63,PA15,,GMAC_GRXER,Digital,High Impedance,n/a,No,No,NORMAL
+60,PA12,,Available,,,,,,NORMAL
+61,PA13,,Available,,,,,,NORMAL
+62,PA14,,Available,,,,,,NORMAL
+63,PA15,,Available,,,,,,NORMAL
 66,PA16,,Available,,,,,,NORMAL
-67,PA17,,GMAC_GTXEN,Digital,High Impedance,n/a,No,No,NORMAL
-68,PA18,,GMAC_GTX0,Digital,High Impedance,n/a,No,No,NORMAL
-69,PA19,,GMAC_GTX1,Digital,High Impedance,n/a,No,No,NORMAL
+67,PA17,,Available,,,,,,NORMAL
+68,PA18,,Available,,,,,,NORMAL
+69,PA19,,Available,,,,,,NORMAL
 70,PC16,,Available,,,,,,NORMAL
 71,PC17,,Available,,,,,,NORMAL
 72,PC18,LAN865x_RESET,GPIO,Digital,Out,High,,,NORMAL

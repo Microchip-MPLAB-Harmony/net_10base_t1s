@@ -7,7 +7,7 @@ The following applications are provided to demonstrate the typical
 or interesting usage models of one or more 10BASE-T1S devices.
 
 ## LAN867x Examples
-* [TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY](./tcpip_iperf_10base_t1s/readme.md)
+* [TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY](./tcpip_iperf_lan867x/readme.md)
 
 ## LAN865x Examples
 * [TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY](./tcpip_iperf_lan865x/readme.md)

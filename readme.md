@@ -41,7 +41,7 @@ interesting usage models of one or more peripheral libraries.
 
 | Name                                                                      | Status                                                                                            |
 | ---                                                                       | ---                                                                                               |
-|[TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY](apps/tcpip_iperf_10base_t1s/readme.md)  | ![app-production](https://img.shields.io/badge/application-production-brightgreen?style=plastic)  |
+|[TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY](apps/tcpip_iperf_lan867x/readme.md)  | ![app-production](https://img.shields.io/badge/application-production-brightgreen?style=plastic)  |
 |[TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY](apps/tcpip_iperf_lan865x/readme.md)  | ![app-production](https://img.shields.io/badge/application-production-brightgreen?style=plastic)  |
 
 Note: The following link guides through the steps to create a new TCP/IP application

@@ -42,7 +42,6 @@ Microchip or any third party.
 #include "configuration.h"
 #include "definitions.h"
 #include "drv_lan865x_local.h"
-#include "drv_lan865x_regs.h"
 #include "driver/lan865x/drv_lan865x.h"
 #include "tc6/tc6.h"
 
@@ -56,7 +55,6 @@ Microchip or any third party.
 #define RESET_HIGH_TIME_MS      (7u)
 #define PLCA_TIMER_DELAY        (1000u)
 #define DELAY_UNLOCK_EXT        (100u)
-#define EFUSE_DELAY             (1u)
 #define CONTROL_PROTECTION      (true)
 #ifdef SYS_CONSOLE_PRINT
 #define PRINT(...)              SYS_CONSOLE_PRINT(__VA_ARGS__);
@@ -102,7 +100,6 @@ const TCPIP_MAC_OBJECT DRV_LAN865X_MACObject = {
 
 // Local information
 static DRV_LAN865X_DriverInfo drvLAN865XDrvInst[DRV_LAN865X_INSTANCES_NUMBER];
-static DRV_LAN865X_ClientInfo drvLAN865XClntInst[DRV_LAN865X_CLIENT_INSTANCES_IDX0];
 
 extern const DRV_LAN865X_Configuration drvLan865xInitData[DRV_LAN865X_INSTANCES_NUMBER];
 
@@ -116,11 +113,11 @@ static DRV_LAN865X_DriverInfo *_Dereference(const void *tag);
 static void _Initialize(DRV_LAN865X_DriverInfo *pDrvInstance);
 static bool _InitReset(DRV_LAN865X_DriverInfo * pDrvInstance);
 static bool _InitMemMap(DRV_LAN865X_DriverInfo * pDrvInst);
-static void _OnEFuseOp(TC6_t *pInst, bool success, uint32_t addr, uint32_t value, void *pTag, void *pGlobalTag);
-static bool _ReadEFuseReg(DRV_LAN865X_DriverInfo * pDrvInst, uint32_t addr, uint32_t *pVal, uint8_t subState);
+static void _OnConfigRead(TC6_t *pInst, bool success, uint32_t addr, uint32_t value, void *pTag, void *pGlobalTag);
+static bool _ReadIndirectReg(DRV_LAN865X_DriverInfo * pDrvInst, uint32_t addr, uint32_t *pVal, uint32_t mask, uint8_t subState);
 static int8_t _GetSignedVal(uint32_t val);
-static uint32_t _CalculateValueAndMask(uint8_t start, uint8_t end, uint32_t newValue, uint32_t *mask);
-static bool _InitTrim(DRV_LAN865X_DriverInfo * pDrvInst);
+static bool _CheckId(DRV_LAN865X_DriverInfo * pDrvInst);
+static bool _InitConfig(DRV_LAN865X_DriverInfo * pDrvInst);
 static bool _InitUserSettings(DRV_LAN865X_DriverInfo * pDrvInst);
 static int32_t _OpenInterface(DRV_LAN865X_DriverInfo * pDrvInstance);
 static void _EventHandlerSPI(DRV_SPI_TRANSFER_EVENT event, DRV_SPI_TRANSFER_HANDLE transferHandle, uintptr_t context);
@@ -452,6 +449,7 @@ SYS_MODULE_OBJ DRV_LAN865X_StackInitialize(SYS_MODULE_INDEX index, const SYS_MOD
 */
 DRV_HANDLE DRV_LAN865X_Open(SYS_MODULE_INDEX index, DRV_IO_INTENT intent)
 {
+    static DRV_LAN865X_ClientInfo drvLAN865XClntInst[DRV_LAN865X_CLIENT_INSTANCES_IDX0];
     DRV_HANDLE result = DRV_HANDLE_INVALID;
     DRV_LAN865X_DriverInfo *pDrvInst;
     DRV_LAN865X_ClientInfo* ptr = NULL;
@@ -896,6 +894,12 @@ TCPIP_MAC_RES DRV_LAN865X_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATI
     SYS_ASSERT(pClient && (LAN865X_CLIENT_MAGIC == pClient->clientMagic), "Client pointer is invalid");
     pDrvInst = pClient->pDrvInst;
     SYS_ASSERT(pDrvInst && (LAN865X_MAGIC == pDrvInst->magic), "Driver info pointer is invalid");
+    if (entries < nEntries) {
+        const char regName[] = "Chip-Revision";
+        (void)memcpy(pRegEntries[entries].registerName, regName, sizeof(regName));
+        pRegEntries[entries].registerValue = pDrvInst->chipRev;
+        entries++;
+    }
     if (entries < nEntries) {
         const char regName[] = "PLCA-Enabled";
         (void)memcpy(pRegEntries[entries].registerName, regName, sizeof(regName));
@@ -1494,11 +1498,14 @@ static void _Initialize(DRV_LAN865X_DriverInfo *pDrvInst)
         case DRV_LAN865X_INITSTATE_RESET:
             done = _InitReset(pDrvInst);
             break;
+        case DRV_LAN865X_INITSTATE_CHECKID:
+            done = _CheckId(pDrvInst);
+            break;
         case DRV_LAN865X_INITSTATE_MEMMAP:
             done = _InitMemMap(pDrvInst);
             break;
-        case DRV_LAN865X_INITSTATE_TRIM:
-            done = _InitTrim(pDrvInst);
+        case DRV_LAN865X_INITSTATE_CONFIG:
+            done = _InitConfig(pDrvInst);
             break;
         case DRV_LAN865X_INITSTATE_SETREGS:
             done = _InitUserSettings(pDrvInst);
@@ -1506,6 +1513,7 @@ static void _Initialize(DRV_LAN865X_DriverInfo *pDrvInst)
         case DRV_LAN865X_INITSTATE_FINISHED:
         default:
             SYS_ASSERT(false, "Wrong Initialize state");
+            pDrvInst->state = SYS_STATUS_ERROR;
             break;
     }
     if (done) {
@@ -1542,6 +1550,7 @@ static bool _InitReset(DRV_LAN865X_DriverInfo * pDrvInst)
                 break;
             default:
                 SYS_ASSERT(false, "Wrong Hard Reset sub state");
+                pDrvInst->state = SYS_STATUS_ERROR;
                 done = true;
                 break;
         }
@@ -1549,32 +1558,18 @@ static bool _InitReset(DRV_LAN865X_DriverInfo * pDrvInst)
         /* Software Reset */
         switch(pDrvInst->initSubState) {
             case 0:
-                pDrvInst->initTimer = SYS_TIME_CounterGet();
-                pDrvInst->initSubState++;
-                break;
-            case 1:
-                if (SYS_TIME_CountToMS(SYS_TIME_CounterGet() - pDrvInst->initTimer) >= RESET_LOW_TIME_MS) {
-                    pDrvInst->initSubState++;
-                }
-                break;
-            case 2:
                 if (TC6_WriteRegister(pDrvInst->drvTc6, 0x00000003u /* RESET */, 0x1u, false, _OnSoftResetCB, NULL)) {
                     pDrvInst->initSubState++;
                 }
                 break;
-            case 3:
+            case 1:
                 if (TC6_WriteRegister(pDrvInst->drvTc6, 0x00000003u /* RESET */, 0x1u, true, _OnSoftResetCB, NULL)) {
-                    pDrvInst->initTimer = SYS_TIME_CounterGet();
-                    pDrvInst->initSubState++;
-                }
-                break;
-            case 4:
-                if (SYS_TIME_CountToMS(SYS_TIME_CounterGet() - pDrvInst->initTimer) >= RESET_HIGH_TIME_MS) {
                     done = true;
                 }
                 break;
             default:
                 SYS_ASSERT(false, "Wrong Soft Reset sub state");
+                pDrvInst->state = SYS_STATUS_ERROR;
                 done = true;
                 break;
         }
@@ -1582,14 +1577,104 @@ static bool _InitReset(DRV_LAN865X_DriverInfo * pDrvInst)
     return done;
 }
 
+static bool _CheckId(DRV_LAN865X_DriverInfo * pDrvInst)
+{
+    TC6_t *tc = pDrvInst->drvTc6;
+    bool done = false;
+    switch(pDrvInst->initSubState) {
+        case 0:
+            if (TC6_ReadRegister(tc, 0x00000001, false, _OnConfigRead, NULL)) {
+                pDrvInst->initSubState++;
+            }
+            break;
+        case 1:
+            /* Wait for _OnConfigRead callback */
+            break;
+        case 2:
+            {
+                uint32_t oui = pDrvInst->initReadVal >> 10;
+                uint32_t model = (pDrvInst->initReadVal >> 4) & (0x3FFu);
+                if ((0x1F0u == oui) && (0x1Bu == model)) {
+                    if (TC6_ReadRegister(tc, 0x000A0094, false, _OnConfigRead, NULL)) {
+                        pDrvInst->initSubState++;
+                    }
+                } else {
+                    PRINT("Invalid MACPHY, oui=0x%X, model=0x%X\r\n", oui, model);
+                    pDrvInst->state = SYS_STATUS_ERROR;
+                    done = true;
+                }
+            }
+            break;
+        case 3:
+            /* Wait for _OnConfigRead callback */
+            break;
+        case 4:
+            pDrvInst->chipRev = (pDrvInst->initReadVal & 0xFu);
+            if (0u == pDrvInst->chipRev) {
+                PRINT("Invalid Chip Revision\r\n");
+                pDrvInst->state = SYS_STATUS_ERROR;
+            }
+            done = true;
+            break;
+        default:
+            SYS_ASSERT(false, "Wrong checkid sub state");
+            pDrvInst->state = SYS_STATUS_ERROR;
+            break;
+    }
+    return done;
+}
+
 static bool _InitMemMap(DRV_LAN865X_DriverInfo * pDrvInst)
 {
+    /******************************************************************************
+    *  Auto Generated MAP
+    ******************************************************************************/
+
+    static const MemoryMap_t TC6_MEMMAP[] = {
+        {  .address=0x00000004,  .value=0x00000026,  .mask=0x00000000,  .op=MemOp_Write,  .secure=false }, /* CONFIG0 */
+        {  .address=0x00010000,  .value=0x00000000,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  }, /* NETWORK_CONTROL */
+        {  .address=0x00040091,  .value=0x00009660,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x00040081,  .value=0x00000080,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x00010077,  .value=0x00000028,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x00040043,  .value=0x000000FF,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x00040044,  .value=0x0000FFFF,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x00040045,  .value=0x00000000,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x00040053,  .value=0x000000FF,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x00040054,  .value=0x0000FFFF,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x00040055,  .value=0x00000000,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x00040040,  .value=0x00000002,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x00040050,  .value=0x00000002,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400E9,  .value=0x00009E50,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400F5,  .value=0x00001CF8,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400F4,  .value=0x0000C020,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400F8,  .value=0x00009B00,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400F9,  .value=0x00004E53,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400B0,  .value=0x00000103,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400B1,  .value=0x00000910,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400B2,  .value=0x00001D26,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400B3,  .value=0x0000002A,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400B4,  .value=0x00000103,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400B5,  .value=0x0000070D,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400B6,  .value=0x00001720,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400B7,  .value=0x00000027,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400B8,  .value=0x00000509,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400B9,  .value=0x00000E13,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400BA,  .value=0x00001C25,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+        {  .address=0x000400BB,  .value=0x0000002B,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
+
+        {  .address=0x00040087,  .value=0x00000083,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  }, /* COL_DET_CTRL0 */
+        {  .address=0x0000000C,  .value=0x00000100,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  }, /* IMASK0 */
+        {  .address=0x00040081,  .value=0x000000E0,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  }, /* DEEP_SLEEP_CTRL_1 */
+    };
+
+    static const uint32_t TC6_MEMMAP_LENGTH = (sizeof(TC6_MEMMAP) / sizeof(MemoryMap_t));
+
     SYS_ASSERT(TC6_MEMMAP_LENGTH == MEMMAP_LEN, "MEMMAP size mismatch");
     pDrvInst->initSubState += TC6_MultipleRegisterAccess(pDrvInst->drvTc6, &TC6_MEMMAP[pDrvInst->initSubState], (TC6_MEMMAP_LENGTH - pDrvInst->initSubState), _OnInitialRegisterCB, NULL);
     return (TC6_MEMMAP_LENGTH == pDrvInst->initSubState);
 }
 
-static void _OnEFuseOp(TC6_t *pInst, bool success, uint32_t addr, uint32_t value, void *pTag, void *pGlobalTag)
+static void _OnConfigRead(TC6_t *pInst, bool success, uint32_t addr, uint32_t value, void *pTag, void *pGlobalTag)
 {
     DRV_LAN865X_DriverInfo *pDrvInst = _Dereference(pGlobalTag);
     (void)pInst;
@@ -1605,7 +1690,7 @@ static void _OnEFuseOp(TC6_t *pInst, bool success, uint32_t addr, uint32_t value
     }
 }
 
-static bool _ReadEFuseReg(DRV_LAN865X_DriverInfo * pDrvInst, uint32_t addr, uint32_t *pVal, uint8_t subState)
+static bool _ReadIndirectReg(DRV_LAN865X_DriverInfo * pDrvInst, uint32_t addr, uint32_t *pVal, uint32_t mask, uint8_t subState)
 {
     uint32_t regVal;
     TC6_t *tc = pDrvInst->drvTc6;
@@ -1613,46 +1698,32 @@ static bool _ReadEFuseReg(DRV_LAN865X_DriverInfo * pDrvInst, uint32_t addr, uint
     switch (subState) {
         case 0:
             regVal = (addr & 0x000Fu);
-            if (TC6_WriteRegister(tc, 0x000400D8, regVal, CONTROL_PROTECTION, _OnEFuseOp, NULL)) {
+            if (TC6_WriteRegister(tc, 0x000400D8, regVal, CONTROL_PROTECTION, NULL, NULL)) {
                 pDrvInst->initSubState++;
             }
             break;
         case 1:
-            /* Wait for _OnEFuseOp callback */
+            if (TC6_WriteRegister(tc, 0x000400DA, 0x0002, CONTROL_PROTECTION, NULL, NULL)) {
+                pDrvInst->initSubState++;
+            }
             break;
         case 2:
-            if (TC6_WriteRegister(tc, 0x000400DA, 0x0002, CONTROL_PROTECTION, _OnEFuseOp, NULL)) {
+            if (TC6_ReadRegister(tc, 0x000400D9, CONTROL_PROTECTION, _OnConfigRead, NULL)) {
                 pDrvInst->initSubState++;
             }
             break;
         case 3:
-            /* Wait for _OnEFuseOp callback */
+            /* Wait for _OnConfigRead callback */
             break;
         case 4:
-            pDrvInst->initTimer = SYS_TIME_CounterGet();
-            pDrvInst->initSubState++;
-            break;
-        case 5:
-            if (SYS_TIME_CountToMS(SYS_TIME_CounterGet() - pDrvInst->plcaTimer) >= EFUSE_DELAY) {
-                pDrvInst->initSubState++;
-            }
-            break;
-        case 6:
-            if (TC6_ReadRegister(tc, 0x000400D9, CONTROL_PROTECTION, _OnEFuseOp, NULL)) {
-                pDrvInst->initSubState++;
-            }
-            break;
-        case 7:
-            /* Wait for _OnEFuseOp callback */
-            break;
-        case 8:
             if (NULL != pVal) {
-                *pVal = pDrvInst->initReadVal;
+                *pVal = (pDrvInst->initReadVal & mask);
                 finished = true;
             }
             break;
         default:
-            SYS_ASSERT(false, "Wrong EFuse sub state");
+            SYS_ASSERT(false, "Wrong indirect read sub state");
+            pDrvInst->state = SYS_STATUS_ERROR;
             break;
     }
     return finished;
@@ -1661,54 +1732,37 @@ static bool _ReadEFuseReg(DRV_LAN865X_DriverInfo * pDrvInst, uint32_t addr, uint
 static int8_t _GetSignedVal(uint32_t val)
 {
     int8_t result;
-    if ((val & (1u << 4u)) ==  (1u << 4u)) {
+    if (0u != (val & 0x10u)) {
         /* negative value */
-        result = val | 0xE0u;
-        if(result < -5) {
-            result = -5;
-        }
+        uint32_t cpy = (val | 0xE0u); /* To be MISRA compliant */
+        result = (int8_t)cpy;
     } else {
         /* positive value */
-        result = val;
+        result = (int8_t)val;
     }
     return result;
 }
 
-static uint32_t _CalculateValueAndMask(uint8_t start, uint8_t end, uint32_t newValue, uint32_t *mask)
-{
-    if (NULL != mask) {
-        uint8_t i;
-        for (i = start; i <= end; i++) {
-            *mask |= (1u << i);
-        }
-    }
-    return (newValue << start);
-}
-
-static bool _InitTrim(DRV_LAN865X_DriverInfo * pDrvInst)
+static bool _InitConfig(DRV_LAN865X_DriverInfo * pDrvInst)
 {
     TC6_t *tc = pDrvInst->drvTc6;
     uint32_t val;
-    uint32_t mask;
+    uint16_t cfgParam;
+    int16_t tempParam;
     bool done = false;
-    bool success;
     switch(pDrvInst->initSubState) {
         case 0:
         case 1:
         case 2:
         case 3:
         case 4:
-        case 5:
-        case 6:
-        case 7:
-        case 8:
-            if (_ReadEFuseReg(pDrvInst, 0x5, &val, pDrvInst->initSubState)) {
-                bool isTrimmed = (0u != (val & 0x40u));
-                if (isTrimmed) {
+            if (_ReadIndirectReg(pDrvInst, 0x5, &val, 0x40u, pDrvInst->initSubState)) {
+                bool chipHealth = (0u != val);
+                if (chipHealth) {
                     pDrvInst->initSubState = 10;
                 } else {
-                    /* Abort trimming */
-                    PRINT("Warning:PHY is not trimmed!\r\n");
+                    PRINT("chip_error! Please contact microchip support for replacement.\r\n");
+                    pDrvInst->state = SYS_STATUS_ERROR;
                     done = true;
                 }
             }
@@ -1719,13 +1773,15 @@ static bool _InitTrim(DRV_LAN865X_DriverInfo * pDrvInst)
         case 12:
         case 13:
         case 14:
-        case 15:
-        case 16:
-        case 17:
-        case 18:
-            if (_ReadEFuseReg(pDrvInst, 0x4, &val, pDrvInst->initSubState - 10u)) {
-                pDrvInst->initEfuseA4 = _GetSignedVal(val);
-                pDrvInst->initSubState = 20;
+            if (_ReadIndirectReg(pDrvInst, 0x4, &val, 0x1Fu, pDrvInst->initSubState - 10u)) {
+                pDrvInst->initOffset1 = _GetSignedVal(val);
+                if (pDrvInst->initOffset1 >= -5) {
+                    pDrvInst->initSubState = 20;
+                } else {
+                    PRINT("chip_error! Please contact microchip support for replacement.\r\n");
+                    pDrvInst->state = SYS_STATUS_ERROR;
+                    done = true;
+                }
             }
             break;
 
@@ -1734,90 +1790,146 @@ static bool _InitTrim(DRV_LAN865X_DriverInfo * pDrvInst)
         case 22:
         case 23:
         case 24:
-        case 25:
-        case 26:
-        case 27:
-        case 28:
-            if (_ReadEFuseReg(pDrvInst, 0x8, &val, pDrvInst->initSubState - 20u)) {
-                pDrvInst->initEfuseA8 = _GetSignedVal(val);
+            if (_ReadIndirectReg(pDrvInst, 0x8, &val, 0x1Fu, pDrvInst->initSubState - 20u)) {
+                pDrvInst->initOffset2 = _GetSignedVal(val);
                 pDrvInst->initSubState = 30;
             }
             break;
 
         case 30:
-            mask = 0u;
-            val = _CalculateValueAndMask(10, 15, (0x9 + pDrvInst->initEfuseA4), &mask);
-            val |= _CalculateValueAndMask(4, 9, (0xE + pDrvInst->initEfuseA4), &mask);
-            pDrvInst->initSubState++; /* Avoid race condition error */
-            success = TC6_ReadModifyWriteRegister(tc, 0x00040084, val, mask, CONTROL_PROTECTION, _OnEFuseOp, NULL);
-            if (!success) {
-                pDrvInst->initSubState--;
+            if (TC6_ReadRegister(tc, 0x00040084, CONTROL_PROTECTION, _OnConfigRead, NULL)) {
+                pDrvInst->initSubState++;
             }
             break;
         case 31:
-            /* Wait for _OnEFuseOp callback */
+            /* Wait for _OnConfigRead callback */
             break;
 
         case 32:
-            mask = 0u;
-            val = _CalculateValueAndMask(10, 15, (0x28 + pDrvInst->initEfuseA8), &mask);
-            pDrvInst->initSubState++; /* Avoid race condition error */
-            success = TC6_ReadModifyWriteRegister(tc, 0x0004008A, val, mask, CONTROL_PROTECTION, _OnEFuseOp, NULL);
-            if (!success) {
-                pDrvInst->initSubState--;
+            pDrvInst->initValue3 = pDrvInst->initReadVal;
+            if (TC6_ReadRegister(tc, 0x0004008A, CONTROL_PROTECTION, _OnConfigRead, NULL)) {
+                pDrvInst->initSubState++;
             }
             break;
         case 33:
-            /* Wait for _OnEFuseOp callback */
+            /* Wait for _OnConfigRead callback */
             break;
 
         case 34:
-            mask = 0u;
-            val = _CalculateValueAndMask(8, 13, (0x5 + pDrvInst->initEfuseA4), &mask);
-            val |= _CalculateValueAndMask(0, 5, (0x9 + pDrvInst->initEfuseA4), &mask);
-            pDrvInst->initSubState++; /* Avoid race condition error */
-            success = TC6_ReadModifyWriteRegister(tc, 0x000400AD, val, mask, CONTROL_PROTECTION, _OnEFuseOp, NULL);
-            if (!success) {
-                pDrvInst->initSubState--;
+            pDrvInst->initValue4 = pDrvInst->initReadVal;
+            if (TC6_ReadRegister(tc, 0x000400AD, CONTROL_PROTECTION, _OnConfigRead, NULL)) {
+                pDrvInst->initSubState++;
             }
             break;
         case 35:
-            /* Wait for _OnEFuseOp callback */
+            /* Wait for _OnConfigRead callback */
             break;
 
         case 36:
-            mask = 0u;
-            val = _CalculateValueAndMask(8, 13, (0x9 + pDrvInst->initEfuseA4), &mask);
-            val |= _CalculateValueAndMask(0, 5, (0xE + pDrvInst->initEfuseA4), &mask);
-            pDrvInst->initSubState++; /* Avoid race condition error */
-            success = TC6_ReadModifyWriteRegister(tc, 0x000400AE, val, mask, CONTROL_PROTECTION, _OnEFuseOp, NULL);
-            if (!success) {
-                pDrvInst->initSubState--;
+            pDrvInst->initValue5 = pDrvInst->initReadVal;
+            if (TC6_ReadRegister(tc, 0x000400AE, CONTROL_PROTECTION, _OnConfigRead, NULL)) {
+                pDrvInst->initSubState++;
             }
             break;
         case 37:
-            /* Wait for _OnEFuseOp callback */
+            /* Wait for _OnConfigRead callback */
             break;
 
         case 38:
-            mask = 0u;
-            val = _CalculateValueAndMask(8, 13, (0x11 + pDrvInst->initEfuseA4), &mask);
-            val |= _CalculateValueAndMask(0, 5, (0x16 + pDrvInst->initEfuseA4), &mask);
-            pDrvInst->initSubState++; /* Avoid race condition error */
-            success = TC6_ReadModifyWriteRegister(tc, 0x000400AF, val, mask, CONTROL_PROTECTION, _OnEFuseOp, NULL);
-            if (!success) {
-                pDrvInst->initSubState--;
+            pDrvInst->initValue6 = pDrvInst->initReadVal;
+            if (TC6_ReadRegister(tc, 0x000400AF, CONTROL_PROTECTION, _OnConfigRead, NULL)) {
+                pDrvInst->initSubState++;
             }
             break;
         case 39:
-            /* Wait for _OnEFuseOp callback */
+            /* Wait for _OnConfigRead callback */
             break;
 
         case 40:
-            done = true;
+            pDrvInst->initValue7 = pDrvInst->initReadVal;
+
+            cfgParam = pDrvInst->initValue3 & 0xFu;
+            tempParam = 9 + pDrvInst->initOffset1; /* To be MISRA compliant */
+            cfgParam |= (uint16_t)tempParam << 10;
+
+            tempParam = (14 + pDrvInst->initOffset1); /* To be MISRA compliant */
+            cfgParam |= (uint16_t)tempParam << 4;
+
+            if (TC6_WriteRegister(tc, 0x00040084, cfgParam, CONTROL_PROTECTION, NULL, NULL)) {
+                pDrvInst->initSubState++;
+            }
             break;
+
+        case 41:
+            cfgParam = pDrvInst->initValue4 & 0x3FFu;
+            tempParam = 40 + pDrvInst->initOffset2; /* To be MISRA compliant */
+            cfgParam |= (uint16_t)(tempParam) << 10;
+
+            if (TC6_WriteRegister(tc, 0x0004008A, cfgParam, CONTROL_PROTECTION, NULL, NULL)) {
+                pDrvInst->initSubState++;
+            }
+            break;
+
+        case 42:
+            cfgParam = pDrvInst->initValue5 & 0xC0C0u;
+            tempParam = 5 + pDrvInst->initOffset1; /* To be MISRA compliant */
+            cfgParam |= (uint16_t)tempParam << 8;
+
+            tempParam = 9 + pDrvInst->initOffset1; /* To be MISRA compliant */
+            cfgParam |= (uint16_t)tempParam;
+
+            if (TC6_WriteRegister(tc, 0x000400AD, cfgParam, CONTROL_PROTECTION, NULL, NULL)) {
+                pDrvInst->initSubState++;
+            }
+            break;
+
+        case 43:
+            cfgParam = pDrvInst->initValue6 & 0xC0C0u;
+            tempParam = 9 + pDrvInst->initOffset1; /* To be MISRA compliant */
+            cfgParam |= (uint16_t)tempParam << 8;
+
+            tempParam = 14 + pDrvInst->initOffset1; /* To be MISRA compliant */
+            cfgParam |= (uint16_t)tempParam;
+
+            if (TC6_WriteRegister(tc, 0x000400AE, cfgParam, CONTROL_PROTECTION, NULL, NULL)) {
+                pDrvInst->initSubState++;
+            }
+            break;
+
+        case 44:
+            cfgParam = pDrvInst->initValue7 & 0xC0C0u;
+
+            tempParam = 17 + pDrvInst->initOffset1; /* To be MISRA compliant */
+            cfgParam |= (uint16_t)tempParam << 8;
+
+            tempParam = 22 + pDrvInst->initOffset1; /* To be MISRA compliant */
+            cfgParam |= (uint16_t)tempParam;
+
+            if (TC6_WriteRegister(tc, 0x000400AF, cfgParam, CONTROL_PROTECTION, NULL, NULL)) {
+                pDrvInst->initSubState++;
+            }
+            break;
+
+        case 45:
+            cfgParam = (1u == pDrvInst->chipRev) ? 0x00005F21 : 0x00003F31;
+            if (TC6_WriteRegister(tc, 0x000400D0, cfgParam, CONTROL_PROTECTION, NULL, NULL)) {
+                if (1u == pDrvInst->chipRev) {
+                    done = true;
+                } else {
+                    pDrvInst->initSubState++;
+                }
+            }
+            break;
+
+        case 46:
+            if (TC6_WriteRegister(tc, 0x000400E0, 0x0000C000, CONTROL_PROTECTION, NULL, NULL)) {
+                done = true;
+            }
+            break;
+
         default:
-            SYS_ASSERT(false, "Wrong trim sub state");
+            SYS_ASSERT(false, "Wrong config sub state");
+            pDrvInst->state = SYS_STATUS_ERROR;
             break;
     }
     return done;
@@ -1839,7 +1951,7 @@ static bool _InitUserSettings(DRV_LAN865X_DriverInfo * pDrvInst)
                 }
             } else {
                 /* PLCA disabled */
-                pDrvInst->initSubState = 3u;
+                pDrvInst->initSubState = 4u;
             }
             break;
         case 1:
@@ -1850,41 +1962,47 @@ static bool _InitUserSettings(DRV_LAN865X_DriverInfo * pDrvInst)
             }
             break;
         case 2:
+            /* Disable Collision Detection */
+            if (TC6_WriteRegister(tc, 0x00040087u /* COL_DET_CTRL0 */, 0x83u, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
+                pDrvInst->initSubState++;
+            }
+            break;
+        case 3:
             /* Enable PLCA */
             regVal = (1u << 15);
             if (TC6_WriteRegister(tc, 0x0004CA01u /* PLCA_CONTROL_0_REGISTER */, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
                 pDrvInst->initSubState++;
             }
             break;
-        case 3:
+        case 4:
             /* MAC address setting (LOW) */
             regVal = (mac[3] << 24) | (mac[2] << 16) | (mac[1] << 8) | mac[0];
             if (TC6_WriteRegister(tc, 0x00010024u /* SPEC_ADD2_BOTTOM */, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
                 pDrvInst->initSubState++;
             }
             break;
-        case 4:
+        case 5:
             /* MAC address setting (HIGH) */
             regVal = (mac[5] << 8) | mac[4];
             if (TC6_WriteRegister(tc, 0x00010025u /* SPEC_ADD2_TOP */, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
                 pDrvInst->initSubState++;
             }
             break;
-        case 5:
+        case 6:
             /* MAC address setting, setting unique lower MAC address, back off time is generated out of that */
             regVal = (mac[5] << 24) | (mac[4] << 16) | (mac[3] << 8) | mac[2];
             if (TC6_WriteRegister(tc, 0x00010022u /* SPEC_ADD1_BOTTOM */, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
                 pDrvInst->initSubState++;
             }
             break;
-        case 6:
+        case 7:
             /* Promiscuous mode */
             regVal = (pDrvInst->drvCfg.promiscuous ? 0x10u : 0x0u);
             if (TC6_WriteRegister(tc, 0x00010001u /* NETWORK_CONFIG */, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
                 pDrvInst->initSubState++;
             }
             break;
-        case 7:
+        case 8:
             /* Cut Through / Store and Forward mode */
             regVal = 0x9026u;
             if (true == pDrvInst->drvCfg.txCutThrough) {
@@ -1893,12 +2011,19 @@ static bool _InitUserSettings(DRV_LAN865X_DriverInfo * pDrvInst)
             if (true == pDrvInst->drvCfg.rxCutThrough) {
                 regVal |= 0x100u;
             }
-            if (TC6_WriteRegister(tc, 0x00000004u /* CONFIG0 */, regVal, CONTROL_PROTECTION, _OnRegisterDoneCB, NULL)) {
+            if (TC6_WriteRegister(tc, 0x00000004u /* CONFIG0 */, regVal, CONTROL_PROTECTION, _OnInitialRegisterCB, NULL)) {
+                pDrvInst->initSubState++;
+            }
+            break;
+        case 9:
+            /* Enable Data Traffic */
+            if (TC6_WriteRegister(tc, 0x00010000u /* NETWORK_CONTROL */, 0x0000000Cu, CONTROL_PROTECTION, _OnRegisterDoneCB, NULL)) {
                 done = true;
             }
             break;
         default:
             SYS_ASSERT(false, "Wrong User Settings sub state");
+            pDrvInst->state = SYS_STATUS_ERROR;
             done = true;
             break;
     }
@@ -1962,12 +2087,9 @@ static void _OnInitialRegisterCB(TC6_t *pInst, bool success, uint32_t addr, uint
     (void)pTag;
     (void)addr;
     (void)value;
+    (void)pGlobalTag;
     if (!success) {
-        /* TODO: add proper error handling here */
-        DRV_LAN865X_DriverInfo *pDrvInst = _Dereference(pGlobalTag);
-        if (NULL != pDrvInst) {
-            PRINT("Setting failed, addr=0x%X\r\n", addr);
-        }
+        PRINT("Setting failed, addr=0x%X\r\n", addr);
     }
 }
 
@@ -1976,13 +2098,11 @@ static void _OnRegisterDoneCB(TC6_t *pInst, bool success, uint32_t addr, uint32_
     (void)pTag;
     (void)addr;
     (void)value;
+    (void)pGlobalTag;
     if (success) {
         TC6_EnableData(pInst, true);
     } else {
-        DRV_LAN865X_DriverInfo *pDrvInst = _Dereference(pGlobalTag);
-        if (NULL != pDrvInst) {
-            PRINT("Final setting failed, addr=0x%X\r\n", addr);
-        }
+        PRINT("Final setting failed\r\n");
     }
 }
 

@@ -66,8 +66,9 @@ typedef struct _DRV_LAN865X_RX_PACKET_INFO {
 typedef enum _DRV_LAN865X_DRIVER_INIT_STATE
 {
     DRV_LAN865X_INITSTATE_RESET,
+    DRV_LAN865X_INITSTATE_CHECKID,
     DRV_LAN865X_INITSTATE_MEMMAP,
-    DRV_LAN865X_INITSTATE_TRIM,
+    DRV_LAN865X_INITSTATE_CONFIG,
     DRV_LAN865X_INITSTATE_SETREGS,
     /* Shall always be last: */
     DRV_LAN865X_INITSTATE_FINISHED
@@ -108,10 +109,16 @@ typedef struct _DRV_LAN865X_DriverInfo {
     uint32_t unlockExtTime;
 
     TC6_t* drvTc6;
-    int8_t initEfuseA4;
-    int8_t initEfuseA8;
+    int8_t initOffset1;
+    int8_t initOffset2;
+    uint8_t initValue3;
+    uint8_t initValue4;
+    uint8_t initValue5;
+    uint8_t initValue6;
+    uint8_t initValue7;
     uint8_t initSubState;
     uint8_t drvTc6Inst;
+    uint8_t chipRev;
 
     uint8_t numClients;
     uint8_t index;
@@ -132,11 +139,5 @@ typedef struct _DRV_LAN865X_ClientInfo {
     uint32_t clientMagic;
     DRV_LAN865X_DriverInfo* pDrvInst;
 } DRV_LAN865X_ClientInfo;
-
-/******************************************************************************
-*  FUNCTION PROTOTYPES
-******************************************************************************/
-// LAN865X debugging
-void DRV_LAN865X_Assert(bool cond, const char* message, int lineNo);
 
 #endif

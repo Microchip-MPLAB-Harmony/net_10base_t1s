@@ -35,12 +35,13 @@ Microchip or any third party.
     MCHP LAN867x Phy Driver implementation
 
   Description:
-    This file provides the MCHP LAN867x Driver.
+    This file provides the MCHP LAN867x PHY Driver.
  *******************************************************************************/
 
 /******************************************************************************
  *  INCLUDES
  ******************************************************************************/
+
 #include "system/console/sys_console.h"
 #include "driver/ethphy/src/dynamic/drv_extphy_lan867x.h"
 #include "driver/ethphy/src/drv_ethphy_local.h"
@@ -48,6 +49,7 @@ Microchip or any third party.
 /******************************************************************************
  *  PRIVATE FUNCTION DECLARATIONS
  ******************************************************************************/
+
 static void Set_Operation_Flow(const uint32_t regAddr, const DRV_MIIM_OP_TYPE opType,
                                ePHY_REG_ACCESS_PHASE *opState);
 static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP_TYPE opType,
@@ -56,6 +58,7 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP
 /******************************************************************************
  *  DEFINITION
  ******************************************************************************/
+
 typedef struct {
     uint8_t version;
     uint8_t value1;
@@ -376,7 +379,7 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
                  * This can be the case if e.g., the HW Reset of the PHY is not complete.
                  * So we'll wait for the maximum time the PHY needs for a POR reset.
                  */
-                if (registerValue == (uint16_t) 0xFFFF) {
+                if (registerValue == 0xFFFFu) {
                     repeat = true;
                 } else {
                     /* communication with PHY seems to be successful, therefore
@@ -384,8 +387,8 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
                      * continue to initial settings
                      */
                     repeat = false;
-                    if ((registerValue & (uint16_t) 0x0800) == (uint16_t) 0x0800) {
-                        SYS_CONSOLE_PRINT("LAN867x Reset has occurred -2 \r\n");
+                    if ((registerValue & 0x0800u) == 0x0800u) {
+                        SYS_CONSOLE_PRINT("LAN867x Reset has occurred,pos=2 \r\n");
                     }
                     if (info.version != LAN867x_PHY_ID_REV_B1) {
                         state = 12; //Start initial settings for Rev C0/C1,otherwise for Rev B
@@ -407,7 +410,7 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
                 }
                 break;
 
-            case 18:
+            case 18:/* read value1 */
                 info.value1 = R2F(registerValue, OFFSET1);
                 if ((info.value1 & CHECK_SIGN) != 0u) {
                     info.offset1 = info.value1 | 0x00E0u;
@@ -420,7 +423,7 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
                 }
                 break;
 
-            case 21:
+            case 21:/* read value2 */
                 info.value2 = R2F(registerValue, OFFSET2);
                 if ((info.value2 & CHECK_SIGN) != 0u) {
                     info.offset2 = info.value2 | 0x00E0u;
@@ -434,6 +437,7 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
                     state = 33;
                 }
                 break;
+
             default:
                 break;
             }
@@ -576,8 +580,8 @@ static DRV_ETHPHY_RESULT DRV_ETHPHY_Detect(const struct DRV_ETHPHY_OBJECT_BASE_T
             if (registerValue == (uint16_t) 0xFFFF) {
                 break;
             } else {
-                if ((registerValue & (uint16_t) 0x0800) == (uint16_t) 0x0800) {
-                    SYS_CONSOLE_PRINT("LAN867x Reset has occurred -1\r\n");
+                if ((registerValue & 0x0800u) == 0x0800u) {
+                    SYS_CONSOLE_PRINT("LAN867x Reset has occurred,pos=1\r\n");
                 }
                 /* communication with PHY seems to be successful, therefore
                  * skip the 2nd time reading the Reset status bit,
@@ -928,7 +932,7 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP
     case MMD_ADDR_SET_PHASE: /* Set clause 45 address phase operation. */
         *clientObj->miimOpHandle = clientObj->miimBase->DRV_MIIM_Write(
             clientObj->miimHandle, PHY_MMDAD, clientObj->phyAddress,
-            (regAddr & (uint16_t)0xffff), DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
+            (regAddr & 0xffffu), DRV_MIIM_OPERATION_FLAG_DISCARD, &opRes);
         /* If success in queuing the request, go to next state, else retry. */
         if (*clientObj->miimOpHandle != 0) {
             /* advance to the next phase. */

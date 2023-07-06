@@ -17,7 +17,7 @@
 -->
 
 <#----------------------------------------------------------------------------
-Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 
 Microchip Technology Inc. and its subsidiaries.
 

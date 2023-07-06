@@ -86,25 +86,6 @@ def instantiateComponent(drvExtMacLan865xCommonComponent):
     drvLan865xLocalHeaderFile.setType("HEADER")
     drvLan865xLocalHeaderFile.setOverwrite(True)
 
-    # file DRV_LAN865X_REGS_C "$HARMONY_VERSION_PATH/framework/driver/lan865x/src/dynamic/drv_lan865x_regs.c" to "$PROJECT_SOURCE_FILES/framework/driver/lan865x/src/dynamic/drv_lan865x_regs.c"
-    drvLan865xRegsSourceFile = drvExtMacLan865xCommonComponent.createFileSymbol(None, None)
-    drvLan865xRegsSourceFile.setSourcePath("driver/lan865x/src/dynamic/drv_lan865x_regs.c")
-    drvLan865xRegsSourceFile.setOutputName("drv_lan865x_regs.c")
-    drvLan865xRegsSourceFile.setOverwrite(True)
-    drvLan865xRegsSourceFile.setDestPath("driver/lan865x/src/dynamic/")
-    drvLan865xRegsSourceFile.setProjectPath("config/" + configName + "/driver/lan865x/src/dynamic/")
-    drvLan865xRegsSourceFile.setType("SOURCE")
-    drvLan865xRegsSourceFile.setEnabled(True)
-
-    # file DRV_LAN865X_REGS_H "$HARMONY_VERSION_PATH/framework/driver/lan865x/src/dynamic/drv_lan865x_regs.h" to "$PROJECT_HEADER_FILES/framework/driver/lan865x/src/dynamic/drv_lan865x_regs.h"
-    drvLan865xRegsHeaderFile = drvExtMacLan865xCommonComponent.createFileSymbol(None, None)
-    drvLan865xRegsHeaderFile.setSourcePath("driver/lan865x/src/dynamic/drv_lan865x_regs.h")
-    drvLan865xRegsHeaderFile.setOutputName("drv_lan865x_regs.h")
-    drvLan865xRegsHeaderFile.setDestPath("driver/lan865x/src/dynamic/")
-    drvLan865xRegsHeaderFile.setProjectPath("config/" + configName + "/driver/lan865x/src/dynamic/")
-    drvLan865xRegsHeaderFile.setType("HEADER")
-    drvLan865xRegsHeaderFile.setOverwrite(True)
-
     #############################
     #### TC6 Protocol Driver ####
     #############################

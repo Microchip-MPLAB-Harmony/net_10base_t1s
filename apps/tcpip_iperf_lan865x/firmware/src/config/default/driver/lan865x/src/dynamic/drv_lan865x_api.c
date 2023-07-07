@@ -1662,7 +1662,6 @@ static bool _InitMemMap(DRV_LAN865X_DriverInfo * pDrvInst)
         {  .address=0x000400BA,  .value=0x00001C25,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
         {  .address=0x000400BB,  .value=0x0000002B,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  },
 
-        {  .address=0x00040087,  .value=0x00000083,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  }, /* COL_DET_CTRL0 */
         {  .address=0x0000000C,  .value=0x00000100,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  }, /* IMASK0 */
         {  .address=0x00040081,  .value=0x000000E0,  .mask=0x00000000,  .op=MemOp_Write,  .secure=true  }, /* DEEP_SLEEP_CTRL_1 */
     };

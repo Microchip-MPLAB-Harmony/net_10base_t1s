@@ -111,11 +111,11 @@ typedef struct _DRV_LAN865X_DriverInfo {
     TC6_t* drvTc6;
     int8_t initOffset1;
     int8_t initOffset2;
-    uint8_t initValue3;
-    uint8_t initValue4;
-    uint8_t initValue5;
-    uint8_t initValue6;
-    uint8_t initValue7;
+    uint16_t initValue3;
+    uint16_t initValue4;
+    uint16_t initValue5;
+    uint16_t initValue6;
+    uint16_t initValue7;
     uint8_t initSubState;
     uint8_t drvTc6Inst;
     uint8_t chipRev;

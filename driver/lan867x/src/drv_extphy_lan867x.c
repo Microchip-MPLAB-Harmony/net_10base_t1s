@@ -71,7 +71,7 @@ typedef struct {
 
 static LAN867X_INFO info = {0};
 #define CHECK_SIGN  (16U)
-
+#define SQI_CONFIG_ENABLE
 /************************************************************************
  *  FUNCTION DEFINITIONS
  *****************************************************************************/
@@ -270,6 +270,8 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
         miimRes = Lan867x_Write_Register(&clientObj, 0x1F0093, 0x06E9); /* FRAME_DECODER_CONTROL_2 */
         break;
         /* Rev.C0/1 End */
+
+#ifdef SQI_CONFIG_ENABLE /*SQI configuration Start*/
     case 34:
         registerValue = F2R_((5 + info.offset1), FIELD_DESCRIPTOR(8, 6));
         registerValue |= F2R_((9 + info.offset1), FIELD_DESCRIPTOR(0, 6));
@@ -335,6 +337,7 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
     case 48:
         miimRes = Lan867x_Write_Register(&clientObj, 0x1F00BB, 0x002B);
         break;
+#endif /*SQI configuration End*/
 
 #ifdef DRV_ETHPHY_PLCA_ENABLED
     case 49: /* Set the PLCA Burst setting  */
@@ -435,9 +438,17 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
             case 32:
                 if (!((info.type) && (info.version == LAN867x_PHY_ID_REV_C1))) {
                     state = 33;
+#ifndef SQI_CONFIG_ENABLE
+                    state = 48;
+#endif
                 }
                 break;
 
+#ifndef SQI_CONFIG_ENABLE
+            case 33:
+                state = 48;//jump over SQI configuration
+                break;
+#endif
             default:
                 break;
             }
@@ -874,6 +885,7 @@ DRV_MIIM_RESULT Lan867x_Write_Bit_Register(LAN867X_REG_OBJ *clientObj, const uin
 static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP_TYPE opType,
                                          uint32_t regAddr, uint16_t *data)
 {
+    uint32_t dataCpy = 0u;
     uint16_t mmdData = 0;
     DRV_MIIM_RESULT opRes = DRV_MIIM_RES_OK;
 
@@ -906,7 +918,8 @@ static DRV_MIIM_RESULT Lan867x_Miim_Task(LAN867X_REG_OBJ *clientObj, DRV_MIIM_OP
 
     case READ_RESULT_PHASE: /* Get read result. */
         opRes = clientObj->miimBase->DRV_MIIM_OperationResult(clientObj->miimHandle,
-                                                              *clientObj->miimOpHandle, data);
+                                                              *clientObj->miimOpHandle, &dataCpy);
+        *data = (uint16_t)dataCpy;
         if (opRes != DRV_MIIM_RES_PENDING) /* Check operation is in progress or not. */
         {
             /* Operation successfully completed.*/

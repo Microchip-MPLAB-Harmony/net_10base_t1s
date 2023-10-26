@@ -78,62 +78,6 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-
-// *****************************************************************************
-/* Ethernet PHY Driver Module Index Numbers
-
-  Summary:
-    Ethernet PHY driver index definitions.
-
-  Description:
-    These constants provide the Ethernet PHY driver index definitions.
-
-  Remarks:
-    These constants should be used in place of hard-coded numeric literals.
-
-    These values should be passed into the DRV_ETHPHY_Initialize and
-    DRV_ETHPHY_Open routines to identify the driver instance in use.
-*/
-
-#define DRV_ETHPHY_INDEX_0         0
-#define DRV_ETHPHY_INDEX_1         1
-
-// *****************************************************************************
-/* Ethernet PHY Driver Module Index Count
-
-  Summary:
-    Number of valid Ethernet PHY driver indices.
-
-  Description:
-    This constant identifies the number of valid Ethernet PHY driver indices.
-
-  Remarks:
-    This constant should be used in place of hard-coded numeric literals.
-
-    This value is derived from part-specific header files defined as part of the
-    peripheral libraries.
-*/
-
-#define DRV_ETHPHY_INDEX_COUNT     1
-        
-// *****************************************************************************
-/* Ethernet PHY Driver Module Instance Client Count
-
-  Summary:
-    Number of simultaneous Clients for Ethernet PHY driver instance.
-
-  Description:
-    This constant identifies the number of simultaneous Clients for an Ethernet PHY driver instance
-
-  Remarks:
-    This constant should be used in place of hard-coded numeric literals.
-
-    This value is derived from part-specific header files defined as part of the
-    peripheral libraries.
-*/
-#define DRV_ETHPHY_CLIENTS_NUMBER     1
-
-
 // *****************************************************************************
 /* Ethernet PHY Driver Operation Result
  *
@@ -586,7 +530,7 @@ typedef DRV_ETHPHY_RESULT (* DRV_ETHPHY_VENDOR_DETECT) ( const struct DRV_ETHPHY
   Parameters:
     - pBaseObj- pointer to the PHY Base object that calls this function as a result of 
       performing its initialization procedure.
-	- handle  - Client's driver handle (returned from DRV_ETHPHY_Open)
+    - handle  - Client's driver handle (returned from DRV_ETHPHY_Open)
 
   Returns:
     None
@@ -642,6 +586,22 @@ typedef struct
      * see the DRV_ETHPHY_VENDOR_DETECT definition */
     DRV_ETHPHY_VENDOR_DETECT            phyDetect;
 
+    /* Detect mask to be used by the detection procedure.
+     * This mask represents read/write bits in the BMCON that can be manipulated
+     * to detect that the SMI communication with the PHY works correctly.
+     * If 0, then a default mask of BMCON_LOOPBACK_MASK | BMCON_DUPLEX_MASK BMCON will be used.
+     * Drivers that need special processing can use their own detection mask for the default detection procedure
+     * or use a specific detect procedure */
+    uint16_t                            bmconDetectMask;
+
+    /* Extra capability mask to be used by the PHY setup procedure.
+     * Some PHYs need to be able to use extra bits set if their
+     * BMSTAT register doesn't advertise the standard capabilities
+     * (for example there is no 100Base-T1 FD support in the BMSTAT for LAN8770).
+     * By default this value should be 0.
+     * The BMSTAT OR-ed with this mask will be used for checking the PHY capabilities.
+     * Note: this should be limited to 10/100 FD/HD capabilities mask! */
+    uint16_t                            bmstatCpblMask;
 }DRV_ETHPHY_OBJECT;
 
 
@@ -748,7 +708,7 @@ typedef struct DRV_ETHPHY_INIT
     SYS_MODULE_INDEX            miimIndex; 
             
     /* PHY Initialization Time-outs */
-	DRV_ETHPHY_TMO *            ethphyTmo; 
+    DRV_ETHPHY_TMO *            ethphyTmo; 
 
 } DRV_ETHPHY_INIT;
 
@@ -859,7 +819,7 @@ typedef struct
     
   Summary:
     Initializes the Ethernet PHY driver.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function initializes the Ethernet PHY driver, making it ready for
@@ -888,11 +848,11 @@ typedef struct
     
     // Populate the Ethernet PHY initialization structure
     init.phyId  = ETHPHY_ID_2;
-    init.pPhyObject  = &DRV_ETHPHY_OBJECT_SMSC_LAN8720;
+    init.pPhyObject  = &DRV_ETHPHY_OBJECT_LAN8720;
     
     // Do something
     
-    objectHandle = DRV_ETHPHY_Initialize(DRV_ETHPHY_INDEX_0, (SYS_MODULE_INIT*)&init);
+    objectHandle = DRV_ETHPHY_Initialize(0, (SYS_MODULE_INIT*)&init);
     if (SYS_MODULE_OBJ_INVALID == objectHandle)
     {
         // Handle error
@@ -921,7 +881,7 @@ SYS_MODULE_OBJ DRV_ETHPHY_Initialize ( const SYS_MODULE_INDEX        index,
 
   Summary:
     Reinitializes the driver and refreshes any associated hardware settings.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function reinitializes the driver and refreshes any associated hardware
@@ -947,7 +907,7 @@ SYS_MODULE_OBJ DRV_ETHPHY_Initialize ( const SYS_MODULE_INDEX        index,
 
     // Populate the Ethernet PHY initialization structure
     init.phyId  = ETHPHY_ID_2;
-    init.pPhyObject  = &DRV_ETHPHY_OBJECT_SMSC_LAN8720;
+    init.pPhyObject  = &DRV_ETHPHY_OBJECT_LAN8720;
 
     DRV_ETHPHY_Reinitialize(objectHandle, (SYS_MODULE_INIT*)&init);
 
@@ -979,7 +939,7 @@ void DRV_ETHPHY_Reinitialize ( SYS_MODULE_OBJ               object,
 
   Summary:
     Deinitializes the specified instance of the Ethernet PHY driver module.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function deinitializes the specified instance of the Ethernet PHY driver
@@ -1025,7 +985,7 @@ void DRV_ETHPHY_Deinitialize ( SYS_MODULE_OBJ object );
     
   Summary:
     Provides the current status of the Ethernet PHY driver module.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function provides the current status of the Ethernet PHY driver
@@ -1089,7 +1049,7 @@ SYS_STATUS DRV_ETHPHY_Status ( SYS_MODULE_OBJ object );
     
   Summary:
     Maintains the driver's state machine and implements its ISR.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function is used to maintain the driver's internal state machine
@@ -1139,7 +1099,7 @@ void DRV_ETHPHY_Tasks( SYS_MODULE_OBJ object );
 
   Summary:
     Opens the specified Ethernet PHY driver instance and returns a handle to it.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function opens the specified Ethernet PHY driver instance and provides a
@@ -1165,7 +1125,7 @@ void DRV_ETHPHY_Tasks( SYS_MODULE_OBJ object );
     <code>
     DRV_HANDLE  handle;
 
-    handle = DRV_ETHPHY_Open(DRV_ETHPHY_INDEX_0, 0);
+    handle = DRV_ETHPHY_Open(0, 0);
     if (DRV_HANDLE_INVALID == handle)
     {
         // Unable to open the driver
@@ -1191,7 +1151,7 @@ DRV_HANDLE DRV_ETHPHY_Open( const SYS_MODULE_INDEX drvIndex,
 
   Summary:
     Closes an opened instance of the Ethernet PHY driver.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function closes an opened instance of the Ethernet PHY driver, invalidating
@@ -1234,7 +1194,7 @@ void DRV_ETHPHY_Close( DRV_HANDLE handle );
     
   Summary:
     Gets the current client-specific status the Ethernet PHY driver.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function gets the client-specific status of the Ethernet PHY
@@ -1284,7 +1244,7 @@ DRV_ETHPHY_CLIENT_STATUS DRV_ETHPHY_ClientStatus( DRV_HANDLE handle );
     
   Summary:
     Gets the result of a client operation  initiated by the Ethernet PHY driver.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     Returns the result of a client operation  initiated by the Ethernet PHY driver.
@@ -1326,7 +1286,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_ClientOperationResult( DRV_HANDLE handle);
     
   Summary:
     Aborts a current client operation  initiated by the Ethernet PHY driver.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     Aborts a current client operation  initiated by the Ethernet PHY driver.
@@ -1362,7 +1322,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_ClientOperationAbort( DRV_HANDLE handle);
     
   Summary:
     Returns the PHY address.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function returns the current PHY address
@@ -1406,7 +1366,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_PhyAddressGet( DRV_HANDLE handle, DRV_ETHPHY_INTERF
     
   Summary:
     Initializes Ethernet PHY configuration and set up procedure.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function initializes the Ethernet PHY communication. It tries to
@@ -1460,7 +1420,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_Setup( DRV_HANDLE  handle, DRV_ETHPHY_SETUP* pSetUp
 
   Summary:
     Restarts auto-negotiation of the Ethernet PHY link.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function restarts auto-negotiation of the Ethernet PHY link.
@@ -1497,7 +1457,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_RestartNegotiation( DRV_HANDLE handle, DRV_ETHPHY_I
   Summary:
     Returns the current Ethernet PHY hardware MII/RMII and ALTERNATE/DEFAULT
     configuration flags.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function returns the current Ethernet PHY hardware MII/RMII and
@@ -1534,7 +1494,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_HWConfigFlagsGet( DRV_HANDLE handle, DRV_ETHPHY_CON
 
   Summary:
     Returns the results of a previously initiated Ethernet PHY negotiation.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
    This function returns the results of a previously initiated Ethernet PHY
@@ -1585,7 +1545,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_NegotiationIsComplete( DRV_HANDLE handle, DRV_ETHPH
   
   Summary:
     Returns the result of a completed negotiation.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function returns the PHY negotiation data gathered after a completed negotiation.
@@ -1639,7 +1599,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_NegotiationResultGet( DRV_HANDLE handle, DRV_ETHPHY
     
   Summary:
     Returns the current link status.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function returns the current link status.
@@ -1683,7 +1643,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_LinkStatusGet( DRV_HANDLE handle, DRV_ETHPHY_INTERF
     
   Summary:
     Immediately resets the Ethernet PHY.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function immediately resets the Ethernet PHY, optionally waiting
@@ -1734,7 +1694,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_Reset( DRV_HANDLE handle, bool waitComplete );
 
   Summary:
     Returns the current value of the vendor data.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function returns the current value of the vendor data.
@@ -1785,13 +1745,13 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_VendorDataGet( DRV_HANDLE handle, uint32_t* pVendor
 
   Summary:
     Returns the current value of the vendor data.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
-    This function returns the current value of the vendor data.
+    This function sets the current value of the vendor data.
     Each DRV_ETHPHY client object maintains data that could be used
     for vendor specific operations.
-    This routine allows retrieving of the vendor specific data.
+    This routine allows setting of the vendor specific data.
 
   Precondition:
     - The DRV_ETHPHY_Initialize routine must have been called.
@@ -1800,8 +1760,8 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_VendorDataGet( DRV_HANDLE handle, uint32_t* pVendor
     - DRV_ETHPHY_Setup must have been called to properly configure the PHY
 
   Parameters:
-    - handle  - Client's driver handle (returned from DRV_ETHPHY_Open)
-    - vendorData    - vendor specific data
+    - handle        - Client's driver handle (returned from DRV_ETHPHY_Open)
+    - vendorData    - vendor specific data to be set
 
   Returns:
     DRV_ETHPHY_RES_OK  - if the vendor data is stored in the client object
@@ -1836,7 +1796,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_VendorDataSet( DRV_HANDLE handle, uint32_t vendorDa
   Summary:
     Starts a vendor SMI read transfer.
     Data will be available with DRV_ETHPHY_VendorSMIReadResultGet.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function will start a SMI read transfer.
@@ -1891,7 +1851,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_VendorSMIReadStart( DRV_HANDLE handle, uint16_t rIx
   Summary:
     Reads the result of a previous vendor initiated SMI read transfer
     with DRV_ETHPHY_VendorSMIReadStart.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function will return the data of a SMI read transfer.
@@ -1943,7 +1903,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_VendorSMIReadResultGet( DRV_HANDLE handle, uint16_t
 
   Summary:
     Starts a vendor SMI write transfer.
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function will start a SMI write transfer.
@@ -1958,7 +1918,8 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_VendorSMIReadResultGet( DRV_HANDLE handle, uint16_t
 
   Parameters:
     - handle  - driver handle as passed by the DRV_EXTPHY_MIIConfigure/DRV_EXTPHY_MDIXConfigure call
-    - rIx    - vendor transaction SMI register to read
+    - rIx    - vendor transaction SMI register to write
+    - wData  - data to be written
     - phyAddress - PHY address to use for transaction
 
   Returns:
@@ -1990,11 +1951,62 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_VendorSMIWriteStart( DRV_HANDLE handle, uint16_t rI
 
 // *****************************************************************************
 /* Function:
+    DRV_ETHPHY_RESULT DRV_ETHPHY_VendorSMIWriteWaitComplete( DRV_HANDLE handle, uint16_t rIx,  uint16_t wData, int phyAddress )
+
+  Summary:
+    Starts a vendor SMI write transfer. After this function call, check the completion of 
+    write operation with DRV_ETHPHY_VendorSMIOperationIsComplete.
+    <p><b>Implementation:</b> Dynamic</p>
+
+  Description:
+    This function will start a SMI write transfer.
+
+  Precondition:
+    - The DRV_ETHPHY_Initialize routine must have been called.
+    - DRV_ETHPHY_Open must have been called to obtain a valid device
+      handle.
+    - DRV_ETHPHY_Setup is in progress and configures the PHY
+    - The vendor implementation of the DRV_EXTPHY_MIIConfigure/DRV_EXTPHY_MDIXConfigure
+      is running and a SMI transfer is needed
+
+  Parameters:
+    - handle  - driver handle as passed by the DRV_EXTPHY_MIIConfigure/DRV_EXTPHY_MDIXConfigure call
+    - rIx    - vendor transaction SMI register to write
+    - wData  - data to be written
+    - phyAddress - PHY address to use for transaction
+
+  Returns:
+    DRV_ETHPHY_RES_OK  - if the vendor SMI write transfer is started
+
+    DRV_ETHPHY_RES_PENDING - the SMI bus was busy and the call needs to be retried
+
+    
+    < 0 - some error and the DRV_EXTPHY_MIIConfigure/DRV_EXTPHY_MDIXConfigure
+          has to return error to be aborted by the DRV_ETHPHY_Setup
+
+
+  Example:
+    <code>
+    </code>
+
+  Remarks:
+    The function is intended for implementing vendor SMI transfers
+    within DRV_EXTPHY_MIIConfigure and DRV_EXTPHY_MDIXConfigure.
+
+    It has to be called from within the DRV_EXTPHY_MIIConfigure or DRV_EXTPHY_MDIXConfigure
+    functions (which are called, in turn, by the DRV_ETHPHY_Setup procedure)
+    otherwise the call will fail.
+
+    The DRV_ETHPHY_RES_OK and DRV_ETHPHY_RES_PENDING significance is changed from the general driver API.
+*/
+DRV_ETHPHY_RESULT DRV_ETHPHY_VendorSMIWriteWaitComplete( DRV_HANDLE handle, uint16_t rIx,  uint16_t wData, int phyAddress );
+// *****************************************************************************
+/* Function:
     DRV_ETHPHY_RESULT DRV_ETHPHY_VendorSMIOperationIsComplete(DRV_HANDLE handle)
 
   Summary:
     Check the SMI Operation is complete
-	<p><b>Implementation:</b> Dynamic</p>
+    <p><b>Implementation:</b> Dynamic</p>
 
   Description:
     This function will return the status of SMI transfer.
@@ -2097,6 +2109,8 @@ typedef struct DRV_ETHPHY_OBJECT_BASE_TYPE
 
     DRV_ETHPHY_RESULT        (*DRV_ETHPHY_VendorSMIWriteStart)( DRV_HANDLE handle, uint16_t rIx,  uint16_t wData, int phyAddress );
     
+    DRV_ETHPHY_RESULT        (*DRV_ETHPHY_VendorSMIWriteWaitComplete)( DRV_HANDLE handle, uint16_t rIx,  uint16_t wData, int phyAddress );
+    
     DRV_ETHPHY_RESULT        (*DRV_ETHPHY_VendorSMIOperationIsComplete)( DRV_HANDLE handle);
     
 
@@ -2110,8 +2124,9 @@ typedef struct DRV_ETHPHY_OBJECT_BASE_TYPE
 
 */
 extern const DRV_ETHPHY_OBJECT_BASE  DRV_ETHPHY_OBJECT_BASE_Default;
-extern const DRV_ETHPHY_OBJECT_BASE  DRV_ETHPHY_OBJECT_BASE_smsc9303;
+extern const DRV_ETHPHY_OBJECT_BASE  DRV_ETHPHY_OBJECT_BASE_lan9303;
 extern const DRV_ETHPHY_OBJECT_BASE  DRV_ETHPHY_OBJECT_BASE_ksz8863;
+extern const DRV_ETHPHY_OBJECT_BASE  DRV_ETHPHY_OBJECT_BASE_lan9354;
 
 
 // *****************************************************************************
@@ -2136,6 +2151,8 @@ extern const DRV_ETHPHY_OBJECT  DRV_ETHPHY_OBJECT_KSZ8863;
 extern const DRV_ETHPHY_OBJECT  DRV_ETHPHY_OBJECT_LAN867x;
 extern const DRV_ETHPHY_OBJECT  DRV_ETHPHY_OBJECT_LAN8742A;
 extern const DRV_ETHPHY_OBJECT  DRV_ETHPHY_OBJECT_VSC8540;
+extern const DRV_ETHPHY_OBJECT  DRV_ETHPHY_OBJECT_LAN9354;
+extern const DRV_ETHPHY_OBJECT  DRV_ETHPHY_OBJECT_LAN8770;
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

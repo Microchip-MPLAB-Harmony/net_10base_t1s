@@ -225,24 +225,6 @@ extern "C" {
 
 
 
-/*** DHCP Configuration ***/
-#define TCPIP_STACK_USE_DHCP_CLIENT
-#define TCPIP_DHCP_TIMEOUT                          10
-#define TCPIP_DHCP_TASK_TICK_RATE                   5
-#define TCPIP_DHCP_HOST_NAME_SIZE                   20
-#define TCPIP_DHCP_CLIENT_CONNECT_PORT              68
-#define TCPIP_DHCP_SERVER_LISTEN_PORT               67
-#define TCPIP_DHCP_CLIENT_CONSOLE_CMD               true
-
-#define TCPIP_DHCP_USE_OPTION_TIME_SERVER           0
-#define TCPIP_DHCP_TIME_SERVER_ADDRESSES            0
-#define TCPIP_DHCP_USE_OPTION_NTP_SERVER            0
-#define TCPIP_DHCP_NTP_SERVER_ADDRESSES             0
-#define TCPIP_DHCP_ARP_LEASE_CHECK_TMO              1000
-#define TCPIP_DHCP_WAIT_ARP_FAIL_CHECK_TMO          10
-
-
-
 /*** ARP Configuration ***/
 #define TCPIP_ARP_CACHE_ENTRIES                 		5
 #define TCPIP_ARP_CACHE_DELETE_OLD		        	true
@@ -274,9 +256,9 @@ extern "C" {
 
 #define TCPIP_NETWORK_DEFAULT_IP_ADDRESS_IDX0         "192.168.100.11"
 #define TCPIP_NETWORK_DEFAULT_IP_MASK_IDX0            "255.255.255.0"
-#define TCPIP_NETWORK_DEFAULT_GATEWAY_IDX0            "192.168.0.1"
-#define TCPIP_NETWORK_DEFAULT_DNS_IDX0                "192.168.0.1"
-#define TCPIP_NETWORK_DEFAULT_SECOND_DNS_IDX0         "8.8.8.8"
+#define TCPIP_NETWORK_DEFAULT_GATEWAY_IDX0            "192.168.100.1"
+#define TCPIP_NETWORK_DEFAULT_DNS_IDX0                "192.168.100.1"
+#define TCPIP_NETWORK_DEFAULT_SECOND_DNS_IDX0         "0.0.0.0"
 #define TCPIP_NETWORK_DEFAULT_POWER_MODE_IDX0         "full"
 #define TCPIP_NETWORK_DEFAULT_INTERFACE_FLAGS_IDX0            \
                                                     TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON |\
@@ -343,8 +325,9 @@ extern "C" {
 #define TCPIP_STACK_USE_TCP
 #define TCPIP_STACK_USE_UDP
 
-#define TCPIP_STACK_TICK_RATE		        		5
+#define TCPIP_STACK_TICK_RATE		        		1
 #define TCPIP_STACK_SECURE_PORT_ENTRIES             10
+#define TCPIP_STACK_LINK_RATE		        		333
 
 #define TCPIP_STACK_ALIAS_INTERFACE_SUPPORT   false
 
@@ -372,6 +355,7 @@ extern "C" {
 
 /*** GMAC Configuration ***/
 #define DRV_GMAC
+#define DRV_SAME5x
 #define TCPIP_GMAC_TX_DESCRIPTORS_COUNT_DUMMY    1
 #define TCPIP_GMAC_RX_DESCRIPTORS_COUNT_DUMMY    1
 #define TCPIP_GMAC_RX_BUFF_SIZE_DUMMY            64

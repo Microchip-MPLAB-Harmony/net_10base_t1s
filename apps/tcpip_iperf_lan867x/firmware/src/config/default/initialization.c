@@ -173,15 +173,6 @@ const TCPIP_TCP_MODULE_CONFIG tcpipTCPInitData =
 
 
 
-/*** DHCP client Initialization Data ***/
-const TCPIP_DHCP_MODULE_CONFIG tcpipDHCPInitData =
-{     
-    .dhcpEnable     = false,   
-    .dhcpTmo        = TCPIP_DHCP_TIMEOUT,
-    .dhcpCliPort    = TCPIP_DHCP_CLIENT_CONNECT_PORT,
-    .dhcpSrvPort    = TCPIP_DHCP_SERVER_LISTEN_PORT,
-
-};
 
 
 /*** ICMP Server Initialization Data ***/
@@ -267,13 +258,14 @@ const TCPIP_STACK_MODULE_CONFIG TCPIP_STACK_MODULE_CONFIG_TBL [] =
     {TCPIP_MODULE_ARP,              &tcpipARPInitData},             // TCPIP_MODULE_ARP
     {TCPIP_MODULE_UDP,              &tcpipUDPInitData},             // TCPIP_MODULE_UDP
     {TCPIP_MODULE_TCP,              &tcpipTCPInitData},             // TCPIP_MODULE_TCP
-    {TCPIP_MODULE_DHCP_CLIENT,      &tcpipDHCPInitData},            // TCPIP_MODULE_DHCP_CLIENT
     {TCPIP_MODULE_DNS_CLIENT,       &tcpipDNSClientInitData},       // TCPIP_MODULE_DNS_CLIENT
 
+    {TCPIP_MODULE_COMMAND,          0},                             // TCPIP_MODULE_COMMAND,
+    {TCPIP_MODULE_IPERF,            0},                             // TCPIP_MODULE_IPERF,
     { TCPIP_MODULE_MANAGER,         &tcpipHeapConfig },             // TCPIP_MODULE_MANAGER
 
 // MAC modules
-    {TCPIP_MODULE_MAC_PIC32C,     &tcpipGMACInitData},     // TCPIP_MODULE_MAC_PIC32C
+    {TCPIP_MODULE_MAC_PIC32C,       &tcpipGMACInitData},            // TCPIP_MODULE_MAC_PIC32C
 
 };
 
@@ -358,7 +350,7 @@ const TCPIP_MODULE_MAC_PIC32C_CONFIG tcpipGMACInitData =
 /*** MIIM Driver Instance 0 Configuration ***/
 static const DRV_MIIM_INIT drvMiimInitData_0 =
 {
-   .ethphyId = DRV_MIIM_ETH_MODULE_ID_0,
+   .miimId = DRV_MIIM_ETH_MODULE_ID_0,
 };
 
 
@@ -476,10 +468,6 @@ void SYS_Initialize ( void* data )
 
     EVSYS_Initialize();
 
-	SYSTICK_TimerInitialize();
-	BSP_Initialize();
-    EIC_Initialize();
-
 
 
     /* MISRAC 2012 deviation block start */
@@ -489,7 +477,7 @@ void SYS_Initialize ( void* data )
 
 
    /* Initialize the MIIM Driver Instance 0*/
-   sysObj.drvMiim_0 = DRV_MIIM_Initialize(DRV_MIIM_DRIVER_INDEX_0, (const SYS_MODULE_INIT *) &drvMiimInitData_0); 
+   sysObj.drvMiim_0 = DRV_MIIM_OBJECT_BASE_Default.DRV_MIIM_Initialize(DRV_MIIM_DRIVER_INDEX_0, (const SYS_MODULE_INIT *) &drvMiimInitData_0); 
 
 
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  

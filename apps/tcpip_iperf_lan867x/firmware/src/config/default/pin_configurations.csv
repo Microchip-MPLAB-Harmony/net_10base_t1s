@@ -9,8 +9,8 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 10,PA03,,Available,,,,,,NORMAL
 11,PB04,,Available,,,,,,NORMAL
 12,PB05,,Available,,,,,,NORMAL
-13,PD00,SWITCH1,SWITCH_AL,Digital,In,n/a,No,No,NORMAL
-16,PD01,SWITCH2,SWITCH_AL,Digital,In,n/a,No,No,NORMAL
+13,PD00,,Available,,,,,,NORMAL
+16,PD01,,Available,,,,,,NORMAL
 17,PB06,,Available,,,,,,NORMAL
 18,PB07,,Available,,,,,,NORMAL
 19,PB08,,Available,,,,,,NORMAL
@@ -35,7 +35,7 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 44,PB15,,Available,,,,,,NORMAL
 47,PD08,,Available,,,,,,NORMAL
 48,PD09,,Available,,,,,,NORMAL
-49,PD10,GPIO_PD10,GPIO,Digital,Out,Low,,,NORMAL
+49,PD10,,Available,,,,,,NORMAL
 50,PD11,,Available,,,,,,NORMAL
 51,PD12,,Available,,,,,,NORMAL
 52,PC10,,Available,,,,,,NORMAL
@@ -48,16 +48,16 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 61,PA13,,GMAC_GRX0,Digital,High Impedance,n/a,No,No,NORMAL
 62,PA14,,GMAC_GTXCK,Digital,High Impedance,n/a,No,No,NORMAL
 63,PA15,,GMAC_GRXER,Digital,High Impedance,n/a,No,No,NORMAL
-66,PA16,LED2,LED_AL,Digital,Out,High,,,NORMAL
+66,PA16,,Available,,,,,,NORMAL
 67,PA17,,GMAC_GTXEN,Digital,High Impedance,n/a,No,No,NORMAL
 68,PA18,,GMAC_GTX0,Digital,High Impedance,n/a,No,No,NORMAL
 69,PA19,,GMAC_GTX1,Digital,High Impedance,n/a,No,No,NORMAL
 70,PC16,,Available,,,,,,NORMAL
 71,PC17,,Available,,,,,,NORMAL
-72,PC18,LAN867x_RESET,GPIO,Digital,Out,Low,,,NORMAL
+72,PC18,,Available,,,,,,NORMAL
 73,PC19,,Available,,,,,,NORMAL
 74,PC20,,GMAC_GRXDV,Digital,High Impedance,n/a,No,No,NORMAL
-75,PC21,LED1,LED_AL,Digital,Out,High,,,NORMAL
+75,PC21,,Available,,,,,,NORMAL
 76,PC22,,GMAC_GMDC,Digital,High Impedance,n/a,No,No,NORMAL
 77,PC23,,GMAC_GMDIO,Digital,High Impedance,n/a,No,No,NORMAL
 80,PD20,,Available,,,,,,NORMAL
@@ -85,8 +85,8 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 108,PC24,,Available,,,,,,NORMAL
 109,PC25,,Available,,,,,,NORMAL
 110,PC26,,Available,,,,,,NORMAL
-111,PC27,USART1_TX,SERCOM1_PAD0,Digital,High Impedance,n/a,No,No,NORMAL
-112,PC28,USART1_RX,SERCOM1_PAD1,Digital,High Impedance,n/a,No,No,NORMAL
+111,PC27,,SERCOM1_PAD0,Digital,High Impedance,n/a,No,No,NORMAL
+112,PC28,,SERCOM1_PAD1,Digital,High Impedance,n/a,No,No,NORMAL
 113,PA27,,Available,,,,,,NORMAL
 119,PA30,,Available,,,,,,NORMAL
 120,PA31,,Available,,,,,,NORMAL

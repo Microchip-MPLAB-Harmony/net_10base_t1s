@@ -88,38 +88,43 @@ typedef enum
 
 
 // DHCPV6 debugging levels/masks
-// basic debugging
+// basic debugging - asserts 
 #define TCPIP_DHCPV6_DEBUG_MASK_BASIC           (0x0001)
+// run-time conditions, not critical
+#define TCPIP_DHCPV6_DEBUG_MASK_COND            (0x0002) 
 // report in messages
-#define TCPIP_DHCPV6_DEBUG_MASK_IN              (0x0002)
+#define TCPIP_DHCPV6_DEBUG_MASK_IN              (0x0004)
 // report out messages
-#define TCPIP_DHCPV6_DEBUG_MASK_OUT             (0x0004)
+#define TCPIP_DHCPV6_DEBUG_MASK_OUT             (0x0008)
 // report changes in the current client state
-#define TCPIP_DHCPV6_DEBUG_MASK_CLIENT_STATE    (0x0008)
+#define TCPIP_DHCPV6_DEBUG_MASK_CLIENT_STATE    (0x0010)
 // report client state when user notification is made
-#define TCPIP_DHCPV6_DEBUG_MASK_CLIENT_NOTIFY_STATE (0x0010)
+#define TCPIP_DHCPV6_DEBUG_MASK_CLIENT_NOTIFY_STATE (0x0020)
+// report client events 
+#define TCPIP_DHCPV6_DEBUG_MASK_CLIENT_NOTIFY_EVENT (0x0040)
+
 // advanced: report changes in the current IA state
-#define TCPIP_DHCPV6_DEBUG_MASK_IA_STATE        (0x0020)
+#define TCPIP_DHCPV6_DEBUG_MASK_IA_STATE        (0x0080)
 // display the Server status code (if != OK)
-#define TCPIP_DHCPV6_DEBUG_MASK_SRV_STATUS_CODE (0x0040)
+#define TCPIP_DHCPV6_DEBUG_MASK_SRV_STATUS_CODE (0x0100)
 // display a message when the IA timeouts
-#define TCPIP_DHCPV6_DEBUG_MASK_IA_TMO          (0x0080)
+#define TCPIP_DHCPV6_DEBUG_MASK_IA_TMO          (0x0200)
 // display the IA retransmission tmo
-#define TCPIP_DHCPV6_DEBUG_MASK_IA_RTMO         (0x0100)
+#define TCPIP_DHCPV6_DEBUG_MASK_IA_RTMO         (0x0400)
 // display the IA pass/fail messages
-#define TCPIP_DHCPV6_DEBUG_MASK_IA_IN           (0x0200)
+#define TCPIP_DHCPV6_DEBUG_MASK_IA_IN           (0x0800)
 // display the link up/down changes
-#define TCPIP_DHCPV6_DEBUG_MASK_LINK_STAT       (0x0400)
+#define TCPIP_DHCPV6_DEBUG_MASK_LINK_STAT       (0x1000)
 
 // advanced: additional IA state prints
-#define TCPIP_DHCPV6_DEBUG_MASK_IA_ADD_STATE    (0x0800)
+#define TCPIP_DHCPV6_DEBUG_MASK_IA_ADD_STATE    (0x2000)
 
 // advanced: print buffers traces
-#define TCPIP_DHCPV6_DEBUG_MASK_BUFF_TRACE      (0x2000)
+#define TCPIP_DHCPV6_DEBUG_MASK_BUFF_TRACE      (0x4000)
 
 
 // enable DHCP debugging levels
-#define TCPIP_DHCPV6_DEBUG_LEVEL  (0)
+#define TCPIP_DHCPV6_DEBUG_LEVEL  (0x0001)
 
 
 // don't spit out IAs that don't have valid IAs...?
@@ -590,19 +595,19 @@ typedef enum
     TCPIP_DHCPV6_OPT_CODE_GEOCONF_CIVIC         = 36,       // 
 
     // RFC 4649
-    TCPIP_DHCPV6_OPT_CODE_REMOTE_ID             = 37,       // 	
+    TCPIP_DHCPV6_OPT_CODE_REMOTE_ID             = 37,       //  
 
     // RFC 4580
-    TCPIP_DHCPV6_OPT_CODE_RELAY_AGENT_SUBSCRIBER_ID = 38,   // Relay Agent Subscriber-ID.	
+    TCPIP_DHCPV6_OPT_CODE_RELAY_AGENT_SUBSCRIBER_ID = 38,   // Relay Agent Subscriber-ID.   
 
     // RFC 4704
-    TCPIP_DHCPV6_OPT_CODE_FQDN                  = 39,       // FQDN, Fully Qualified Domain Name.	
+    TCPIP_DHCPV6_OPT_CODE_FQDN                  = 39,       // FQDN, Fully Qualified Domain Name.   
 
     // RFC 5192
-    TCPIP_DHCPV6_OPT_CODE_PANA_AUTH_AGENT       = 40,       // PANA Authentication Agent.	
+    TCPIP_DHCPV6_OPT_CODE_PANA_AUTH_AGENT       = 40,       // PANA Authentication Agent.   
 
 
-    // 	RFC 4833 - 
+    //  RFC 4833 - 
     TCPIP_DHCPV6_OPT_CODE_NEW_POSIX_TIMEZONE   = 41,        // 
     TCPIP_DHCPV6_OPT_CODE_NEW_TZDB_TIMEZONE    = 42,        //
 
@@ -618,7 +623,7 @@ typedef enum
 
 
     // RFC 6610
-    TCPIP_DHCPV6_OPT_CODE_MIPV6_HOME_NETWORK_ID                 = 49,   // MIPv6 Home Network ID FQDN.	
+    TCPIP_DHCPV6_OPT_CODE_MIPV6_HOME_NETWORK_ID                 = 49,   // MIPv6 Home Network ID FQDN.  
     TCPIP_DHCPV6_OPT_CODE_MIPV6_HOME_NETWORK_INFO  = 50,                // MIPv6 Visited Home Network Information
 
     /* Options 64 - 95 */
@@ -630,29 +635,29 @@ typedef enum
     TCPIP_DHCPV6_OPT_CODE_MIPV6_HOME_AGENT_FQDN                 = 73,   // MIPv6 Home Agent FQDN
 
     // RFC 5223
-    TCPIP_DHCPV6_OPT_CODE_LOST_SERVER           = 51,       // LoST Server.	
+    TCPIP_DHCPV6_OPT_CODE_LOST_SERVER           = 51,       // LoST Server. 
 
-    // 	RFC 5417
+    //  RFC 5417
     TCPIP_DHCPV6_OPT_CODE_CAPWAP_ACCESS_CONTROLLER_ADDRESSES    = 52,   // CAPWAP Access Controller addresses.
 
 
     // RFC 5460
-    TCPIP_DHCPV6_OPT_CODE_RELAY_ID              = 53,       // 	
+    TCPIP_DHCPV6_OPT_CODE_RELAY_ID              = 53,       //  
 
     // RFC 5678
-    TCPIP_DHCPV6_OPT_CODE_IPV6_ADDRESS_MOS      = 54,       // 	
+    TCPIP_DHCPV6_OPT_CODE_IPV6_ADDRESS_MOS      = 54,       //  
     TCPIP_DHCPV6_OPT_CODE_IPV6_FQDN_MOS         = 55,       //
 
     // RFC 5908
     TCPIP_DHCPV6_OPT_CODE_NTP_SERVER            = 56,       // 
 
     // RFC 5986
-    TCPIP_DHCPV6_OPT_CODE_V6_ACCESS_DOMAIN      = 57,       // 	
+    TCPIP_DHCPV6_OPT_CODE_V6_ACCESS_DOMAIN      = 57,       //  
 
     // RFC 6011
-    TCPIP_DHCPV6_OPT_CODE_SIP_UA_CS_LIST        = 58,       // 	
+    TCPIP_DHCPV6_OPT_CODE_SIP_UA_CS_LIST        = 58,       //  
 
-    // 	RFC 5970
+    //  RFC 5970
 
     TCPIP_DHCPV6_OPT_CODE_BOOTFILE_URL          = 59,       // 
     TCPIP_DHCPV6_OPT_CODE_BOOTFILE_PARAM        = 60,       // 
@@ -660,22 +665,22 @@ typedef enum
     TCPIP_DHCPV6_OPT_CODE_NII                   = 62,       // 
 
     // RFC 6225
-    TCPIP_DHCPV6_OPT_CODE_GEOLOCATION           = 63,       // 	
+    TCPIP_DHCPV6_OPT_CODE_GEOLOCATION           = 63,       //  
 
     // RFC 6334
-    TCPIP_DHCPV6_OPT_CODE_AFTR_NAME             = 64,       // 	
+    TCPIP_DHCPV6_OPT_CODE_AFTR_NAME             = 64,       //  
 
     // RFC 6440
     TCPIP_DHCPV6_OPT_CODE_ERP_LOCAL_DOMAIN_NAME = 65,       // 
 
     // RFC 6422
-    TCPIP_DHCPV6_OPT_CODE_RSOO                  = 66,       // 	
+    TCPIP_DHCPV6_OPT_CODE_RSOO                  = 66,       //  
 
-    // 	RFC 6603
+    //  RFC 6603
     TCPIP_DHCPV6_OPT_CODE_PD_EXCLUDE            = 67,       // 
 
     // RFC 6607
-    TCPIP_DHCPV6_OPT_CODE_VIRTUAL_SUBNET_SELECTION = 68,    // 	
+    TCPIP_DHCPV6_OPT_CODE_VIRTUAL_SUBNET_SELECTION = 68,    //  
 
     // RFC 7083
     TCPIP_DHCPV6_OPT_CODE_MAX_RT                = 82,       // server->client; override the TCPIP_DHCPV6_SOLICIT_MRT (SOL_MAX_RT) value
@@ -1462,7 +1467,7 @@ typedef enum
 
 typedef struct  _TAG_DHCPV6_LIST_NODE
 {
-	struct _TAG_DHCPV6_LIST_NODE*   next;		// next node in list
+    struct _TAG_DHCPV6_LIST_NODE*   next;       // next node in list
                                                 // makes it valid SGL_LIST_NODE node
     TCPIP_DHCPV6_EVENT_HANDLER      handler;    // handler to be called for event
     const void*                     hParam;     // handler parameter

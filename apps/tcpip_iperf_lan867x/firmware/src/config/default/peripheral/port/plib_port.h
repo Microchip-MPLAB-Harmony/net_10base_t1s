@@ -65,14 +65,6 @@
 // *****************************************************************************
 // *****************************************************************************
 
-/*** Macros for USART1_TX pin ***/
-#define USART1_TX_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 27U)) & 0x01U)
-#define USART1_TX_PIN                  PORT_PIN_PC27
-
-/*** Macros for USART1_RX pin ***/
-#define USART1_RX_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 28U)) & 0x01U)
-#define USART1_RX_PIN                  PORT_PIN_PC28
-
 // *****************************************************************************
 /* PORT Group
 

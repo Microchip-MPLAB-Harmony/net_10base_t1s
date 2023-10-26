@@ -57,6 +57,8 @@ Microchip or any third party.
 #define DELAY_UNLOCK_EXT        (100u)
 #define CONTROL_PROTECTION      (true)
 
+#define GET_TICKS()             SYS_TIME_CountToMS(SYS_TIME_CounterGet())
+
 #ifdef SYS_CONSOLE_PRINT
 #define PRINT_RATE_TIMEOUT      (1000u)
 #define PRINT_RATE_THRESHOLD    (5u)
@@ -311,8 +313,8 @@ void DRV_LAN865X_Tasks(SYS_MODULE_OBJ object)
     }
     if (SYS_STATUS_READY == pDrvInst->state) {
         if (true == pDrvInst->drvCfg.plcaEnable) {
-            uint32_t now = SYS_TIME_CountToMS(SYS_TIME_CounterGet());
-            if (SYS_TIME_CountToMS(now - pDrvInst->plcaTimer) >= PLCA_TIMER_DELAY) {
+            uint32_t now = GET_TICKS();
+            if ((now - pDrvInst->plcaTimer) >= PLCA_TIMER_DELAY) {
                 pDrvInst->plcaTimer = now;
                 _Lock(&pDrvInst->drvMutex);
                 (void)TC6_ReadRegister(pDrvInst->drvTc6, 0x0004CA03 /* PLCA_STATUS_REGISTER */, CONTROL_PROTECTION, _OnPlcaStatus, NULL);
@@ -320,7 +322,7 @@ void DRV_LAN865X_Tasks(SYS_MODULE_OBJ object)
             }
         }
         if (0u != pDrvInst->unlockExtTime) {
-            uint32_t now = SYS_TIME_CountToMS(SYS_TIME_CounterGet());
+            uint32_t now = GET_TICKS();
             if ((now - pDrvInst->unlockExtTime) >= DELAY_UNLOCK_EXT) {
                 pDrvInst->unlockExtTime = 0u;
                 TC6_UnlockExtendedStatus(pDrvInst->drvTc6);
@@ -1429,7 +1431,7 @@ void TC6_CB_OnExtendedStatus(TC6_t *pInst, void *pGlobalTag)
 {
     (void)pGlobalTag;
     DRV_LAN865X_DriverInfo *pDrvInst = _Dereference(pGlobalTag);
-    pDrvInst->unlockExtTime = SYS_TIME_CountToMS(SYS_TIME_CounterGet());
+    pDrvInst->unlockExtTime = GET_TICKS();
     if(!TC6_ReadRegister(pInst, 0x00000008u /* STATUS0 */, CONTROL_PROTECTION, _OnStatus0, NULL)) {
         (void)TC6_Service(pInst, true);
     }
@@ -1488,7 +1490,7 @@ static void PrintRateLimited(const char *statement, ...)
     static uint32_t cnt_ = 0;
     static uint32_t t0_ = 0;
     static char tmpBuf[80];
-    uint32_t now = SYS_TIME_CountToMS(SYS_TIME_CounterGet());
+    uint32_t now = GET_TICKS();
 
     if (t0_ && ((now - t0_) >= PRINT_RATE_TIMEOUT)) {
         if (cnt_ > PRINT_RATE_THRESHOLD) {
@@ -1564,18 +1566,18 @@ static bool _InitReset(DRV_LAN865X_DriverInfo * pDrvInst)
         switch(pDrvInst->initSubState) {
             case 0:
                 SYS_PORT_PinWrite(pDrvInst->drvCfg.resetPin, false);
-                pDrvInst->initTimer = SYS_TIME_CountToMS(SYS_TIME_CounterGet());
+                pDrvInst->initTimer = GET_TICKS();
                 pDrvInst->initSubState++;
                 break;
             case 1:
-                if (SYS_TIME_CountToMS(SYS_TIME_CounterGet() - pDrvInst->initTimer) >= RESET_LOW_TIME_MS) {
+                if ((GET_TICKS() - pDrvInst->initTimer) >= RESET_LOW_TIME_MS) {
                     SYS_PORT_PinWrite(pDrvInst->drvCfg.resetPin, true);
-                    pDrvInst->initTimer = SYS_TIME_CountToMS(SYS_TIME_CounterGet());
+                    pDrvInst->initTimer = GET_TICKS();
                     pDrvInst->initSubState++;
                 }
                 break;
             case 2:
-                if (SYS_TIME_CountToMS(SYS_TIME_CounterGet() - pDrvInst->initTimer) >= RESET_HIGH_TIME_MS) {
+                if ((GET_TICKS() - pDrvInst->initTimer) >= RESET_HIGH_TIME_MS) {
                     done = true;
                 }
                 break;

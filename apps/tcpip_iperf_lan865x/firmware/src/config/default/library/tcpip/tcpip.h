@@ -3,18 +3,17 @@
 
   Company:
     Microchip Technology Inc.
-    
+
   File Name:
     tcpip.h
 
   Summary:
     TCP/IP API definitions.
-	
+
   Description:
     This is the global TCP/IP header file that any user of the TCP/IP API should include.
-    It contains the basic TCP/IP types and data structures and includes all the 
+    It contains the basic TCP/IP types and data structures and includes all the
     of the TCP/IP stack modules.
-  
 
 *******************************************************************************/
 //DOM-IGNORE-BEGIN
@@ -41,8 +40,14 @@ implied, are granted under any patent or other intellectual property rights of
 Microchip or any third party.
 */
 
-//DOM-IGNORE-END
 
+
+
+
+
+
+
+//DOM-IGNORE-END
 
 #ifndef __TCPIP_H__
 #define __TCPIP_H__
@@ -53,7 +58,7 @@ Microchip or any third party.
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
-        
+
 #include "configuration.h"
 #include "system/system_common.h"
 #include "system/system_module.h"
@@ -64,7 +69,7 @@ Microchip or any third party.
     extern "C" {
 
 #endif
-// DOM-IGNORE-END  
+// DOM-IGNORE-END
 
 
 // TCP/IP stack version
@@ -160,7 +165,7 @@ typedef enum
     /* IPv6 address type */
     IP_ADDRESS_TYPE_IPV6,
 }IP_ADDRESS_TYPE;
-    
+
 
 // *****************************************************************************
 /* TCP/IP multiple Address type
@@ -180,7 +185,7 @@ typedef union
     IPV4_ADDR v4Add;
     IPV6_ADDR v6Add;
 }IP_MULTI_ADDRESS;
-    
+
 // *****************************************************************************
 /* IPv6 Address scope
 
@@ -257,11 +262,11 @@ typedef struct __attribute__((__packed__)) _IPV6_ADDR_STRUCT
     struct __attribute__((__packed__))
     {
         /* Allow preferences */
-        unsigned char precedence;                  
+        unsigned char precedence;
         /* Link-local, site-local, global. */
         unsigned scope                  :4;
         /* Policy label */
-        unsigned label                  :4; 
+        unsigned label                  :4;
         /* Uni-, Any-, Multi-cast */
         unsigned type                   :2;
         /* Indicates that the address is temporary (not public) */
@@ -304,7 +309,7 @@ typedef enum
     /* unspecified/unknown module */
     TCPIP_MODULE_NONE              = 0,
     /*DOM-IGNORE-BEGIN*/     // manager: layer 0 module /*DOM-IGNORE-END*/
-    TCPIP_MODULE_MANAGER,    /* stack manager + packet allocation manager */ 
+    TCPIP_MODULE_MANAGER,    /* stack manager + packet allocation manager */
 
     /*DOM-IGNORE-BEGIN*/    TCPIP_MODULE_LAYER1,  // 1st layer modules: 2 - 5 /*DOM-IGNORE-END*/
     TCPIP_MODULE_ARP        /*DOM-IGNORE-BEGIN*/ = TCPIP_MODULE_LAYER1 /*DOM-IGNORE-END*/,
@@ -336,31 +341,32 @@ typedef enum
     TCPIP_MODULE_FTP_SERVER,
     TCPIP_MODULE_HTTP_SERVER,
     TCPIP_MODULE_HTTP_NET_SERVER,
+    TCPIP_MODULE_HTTP_SERVER_V2,    /* new HTTP server v2 module */
     TCPIP_MODULE_TELNET_SERVER,
     TCPIP_MODULE_SNMP_SERVER,
     TCPIP_MODULE_SNMPV3_SERVER,
     TCPIP_MODULE_DYNDNS_CLIENT,
-    TCPIP_MODULE_BERKELEY,
 
-    /*DOM-IGNORE-BEGIN*/    // 3rd layer modules: 30 - 37 /*DOM-IGNORE-END*/
+    /*DOM-IGNORE-BEGIN*/    // 3rd layer modules: 30 - 38 /*DOM-IGNORE-END*/
+    TCPIP_MODULE_BERKELEY,
     TCPIP_MODULE_REBOOT_SERVER,
     TCPIP_MODULE_COMMAND,
     TCPIP_MODULE_IPERF,
     TCPIP_MODULE_TFTP_CLIENT,       /* TFTP client module */
     TCPIP_MODULE_DHCPV6_CLIENT,     /* DHCPV6 client */
     TCPIP_MODULE_SMTPC,             /* SMTP (new) client */
-	TCPIP_MODULE_TFTP_SERVER,       /* TFTP Server module */
-	TCPIP_MODULE_FTP_CLIENT,        /* FTP client */
+    TCPIP_MODULE_TFTP_SERVER,       /* TFTP Server module */
+    TCPIP_MODULE_FTP_CLIENT,        /* FTP client */
 
     /* add other modules here */
-	TCPIP_MODULE_MAC_BRIDGE,        /* MAC layer 2 bridge */
+    TCPIP_MODULE_MAC_BRIDGE,        /* MAC layer 2 bridge */
     //
     /*  */
     TCPIP_MODULES_NUMBER,       /* number of modules in the TCP/IP stack itself */
     /*  */
     /* starting here is list of supported MAC modules */
     /* and are defined in the tcpip_mac.h  */
-    TCPIP_MODULE_MAC_START /*DOM-IGNORE-BEGIN*/ = 0x1000 /*DOM-IGNORE-END*/, 
+    TCPIP_MODULE_MAC_START /*DOM-IGNORE-BEGIN*/ = 0x1000 /*DOM-IGNORE-END*/,
 
 }TCPIP_STACK_MODULE;
 
@@ -385,8 +391,9 @@ typedef enum
 #define TCPIP_STACK_IF_NAME_97J60           "97J60"
 #define TCPIP_STACK_IF_NAME_PIC32INT        "PIC32INT"
 #define TCPIP_STACK_IF_NAME_MRF24WN         "MRF24WN"
-#define TCPIP_STACK_IF_NAME_WINC	        "WINC"
+#define TCPIP_STACK_IF_NAME_WINC            "WINC"
 #define TCPIP_STACK_IF_NAME_WILC1000        "WILC1000"
+#define TCPIP_STACK_IF_NAME_G3ADP           "G3ADPMAC"
 
 /* alias for unknown interface */
 #define TCPIP_STACK_IF_NAME_ALIAS_UNK       "unk"
@@ -396,6 +403,8 @@ typedef enum
 #define TCPIP_STACK_IF_NAME_ALIAS_WLAN      "wlan"
 /* alias for PPP interface */
 #define TCPIP_STACK_IF_NAME_ALIAS_PPP       "ppp"
+/* alias for G3 ADP interface */
+#define TCPIP_STACK_IF_NAME_ALIAS_G3ADP     "g3adp"
 
 // *****************************************************************************
 /* Configuration Power Modes
@@ -413,11 +422,11 @@ typedef enum
 /* unsupported, invalid */
 #define TCPIP_STACK_IF_POWER_NONE       0
 /* up and running; */
-#define TCPIP_STACK_IF_POWER_FULL       "full"  
+#define TCPIP_STACK_IF_POWER_FULL       "full"
 /* low power mode; not supported now */
-#define TCPIP_STACK_IF_POWER_LOW        "low"   
+#define TCPIP_STACK_IF_POWER_LOW        "low"
 /* powered down, not started */
-#define TCPIP_STACK_IF_POWER_DOWN       "down"  
+#define TCPIP_STACK_IF_POWER_DOWN       "down"
 
 // *****************************************************************************
 /* Network Configuration start-up flags
@@ -426,14 +435,14 @@ typedef enum
     Definition of network configuration start-up flags.
 
   Description:
-    This enumerated type describes the list of the supported TCP/IP network 
+    This enumerated type describes the list of the supported TCP/IP network
     configuration start-up flags.
 
   Remarks:
     DHCPc, DHCPs and ZCLL are conflicting and
     cannot be more than one enabled on the same interface!
     The order of priorities is: DHCPc, ZCLL, DHCPs in case of conflict
-    
+
     Only one of either DNS server or client can be enabled per interface.
 
     Valid values are 0x0001 - 0x8000; 16 bits are maintained only.
@@ -443,25 +452,47 @@ typedef enum
 {
     /* Start the interface with a static IP address */
     /* No address service is enabled on this interface (DHCPc, ZCLL or DHCPs) */
-    TCPIP_NETWORK_CONFIG_IP_STATIC            /*DOM-IGNORE-BEGIN*/ = 0x0000 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_IP_STATIC            /*DOM-IGNORE-BEGIN*/ = 0x0000 /*DOM-IGNORE-END*/,
     /* DHCP client enabled on this interface */
-    TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON       /*DOM-IGNORE-BEGIN*/ = 0x0001 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON       /*DOM-IGNORE-BEGIN*/ = 0x0001 /*DOM-IGNORE-END*/,
     /* ZeroConf LinkLocal enabled on this interface */
-    TCPIP_NETWORK_CONFIG_ZCLL_ON              /*DOM-IGNORE-BEGIN*/ = 0x0002 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_ZCLL_ON              /*DOM-IGNORE-BEGIN*/ = 0x0002 /*DOM-IGNORE-END*/,
     /* DHCP server enabled on this interface */
-    TCPIP_NETWORK_CONFIG_DHCP_SERVER_ON       /*DOM-IGNORE-BEGIN*/ = 0x0004 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_DHCP_SERVER_ON       /*DOM-IGNORE-BEGIN*/ = 0x0004 /*DOM-IGNORE-END*/,
 
     /* DNS CLIENT enabled on this interface */
-    TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON     	  /*DOM-IGNORE-BEGIN*/ = 0x0008 /*DOM-IGNORE-END*/,	  
+    TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON        /*DOM-IGNORE-BEGIN*/ = 0x0008 /*DOM-IGNORE-END*/,
     /* DNS Server Enabled on this Interface */
-    TCPIP_NETWORK_CONFIG_DNS_SERVER_ON		  /*DOM-IGNORE-BEGIN*/ = 0x0010 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_DNS_SERVER_ON        /*DOM-IGNORE-BEGIN*/ = 0x0010 /*DOM-IGNORE-END*/,
     /* Multicast traffic enabled on this Interface */
-    TCPIP_NETWORK_CONFIG_MULTICAST_ON		  /*DOM-IGNORE-BEGIN*/ = 0x0020 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_MULTICAST_ON         /*DOM-IGNORE-BEGIN*/ = 0x0020 /*DOM-IGNORE-END*/,
     /* Packet logging is enabled on this Interface */
-    TCPIP_NETWORK_CONFIG_PKT_LOG_ON		      /*DOM-IGNORE-BEGIN*/ = 0x0040 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_PKT_LOG_ON           /*DOM-IGNORE-BEGIN*/ = 0x0040 /*DOM-IGNORE-END*/,
 
     /* the network configuration contains an IPv6 static address and subnet prefix length */
-    TCPIP_NETWORK_CONFIG_IPV6_ADDRESS         /*DOM-IGNORE-BEGIN*/ = 0x0100 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_IPV6_ADDRESS         /*DOM-IGNORE-BEGIN*/ = 0x0100 /*DOM-IGNORE-END*/,
+
+    /* G3-PLC IPv6 general interface flags */
+    /* the network will be part of a G3-PLC network */
+    TCPIP_NETWORK_CONFIG_IPV6_G3_NET          /*DOM-IGNORE-BEGIN*/ = 0x0200 /*DOM-IGNORE-END*/,
+
+    /* The IPv6 will suppress the Duplicate Address Detection on this interface */
+    TCPIP_NETWORK_CONFIG_IPV6_NO_DAD          /*DOM-IGNORE-BEGIN*/ = 0x0400 /*DOM-IGNORE-END*/,
+
+    /* G3-PLC IPv6 router/coordinator interface flags */
+    /* the network will act as an IPv6 border router/coordinator, replying to solicitations */
+    TCPIP_NETWORK_CONFIG_IPV6_ROUTER          /*DOM-IGNORE-BEGIN*/ = 0x0800 /*DOM-IGNORE-END*/,
+
+    /* when configured as an IPv6 router, sending advertisements is enabled  */
+    TCPIP_NETWORK_CONFIG_IPV6_ADV_ENABLED     /*DOM-IGNORE-BEGIN*/ = 0x1000 /*DOM-IGNORE-END*/,
+
+    /* Suppress the RS (Router Solicitation) messages on this interface */
+    TCPIP_NETWORK_CONFIG_IPV6_NO_RS           /*DOM-IGNORE-BEGIN*/ = 0x2000 /*DOM-IGNORE-END*/,
+
+    /* G3-PLC IPv6 device interface flags */
+    /* Send RS messages to a router unicast address rather than multicast.
+      By default the 'all IPv6 routers' multicast address: 'ff02::02' is used */
+    TCPIP_NETWORK_CONFIG_IPV6_UNICAST_RS      /*DOM-IGNORE-BEGIN*/ = 0x4000 /*DOM-IGNORE-END*/,
 
     /* add other configuration flags here */
 }TCPIP_NETWORK_CONFIG_FLAGS;
@@ -494,7 +525,7 @@ struct TCPIP_MAC_OBJECT_TYPE;
 
   Remarks:
     IPv4 aliased interfaces can be created by specifying the same MAC object member
-    TCPIP_NETWORK_CONFIG.pMacObject. 
+    TCPIP_NETWORK_CONFIG.pMacObject.
     An aliased interface is one that shares the same physical interface
     and MAC object with a primary interface.
 
@@ -502,7 +533,7 @@ struct TCPIP_MAC_OBJECT_TYPE;
     The first interface fully configured will be the primary interface, others will
     be aliases.
 
-    An IPv4 alias interface will allow, for example, 
+    An IPv4 alias interface will allow, for example,
     having a different static/dynamic IPv4 address on the same physical interface.
 
     Note that the stack won't allow initialization of multiple interfaces
@@ -512,14 +543,14 @@ struct TCPIP_MAC_OBJECT_TYPE;
 
     For an IPv4 alias interface .powerMode ==  TCPIP_STACK_IF_POWER_DOWN can be used to prevent
     the alias to be started when the stack is initialized and the primary interfaces go up.
- 
+
     A primary interface currently supports only the
     TCPIP_STACK_IF_POWER_FULL and TCPIP_STACK_IF_POWER_DOWN power modes.
 
     Alias interfaces are not currently supported on IPv6.
 
     Currently a broadcast message received (on a primary interface)
-    is not duplicated on all aliases but it will appear only on the primary interface. 
+    is not duplicated on all aliases but it will appear only on the primary interface.
 */
 typedef struct
 {
@@ -554,11 +585,11 @@ typedef struct
     const char*     priDNS;
 
     /* Secondary DNS to use.  Use "0.0.0.0" for none */
-    const char*     secondDNS;  
+    const char*     secondDNS;
 
     /* Power Mode to use.  Use TCPIP_STACK_IF_POWER_NONE, TCPIP_STACK_IF_POWER_FULL, */
     /* TCPIP_STACK_IF_POWER_LOW, or TCPIP_STACK_IF_POWER_DOWN*/
-    const char*     powerMode; 
+    const char*     powerMode;
 
     /* flags for interface start-up */
     TCPIP_NETWORK_CONFIG_FLAGS   startFlags;
@@ -567,10 +598,10 @@ typedef struct
     /* This is the MAC driver that this interface will use */
     /* Note: This object has to be valid for the whole life of the interface! */
     /*       The TCP/IP stack does not make a private copy of this object */
-    const struct TCPIP_MAC_OBJECT_TYPE*    pMacObject;   
+    const struct TCPIP_MAC_OBJECT_TYPE*    pMacObject;
 
     /* static IPv6 address; only if TCPIP_NETWORK_CONFIG_IPV6_ADDRESS specified can be NULL if not needed*/
-    const char*     ipv6Addr;   
+    const char*     ipv6Addr;
 
     /* subnet prefix length; only if TCPIP_NETWORK_CONFIG_IPV6_ADDRESS specified
        0 means default value (64)
@@ -579,7 +610,7 @@ typedef struct
 
     /* default IPv6 gateway address; only if TCPIP_NETWORK_CONFIG_IPV6_ADDRESS specified
        can be NULL if not needed*/
-    const char*     ipv6Gateway; 
+    const char*     ipv6Gateway;
 }TCPIP_NETWORK_CONFIG;
 
 // *****************************************************************************
@@ -593,14 +624,14 @@ typedef struct
     that's passed to a TCP/IP module at the stack initialization time.
 
   Remarks:
-    Each stack module will be configured with a user-defined initialization/configuration 
+    Each stack module will be configured with a user-defined initialization/configuration
     structure.
 */
 
 typedef struct
 {
-	TCPIP_STACK_MODULE		moduleId;
-	const void * const		configData;
+    TCPIP_STACK_MODULE      moduleId;
+    const void * const      configData;
 }TCPIP_STACK_MODULE_CONFIG;
 
 // *****************************************************************************
@@ -616,11 +647,11 @@ typedef struct
    Parameters:
     ppStackInit  - Pointer to the address of the initialization data.
               It should be updated to a TCPIP_STACK_INIT pointer that carries the stack initialization data:
-                -    pNetConf  	 - pointer to an array of TCPIP_NETWORK_CONFIG to support
+                -    pNetConf    - pointer to an array of TCPIP_NETWORK_CONFIG to support
                 -    nNets       - number of network configurations in the array
                 -    pModConfig  - pointer to an array of TCPIP_STACK_MODULE_CONFIG
-                -    nModules    - number of modules to initialize 
-  
+                -    nModules    - number of modules to initialize
+
   Returns:
     >  0    - the initialization is pending. The stack is required to call again the callback
 
@@ -638,11 +669,11 @@ typedef struct
 
     If the callback is not NULL, then the initialization of the stack will be delayed
     and it will be performed in the TCPIP_STACK_Task() function.
-    The TCPIP_STACK_Task() will keep calling the callback function until this returns 
+    The TCPIP_STACK_Task() will keep calling the callback function until this returns
     ready or an error condition.
 
     The ppStackInit will be used in the TCPIP_STACK_Task() context.
-    It has to point to a persistent data structure that won't go 
+    It has to point to a persistent data structure that won't go
     out of scope until the stack initialization is finished!
 
 */
@@ -668,15 +699,15 @@ typedef int (*TCPIP_STACK_INIT_CALLBACK)(const struct TCPIP_STACK_INIT** ppStack
 typedef struct TCPIP_STACK_INIT
 {
     /* system module initialization     */
-    SYS_MODULE_INIT                     moduleInit; 
+    SYS_MODULE_INIT                     moduleInit;
     /* pointer to array of network configurations */
-    const TCPIP_NETWORK_CONFIG*         pNetConf;   
+    const TCPIP_NETWORK_CONFIG*         pNetConf;
     /* number of networks in the configuration array */
-    int                                 nNets;      
+    int                                 nNets;
     /* pointer to array of module configurations */
-    const TCPIP_STACK_MODULE_CONFIG*    pModConfig; 
+    const TCPIP_STACK_MODULE_CONFIG*    pModConfig;
     /* number of modules in the array  */
-    int                                 nModules;   
+    int                                 nModules;
     /* initialization callback */
     TCPIP_STACK_INIT_CALLBACK           initCback;
 }TCPIP_STACK_INIT;

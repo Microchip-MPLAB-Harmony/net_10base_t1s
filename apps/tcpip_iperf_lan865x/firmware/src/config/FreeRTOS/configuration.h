@@ -100,7 +100,7 @@ extern "C" {
 #define SYS_CMD_BUFFER_DMA_READY
 
 /* Command System Service RTOS Configurations*/
-#define SYS_CMD_RTOS_STACK_SIZE                768
+#define SYS_CMD_RTOS_STACK_SIZE                1536
 #define SYS_CMD_RTOS_TASK_PRIORITY             2
 
 
@@ -260,7 +260,7 @@ extern "C" {
 #define TCPIP_NETWORK_DEFAULT_HOST_NAME_IDX0              "MCHP_LAN865x"
 #define TCPIP_NETWORK_DEFAULT_MAC_ADDR_IDX0               "00:04:25:1C:A0:02"
 
-#define TCPIP_NETWORK_DEFAULT_IP_ADDRESS_IDX0         "192.168.100.11"
+#define TCPIP_NETWORK_DEFAULT_IP_ADDRESS_IDX0         "192.168.100.10"
 #define TCPIP_NETWORK_DEFAULT_IP_MASK_IDX0            "255.255.255.0"
 #define TCPIP_NETWORK_DEFAULT_GATEWAY_IDX0            "192.168.100.1"
 #define TCPIP_NETWORK_DEFAULT_DNS_IDX0                "192.168.100.1"
@@ -333,6 +333,7 @@ extern "C" {
 
 #define TCPIP_STACK_TICK_RATE		        		1
 #define TCPIP_STACK_SECURE_PORT_ENTRIES             10
+#define TCPIP_STACK_LINK_RATE		        		333
 
 #define TCPIP_STACK_ALIAS_INTERFACE_SUPPORT   false
 

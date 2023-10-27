@@ -3,7 +3,7 @@
 
   Company:
     Microchip Technology Inc.
-    
+
   File Name:
     http_net_manager.h
 
@@ -90,7 +90,7 @@ bool TCPIP_HTTP_NET_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackData, c
 
   Description:
     Takes down all HTTP sockets, the state machine and file handles for
-    each connection. 
+    each connection.
 
   Precondition:
     None
@@ -114,7 +114,7 @@ void TCPIP_HTTP_NET_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackData)
 typedef struct
 {
     uint16_t        flags;      // chunk flags:TCPIP_HTTP_CHUNK_FLAGS
-    uint16_t        status;     // chunk status: TCPIP_HTTP_CHUNK_STATE 
+    uint16_t        status;     // chunk status: TCPIP_HTTP_CHUNK_STATE
     char            chunkFName[20]; // chunk file name
     char            dynVarName[20]; // dynamic variable name, if the chunk is a dyn var chunk
     uint16_t        nDynBuffers;    // waiting dyn buffers
@@ -124,7 +124,7 @@ typedef struct
 // information for a HTTP connection
 typedef struct
 {
-    uint16_t    httpStatus;     // TCPIP_HTTP_NET_STATUS value 
+    uint16_t    httpStatus;     // TCPIP_HTTP_NET_STATUS value
     uint16_t    connStatus;     // TCPIP_HTTP_NET_CONN_STATE value
     uint16_t    nChunks;        // currently active chunks
     uint16_t    chunkPoolEmpty; // counter for the dynamic chunk pool empty condition
@@ -152,7 +152,7 @@ bool TCPIP_HTTP_NET_InfoGet(int connIx, TCPIP_HTTP_NET_CONN_INFO* pHttpInfo);
 
 
 // return HTTP statistics
-void TCPIP_HTTP_NET_StatGet(TCPIP_HTTP_NET_STAT_INFO* pStatInfo);
+bool TCPIP_HTTP_NET_StatGet(TCPIP_HTTP_NET_STAT_INFO* pStatInfo);
 
 // return advanced chunk info about a specific connection
 // pChunkInfo points to an array of TCPIP_HTTP_NET_CHUNK_INFO, nInfos in size;

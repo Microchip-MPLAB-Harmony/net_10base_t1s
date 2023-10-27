@@ -3,12 +3,12 @@
 
   Company:
     Microchip Technology Inc.
-    
+
   File Name:
     tcpip_manager_control.h
 
   Summary:
-    
+
   Description:
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
@@ -52,12 +52,22 @@ Microchip or any third party.
 // supported ETH frame types that are processed by the stack
 //
 
-#define TCPIP_ETHER_TYPE_IPV4      	(0x0800u)
+#define TCPIP_ETHER_TYPE_IPV4       (0x0800u)
 #define TCPIP_ETHER_TYPE_IPV6       (0x86DDu)
-#define TCPIP_ETHER_TYPE_ARP     	(0x0806u)
-#define TCPIP_ETHER_TYPE_LLDP     	(0x88CCu)
+#define TCPIP_ETHER_TYPE_ARP        (0x0806u)
+#define TCPIP_ETHER_TYPE_LLDP       (0x88CCu)
 #define TCPIP_ETHER_TYPE_UNKNOWN    (0xFFFFu)
 
+// minimum timeout (maximum rate) for link check, ms
+// 5 times per second should be frequent enough
+#define _TCPIP_STACK_LINK_MIN_TMO       200
+// adjust it vs the stack rate
+
+#if (!defined(TCPIP_STACK_LINK_RATE) || TCPIP_STACK_LINK_RATE < TCPIP_STACK_TICK_RATE || TCPIP_STACK_LINK_RATE < _TCPIP_STACK_LINK_MIN_TMO)
+#define _TCPIP_STACK_LINK_RATE  _TCPIP_STACK_LINK_MIN_TMO   // use the minimum value
+#else
+#define _TCPIP_STACK_LINK_RATE  TCPIP_STACK_LINK_RATE       // user value
+#endif
 
 // module signal/timeout/asynchronous event handler
 // the stack manager calls it when there's an signal/tmo/asynchronous event pending
@@ -67,9 +77,9 @@ typedef void    (*tcpipModuleSignalHandler)(void);
 // types of packets/frames processed by this stack
 typedef struct
 {
-    uint16_t        frameType;      // one of valid TCPIP_ETHER_TYPE_ values 
-    uint16_t        pktTypeFlags;   // user packet flags to set for this type
+    uint16_t        frameType;      // one of valid TCPIP_ETHER_TYPE_ values
     uint16_t        moduleId;       // TCPIP_STACK_MODULE: corresponding module handling this
+    uint32_t        pktTypeFlags;   // user packet flags to set for this type
 
 }TCPIP_FRAME_PROCESS_ENTRY;
 
@@ -121,10 +131,10 @@ typedef union
         uint16_t bIsDHCPSrvEnabled      : 1;    // init: controls the DHCP Server enable/disable on the interface
                                                 // runtime: mirror bit set by the DHCP Server to reflect the current/last status
                                                 // TCPIP_STACK_ADDRESS_SERVICE_MASK has to match!!!
-		uint16_t bIsDnsClientEnabled    : 1;    // DNS client  enable/disable  .
+        uint16_t bIsDnsClientEnabled    : 1;    // DNS client  enable/disable  .
         uint16_t bIsDnsServerEnabled    : 1;    // DNS server Enable and Disable
         uint16_t bIsDNSServerAuto       : 1;    // DNS Server auto enable/disable on this interface
-        uint16_t bInterfaceEnabled      : 1;    // 0 when TCPIP_MAC_POWER_DOWN/TCPIP_MAC_POWER_LOW 
+        uint16_t bInterfaceEnabled      : 1;    // 0 when TCPIP_MAC_POWER_DOWN/TCPIP_MAC_POWER_LOW
         uint16_t bIPv6Enabled           : 1;
         uint16_t bIPv6InConfig          : 1;
 volatile uint16_t bNewTcpipEventAvlbl   : 1;    // event available flag
@@ -143,25 +153,31 @@ typedef struct
 {
     uint16_t        size;                   // structure size; used in the configuration save/restore
     uint16_t        macId;                  // corresponding MAC id
-	IPV4_ADDR		netIPAddr;              // IP address; currently only one IP add per interface
-	IPV4_ADDR		netMask;                // Subnet mask
-	IPV4_ADDR		netGateway;             // Gateway
-	IPV4_ADDR		dnsServer[2];           // Primary + Secondary DNS Servers
-	IPV4_ADDR		DefaultIPAddr;          // Default IP address
-	IPV4_ADDR		DefaultMask;            // Default subnet mask
-	IPV4_ADDR		DefaultGateway;         // Default Gateway
-	IPV4_ADDR		DefaultDNSServer[2];    // Default DNS Servers; primary and secondary
-	uint8_t		    NetBIOSName[16];        // NetBIOS name
-	TCPIP_MAC_ADDR	netMACAddr;             // MAC address
+    IPV4_ADDR       netIPAddr;              // IP address; currently only one IP add per interface
+    IPV4_ADDR       netMask;                // Subnet mask
+    IPV4_ADDR       netGateway;             // Gateway
+    IPV4_ADDR       dnsServer[2];           // Primary + Secondary DNS Servers
+    IPV4_ADDR       DefaultIPAddr;          // Default IP address
+    IPV4_ADDR       DefaultMask;            // Default subnet mask
+    IPV4_ADDR       DefaultGateway;         // Default Gateway
+    IPV4_ADDR       DefaultDNSServer[2];    // Default DNS Servers; primary and secondary
+    uint8_t         NetBIOSName[16];        // NetBIOS name
+    TCPIP_MAC_ADDR  netMACAddr;             // MAC address
     TCPIP_STACK_NET_IF_FLAGS Flags;
     const TCPIP_MAC_OBJECT*  pMacObj;   // MAC object associated with this interface
 #if defined(TCPIP_STACK_USE_IPV6)
-    uint16_t        startFlags;  // TCPIP_NETWORK_CONFIG_FLAGS: flags for interface start up
+    uint16_t        startFlags;     // TCPIP_NETWORK_CONFIG_FLAGS: flags for interface start up
     uint16_t        ipv6PrefixLen;  // IPv6 subnet ID
     IPV6_ADDR       netIPv6Addr;    // static IPv6 address
     IPV6_ADDR       netIPv6Gateway; // default IPv6 gateway
+#if defined(TCPIP_IPV6_G3_PLC_BORDER_ROUTER) && (TCPIP_IPV6_G3_PLC_BORDER_ROUTER != 0)
+    uint32_t        advLastSec;     // last second count when advertisement was evaluated
+    uint16_t        advTmo;         // advertising timeout, seconds; when expires (reaches 0) new advertisement needs to be sent
+    uint16_t        advInitCount;   // number of initial advertisements [0, MAX_INITIAL_RTR_ADVERTISEMENTS]
+#endif  // defined(TCPIP_IPV6_G3_PLC_BORDER_ROUTER) && (TCPIP_IPV6_G3_PLC_BORDER_ROUTER != 0)
 #else
-    uint32_t        startFlags;  // TCPIP_NETWORK_CONFIG_FLAGS: flags for interface start up
+    uint16_t        startFlags;     // TCPIP_NETWORK_CONFIG_FLAGS: flags for interface start up
+    uint16_t        pad;            // not used, padding
 #endif
 }TCPIP_STACK_NET_IF_DCPT;
 
@@ -170,7 +186,7 @@ typedef struct
 #include "tcpip/src/tcpip_helpers_private.h"
 
 // TCPIP network structure containing interface information
-//  
+//
 typedef struct _tag_TCPIP_NET_IF
 {
     struct  // TCPIP_STACK_NET_IF_DCPT!!!; Anonymous for now;
@@ -178,16 +194,16 @@ typedef struct _tag_TCPIP_NET_IF
     {
         uint16_t        size;                   // structure size; used in the configuration save/restore
         uint16_t        macId;                  // corresponding MAC id
-        IPV4_ADDR		netIPAddr;              // IP address; currently only one IP add per interface
-        IPV4_ADDR		netMask;                // Subnet mask
-        IPV4_ADDR		netGateway;             // Gateway
-        IPV4_ADDR		dnsServer[2];           // Primary + Secondary DNS Servers
-        IPV4_ADDR		DefaultIPAddr;          // Default IP address
-        IPV4_ADDR		DefaultMask;            // Default subnet mask
-        IPV4_ADDR		DefaultGateway;         // Default Gateway
-        IPV4_ADDR		DefaultDNSServer[2];    // Default DNS Servers; primary and secondary
-        uint8_t		    NetBIOSName[16];        // NetBIOS name
-        TCPIP_MAC_ADDR	netMACAddr;             // MAC address
+        IPV4_ADDR       netIPAddr;              // IP address; currently only one IP add per interface
+        IPV4_ADDR       netMask;                // Subnet mask
+        IPV4_ADDR       netGateway;             // Gateway
+        IPV4_ADDR       dnsServer[2];           // Primary + Secondary DNS Servers
+        IPV4_ADDR       DefaultIPAddr;          // Default IP address
+        IPV4_ADDR       DefaultMask;            // Default subnet mask
+        IPV4_ADDR       DefaultGateway;         // Default Gateway
+        IPV4_ADDR       DefaultDNSServer[2];    // Default DNS Servers; primary and secondary
+        uint8_t         NetBIOSName[16];        // NetBIOS name
+        TCPIP_MAC_ADDR  netMACAddr;             // MAC address
         TCPIP_STACK_NET_IF_FLAGS Flags;
         const TCPIP_MAC_OBJECT*  pMacObj;   // MAC object associated with this interface
 #if defined(TCPIP_STACK_USE_IPV6)
@@ -195,8 +211,14 @@ typedef struct _tag_TCPIP_NET_IF
         uint16_t        ipv6PrefixLen;  // IPv6 subnet ID
         IPV6_ADDR       netIPv6Addr;    // static IPv6 address
         IPV6_ADDR       netIPv6Gateway; // default IPv6 gateway
+#if defined(TCPIP_IPV6_G3_PLC_BORDER_ROUTER) && (TCPIP_IPV6_G3_PLC_BORDER_ROUTER != 0)
+        uint32_t        advLastSec;     // last second count when advertisement was evaluated
+        uint16_t        advTmo;         // advertising timeout, seconds; when expires (reaches 0) new advertisement needs to be sent
+        uint16_t        advInitCount;   // number of initial advertisements [0, MAX_INITIAL_RTR_ADVERTISEMENTS]
+#endif  // defined(TCPIP_IPV6_G3_PLC_BORDER_ROUTER) && (TCPIP_IPV6_G3_PLC_BORDER_ROUTER != 0)
 #else
-        uint32_t        startFlags;  // TCPIP_NETWORK_CONFIG_FLAGS: flags for interface start up
+        uint16_t        startFlags;     // TCPIP_NETWORK_CONFIG_FLAGS: flags for interface start up
+        uint16_t        pad;            // not used, padding
 #endif
     };
 
@@ -207,7 +229,7 @@ typedef struct _tag_TCPIP_NET_IF
 #if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
     struct _tag_TCPIP_NET_IF* pPriIf;           // pointer to the primary interface
                                                 // pPriIf == pIf, means primary
-                                                // else alias  
+                                                // else alias
     struct _tag_TCPIP_NET_IF* pAlias;           // linked list of alias interfaces belonging to this primary
 #endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
                                                 // ((__aligned__)) !!!
@@ -225,24 +247,29 @@ typedef struct _tag_TCPIP_NET_IF
                                                 // stored to avoid the run time division
     uint16_t            activeEvents;           // TCPIP_MAC_EVENT accumulated event available
                                                 // TCPIP_MAC_EVENT fits within 16 bits!
-                                                // link up/down events are not 
+                                                // link up/down events are not
                                                 // necessarily triggered by hardware
     uint16_t            currEvents;             // current TCPIP_MAC_EVENT processed event
     uint16_t            linkMtu;                // current interface link MTU
+
+    uint8_t             txOffload;              // MAC TX TCPIP_MAC_CHECKSUM_OFFLOAD_FLAGS
+    uint8_t             rxOffload;              // MAC RX TCPIP_MAC_CHECKSUM_OFFLOAD_FLAGS
+                                                // Not used. The MAC sets the pktFlags when calculating RX checksums!
     union
     {
         struct
         {
-            uint16_t linkPrev       : 1;        // previous status of the link
-            uint16_t connEvent      : 1;        // when set indicates a connection event
-            uint16_t connEventType  : 1;        // 0: TCPIP_MAC_EV_CONN_LOST; 1: TCPIP_MAC_EV_CONN_ESTABLISHED
-            uint16_t bridged        : 1;        // 1: interface is part of a bridge
-            uint16_t reserved       : 12;       // available
+            uint8_t linkPrev       : 1;        // previous status of the link
+            uint8_t connEvent      : 1;        // when set indicates a connection event
+            uint8_t connEventType  : 1;        // 0: TCPIP_MAC_EV_CONN_LOST; 1: TCPIP_MAC_EV_CONN_ESTABLISHED
+            uint8_t bridged        : 1;        // 1: interface is part of a bridge
+            uint8_t reserved       : 4;        // available
         };
-        uint16_t        v;
-    }exFlags;                               // additional extended flags      
+        uint8_t        v;
+    }exFlags;                               // additional extended flags
+    uint8_t             macType;            // a TCPIP_MAC_TYPE value: ETH, Wi-Fi, etc;
+
     char                ifName[7];          // native interface name + \0
-    uint8_t             macType;            // a TCPIP_MAC_TYPE value: ETH, Wi-Fi, etc; 
     uint8_t             bridgePort;         // bridge port this interface belongs to; < 256
 } TCPIP_NET_IF;
 
@@ -251,7 +278,7 @@ typedef struct _tag_TCPIP_NET_IF
 
 typedef struct  _TAG_TCPIP_LIST_NODE
 {
-	struct _TAG_TCPIP_LIST_NODE *next;	// next node in list
+    struct _TAG_TCPIP_LIST_NODE *next;  // next node in list
                                                 // safe cast to SGL_LIST_NODE node!!!
     TCPIP_STACK_EVENT_HANDLER   handler;    // handler to be called for event
     const void*                 hParam;     // handler parameter
@@ -263,10 +290,10 @@ typedef struct  _TAG_TCPIP_LIST_NODE
 // network interface action for initialization/deinitialization
 typedef enum
 {
-    TCPIP_STACK_ACTION_INIT,         // stack is initialized 
+    TCPIP_STACK_ACTION_INIT,         // stack is initialized
     TCPIP_STACK_ACTION_REINIT,       // stack is reinitialized
     TCPIP_STACK_ACTION_DEINIT,       // stack is deinitialized
-    TCPIP_STACK_ACTION_IF_UP,        // interface is brought up 
+    TCPIP_STACK_ACTION_IF_UP,        // interface is brought up
     TCPIP_STACK_ACTION_IF_DOWN,      // interface is brought down
 }TCPIP_STACK_ACTION;
 
@@ -276,15 +303,15 @@ typedef struct _TCPIP_STACK_MODULE_CTRL
 {
     // permanent data; this data is maintained by the stack for one full session
     // i.e., across StackInit() -> StackDeInit() calls
-    // 
+    //
     //
     uint16_t    nIfs;       // number of the interfaces supported in this session
-    uint16_t    nAliases;   // number of alias interfaces in this session         
-	// number of the modules enabled in this session
-	int 	nModules;
+    uint16_t    nAliases;   // number of alias interfaces in this session
+    // number of the modules enabled in this session
+    int     nModules;
     // allocation parameters
     const void* memH;                   // handle to be used in the TCPIP_HEAP_ calls
-    TCPIP_STACK_HEAP_TYPE   heapType;   // type of the heap                
+    TCPIP_STACK_HEAP_TYPE   heapType;   // type of the heap
 
     // transient data; contains info for a specific call
     //
@@ -298,7 +325,7 @@ typedef struct _TCPIP_STACK_MODULE_CTRL
     // the power mode for this interface to go to
     // valid only if stackAction == init/reinit; ignored for deinit
     TCPIP_MAC_POWER_MODE  powerMode;
-    
+
 }TCPIP_STACK_MODULE_CTRL;
 
 
@@ -312,7 +339,7 @@ static __inline__ bool __attribute__((always_inline)) _TCPIPStackIpAddFromLAN(TC
     return ((pIf->netIPAddr.Val ^ pIpAddress->Val) & pIf->netMask.Val) == 0;
 }
 
-int  TCPIP_STACK_NetIxGet(TCPIP_NET_IF* pNetIf);
+int  TCPIP_STACK_NetIxGet(const TCPIP_NET_IF* pNetIf);
 
 static __inline__ int __attribute__((always_inline)) _TCPIPStackNetIxGet(TCPIP_NET_IF* pIf)
 {
@@ -433,7 +460,7 @@ static __inline__ TCPIP_NET_IF*  __attribute__((always_inline)) _TCPIPStackHandl
 {
     // do some checking
     // if #debug enabled, etc
-    return (TCPIP_NET_IF*)hNet; 
+    return (TCPIP_NET_IF*)hNet;
 }
 
 // more checking, for user passed handles
@@ -489,7 +516,7 @@ TCPIP_NET_IF* _TCPIPStackAnyNetLinked(bool useDefault);
 // does NOT check primary/virtual interface!
 TCPIP_NET_IF* _TCPIPStackAnyNetDirected(const IPV4_ADDR* pIpAdd);
 
-// converts between an interface name and a MAC (TCPIP_STACK_MODULE) ID 
+// converts between an interface name and a MAC (TCPIP_STACK_MODULE) ID
 // TCPIP_MODULE_MAC_NONE - no MAC id could be found
 TCPIP_STACK_MODULE    TCPIP_STACK_StringToMACId(const char* str);
 
@@ -578,7 +605,7 @@ bool                _TCPIPStackModuleSignalRequest(TCPIP_STACK_MODULE modId, TCP
 
 
 // de-registers a previous registered signal handler
-void           _TCPIPStackSignalHandlerDeregister(tcpipSignalHandle handle); 
+void           _TCPIPStackSignalHandlerDeregister(tcpipSignalHandle handle);
 
 
 // inserts a RX packet into the interface RX queue
@@ -607,7 +634,7 @@ void _TCPIPStackModuleRxPurge(TCPIP_STACK_MODULE modId, TCPIP_NET_IF* pNetIf);
 
 // return the stack heap configuration parameters
 const TCPIP_STACK_HEAP_CONFIG* _TCPIPStackHeapConfig(void);
-            
+
 static __inline__ uint16_t  __attribute__((always_inline)) _TCPIPStackNetLinkMtu(TCPIP_NET_IF* pNetIf)
 {
     return pNetIf ? pNetIf->linkMtu : 0;
@@ -707,7 +734,7 @@ uint32_t _TCPIP_MsecCountGet(void);
 
 void        TCPIP_STACK_TimeMeasureStart(bool reset);
 
-uint64_t    TCPIP_STACK_TimeMeasureGet(bool stop);    
+uint64_t    TCPIP_STACK_TimeMeasureGet(bool stop);
 
 
 #endif // defined(TCPIP_STACK_TIME_MEASUREMENT)

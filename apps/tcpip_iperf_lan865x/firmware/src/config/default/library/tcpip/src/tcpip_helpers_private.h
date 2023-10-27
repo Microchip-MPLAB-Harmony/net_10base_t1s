@@ -3,12 +3,12 @@
 
   Company:
     Microchip Technology Inc.
-    
+
   File Name:
     tcpip_helpers_private.h
 
   Summary:
-    
+
   Description:
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
@@ -56,7 +56,11 @@ TCPIP_MAC_POWER_MODE TCPIP_Helper_StringToPowerMode(const char* str);
 const char*     TCPIP_Helper_PowerModeToString(TCPIP_MAC_POWER_MODE mode);
 
 uint16_t        TCPIP_Helper_CalcIPChecksum(const uint8_t* buffer, uint16_t len, uint16_t seed);
-
+#if defined(__mips__)
+#define TCPIP_Helper_Memcpy(dst, src, len)     memcpy(dst, src, len)
+#else
+void            TCPIP_Helper_Memcpy(void *dst, const void *src, size_t len);
+#endif
 uint16_t        TCPIP_Helper_PacketChecksum(TCPIP_MAC_PACKET* pPkt, uint8_t* startAdd, uint16_t len, uint16_t seed);
 
 uint16_t        TCPIP_Helper_ChecksumFold(uint32_t checksum);
@@ -64,15 +68,15 @@ uint16_t        TCPIP_Helper_ChecksumFold(uint32_t checksum);
 uint16_t        TCPIP_Helper_PacketCopy(TCPIP_MAC_PACKET* pSrcPkt, uint8_t* pDest, uint8_t** pStartAdd, uint16_t len, bool srchTransport);
 
 
-// Protocols understood by the TCPIP_Helper_ExtractURLFields() function.  IMPORTANT: If you 
-// need to reorder these (change their constant values), you must also reorder 
+// Protocols understood by the TCPIP_Helper_ExtractURLFields() function.  IMPORTANT: If you
+// need to reorder these (change their constant values), you must also reorder
 // the constant arrays in TCPIP_Helper_ExtractURLFields().
 typedef enum
 {
-	PROTOCOL_HTTP = 0u,
-	PROTOCOL_HTTPS,
-	PROTOCOL_MMS,
-	PROTOCOL_RTSP
+    PROTOCOL_HTTP = 0u,
+    PROTOCOL_HTTPS,
+    PROTOCOL_MMS,
+    PROTOCOL_RTSP
 } PROTOCOLS;
 
 uint8_t         TCPIP_Helper_ExtractURLFields(uint8_t *vURL, PROTOCOLS *protocol,

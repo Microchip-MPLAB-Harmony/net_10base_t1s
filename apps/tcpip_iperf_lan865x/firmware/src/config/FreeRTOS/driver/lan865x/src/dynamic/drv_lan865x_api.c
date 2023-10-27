@@ -56,10 +56,17 @@ Microchip or any third party.
 #define PLCA_TIMER_DELAY        (1000u)
 #define DELAY_UNLOCK_EXT        (100u)
 #define CONTROL_PROTECTION      (true)
+
+#define GET_TICKS()             SYS_TIME_CountToMS(SYS_TIME_CounterGet())
+
 #ifdef SYS_CONSOLE_PRINT
-#define PRINT(...)              SYS_CONSOLE_PRINT(__VA_ARGS__);
+#define PRINT_RATE_TIMEOUT      (1000u)
+#define PRINT_RATE_THRESHOLD    (5u)
+#define PRINT_FORCE(...)        SYS_CONSOLE_PRINT(__VA_ARGS__);
+#define PRINT_LIMIT(...)        PrintRateLimited(__VA_ARGS__)
 #else
-#define PRINT(...)              /* No printing */
+#define PRINT_FORCE(...)        /* No printing */
+#define PRINT_LIMIT(...)        /* No printing */
 #endif
 
 /******************************************************************************
@@ -109,6 +116,7 @@ extern const DRV_LAN865X_Configuration drvLan865xInitData[DRV_LAN865X_INSTANCES_
 
 static inline void _Lock(OSAL_MUTEX_HANDLE_TYPE *drvMutex);
 static inline void _Unlock(OSAL_MUTEX_HANDLE_TYPE *drvMutex);
+static void PrintRateLimited(const char *statement, ...);
 static DRV_LAN865X_DriverInfo *_Dereference(const void *tag);
 static void _Initialize(DRV_LAN865X_DriverInfo *pDrvInstance);
 static bool _InitReset(DRV_LAN865X_DriverInfo * pDrvInstance);
@@ -305,8 +313,8 @@ void DRV_LAN865X_Tasks(SYS_MODULE_OBJ object)
     }
     if (SYS_STATUS_READY == pDrvInst->state) {
         if (true == pDrvInst->drvCfg.plcaEnable) {
-            uint32_t now = SYS_TIME_CounterGet();
-            if (SYS_TIME_CountToMS(now - pDrvInst->plcaTimer) >= PLCA_TIMER_DELAY) {
+            uint32_t now = GET_TICKS();
+            if ((now - pDrvInst->plcaTimer) >= PLCA_TIMER_DELAY) {
                 pDrvInst->plcaTimer = now;
                 _Lock(&pDrvInst->drvMutex);
                 (void)TC6_ReadRegister(pDrvInst->drvTc6, 0x0004CA03 /* PLCA_STATUS_REGISTER */, CONTROL_PROTECTION, _OnPlcaStatus, NULL);
@@ -314,7 +322,7 @@ void DRV_LAN865X_Tasks(SYS_MODULE_OBJ object)
             }
         }
         if (0u != pDrvInst->unlockExtTime) {
-            uint32_t now = SYS_TIME_CounterGet();
+            uint32_t now = GET_TICKS();
             if ((now - pDrvInst->unlockExtTime) >= DELAY_UNLOCK_EXT) {
                 pDrvInst->unlockExtTime = 0u;
                 TC6_UnlockExtendedStatus(pDrvInst->drvTc6);
@@ -1369,40 +1377,40 @@ void TC6_CB_OnError(TC6_t *pInst, TC6_Error_t err, void *pGlobalTag)
         uint32_t val = err;
         switch(val) {
             case TC6Error_Succeeded:
-                PRINT("TC6Error_Succeeded\r\n");
+                PRINT_LIMIT("TC6Error_Succeeded\r\n");
                 break;
             case TC6Error_NoHardware:
-                PRINT("TC6Error_NoHardware\r\n");
+                PRINT_LIMIT("TC6Error_NoHardware\r\n");
                 reinit = true;
             break;
             case TC6Error_UnexpectedSv:
-                PRINT("TC6Error_UnexpectedSv\r\n");
+                PRINT_LIMIT("TC6Error_UnexpectedSv\r\n");
                 break;
             case TC6Error_UnexpectedDvEv:
-                PRINT("TC6Error_UnexpectedDvEv\r\n");
+                PRINT_LIMIT("TC6Error_UnexpectedDvEv\r\n");
                 break;
             case TC6Error_BadChecksum:
-                PRINT("TC6Error_BadChecksum\r\n");
+                PRINT_LIMIT("TC6Error_BadChecksum\r\n");
                 reinit = true;
                 break;
             case TC6Error_UnexpectedCtrl:
-                PRINT("TC6Error_UnexpectedCtrl\r\n");
+                PRINT_LIMIT("TC6Error_UnexpectedCtrl\r\n");
                 reinit = true;
                 break;
             case TC6Error_BadTxData:
-                PRINT("TC6Error_BadTxData\r\n");
+                PRINT_LIMIT("TC6Error_BadTxData\r\n");
                 reinit = true;
                 break;
             case TC6Error_SyncLost:
-                PRINT("TC6Error_SyncLost\r\n");
+                PRINT_LIMIT("TC6Error_SyncLost\r\n");
                 reinit = true;
                 break;
             case TC6Error_SpiError:
-                PRINT("TC6Error_SpiError\r\n");
+                PRINT_LIMIT("TC6Error_SpiError\r\n");
                 reinit = true;
                 break;
             default:
-                PRINT("TC6_Error unknown_flag=%d\r\n", val);
+                PRINT_LIMIT("TC6_Error unknown_flag=%d\r\n", val);
                 break;
         }
         if (reinit) {
@@ -1423,7 +1431,7 @@ void TC6_CB_OnExtendedStatus(TC6_t *pInst, void *pGlobalTag)
 {
     (void)pGlobalTag;
     DRV_LAN865X_DriverInfo *pDrvInst = _Dereference(pGlobalTag);
-    pDrvInst->unlockExtTime = SYS_TIME_CounterGet();
+    pDrvInst->unlockExtTime = GET_TICKS();
     if(!TC6_ReadRegister(pInst, 0x00000008u /* STATUS0 */, CONTROL_PROTECTION, _OnStatus0, NULL)) {
         (void)TC6_Service(pInst, true);
     }
@@ -1475,6 +1483,31 @@ static inline void _Unlock(OSAL_MUTEX_HANDLE_TYPE *drvMutex)
     (void)res;
     SYS_ASSERT(res == OSAL_RESULT_TRUE, "Could not unlock the driver mutex");
 
+}
+
+static void PrintRateLimited(const char *statement, ...)
+{
+    static uint32_t cnt_ = 0;
+    static uint32_t t0_ = 0;
+    static char tmpBuf[80];
+    uint32_t now = GET_TICKS();
+
+    if (t0_ && ((now - t0_) >= PRINT_RATE_TIMEOUT)) {
+        if (cnt_ > PRINT_RATE_THRESHOLD) {
+            PRINT_FORCE("[skipped %lu]\r\n", (cnt_ - PRINT_RATE_THRESHOLD));
+        }
+        t0_ = 0;
+        cnt_ = 0;
+    }
+    ++cnt_;
+    if (cnt_ <= PRINT_RATE_THRESHOLD) {
+        va_list args;
+        va_start( args, statement );
+        (void)vsnprintf(tmpBuf, sizeof(tmpBuf), statement, args);
+        va_end( args );
+        t0_ = now;
+        PRINT_FORCE("%s", tmpBuf);
+    }
 }
 
 /* This function was invented to overcome MISRA rule violation 11.4 and 11.5, where it is not allowed to cast back from void pointer */
@@ -1533,18 +1566,18 @@ static bool _InitReset(DRV_LAN865X_DriverInfo * pDrvInst)
         switch(pDrvInst->initSubState) {
             case 0:
                 SYS_PORT_PinWrite(pDrvInst->drvCfg.resetPin, false);
-                pDrvInst->initTimer = SYS_TIME_CounterGet();
+                pDrvInst->initTimer = GET_TICKS();
                 pDrvInst->initSubState++;
                 break;
             case 1:
-                if (SYS_TIME_CountToMS(SYS_TIME_CounterGet() - pDrvInst->initTimer) >= RESET_LOW_TIME_MS) {
+                if ((GET_TICKS() - pDrvInst->initTimer) >= RESET_LOW_TIME_MS) {
                     SYS_PORT_PinWrite(pDrvInst->drvCfg.resetPin, true);
-                    pDrvInst->initTimer = SYS_TIME_CounterGet();
+                    pDrvInst->initTimer = GET_TICKS();
                     pDrvInst->initSubState++;
                 }
                 break;
             case 2:
-                if (SYS_TIME_CountToMS(SYS_TIME_CounterGet() - pDrvInst->initTimer) >= RESET_HIGH_TIME_MS) {
+                if ((GET_TICKS() - pDrvInst->initTimer) >= RESET_HIGH_TIME_MS) {
                     done = true;
                 }
                 break;
@@ -1599,7 +1632,7 @@ static bool _CheckId(DRV_LAN865X_DriverInfo * pDrvInst)
                         pDrvInst->initSubState++;
                     }
                 } else {
-                    PRINT("Invalid MACPHY, oui=0x%X, model=0x%X\r\n", oui, model);
+                    PRINT_FORCE("Invalid MACPHY, oui=0x%X, model=0x%X\r\n", oui, model);
                     pDrvInst->state = SYS_STATUS_ERROR;
                     done = true;
                 }
@@ -1611,7 +1644,7 @@ static bool _CheckId(DRV_LAN865X_DriverInfo * pDrvInst)
         case 4:
             pDrvInst->chipRev = (pDrvInst->initReadVal & 0xFu);
             if (0u == pDrvInst->chipRev) {
-                PRINT("Invalid Chip Revision\r\n");
+                PRINT_FORCE("Invalid Chip Revision\r\n");
                 pDrvInst->state = SYS_STATUS_ERROR;
             }
             done = true;
@@ -1760,7 +1793,7 @@ static bool _InitConfig(DRV_LAN865X_DriverInfo * pDrvInst)
                 if (chipHealth) {
                     pDrvInst->initSubState = 10;
                 } else {
-                    PRINT("chip_error! Please contact microchip support for replacement.\r\n");
+                    PRINT_FORCE("chip_error! Please contact microchip support for replacement.\r\n");
                     pDrvInst->state = SYS_STATUS_ERROR;
                     done = true;
                 }
@@ -1777,7 +1810,7 @@ static bool _InitConfig(DRV_LAN865X_DriverInfo * pDrvInst)
                 if (pDrvInst->initOffset1 >= -5) {
                     pDrvInst->initSubState = 20;
                 } else {
-                    PRINT("chip_error! Please contact microchip support for replacement.\r\n");
+                    PRINT_FORCE("chip_error! Please contact microchip support for replacement.\r\n");
                     pDrvInst->state = SYS_STATUS_ERROR;
                     done = true;
                 }
@@ -2088,7 +2121,7 @@ static void _OnInitialRegisterCB(TC6_t *pInst, bool success, uint32_t addr, uint
     (void)value;
     (void)pGlobalTag;
     if (!success) {
-        PRINT("Setting failed, addr=0x%X\r\n", addr);
+        PRINT_LIMIT("Setting failed, addr=0x%X\r\n", addr);
     }
 }
 
@@ -2101,7 +2134,7 @@ static void _OnRegisterDoneCB(TC6_t *pInst, bool success, uint32_t addr, uint32_
     if (success) {
         TC6_EnableData(pInst, true);
     } else {
-        PRINT("Final setting failed\r\n");
+        PRINT_LIMIT("Final setting failed\r\n");
     }
 }
 
@@ -2117,28 +2150,28 @@ static void _OnExtendedBlock(TC6_t *pInst, bool success, uint32_t addr, uint32_t
             if (0u != (value & (1u << i))) {
                 switch (i) {
                     case 0:
-                        PRINT("ExtBlock.SPI_Err_Int\r\n");
+                        PRINT_LIMIT("ExtBlock.SPI_Err_Int\r\n");
                         break;
                     case 1:
-                        PRINT("ExtBlock.MAC_BMGR_Int\r\n");
+                        PRINT_LIMIT("ExtBlock.MAC_BMGR_Int\r\n");
                         break;
                     case 2:
-                        PRINT("ExtBlock.MAC_Int\r\n");
+                        PRINT_LIMIT("ExtBlock.MAC_Int\r\n");
                         break;
                     case 3:
-                        PRINT("ExtBlock.HMX_Int\r\n");
+                        PRINT_LIMIT("ExtBlock.HMX_Int\r\n");
                         break;
                     case 31:
-                        PRINT("ExtBlock.GINT_Mask\r\n");
+                        PRINT_LIMIT("ExtBlock.GINT_Mask\r\n");
                         break;
                     default:
-                        PRINT("ExtBlock.UnknownError\r\n");
+                        PRINT_LIMIT("ExtBlock.UnknownError\r\n");
                         break;
                 }
             }
         }
     } else {
-        PRINT("ExtBlock.UnknownError\r\n");
+        PRINT_LIMIT("ExtBlock.UnknownError\r\n");
     }
 }
 
@@ -2172,55 +2205,55 @@ static void _OnStatus1(TC6_t *pInst, bool success, uint32_t addr, uint32_t value
             if (0u != (value & (1u << i))) {
                 switch (i) {
                     case 0:
-                        PRINT("Status1.RX_Non_Recoverable_Error\r\n");
+                        PRINT_LIMIT("Status1.RX_Non_Recoverable_Error\r\n");
                         reinit = true;
                         break;
                     case 1:
-                        PRINT("Status1.TX_Non_Recoverable_Error\r\n");
+                        PRINT_LIMIT("Status1.TX_Non_Recoverable_Error\r\n");
                         reinit = true;
                         break;
                     case 17:
-                        PRINT("Status1.FSM_State_Error\r\n");
+                        PRINT_LIMIT("Status1.FSM_State_Error\r\n");
                         break;
                     case 18:
-                        PRINT("Status1.SRAM_ECC_Error\r\n");
+                        PRINT_LIMIT("Status1.SRAM_ECC_Error\r\n");
                         break;
                     case 19:
-                        PRINT("Status1.Undervoltage\r\n");
+                        PRINT_LIMIT("Status1.Undervoltage\r\n");
                         break;
                     case 20:
-                        PRINT("Status1.Internal_Bus_Error\r\n");
+                        PRINT_LIMIT("Status1.Internal_Bus_Error\r\n");
                         break;
                     case 21:
-                        PRINT("Status1.TX_Timestamp_Capture_Overflow_A\r\n");
+                        PRINT_LIMIT("Status1.TX_Timestamp_Capture_Overflow_A\r\n");
                         break;
                     case 22:
-                        PRINT("Status1.TX_Timestamp_Capture_Overflow_B\r\n");
+                        PRINT_LIMIT("Status1.TX_Timestamp_Capture_Overflow_B\r\n");
                         break;
                     case 23:
-                        PRINT("Status1.TX_Timestamp_Capture_Overflow_C\r\n");
+                        PRINT_LIMIT("Status1.TX_Timestamp_Capture_Overflow_C\r\n");
                         break;
                     case 24:
-                        PRINT("Status1.TX_Timestamp_Capture_Missed_A\r\n");
+                        PRINT_LIMIT("Status1.TX_Timestamp_Capture_Missed_A\r\n");
                         break;
                     case 25:
-                        PRINT("Status1.TX_Timestamp_Capture_Missed_B\r\n");
+                        PRINT_LIMIT("Status1.TX_Timestamp_Capture_Missed_B\r\n");
                         break;
                     case 26:
-                        PRINT("Status1.TX_Timestamp_Capture_Missed_C\r\n");
+                        PRINT_LIMIT("Status1.TX_Timestamp_Capture_Missed_C\r\n");
                         break;
                     case 27:
-                        PRINT("Status1.MCLK_GEN_Status\r\n");
+                        PRINT_LIMIT("Status1.MCLK_GEN_Status\r\n");
                         break;
                     case 28:
-                        PRINT("Status1.gPTP_PA_TS_EG_Status\r\n");
+                        PRINT_LIMIT("Status1.gPTP_PA_TS_EG_Status\r\n");
                         break;
                     case 29:
-                        PRINT("Status1.Extended_Block_Status\r\n");
+                        PRINT_LIMIT("Status1.Extended_Block_Status\r\n");
                          pDrvInst->extBlock = true;
                         break;
                     default:
-                        PRINT("Status1.UnknownError\r\n");
+                        PRINT_LIMIT("Status1.UnknownError\r\n");
                         break;
                 }
             }
@@ -2236,7 +2269,7 @@ static void _OnStatus1(TC6_t *pInst, bool success, uint32_t addr, uint32_t value
             pDrvInst->state = SYS_STATUS_UNINITIALIZED;
         }
     } else {
-        PRINT("Status1.UnknownError\r\n");
+        PRINT_LIMIT("Status1.UnknownError\r\n");
     }
 }
 
@@ -2268,47 +2301,47 @@ static void _OnStatus0(TC6_t *pInst, bool success, uint32_t addr, uint32_t value
                 if (0u != (value & (1u << i))) {
                     switch (i) {
                         case 0:
-                            PRINT("Status0.Transmit Protocol Error\r\n");
+                            PRINT_LIMIT("Status0.Transmit Protocol Error\r\n");
                             break;
                         case 1:
-                            PRINT("Status0.Transmit Buffer Overflow Error\r\n");
+                            PRINT_LIMIT("Status0.Transmit Buffer Overflow Error\r\n");
                             break;
                         case 2:
-                            PRINT("Status0.Transmit Buffer Underflow Error\r\n");
+                            PRINT_LIMIT("Status0.Transmit Buffer Underflow Error\r\n");
                             break;
                         case 3:
-                            PRINT("Status0.Receive Buffer Overflow Error\r\n");
+                            PRINT_LIMIT("Status0.Receive Buffer Overflow Error\r\n");
                             break;
                         case 4:
-                            PRINT("Status0.Loss of Framing Error\r\n");
+                            PRINT_LIMIT("Status0.Loss of Framing Error\r\n");
                             reinit = true;
                             break;
                         case 5:
-                            PRINT("Status0.Header Error\r\n");
+                            PRINT_LIMIT("Status0.Header Error\r\n");
                             break;
                         case 6:
-                            PRINT("Status0.Reset Complete\r\n");
+                            PRINT_LIMIT("Status0.Reset Complete\r\n");
                             break;
                         case 7:
-                            PRINT("Status0.PHY Interrupt\r\n");
+                            PRINT_LIMIT("Status0.PHY Interrupt\r\n");
                             break;
                         case 8:
-                            PRINT("Status0.Transmit Timestamp Capture Available A\r\n");
+                            PRINT_LIMIT("Status0.Transmit Timestamp Capture Available A\r\n");
                             break;
                         case 9:
-                            PRINT("Status0.Transmit Timestamp Capture Available B\r\n");
+                            PRINT_LIMIT("Status0.Transmit Timestamp Capture Available B\r\n");
                             break;
                         case 10:
-                            PRINT("Status0.Transmit Timestamp Capture Available C\r\n");
+                            PRINT_LIMIT("Status0.Transmit Timestamp Capture Available C\r\n");
                             break;
                         case 11:
-                            PRINT("Status0.Transmit Frame Check Sequence Error\r\n");
+                            PRINT_LIMIT("Status0.Transmit Frame Check Sequence Error\r\n");
                             break;
                         case 12:
-                            PRINT("Status0.Control Data Protection Error\r\n");
+                            PRINT_LIMIT("Status0.Control Data Protection Error\r\n");
                             break;
                         default:
-                            PRINT("Status0.Unknown Bit=%d reg-val=0x%d\r\n", i, value);
+                            PRINT_LIMIT("Status0.Unknown Bit=%d reg-val=0x%d\r\n", i, value);
                             break;
                     }
                 }
@@ -2318,7 +2351,7 @@ static void _OnStatus0(TC6_t *pInst, bool success, uint32_t addr, uint32_t value
                 pDrvInst->state = SYS_STATUS_UNINITIALIZED;
             }
         } else {
-            PRINT("Config0 register read failed\r\n");
+            PRINT_LIMIT("Config0 register read failed\r\n");
         }
     }
 }

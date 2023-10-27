@@ -3,11 +3,11 @@
 
   Summary:
     ARP implementation file
-    
+
   Description:
-    This source file contains the functions and storage of the 
+    This source file contains the functions and storage of the
     ARP routines
-    
+
     Provides IP address to Ethernet MAC address translation
     Reference: RFC 826
 *******************************************************************************/
@@ -111,7 +111,7 @@ static void         _SwapARPPacket(ARP_PACKET* p);
 
 static void         _ARPUpdateEntry(TCPIP_NET_IF* pIf, ARP_HASH_ENTRY* arpHE, const TCPIP_MAC_ADDR* hwAdd);
 static TCPIP_ARP_RESULT   _ARPAddCompleteEntry(TCPIP_NET_IF* pIf, IPV4_ADDR* pIPAddr, const TCPIP_MAC_ADDR* hwAdd);
-    
+
 #if (TCPIP_STACK_DOWN_OPERATION != 0)
 static void         _ARPDeleteResources(void);
 static void         _ARPDeleteCache(ARP_CACHE_DCPT* pArpDcpt);
@@ -147,12 +147,12 @@ void TCPIP_ARP_HashKeyCopy(OA_HASH_DCPT* pOH, OA_HASH_ENTRY* dstEntry, const voi
 {
     arpHE->hEntry.flags.value &= ~ARP_FLAG_ENTRY_VALID_MASK;
     arpHE->hEntry.flags.value |= newFlags;
-    
+
     if(hwAdd)
     {
         arpHE->hwAdd = *hwAdd;
     }
-    
+
     arpHE->tInsert = arpMod.timeSeconds;
     arpHE->nRetries = 1;
     if(addList)
@@ -230,10 +230,10 @@ static __inline__  ARP_CACHE_DCPT*  __attribute__((always_inline)) _ARPGetIfDcpt
 
   Summary:
     Registering callback with ARP module to get notified about certian events.
-    
+
   Description:
     This function allows end user application to register with callbacks, which
-    will be called by ARP module to give notification to user-application about 
+    will be called by ARP module to give notification to user-application about
     events occurred at ARP layer. For ex: when a ARP-packet is received, which is
     conflicting with our own pair of addresses (MAC-Address and IP-address).
     This is an extension for zeroconf protocol implementation (ZeroconfLL.c)
@@ -242,14 +242,14 @@ static __inline__  ARP_CACHE_DCPT*  __attribute__((always_inline)) _ARPGetIfDcpt
     None
 
   Parameters:
-    app - ARP-Application callbacks structure supplied by user-application 
-    
+    app - ARP-Application callbacks structure supplied by user-application
+
   Returns:
     id > 0 - Returns non-negative value that represents the id of registration
              The same id needs to be used in de-registration
     -1     - When registered applications exceed MAX_REG_APPS and there is no
              free slot for registration
- 
+
   ***************************************************************************/
 int8_t TCPIP_ARP_CallbacksRegister(struct arp_app_callbacks *app)
 {
@@ -272,24 +272,24 @@ int8_t TCPIP_ARP_CallbacksRegister(struct arp_app_callbacks *app)
 
   Summary:
     De-Registering callbacks with ARP module that are registered previously.
-    
+
   Description:
-    This function allows end user-application to de-register with callbacks, 
+    This function allows end user-application to de-register with callbacks,
     which were registered previously.
-    This is called by user-application, when its no longer interested in 
-    notifications from ARP-Module. This allows the other application to get 
-    registered with ARP-module.   
+    This is called by user-application, when its no longer interested in
+    notifications from ARP-Module. This allows the other application to get
+    registered with ARP-module.
 
   Precondition:
     None
 
   Parameters:
     reg_id - Registration-id returned in TCPIP_ARP_CallbacksRegister call
-    
+
   Returns:
     true  - On success
-    false - Failure to indicate invalid reg_id  
-  ***************************************************************************/ 
+    false - Failure to indicate invalid reg_id
+  ***************************************************************************/
 bool TCPIP_ARP_CallbacksDeregister(int8_t reg_id)
 {
     if(reg_id <= 0 || reg_id > MAX_REG_APPS)
@@ -306,20 +306,20 @@ bool TCPIP_ARP_CallbacksDeregister(int8_t reg_id)
 
   Summary:
     Processes Received-ARP packet (ARP request/Reply).
-    
+
   Description:
     This function is to pass-on the ARP-packet to registered application,
-    with the notification of Rx-ARP packet. 
+    with the notification of Rx-ARP packet.
 
   Precondition:
     ARP packet is received completely from MAC
 
   Parameters:
-    pIf   - interface to use 
-    packet - Rx packet to be processed     
+    pIf   - interface to use
+    packet - Rx packet to be processed
 
   Returns:
-    None   
+    None
   ***************************************************************************/
 static void _ARPProcessRxPkt(TCPIP_NET_IF* pIf, ARP_PACKET* packet)
 {
@@ -329,7 +329,7 @@ static void _ARPProcessRxPkt(TCPIP_NET_IF* pIf, ARP_PACKET* packet)
     // Probing Stage
     if(pIf->netIPAddr.Val == 0x00)
     {
-        pass_on = 1; // Pass to Registered-Application for further processing        
+        pass_on = 1; // Pass to Registered-Application for further processing
     }
     else if(pIf->netIPAddr.Val)
     {
@@ -341,17 +341,17 @@ static void _ARPProcessRxPkt(TCPIP_NET_IF* pIf, ARP_PACKET* packet)
     }
     if(pass_on)
     {
-    
+
         for(i =0; i< MAX_REG_APPS; i++)
         {
             if(reg_apps[i].used)
             {
                 reg_apps[i].TCPIP_ARP_PacketNotify(pIf,
-				packet->SenderIPAddr.Val,
+                packet->SenderIPAddr.Val,
                                 packet->TargetIPAddr.Val,
                                 &packet->SenderMACAddr,
                                 &packet->TargetMACAddr,
-                                packet->Operation);                
+                                packet->Operation);
             }
         }
     }
@@ -457,12 +457,12 @@ static bool _ARPSendIfPkt(TCPIP_NET_IF* pIf, TCPIP_ARP_OPERATION_TYPE oper, uint
   ***************************************************************************/
 static void _ARPUpdateEntry(TCPIP_NET_IF* pIf, ARP_HASH_ENTRY* arpHE, const TCPIP_MAC_ADDR* hwAdd)
 {
-    TCPIP_ARP_EVENT_TYPE evType; 
+    TCPIP_ARP_EVENT_TYPE evType;
     ARP_CACHE_DCPT  *pArpDcpt;
-    
+
     pArpDcpt = _ARPGetIfDcpt(pIf);
     if((arpHE->hEntry.flags.value & ARP_FLAG_ENTRY_PERM) == 0)
-    {   
+    {
 
         if((arpHE->hEntry.flags.value & ARP_FLAG_ENTRY_COMPLETE) == 0)
         {   // was waiting for this one, it was queued
@@ -474,7 +474,7 @@ static void _ARPUpdateEntry(TCPIP_NET_IF* pIf, ARP_HASH_ENTRY* arpHE, const TCPI
             evType = ARP_EVENT_UPDATED;
             TCPIP_Helper_ProtectedSingleListNodeRemove(&pArpDcpt->completeList, (SGL_LIST_NODE*)&arpHE->next);
         }
-        
+
         // move to tail, updated
         _ARPSetEntry(arpHE, ARP_FLAG_ENTRY_COMPLETE, hwAdd, &pArpDcpt->completeList);
     }
@@ -499,7 +499,7 @@ static void _ARPUpdateEntry(TCPIP_NET_IF* pIf, ARP_HASH_ENTRY* arpHE, const TCPI
     None
 
   Parameters:
-    pIf             - network interface 
+    pIf             - network interface
     arpHE           - particular cache entry to be updated
     hwAdd           - the (new) hardware address
 
@@ -514,7 +514,7 @@ static TCPIP_ARP_RESULT _ARPAddCompleteEntry(TCPIP_NET_IF* pIf, IPV4_ADDR* pIPAd
     OA_HASH_ENTRY   *hE;
 
     pArpDcpt = _ARPGetIfDcpt(pIf);
-    
+
     hE = TCPIP_OAHASH_EntryLookupOrInsert(pArpDcpt->hashDcpt, pIPAddr);
     if(hE == 0)
     {   // oops, hash full?
@@ -543,14 +543,14 @@ static TCPIP_ARP_RESULT _ARPAddCompleteEntry(TCPIP_NET_IF* pIf, IPV4_ADDR* pIPAd
 
   Summary:
     Initializes the ARP module.
-    
+
   Description:
     Initializes the ARP module.
     Calls can be done with the request of not tearing down the ARP cache
     This helps for ifup/ifdown sequences.
     Of course, if this is the case the memory allocated for the ARP cache
     has to be from a persistent heap.
-    
+
   Precondition:
     None
 
@@ -561,13 +561,13 @@ static TCPIP_ARP_RESULT _ARPAddCompleteEntry(TCPIP_NET_IF* pIf, IPV4_ADDR* pIPAd
   Returns:
     true if initialization succeded,
     false otherwise
-  
+
   Remarks:
     The request to maintain old ARP cache info (deleteOld field from the TCPIP_ARP_MODULE_CONFIG initialization data)
     is not implemented for stack init/deinit sequences.
     To maintain the data after the stack is completely de-initialized would need a persistent heap
     that's not yet implemented.
-    The selection cannot be changed by ifup since this operation does not carry ARP configuration 
+    The selection cannot be changed by ifup since this operation does not carry ARP configuration
     parameters (arpDate == 0).
   ***************************************************************************/
 bool TCPIP_ARP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const TCPIP_ARP_MODULE_CONFIG* arpData)
@@ -589,7 +589,7 @@ bool TCPIP_ARP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const 
                 return true;
             }
 #endif // (TCPIP_ARP_PRIMARY_CACHE_ONLY != 0)
-            
+
             pArpDcpt = _ARPGetIfDcpt(stackCtrl->pNetIf);
             _ARPRemoveCacheEntries(pArpDcpt);
         }
@@ -641,7 +641,7 @@ bool TCPIP_ARP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const 
 
         if(arpMod.arpCacheDcpt == 0)
         {
-            arpMod.arpCacheDcpt = (ARP_CACHE_DCPT*)TCPIP_HEAP_Calloc(arpMod.memH, arpMod.nIfs, sizeof(*arpMod.arpCacheDcpt)); 
+            arpMod.arpCacheDcpt = (ARP_CACHE_DCPT*)TCPIP_HEAP_Calloc(arpMod.memH, arpMod.nIfs, sizeof(*arpMod.arpCacheDcpt));
             if(arpMod.arpCacheDcpt == 0)
             {   // failed
                 return false;
@@ -672,7 +672,7 @@ bool TCPIP_ARP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const 
 #endif  // defined(OA_DOUBLE_HASH_PROBING)
                 hashDcpt->delF = TCPIP_ARP_HashEntryDelete;
                 hashDcpt->cmpF = TCPIP_ARP_HashKeyCompare;
-                hashDcpt->cpyF = TCPIP_ARP_HashKeyCopy; 
+                hashDcpt->cpyF = TCPIP_ARP_HashKeyCopy;
 #endif  // defined ( OA_HASH_DYNAMIC_KEY_MANIPULATION )
                 TCPIP_OAHASH_Initialize(hashDcpt);
 
@@ -726,7 +726,7 @@ bool TCPIP_ARP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const 
         _ARPRemoveCacheEntries(pArpDcpt);
     }
     // else do not re-initialize
-    
+
     arpMod.initCount++;
 
     return true;
@@ -745,11 +745,11 @@ void TCPIP_ARP_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl)
         {   // interface going down
             if(arpMod.deleteOld)
             {
-                ARP_CACHE_DCPT* pArpDcpt;    
+                ARP_CACHE_DCPT* pArpDcpt;
 #if (TCPIP_ARP_PRIMARY_CACHE_ONLY != 0)
                 pArpDcpt = _TCPIPStackNetIsPrimary(stackCtrl->pNetIf) ? _ARPGetIfDcpt(stackCtrl->pNetIf) : 0;
 #else
-                pArpDcpt = _ARPGetIfDcpt(stackCtrl->pNetIf);    
+                pArpDcpt = _ARPGetIfDcpt(stackCtrl->pNetIf);
 #endif // (TCPIP_ARP_PRIMARY_CACHE_ONLY != 0)
                 if(pArpDcpt != 0)
                 {
@@ -820,7 +820,7 @@ static void _ARPDeleteCache(ARP_CACHE_DCPT* pArpDcpt)
         TCPIP_Helper_ProtectedSingleListDeinitialize(&pArpDcpt->incompleteList);
         TCPIP_Helper_ProtectedSingleListDeinitialize(&pArpDcpt->completeList);
         TCPIP_Helper_ProtectedSingleListDeinitialize(&pArpDcpt->permList);
-        
+
         TCPIP_HEAP_Free(arpMod.memH, pArpDcpt->hashDcpt);
         pArpDcpt->hashDcpt = 0;
     }
@@ -869,6 +869,7 @@ TCPIP_ARP_HANDLE TCPIP_ARP_HandlerRegister(TCPIP_NET_HANDLE hNet, TCPIP_ARP_EVEN
     if(handler && arpMod.memH)
     {
         ARP_LIST_NODE arpNode;
+        arpNode.next = 0;
         arpNode.handler = handler;
         arpNode.hParam = hParam;
         arpNode.hNet = hNet;
@@ -907,7 +908,7 @@ static void _ARPNotifyClients(TCPIP_NET_IF* pNetIf, const IPV4_ADDR* ipAdd, cons
         }
     }
     TCPIP_Notification_Unlock(&arpMod.registeredUsers);
-    
+
 }
 
 
@@ -930,7 +931,7 @@ void TCPIP_ARP_Task(void)
         nIfs = TCPIP_STACK_NumberOfNetworksGet();
         for(netIx = 0; netIx < nIfs; netIx++)
         {
-           if((signalParam & (1 << netIx)) != 0) 
+           if((signalParam & (1 << netIx)) != 0)
            {
                pIf = (TCPIP_NET_IF*)TCPIP_STACK_IndexToNet(netIx);
                // gratuitous PROBE_ONLY
@@ -941,7 +942,7 @@ void TCPIP_ARP_Task(void)
 #else
     sigPend = _TCPIPStackModuleSignalGet(TCPIP_THIS_MODULE_ID, TCPIP_MODULE_SIGNAL_MASK_ALL);
 #endif  // (_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
-    
+
     if((sigPend & TCPIP_MODULE_SIGNAL_RX_PENDING) != 0)
     { //  RX signal occurred
         TCPIP_ARP_Process();
@@ -1057,10 +1058,10 @@ static void TCPIP_ARP_Timeout(void)
                     break;
                 }
             }
-        } 
+        }
 
-        pArpDcpt++;  
-    } 
+        pArpDcpt++;
+    }
 
 }
 
@@ -1144,12 +1145,12 @@ static void TCPIP_ARP_Process(void)
 
                 // Handle incoming ARP operation
                 if(pArpPkt->Operation == ARP_OPERATION_REQ)
-                {   
-                    // ARP packet asking for this host IP address 
+                {
+                    // ARP packet asking for this host IP address
 #ifdef TCPIP_STACK_USE_ZEROCONF_LINK_LOCAL
                     /* Fix for Loop-Back suppression:
                      * For ZCLL-Claim packets, host should not respond.
-                     * Check Sender's MAC-address with own MAC-address and 
+                     * Check Sender's MAC-address with own MAC-address and
                      * if it is matched, response will not be sent back. This
                      * was leading to flooding of ARP-answeres */
                     if(!memcmp (&pArpPkt->SenderMACAddr, &pTgtIf->netMACAddr, 6))
@@ -1161,7 +1162,7 @@ static void TCPIP_ARP_Process(void)
                     }
 #endif
 
-                    // Need to send a reply to the requestor 
+                    // Need to send a reply to the requestor
                     // Send an ARP response to the received request
                     if(!_ARPSendIfPkt(pInIf, ARP_OPERATION_RESP, (uint32_t)pTgtIf->netIPAddr.Val, (uint32_t)pArpPkt->SenderIPAddr.Val, &pArpPkt->SenderMACAddr, &pTgtIf->netMACAddr))
                     {
@@ -1178,23 +1179,23 @@ static void TCPIP_ARP_Process(void)
         {
         }
 
-        TCPIP_PKT_PacketAcknowledge(pPkt, ackRes); 
+        TCPIP_PKT_PacketAcknowledge(pPkt, ackRes);
     }
 
 }
 
-    
+
 // the IP layer should request for the proper IP address!
 // no checking is done at this level
 TCPIP_ARP_RESULT TCPIP_ARP_Resolve(TCPIP_NET_HANDLE hNet, const IPV4_ADDR* IPAddr)
 {
     TCPIP_NET_IF *pIf;
-   
+
     if(IPAddr == 0 || IPAddr->Val == 0)
     {   // do not store 0's in cache
         return ARP_RES_BAD_ADDRESS;
     }
-    
+
     pIf = _TCPIPStackHandleToNetLinked(hNet);
     if(pIf == 0)
     {
@@ -1238,8 +1239,8 @@ static TCPIP_ARP_RESULT _ARPProbeAddress(TCPIP_NET_IF* pIf, const IPV4_ADDR* IPA
 {
     ARP_CACHE_DCPT  *pArpDcpt;
     OA_HASH_ENTRY   *hE;
-   
-     
+
+
     if((opType & ARP_OPERATION_PROBE_ONLY) != 0)
     {   // just send an ARP probe
         return _ARPSendIfPkt(pIf, (opType & ARP_OPERATION_MASK), (uint32_t)srcAddr->Val, (uint32_t)IPAddr->Val, &arpBcastAdd, 0) ? ARP_RES_PROBE_OK : ARP_RES_PROBE_FAILED;
@@ -1252,11 +1253,11 @@ static TCPIP_ARP_RESULT _ARPProbeAddress(TCPIP_NET_IF* pIf, const IPV4_ADDR* IPA
     {   // oops!
         return ARP_RES_CACHE_FULL;
     }
-        
+
     if(hE->flags.newEntry != 0)
-    {   // new entry; add it to the not done list 
+    {   // new entry; add it to the not done list
         ARP_ENTRY_FLAGS newFlags = (opType & ARP_OPERATION_CONFIGURE) != 0 ? ARP_FLAG_ENTRY_CONFIGURE : 0;
-        if((opType & ARP_OPERATION_GRATUITOUS) != 0) 
+        if((opType & ARP_OPERATION_GRATUITOUS) != 0)
         {
             newFlags |= ARP_FLAG_ENTRY_GRATUITOUS;
         }
@@ -1282,7 +1283,7 @@ static TCPIP_ARP_RESULT _ARPProbeAddress(TCPIP_NET_IF* pIf, const IPV4_ADDR* IPA
         }
         return ARP_RES_ENTRY_SOLVED;
     }
-    
+
     // incomplete
     return ARP_RES_ENTRY_QUEUED;
 
@@ -1296,7 +1297,7 @@ bool TCPIP_ARP_IsResolved(TCPIP_NET_HANDLE hNet, const IPV4_ADDR* IPAddr, TCPIP_
     TCPIP_NET_IF  *pIf;
 
     if(IPAddr == 0 || IPAddr->Val == 0)
-    {   
+    {
         return false;
     }
 
@@ -1305,10 +1306,10 @@ bool TCPIP_ARP_IsResolved(TCPIP_NET_HANDLE hNet, const IPV4_ADDR* IPAddr, TCPIP_
     {
         return false;
     }
-    
+
 
     pArpDcpt = _ARPGetIfDcpt(pIf);
-    
+
     hE = TCPIP_OAHASH_EntryLookup(pArpDcpt->hashDcpt, &IPAddr->Val);
     if(hE != 0 && (hE->flags.value & ARP_FLAG_ENTRY_VALID_MASK) != 0 )
     {   // found address in cache
@@ -1323,9 +1324,9 @@ bool TCPIP_ARP_IsResolved(TCPIP_NET_HANDLE hNet, const IPV4_ADDR* IPAddr, TCPIP_
         }
         return true;
     }
-    
+
     return false;
-    
+
 }
 
 
@@ -1367,13 +1368,13 @@ TCPIP_ARP_RESULT TCPIP_ARP_EntrySet(TCPIP_NET_HANDLE hNet, const IPV4_ADDR* ipAd
     {   // do not store 0's in cache
         return ARP_RES_BAD_ADDRESS;
     }
-    
+
     pIf = _TCPIPStackHandleToNetUp(hNet);
     if(!pIf)
     {
         return ARP_RES_NO_INTERFACE;
     }
-    
+
     pArpDcpt = _ARPGetIfDcpt(pIf);
 
     hE = TCPIP_OAHASH_EntryLookupOrInsert(pArpDcpt->hashDcpt, &ipAdd->Val);
@@ -1393,9 +1394,9 @@ TCPIP_ARP_RESULT TCPIP_ARP_EntrySet(TCPIP_NET_HANDLE hNet, const IPV4_ADDR* ipAd
         newList = &pArpDcpt->completeList;
         newFlags = ARP_FLAG_ENTRY_COMPLETE;       // complete
     }
-    
+
     arpHE = (ARP_HASH_ENTRY*)hE;
-   
+
     if(hE->flags.newEntry == 0)
     {   // existent entry
         if( (hE->flags.value & ARP_FLAG_ENTRY_PERM) != 0 )
@@ -1421,7 +1422,7 @@ TCPIP_ARP_RESULT TCPIP_ARP_EntrySet(TCPIP_NET_HANDLE hNet, const IPV4_ADDR* ipAd
     {
         res = ARP_RES_OK;
     }
-    
+
     // add it to where it belongs
     _ARPSetEntry(arpHE, newFlags, hwAdd, newList);
 
@@ -1434,7 +1435,7 @@ TCPIP_ARP_RESULT TCPIP_ARP_EntrySet(TCPIP_NET_HANDLE hNet, const IPV4_ADDR* ipAd
 }
 
 TCPIP_ARP_RESULT TCPIP_ARP_EntryGet(TCPIP_NET_HANDLE hNet, const IPV4_ADDR* ipAdd, TCPIP_MAC_ADDR* pHwAdd, bool probe)
-{   
+{
     TCPIP_NET_IF  *pIf;
 
     if(ipAdd == 0 || ipAdd->Val == 0)
@@ -1479,7 +1480,7 @@ TCPIP_ARP_RESULT TCPIP_ARP_EntryRemove(TCPIP_NET_HANDLE hNet,  const IPV4_ADDR* 
     {
         return ARP_RES_NO_INTERFACE;
     }
-    
+
 
     pArpDcpt = _ARPGetIfDcpt(pIf);
 
@@ -1492,7 +1493,7 @@ TCPIP_ARP_RESULT TCPIP_ARP_EntryRemove(TCPIP_NET_HANDLE hNet,  const IPV4_ADDR* 
 
     _ARPRemoveEntry(pArpDcpt, hE);
     _ARPNotifyClients(pIf, &((ARP_HASH_ENTRY*)hE)->ipAddress, 0, ARP_EVENT_REMOVED_USER);
-    
+
     return ARP_RES_OK;
 }
 
@@ -1528,12 +1529,12 @@ TCPIP_ARP_RESULT TCPIP_ARP_EntryRemoveNet(TCPIP_NET_HANDLE hNet, const IPV4_ADDR
         case ARP_ENTRY_TYPE_COMPLETE:
             andFlags = resFlags =  ARP_FLAG_ENTRY_COMPLETE;
             break;
-            
+
         case ARP_ENTRY_TYPE_INCOMPLETE:
             andFlags = (ARP_FLAG_ENTRY_PERM | ARP_FLAG_ENTRY_COMPLETE);
             resFlags = 0;
             break;
-            
+
         case ARP_ENTRY_TYPE_ANY:
             andFlags = resFlags = 0;
             break;
@@ -1547,7 +1548,7 @@ TCPIP_ARP_RESULT TCPIP_ARP_EntryRemoveNet(TCPIP_NET_HANDLE hNet, const IPV4_ADDR
     pOH = pArpDcpt->hashDcpt;
     matchAdd = ipAdd->Val & mask->Val;
 
-    
+
     // scan all entries
     for(index = 0; index < pOH->hEntries; index++)
     {
@@ -1622,20 +1623,20 @@ TCPIP_ARP_RESULT TCPIP_ARP_EntryQuery(TCPIP_NET_HANDLE hNet, size_t index, TCPIP
 
     pArpDcpt = _ARPGetIfDcpt(pIf);
     hE = TCPIP_OAHASH_EntryGet(pArpDcpt->hashDcpt, index);
-    
+
 
     if(hE == 0)
     {
         return ARP_RES_BAD_INDEX;
     }
-    
+
     arpHE = (ARP_HASH_ENTRY*)hE;
 
     if(pArpQuery)
     {
         pArpQuery->entryIpAdd.Val = 0;
         pArpQuery->entryHwAdd = noHwAdd;
-        
+
         if(hE->flags.busy == 0)
         {
             pArpQuery->entryType = ARP_ENTRY_TYPE_INVALID;
@@ -1660,13 +1661,13 @@ TCPIP_ARP_RESULT TCPIP_ARP_EntryQuery(TCPIP_NET_HANDLE hNet, size_t index, TCPIP
 size_t TCPIP_ARP_CacheEntriesNoGet(TCPIP_NET_HANDLE hNet, TCPIP_ARP_ENTRY_TYPE type)
 {
     TCPIP_NET_IF  *pIf;
-    
+
     pIf = _TCPIPStackHandleToNetUp(hNet);
     if(!pIf)
     {
         return 0;
     }
-    
+
     ARP_CACHE_DCPT  *pArpDcpt = _ARPGetIfDcpt(pIf);
     OA_HASH_DCPT    *pOH = pArpDcpt->hashDcpt;
 
@@ -1702,7 +1703,7 @@ TCPIP_ARP_RESULT TCPIP_ARP_CacheThresholdSet(TCPIP_NET_HANDLE hNet, int purgeThr
     {
         return ARP_RES_NO_INTERFACE;
     }
-    
+
     ARP_CACHE_DCPT  *pArpDcpt = _ARPGetIfDcpt(pIf);
 
     pArpDcpt->purgeThres = (purgeThres * pArpDcpt->hashDcpt->hEntries + 99)/100;
@@ -1714,7 +1715,7 @@ TCPIP_ARP_RESULT TCPIP_ARP_CacheThresholdSet(TCPIP_NET_HANDLE hNet, int purgeThr
 #if !defined ( OA_HASH_DYNAMIC_KEY_MANIPULATION )
 
 // static versions
-// 
+//
 size_t TCPIP_OAHASH_KeyHash(OA_HASH_DCPT* pOH, const void* key)
 {
     return fnv_32_hash(key, sizeof(((ARP_HASH_ENTRY*)0)->ipAddress)) % (pOH->hEntries);
@@ -1738,8 +1739,8 @@ OA_HASH_ENTRY* TCPIP_OAHASH_EntryDelete(OA_HASH_DCPT* pOH)
     ARP_CACHE_DCPT  *pArpDcpt;
     ARP_HASH_ENTRY  *pE;
     SGL_LIST_NODE   *pN;
-    SINGLE_LIST     *pRemList = 0;    
-    
+    SINGLE_LIST     *pRemList = 0;
+
     pArpDcpt = (ARP_CACHE_DCPT*)pOH->hParam;
 
     if( (pN = pArpDcpt->incompleteList.head) != 0)
@@ -1761,12 +1762,12 @@ OA_HASH_ENTRY* TCPIP_OAHASH_EntryDelete(OA_HASH_DCPT* pOH)
     if(pN)
     {
         pE = (ARP_HASH_ENTRY*) ((uint8_t*)pN - offsetof(struct _TAG_ARP_HASH_ENTRY, next));
-        return &pE->hEntry;    
+        return &pE->hEntry;
     }
 
     // it's possible to be unable to make room in the cache
     // for example, too many permanent entries added...
-                   
+
     return 0;
 }
 
@@ -1784,7 +1785,7 @@ void TCPIP_OAHASH_KeyCopy(OA_HASH_DCPT* pOH, OA_HASH_ENTRY* dstEntry, const void
 
 #else   // defined ( OA_HASH_DYNAMIC_KEY_MANIPULATION )
 // dynamic versions
-// 
+//
 size_t TCPIP_ARP_HashKeyHash(OA_HASH_DCPT* pOH, const void* key)
 {
     return fnv_32_hash(key, sizeof(((ARP_HASH_ENTRY*)0)->ipAddress)) % (pOH->hEntries);
@@ -1809,7 +1810,7 @@ OA_HASH_ENTRY* TCPIP_ARP_HashEntryDelete(OA_HASH_DCPT* pOH)
     ARP_HASH_ENTRY  *pE;
     SGL_LIST_NODE   *pN;
     PROTECTED_SINGLE_LIST     *pRemList = 0;
-    
+
     pArpDcpt = (ARP_CACHE_DCPT*)pOH->hParam;
 
     if( (pN = pArpDcpt->incompleteList.list.head) != 0)
@@ -1831,12 +1832,12 @@ OA_HASH_ENTRY* TCPIP_ARP_HashEntryDelete(OA_HASH_DCPT* pOH)
     if(pN)
     {
         pE = (ARP_HASH_ENTRY*) ((uint8_t*)pN - offsetof(struct _TAG_ARP_HASH_ENTRY, next));
-        return &pE->hEntry;    
+        return &pE->hEntry;
     }
 
     // it's possible to be unable to make room in the cache
     // for example, too many permanent entries added...
-                   
+
     return 0;
 }
 

@@ -267,7 +267,7 @@ extern "C" {
                                                     TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON |\
                                                     TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON |\
                                                     TCPIP_NETWORK_CONFIG_IP_STATIC
-                                                    
+
 #define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0         DRV_LAN865X_MACObject
 
 
@@ -290,7 +290,7 @@ extern "C" {
 
 #define TCPIP_IPV4_COMMANDS false
 
-#define TCPIP_IPV4_FORWARDING_ENABLE    false 
+#define TCPIP_IPV4_FORWARDING_ENABLE    false
 
 
 
@@ -330,6 +330,7 @@ extern "C" {
 
 #define TCPIP_STACK_TICK_RATE		        		5
 #define TCPIP_STACK_SECURE_PORT_ENTRIES             10
+#define TCPIP_STACK_LINK_RATE		        		333
 
 #define TCPIP_STACK_ALIAS_INTERFACE_SUPPORT   false
 

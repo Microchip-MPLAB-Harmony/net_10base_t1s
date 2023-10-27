@@ -3,9 +3,9 @@
 
   Summary:
     Module for Microchip TCP/IP Stack
-    
+
   Description:
-    -Provides unreliable, minimum latency transport of application 
+    -Provides unreliable, minimum latency transport of application
      datagram (packet) oriented data
     -Reference: RFC 768
 *******************************************************************************/
@@ -53,12 +53,12 @@ Microchip or any third party.
 
 /****************************************************************************
   Section:
-	UDP Global Variables
+    UDP Global Variables
   ***************************************************************************/
- 
+
 
 // Store an array of information pertaining to each UDP socket
-static UDP_SOCKET_DCPT** UDPSocketDcpt = 0; 
+static UDP_SOCKET_DCPT** UDPSocketDcpt = 0;
 
 static int          nUdpSockets = 0;    // number of sockets in the current UDP configuration
 static const void*  udpMemH = 0;        // memory handle
@@ -88,12 +88,12 @@ static const void* udpPktHandlerParam;
 
 /****************************************************************************
   Section:
-	Function Prototypes
+    Function Prototypes
   ***************************************************************************/
 
 #if ((TCPIP_UDP_DEBUG_LEVEL & TCPIP_UDP_DEBUG_MASK_RX_CHECK) != 0)
 // check ports: 0 - irrelevant; otherwise it's considered in match
-static uint16_t checkUdpSrcPort = 0; 
+static uint16_t checkUdpSrcPort = 0;
 static uint16_t checkUdpDstPort = 80;
 
 static bool checkStrict = false;    // if 0, then any match, src or dest will do
@@ -146,19 +146,19 @@ static __inline__ OSAL_RESULT  __attribute__((always_inline))   _UserGblLockCrea
 {
     // create the shared Data Lock
     return OSAL_SEM_Create(&userSem, OSAL_SEM_TYPE_BINARY, 1, 1);
-}    
+}
 
 static __inline__ void  __attribute__((always_inline))          _UserGblLockDelete(void)
 {
     OSAL_SEM_Delete(&userSem);
-}    
+}
 
 // locks access to shared resources
 static __inline__ void  __attribute__((always_inline))          _UserGblLock(void)
 {
     // Shared Data Lock
     (void)OSAL_SEM_Pend(&userSem, OSAL_WAIT_FOREVER);
-}    
+}
 
 // unlocks access to shared resources
 static __inline__ void  __attribute__((always_inline))          _UserGblUnlock(void)
@@ -274,7 +274,7 @@ static void _UDPResetRxPacket(UDP_SOCKET_DCPT* pSkt, TCPIP_MAC_PACKET* pRxPkt)
         UDP_HEADER* pUDPHdr = (UDP_HEADER*)pRxPkt->pTransportLayer;
         pSkt->pCurrRxSeg = pRxPkt->pDSeg;
         pSkt->rxSegLen = pRxPkt->pDSeg->segLen - sizeof(UDP_HEADER);
-        pSkt->rxTotLen = pUDPHdr->Length;  
+        pSkt->rxTotLen = pUDPHdr->Length;
         pSkt->rxCurr = pRxPkt->pTransportLayer + sizeof(UDP_HEADER);
 #if (_TCPIP_IPV4_FRAGMENTATION != 0)
         pSkt->pCurrFrag = pRxPkt;
@@ -320,7 +320,7 @@ static void _UDPsetPacketInfo(UDP_SOCKET_DCPT* pSkt, TCPIP_MAC_PACKET* pRxPkt)
         pSkt->pSktNet = (TCPIP_NET_IF*)pRxPkt->pktIf;    // bind it
         if(pSkt->remotePort == 0 || pSkt->flags.fixedDestPort == 0 )
         {
-            pSkt->remotePort = _UDPRxPktSourcePort(pRxPkt); 
+            pSkt->remotePort = _UDPRxPktSourcePort(pRxPkt);
         }
     }
 #endif  // defined (TCPIP_STACK_USE_IPV4)
@@ -341,7 +341,7 @@ static void _UDPsetPacketInfo(UDP_SOCKET_DCPT* pSkt, TCPIP_MAC_PACKET* pRxPkt)
         pSkt->pSktNet = (TCPIP_NET_IF*)pRxPkt->pktIf;    // bind it
         if(pSkt->remotePort == 0 || pSkt->flags.fixedDestPort == 0 )
         {
-            pSkt->remotePort = _UDPRxPktSourcePort(pRxPkt); 
+            pSkt->remotePort = _UDPRxPktSourcePort(pRxPkt);
         }
         pSkt->pV6Pkt->netIfH = (TCPIP_NET_IF*)pRxPkt->pktIf;
         TCPIP_IPV6_PacketIPProtocolSet (pSkt->pV6Pkt);
@@ -421,7 +421,7 @@ static void             TCPIP_UDP_Process(void);
 static UDP_SOCKET       _UDPOpen(IP_ADDRESS_TYPE addType, UDP_OPEN_TYPE opType, UDP_PORT port, IP_MULTI_ADDRESS* address);
 
 #if (TCPIP_STACK_DOWN_OPERATION != 0) || (_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
-static void _UDPAbortSockets(uint32_t netMask, TCPIP_UDP_SIGNAL_TYPE sigType); 
+static void _UDPAbortSockets(uint32_t netMask, TCPIP_UDP_SIGNAL_TYPE sigType);
 #endif  // (TCPIP_STACK_DOWN_OPERATION != 0) || (_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
 
 static bool             _UDPSetSourceAddress(UDP_SOCKET_DCPT* pSkt, IP_ADDRESS_TYPE addType, IP_MULTI_ADDRESS* localAddress)
@@ -510,22 +510,22 @@ static  bool _UDPSocketBind(UDP_SOCKET_DCPT* pSkt, TCPIP_NET_IF* pNet, IP_MULTI_
 
 /****************************************************************************
   Section:
-	Connection Management Functions
+    Connection Management Functions
   ***************************************************************************/
 
 /*****************************************************************************
   Function:
-	void TCPIP_UDP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const TCPIP_UDP_MODULE_CONFIG* pUdpInit)
+    void TCPIP_UDP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const TCPIP_UDP_MODULE_CONFIG* pUdpInit)
 
   Summary:
-	Initializes the UDP module.
+    Initializes the UDP module.
 
   Description:
-	Initializes the UDP module.  This function initializes all the UDP 
-	sockets to the closed state.
+    Initializes the UDP module.  This function initializes all the UDP
+    sockets to the closed state.
 
   Precondition:
-	If passed as a parameter, the used stack heap should be initialized
+    If passed as a parameter, the used stack heap should be initialized
 
   Parameters:
     stackCtrl  - pointer to a Stack initialization structure
@@ -534,14 +534,14 @@ static  bool _UDPSocketBind(UDP_SOCKET_DCPT* pSkt, TCPIP_NET_IF* pNet, IP_MULTI_
                     - nSockets:         number of sockets to be created
                     - sktTxBuffSize:    size of the TX buffer
                     - poolBuffers:      number of buffers in the pool; 0 if none
-                    - poolBufferSize:   size of the buffers in the pool; all equal    
+                    - poolBufferSize:   size of the buffers in the pool; all equal
 
   Returns:
-  	true if success,
+    true if success,
     false otherwise
-  	
+
   Remarks:
-	This function is called only once per interface
+    This function is called only once per interface
     but it actually performs initialization just once
 
     At the time of the call the stack manager makes sure that:
@@ -552,25 +552,25 @@ static  bool _UDPSocketBind(UDP_SOCKET_DCPT* pSkt, TCPIP_NET_IF* pNet, IP_MULTI_
 
    The users should not call the stack/interface initialization
    from multiple threads simultaneously.
-      
+
   ***************************************************************************/
 
 bool TCPIP_UDP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const TCPIP_UDP_MODULE_CONFIG* pUdpInit)
 {
-    UDP_SOCKET_DCPT** newSktDcpt; 
-    
+    UDP_SOCKET_DCPT** newSktDcpt;
+
     if(stackCtrl->stackAction == TCPIP_STACK_ACTION_IF_UP)
     {   // interface start up
         return true;    // do not store per interface data
     }
-    
+
     // stack start up
     if(udpInitCount != 0)
     {   // initialize just once
         udpInitCount++;
         return true;
     }
-    
+
     if(stackCtrl->memH == 0)
     {
         SYS_ERROR(SYS_ERROR_ERROR, "UDP NULL dynamic allocation handle");
@@ -653,32 +653,32 @@ bool TCPIP_UDP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const 
 
     // allow user access
     _UserGblUnlock();
-    
+
     return true;
 }
 
 /*****************************************************************************
   Function:
-	void TCPIP_UDP_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl)
+    void TCPIP_UDP_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl)
 
   Summary:
-	De-Initializes the UDP module.
+    De-Initializes the UDP module.
 
   Description:
-	De-Initializes the UDP module.
+    De-Initializes the UDP module.
     This function initializes each socket to the CLOSED state.
     If dynamic memory was allocated for the UDP sockets, the function
-	will deallocate it.
+    will deallocate it.
 
   Precondition:
-	TCPIP_UDP_Initialize() should have been called
+    TCPIP_UDP_Initialize() should have been called
 
   Parameters:
-	stackCtrl   - pointer to Stack data showing which interface is closing
+    stackCtrl   - pointer to Stack data showing which interface is closing
 
   Returns:
     None
-    
+
   Remarks:
     At the time of the call the stack manager makes sure that:
     - the call occurs from within one thread only (protection against user threads)
@@ -706,7 +706,7 @@ void TCPIP_UDP_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl)
     _UserGblLock();     // make sure no one is opening/closing sockets now
 
     // interface is going down
-    _UDPAbortSockets(1 << stackCtrl->netIx, TCPIP_UDP_SIGNAL_IF_DOWN); 
+    _UDPAbortSockets(1 << stackCtrl->netIx, TCPIP_UDP_SIGNAL_IF_DOWN);
 
     if(stackCtrl->stackAction == TCPIP_STACK_ACTION_DEINIT)
     {   // stack shut down
@@ -717,7 +717,7 @@ void TCPIP_UDP_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl)
             for(ix = 0; ix < nUdpSockets; ix++)
             {
                 pSkt = UDPSocketDcpt[ix];
-                if(pSkt) 
+                if(pSkt)
                 {
                     _UDPClose(pSkt);
                 }
@@ -749,7 +749,7 @@ void TCPIP_UDP_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl)
             killSem = true;
         }
     }
-    
+
     if(killSem)
     {
         _UserGblLockDelete();
@@ -775,10 +775,10 @@ static void _UDPAbortSockets(uint32_t netMask, TCPIP_UDP_SIGNAL_TYPE sigType)
 
     for(ix = 0; ix < nUdpSockets; ix++)
     {
-        if((pSkt = UDPSocketDcpt[ix]) != 0)  
+        if((pSkt = UDPSocketDcpt[ix]) != 0)
         {
             sktIf = pSkt->pSktNet;
-            sktIfIx = TCPIP_STACK_NetIxGet(sktIf); 
+            sktIfIx = TCPIP_STACK_NetIxGet(sktIf);
             if(sktIfIx >= 0)
             {
                 uint32_t sktIfMask = 1 << sktIfIx;
@@ -801,7 +801,7 @@ static void _UDPAbortSockets(uint32_t netMask, TCPIP_UDP_SIGNAL_TYPE sigType)
             }
         }
     }
-} 
+}
 
 #endif  // (TCPIP_STACK_DOWN_OPERATION != 0) || (_TCPIP_STACK_INTERFACE_CHANGE_SIGNALING != 0)
 
@@ -814,18 +814,18 @@ UDP_SOCKET TCPIP_UDP_OpenServerSkt(IP_ADDRESS_TYPE addType, UDP_PORT localPort, 
 {
     UDP_SOCKET  skt;
     TCPIP_NET_IF* pDefIf = 0;   // default: unbound
-   
+
 #if !defined (TCPIP_STACK_USE_IPV6)
    if(addType == IP_ADDRESS_TYPE_IPV6)
    {
        return INVALID_SOCKET;
-   } 
+   }
    else
    {
        addType = IP_ADDRESS_TYPE_IPV4;
    }
 #endif  // defined (TCPIP_STACK_USE_IPV6)
-    
+
 #if !defined (TCPIP_STACK_USE_IPV4)
    if(addType == IP_ADDRESS_TYPE_IPV4)
    {
@@ -866,7 +866,7 @@ UDP_SOCKET TCPIP_UDP_OpenServerSkt(IP_ADDRESS_TYPE addType, UDP_PORT localPort, 
    }
 #endif  // defined (TCPIP_STACK_USE_IPV6)
 
-    
+
     skt = _UDPOpen(addType, opType, localPort, 0);
     if(skt != INVALID_UDP_SOCKET)
     {
@@ -899,7 +899,7 @@ UDP_SOCKET TCPIP_UDP_OpenClientSkt(IP_ADDRESS_TYPE addType, UDP_PORT remotePort,
 #if !defined (TCPIP_STACK_USE_IPV6)
     if(addType == IP_ADDRESS_TYPE_IPV6)
     {
-        return INVALID_SOCKET; 
+        return INVALID_SOCKET;
     }
     else
     {
@@ -910,7 +910,7 @@ UDP_SOCKET TCPIP_UDP_OpenClientSkt(IP_ADDRESS_TYPE addType, UDP_PORT remotePort,
 #if !defined (TCPIP_STACK_USE_IPV4)
     if(addType == IP_ADDRESS_TYPE_IPV4)
     {
-        return INVALID_SOCKET; 
+        return INVALID_SOCKET;
     }
     else
     {
@@ -943,7 +943,7 @@ static UDP_SOCKET _UDPOpen(IP_ADDRESS_TYPE addType, UDP_OPEN_TYPE opType, UDP_PO
     int        sktIx = -1;
     UDP_SOCKET_DCPT *pSkt = NULL;
     UDP_PORT   localPort, remotePort;
-    bool       newSktValid; 
+    bool       newSktValid;
 
     if(UDPSocketDcpt == 0)
     {
@@ -961,7 +961,7 @@ static UDP_SOCKET _UDPOpen(IP_ADDRESS_TYPE addType, UDP_OPEN_TYPE opType, UDP_PO
         remotePort = 0;
     }
 
-    // critical section: allocation of new port and of new socket 
+    // critical section: allocation of new port and of new socket
     // needs locked access
     newSktValid = false;
     _UserGblLock();
@@ -995,7 +995,7 @@ static UDP_SOCKET _UDPOpen(IP_ADDRESS_TYPE addType, UDP_OPEN_TYPE opType, UDP_PO
         // success; following expensive/blocking allocation operation done with
         // all sockets locked!
         // Otherwise the socket would not be properly constructed and
-        // a de-init/close operation now would be a disaster! 
+        // a de-init/close operation now would be a disaster!
         pSkt = (UDP_SOCKET_DCPT*)TCPIP_HEAP_Calloc(udpMemH, 1, sizeof(*pSkt));
         newSktValid = pSkt != 0;
 
@@ -1018,10 +1018,10 @@ static UDP_SOCKET _UDPOpen(IP_ADDRESS_TYPE addType, UDP_OPEN_TYPE opType, UDP_PO
 
     // fill in all the socket parameters
     // so that the RX thread can see all the right data
-    pSkt->localPort = localPort;	
+    pSkt->localPort = localPort;
     pSkt->remotePort = remotePort;
     pSkt->addType = addType;
-    pSkt->txAllocLimit = TCPIP_UDP_SOCKET_DEFAULT_TX_QUEUE_LIMIT; 
+    pSkt->txAllocLimit = TCPIP_UDP_SOCKET_DEFAULT_TX_QUEUE_LIMIT;
     pSkt->rxQueueLimit = TCPIP_UDP_SOCKET_DEFAULT_RX_QUEUE_LIMIT;
     pSkt->flags.openAddType = addType;
 
@@ -1050,7 +1050,7 @@ static UDP_SOCKET _UDPOpen(IP_ADDRESS_TYPE addType, UDP_OPEN_TYPE opType, UDP_PO
         _UDPv6AllocateTxPacketStruct (0, pSkt, true);
         if(pSkt->pPkt == 0)
         {   // out of memory
-            _UserGblLock(); 
+            _UserGblLock();
             _UDPClose(pSkt);
             _UserGblUnlock();
             return INVALID_UDP_SOCKET;
@@ -1070,7 +1070,7 @@ static UDP_SOCKET _UDPOpen(IP_ADDRESS_TYPE addType, UDP_OPEN_TYPE opType, UDP_PO
 #endif  // defined (TCPIP_STACK_USE_IPV6)
 
         // default non strict connections for server
-        pSkt->flags.looseRemPort = pSkt->flags.looseNetIf = pSkt->flags.looseRemAddress = 1; 
+        pSkt->flags.looseRemPort = pSkt->flags.looseNetIf = pSkt->flags.looseRemAddress = 1;
         pSkt->flags.serverSkt = 1;
     }
     else
@@ -1112,7 +1112,7 @@ static UDP_SOCKET _UDPOpen(IP_ADDRESS_TYPE addType, UDP_OPEN_TYPE opType, UDP_PO
 static void* _UDPAllocateTxPacket(uint16_t pktSize, uint16_t txBuffSize, TCPIP_MAC_PACKET_FLAGS allocFlags)
 {
     allocFlags |= TCPIP_MAC_PKT_FLAG_TX | TCPIP_MAC_PKT_FLAG_UDP;
-    
+
     return TCPIP_PKT_SocketAlloc(pktSize, sizeof(UDP_HEADER), txBuffSize, allocFlags);
 }
 #endif // defined (TCPIP_STACK_USE_IPV4) || (TCPIP_UDP_USE_POOL_BUFFERS != 0)
@@ -1128,7 +1128,7 @@ void TCPIP_UDP_Task(void)
 
     if((sigPend & (TCPIP_MODULE_SIGNAL_INTERFACE_CHANGE)) != 0)
     { // interface address change occurred
-        _UDPAbortSockets(netMask, TCPIP_UDP_SIGNAL_IF_CHANGE); 
+        _UDPAbortSockets(netMask, TCPIP_UDP_SIGNAL_IF_CHANGE);
     }
 #else
     sigPend = _TCPIPStackModuleSignalGet(TCPIP_THIS_MODULE_ID, TCPIP_MODULE_SIGNAL_MASK_ALL);
@@ -1169,14 +1169,14 @@ static void TCPIP_UDP_Process(void)
         }
 
 #if defined (TCPIP_STACK_USE_IPV4)
-        else if((pRxPkt->pktFlags & TCPIP_MAC_PKT_FLAG_NET_TYPE) == TCPIP_MAC_PKT_FLAG_IPV4) 
+        else if((pRxPkt->pktFlags & TCPIP_MAC_PKT_FLAG_NET_TYPE) == TCPIP_MAC_PKT_FLAG_IPV4)
         {
             ackRes = TCPIP_UDP_ProcessIPv4(pRxPkt);
         }
 #endif  // defined (TCPIP_STACK_USE_IPV4)
 
 #if defined (TCPIP_STACK_USE_IPV6)
-        else if((pRxPkt->pktFlags & TCPIP_MAC_PKT_FLAG_NET_TYPE) == TCPIP_MAC_PKT_FLAG_IPV6) 
+        else if((pRxPkt->pktFlags & TCPIP_MAC_PKT_FLAG_NET_TYPE) == TCPIP_MAC_PKT_FLAG_IPV6)
         {
             ackRes = TCPIP_UDP_ProcessIPv6(pRxPkt);
         }
@@ -1285,8 +1285,8 @@ static void _UDPv4TxAckFnc (TCPIP_MAC_PACKET * pPkt, const void * param)
 
     OSAL_CRITSECT_DATA_TYPE status = 0;
 
-	while(pSkt != 0)
-    {  
+    while(pSkt != 0)
+    {
         // make sure the user threads don't mess with the socket right now
         status =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
         critLock = true;
@@ -1397,10 +1397,10 @@ static void _UDPv4TxPktReset(UDP_SOCKET_DCPT* pSkt, IPV4_PACKET* pPkt)
 static void*  _TxSktGetLockedV4Pkt(UDP_SOCKET_DCPT* pSkt, bool clrSktPkt)
 {
     IPV4_PACKET* pPkt;
-    
+
     // don't let TX thread interfere
     OSAL_CRITSECT_DATA_TYPE status = OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
-    
+
     if((pPkt = pSkt->pV4Pkt) != 0)
     {   // we have a current TX packet
         if((pPkt->macPkt.pktFlags & TCPIP_MAC_PKT_FLAG_QUEUED) != 0)
@@ -1488,7 +1488,7 @@ static uint16_t _UDPv4IsTxPutReady(UDP_SOCKET_DCPT* pSkt)
 // Handles an incoming UDP v4 packet.
 static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv4(TCPIP_MAC_PACKET* pRxPkt)
 {
-    UDP_HEADER*		 pUDPHdr;
+    UDP_HEADER*      pUDPHdr;
     UDP_SOCKET_DCPT* pSkt;
     uint16_t         udpTotLength;
     const IPV4_ADDR* pPktSrcAdd;
@@ -1500,29 +1500,33 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv4(TCPIP_MAC_PACKET* pRxPkt)
     pUDPHdr = (UDP_HEADER*)pRxPkt->pTransportLayer;
     udpTotLength = TCPIP_Helper_ntohs(pUDPHdr->Length);
 
+    bool isFragmented = false;
+
 #if (_TCPIP_IPV4_FRAGMENTATION == 0)
     if(udpTotLength != pRxPkt->totTransportLen)
     {   // discard suspect packet
         return TCPIP_MAC_PKT_ACK_STRUCT_ERR;
     }
+#else
+    isFragmented = pRxPkt->pkt_next != 0;
 #endif  // (_TCPIP_IPV4_FRAGMENTATION != 0)
 
     pPktSrcAdd = TCPIP_IPV4_PacketGetSourceAddress(pRxPkt);
     pPktDstAdd = TCPIP_IPV4_PacketGetDestAddress(pRxPkt);
-	// See if we need to validate the checksum field (0x0000 is disabled)
+    // See if we need to validate the checksum field (0x0000 is disabled)
 #ifdef TCPIP_UDP_USE_RX_CHECKSUM
-	if((pUDPHdr->Checksum != 0))
-	{
+    if(pUDPHdr->Checksum != 0 && (isFragmented || (pRxPkt->pktFlags & TCPIP_MAC_PKT_FLAG_RX_CHKSUM_UDP) == 0))
+    {   // no hardware checksum offload
         IPV4_PSEUDO_HEADER  pseudoHdr;
         uint16_t            calcChkSum;
-	    // Calculate IP pseudoheader checksum.
-	    pseudoHdr.SourceAddress.Val = pPktSrcAdd->Val;
-	    pseudoHdr.DestAddress.Val = pPktDstAdd->Val;
-	    pseudoHdr.Zero	= 0;
-	    pseudoHdr.Protocol = IP_PROT_UDP;
-	    pseudoHdr.Length = pUDPHdr->Length;
+        // Calculate IP pseudoheader checksum.
+        pseudoHdr.SourceAddress.Val = pPktSrcAdd->Val;
+        pseudoHdr.DestAddress.Val = pPktDstAdd->Val;
+        pseudoHdr.Zero  = 0;
+        pseudoHdr.Protocol = IP_PROT_UDP;
+        pseudoHdr.Length = pUDPHdr->Length;
 
-	    calcChkSum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)&pseudoHdr, sizeof(pseudoHdr), 0);
+        calcChkSum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)&pseudoHdr, sizeof(pseudoHdr), 0);
 #if (_TCPIP_IPV4_FRAGMENTATION != 0)
         TCPIP_MAC_PACKET* pFragPkt;
         uint16_t totCalcUdpLen = 0;
@@ -1552,12 +1556,12 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv4(TCPIP_MAC_PACKET* pRxPkt)
         {   // discard packet
             return TCPIP_MAC_PKT_ACK_CHKSUM_ERR;
         }
-	}
+    }
 #endif // TCPIP_UDP_USE_RX_CHECKSUM
 
     pUDPHdr->SourcePort = TCPIP_Helper_ntohs(pUDPHdr->SourcePort);
     pUDPHdr->DestinationPort = TCPIP_Helper_ntohs(pUDPHdr->DestinationPort);
-    pUDPHdr->Length = udpTotLength - sizeof(UDP_HEADER);    
+    pUDPHdr->Length = udpTotLength - sizeof(UDP_HEADER);
 
     TCPIP_UDP_CheckRxPkt(pUDPHdr);
 
@@ -1572,7 +1576,7 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv4(TCPIP_MAC_PACKET* pRxPkt)
             break;
         }
 
-#if defined(TCPIP_STACK_USE_IGMP)    
+#if defined(TCPIP_STACK_USE_IGMP)
         if(pSkt->flags.mcastSkipCheck == 0)
         {   // don't skip check multicast traffic
             if(TCPIP_Helper_IsMcastAddress(pPktDstAdd))
@@ -1584,8 +1588,8 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv4(TCPIP_MAC_PACKET* pRxPkt)
                 }
             }
         }
-#endif  // defined(TCPIP_STACK_USE_IGMP)    
-    
+#endif  // defined(TCPIP_STACK_USE_IGMP)
+
         if(pSkt->flags.mcastOnly != 0)
         {   // let through multicast traffic only
             if(!TCPIP_Helper_IsMcastAddress(pPktDstAdd))
@@ -1608,7 +1612,7 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv4(TCPIP_MAC_PACKET* pRxPkt)
     }
 
 
-    // log 
+    // log
 #if (TCPIP_PACKET_LOG_ENABLE)
     uint32_t logPort = ((uint32_t)pUDPHdr->DestinationPort << 16) | pUDPHdr->SourcePort;
     TCPIP_PKT_FlightLogRxSkt(pRxPkt, TCPIP_MODULE_LAYER3, logPort, pSkt != 0 ? pSkt->sktIx: 0xffff);
@@ -1669,7 +1673,7 @@ static uint16_t _UDPv4Flush(UDP_SOCKET_DCPT* pSkt)
     else
     {
         udpLoadLen = pSkt->txWrite - pSkt->txStart;
-        rootLen = udpLoadLen + sizeof(UDP_HEADER); 
+        rootLen = udpLoadLen + sizeof(UDP_HEADER);
         pZSeg = 0;
     }
     pv4Pkt->macPkt.pDSeg->segLen += rootLen;
@@ -1680,25 +1684,28 @@ static uint16_t _UDPv4Flush(UDP_SOCKET_DCPT* pSkt)
     pUDPHdr->Length = TCPIP_Helper_htons(udpTotLen);
     pUDPHdr->Checksum = 0;
 
-    // add the pseudo header
-    pseudoHdr.SourceAddress.Val = pv4Pkt->srcAddress.Val;
-    pseudoHdr.DestAddress.Val = pv4Pkt->destAddress.Val;
-    pseudoHdr.Zero = 0;
-    pseudoHdr.Protocol = IP_PROT_UDP;
-    pseudoHdr.Length = pUDPHdr->Length;
-    checksum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)&pseudoHdr, sizeof(pseudoHdr), 0);
+    if((pSkt->pSktNet->txOffload & TCPIP_MAC_CHECKSUM_UDP) == 0)
+    {   // not handled by hardware; add the pseudo header
+        pseudoHdr.SourceAddress.Val = pv4Pkt->srcAddress.Val;
+        pseudoHdr.DestAddress.Val = pv4Pkt->destAddress.Val;
+        pseudoHdr.Zero = 0;
+        pseudoHdr.Protocol = IP_PROT_UDP;
+        pseudoHdr.Length = pUDPHdr->Length;
 
-    if(pSkt->flags.txSplitAlloc != 0)
-    {
-        checksum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)pUDPHdr, sizeof(UDP_HEADER), checksum);
-        checksum = ~TCPIP_Helper_CalcIPChecksum(pZSeg->segLoad, udpLoadLen, checksum);
-    }
-    else
-    {   // one contiguous buffer
-        checksum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)pUDPHdr, udpTotLen, checksum);
-    }
+        checksum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)&pseudoHdr, sizeof(pseudoHdr), 0);
 
-    pUDPHdr->Checksum = ~checksum;
+        if(pSkt->flags.txSplitAlloc != 0)
+        {
+            checksum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)pUDPHdr, sizeof(UDP_HEADER), checksum);
+            checksum = ~TCPIP_Helper_CalcIPChecksum(pZSeg->segLoad, udpLoadLen, checksum);
+        }
+        else
+        {   // one contiguous buffer
+            checksum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)pUDPHdr, udpTotLen, checksum);
+        }
+
+        pUDPHdr->Checksum = ~checksum;
+    }
 
     isMcastDest = TCPIP_Helper_IsMcastAddress(&pv4Pkt->destAddress);
     if(isMcastDest)
@@ -1729,13 +1736,13 @@ static uint16_t _UDPv4Flush(UDP_SOCKET_DCPT* pSkt)
     TCPIP_PKT_FlightLogTxSkt(&pv4Pkt->macPkt, TCPIP_THIS_MODULE_ID,  ((uint32_t)pSkt->localPort << 16) | pSkt->remotePort, pSkt->sktIx);
     if(TCPIP_IPV4_PacketTransmit(pv4Pkt))
     {
-        return udpLoadLen; 
+        return udpLoadLen;
     }
 
     // packet reuse
     TCPIP_PKT_FlightLogAcknowledge(&pv4Pkt->macPkt, TCPIP_THIS_MODULE_ID, TCPIP_MAC_PKT_ACK_IP_REJECT_ERR);
     _UDPv4TxPktReset(pSkt, pv4Pkt);
-    
+
     return 0;
 }
 
@@ -1807,8 +1814,8 @@ static void _UDPv6TxAckFnc (void* pkt, bool success, const void * param)
 
     OSAL_CRITSECT_DATA_TYPE status = 0;
 
-	while(pSkt != 0)
-    {  
+    while(pSkt != 0)
+    {
         // make sure the user threads don't mess with the socket right now
         status = OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
         critLock = true;
@@ -1847,7 +1854,7 @@ static void _UDPv6TxAckFnc (void* pkt, bool success, const void * param)
         // either closed socket or another packet already allocated
         _UDPv6FreePacket (pV6Pkt);
     }
-    
+
 }
 
 static void _UDPv6TxPktReset(UDP_SOCKET_DCPT* pSkt, IPV6_PACKET* pV6Pkt, void* pUpperLayer)
@@ -1873,8 +1880,8 @@ static void _UDPv6TxMacAckFnc (TCPIP_MAC_PACKET* pPkt, const void * param)
 
     OSAL_CRITSECT_DATA_TYPE status = 0;
 
-	while(pSkt != 0)
-    {  
+    while(pSkt != 0)
+    {
         // make sure the user threads don't mess with the socket right now
         status = OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
         critLock = true;
@@ -1908,7 +1915,7 @@ static void _UDPv6TxMacAckFnc (TCPIP_MAC_PACKET* pPkt, const void * param)
     TCPIP_PKT_PacketFree(pPkt);
 #endif  // defined(TCPIP_PACKET_ALLOCATION_TRACE_ENABLE)
 
-    
+
     if(sigHandler)
     {   // notify socket user
         (*sigHandler)(sktIx, pktIf, TCPIP_UDP_SIGNAL_TX_DONE, sigParam);
@@ -1927,10 +1934,10 @@ static void _UDPv6TxMacAckFnc (TCPIP_MAC_PACKET* pPkt, const void * param)
 static void*  _TxSktGetLockedV6Pkt(UDP_SOCKET_DCPT* pSkt, bool clear)
 {
     IPV6_PACKET* pPkt;
-    
+
     // don't let TX thread interfere
     OSAL_CRITSECT_DATA_TYPE status = OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
-    
+
     if((pPkt = pSkt->pV6Pkt) != 0)
     {   // we have a current TX packet
         if(pPkt->flags.queued != 0)
@@ -1973,7 +1980,7 @@ static uint16_t _UDPv6IsTxPutReady(UDP_SOCKET_DCPT* pSkt, unsigned short count)
     IPV6_PACKET * tempPtr = _UDPv6AllocateTxPacketStruct(pSkt->pSktNet, pSkt, false);
     if (tempPtr == 0)
     {
-        // We couldn't allocate a new packet.  Return 0 until we can 
+        // We couldn't allocate a new packet.  Return 0 until we can
         // or until a queued packet can be returned to this node.
         return 0;
     }
@@ -2025,7 +2032,7 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv6(TCPIP_MAC_PACKET* pRxPkt)
     {
         return TCPIP_MAC_PKT_ACK_STRUCT_ERR;
     }
-    
+
     // Retrieve UDP header.
     h = (UDP_HEADER*)pRxPkt->pTransportLayer;
     udpTotLength = TCPIP_Helper_ntohs(h->Length);
@@ -2037,7 +2044,7 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv6(TCPIP_MAC_PACKET* pRxPkt)
 
 
 #ifdef TCPIP_UDP_USE_RX_CHECKSUM
-    if(h->Checksum != 0)
+    if(h->Checksum != 0 && (pRxPkt->pktFlags & TCPIP_MAC_PKT_FLAG_RX_CHKSUM_UDP) == 0)
     {
         IPV6_PSEUDO_HEADER  pseudoHeader;
         uint16_t            calcChkSum;
@@ -2051,7 +2058,7 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv6(TCPIP_MAC_PACKET* pRxPkt)
         pseudoHeader.zero2 = 0;
         pseudoHeader.NextHeader = IP_PROT_UDP;
 
-	    calcChkSum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)&pseudoHeader, sizeof(pseudoHeader), 0);
+        calcChkSum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)&pseudoHeader, sizeof(pseudoHeader), 0);
         if((pRxPkt->pktFlags & TCPIP_MAC_PKT_FLAG_SPLIT) != 0)
         {
             calcChkSum = TCPIP_Helper_PacketChecksum(pRxPkt, (uint8_t*)h, udpTotLength, calcChkSum);
@@ -2065,7 +2072,7 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv6(TCPIP_MAC_PACKET* pRxPkt)
         {   // discard packet
             return TCPIP_MAC_PKT_ACK_CHKSUM_ERR;
         }
-	}
+    }
 #endif // TCPIP_UDP_USE_RX_CHECKSUM
 
 
@@ -2105,7 +2112,7 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv6(TCPIP_MAC_PACKET* pRxPkt)
     TCPIP_PKT_FlightLogRxSkt(pRxPkt, TCPIP_MODULE_LAYER3, logPort, pSkt != 0 ? pSkt->sktIx: 0xffff);
 #endif  // (TCPIP_PACKET_LOG_ENABLE)
 
-    
+
     return ackRes;
 
 }
@@ -2117,7 +2124,7 @@ static uint16_t _UDPv6Flush(UDP_SOCKET_DCPT* pSkt)
     UDP_HEADER*     pUDPHeader;
 
     pSktNet = (TCPIP_NET_IF*)pSkt->pV6Pkt->netIfH;
-	if(pSktNet == 0 || !TCPIP_IPV6_InterfaceIsReady(pSktNet))
+    if(pSktNet == 0 || !TCPIP_IPV6_InterfaceIsReady(pSktNet))
     {   // IPv6 client socket requires explicit binding
         return 0;
     }
@@ -2187,7 +2194,7 @@ bool TCPIP_UDP_IsConnected(UDP_SOCKET s)
     {
         // if there's a pending packet, update info
         if(pSkt->pCurrRxSeg == 0)
-        {   // no more data in this packet 
+        {   // no more data in this packet
             _UDPUpdatePacketLock(pSkt);
         }
 
@@ -2230,7 +2237,7 @@ bool TCPIP_UDP_Close(UDP_SOCKET s)
 
     if(pSkt)
     {
-        _UserGblLock(); 
+        _UserGblLock();
         _UDPClose(pSkt);
         _UserGblUnlock();
         return true;
@@ -2310,7 +2317,7 @@ static void _UDPFreeTxResources(UDP_SOCKET_DCPT* pSkt)
     {
 #if defined(TCPIP_STACK_USE_IPV6)
         case IP_ADDRESS_TYPE_IPV6:
-            
+
             pCurrPkt = _TxSktGetLockedV6Pkt(pSkt, true);
             if(pCurrPkt != 0)
             {
@@ -2409,8 +2416,8 @@ bool TCPIP_UDP_SocketInfoGet(UDP_SOCKET s, UDP_SOCKET_INFO* pInfo)
         break;
     }
 
-	pInfo->remotePort = pSkt->remotePort;
-	pInfo->localPort = pSkt->localPort;
+    pInfo->remotePort = pSkt->remotePort;
+    pInfo->localPort = pSkt->localPort;
     pInfo->hNet = pSkt->pSktNet;
     pInfo->rxQueueSize = TCPIP_Helper_SingleListCount(&pSkt->rxQueue);
     pInfo->txSize = pSkt->txEnd - pSkt->txStart;
@@ -2441,7 +2448,7 @@ bool TCPIP_UDP_SocketInfoGet(UDP_SOCKET s, UDP_SOCKET_INFO* pInfo)
         pInfo->flags |= UDP_SOCKET_FLAG_STICKY_ADD;
     }
 
-	return true;
+    return true;
 
 }
 
@@ -2458,7 +2465,7 @@ bool TCPIP_UDP_TxOffsetSet(UDP_SOCKET s, uint16_t wOffset, bool relative)
         {
             pSkt->txWrite = pNewWrite;
             return true;
-        }        
+        }
     }
 
     return false;
@@ -2495,7 +2502,7 @@ uint16_t TCPIP_UDP_PutIsReady(UDP_SOCKET s)
 {
     UDP_SOCKET_DCPT* pSkt = _UDPSocketDcpt(s);
     if(pSkt == 0)
-    { 
+    {
         return 0;
     }
 
@@ -2546,7 +2553,7 @@ uint16_t TCPIP_UDP_ArrayPut(UDP_SOCKET s, const uint8_t *cData, uint16_t wDataLe
 
             if(wDataLen)
             {
-                memcpy(pSkt->txWrite, cData, wDataLen);
+                TCPIP_Helper_Memcpy(pSkt->txWrite, cData, wDataLen);
                 pSkt->txWrite += wDataLen;
             }
 
@@ -2628,20 +2635,20 @@ uint16_t TCPIP_UDP_TxCountGet(UDP_SOCKET s)
 
 /****************************************************************************
   Section:
-	Receive Functions
+    Receive Functions
   ***************************************************************************/
 
 uint16_t TCPIP_UDP_GetIsReady(UDP_SOCKET s)
 {
     UDP_SOCKET_DCPT* pSkt = _UDPSocketDcpt(s);
-    
+
     if(pSkt == 0)
-    { 
+    {
         return 0;
     }
 
     if(pSkt->pCurrRxSeg == 0 || pSkt->rxTotLen == 0)
-    {   // no more data in this packet 
+    {   // no more data in this packet
         _UDPUpdatePacketLock(pSkt);
     }
 
@@ -2666,9 +2673,9 @@ uint16_t TCPIP_UDP_ArrayGet(UDP_SOCKET s, uint8_t *cData, uint16_t reqBytes)
     {   // do not advance the current RX packet if no data is requested
         return 0;
     }
-    
+
     if(pSkt->pCurrRxSeg == 0 && pSkt->flags.rxAutoAdvance != 0)
-    {   // no more data in this packet 
+    {   // no more data in this packet
         _UDPUpdatePacketLock(pSkt);
     }
 
@@ -2685,7 +2692,7 @@ uint16_t TCPIP_UDP_ArrayGet(UDP_SOCKET s, uint8_t *cData, uint16_t reqBytes)
         {
             if(cData != 0)
             {
-                memcpy(cData, pSkt->rxCurr, xtractBytes);
+                TCPIP_Helper_Memcpy(cData, pSkt->rxCurr, xtractBytes);
                 cData += xtractBytes;
             }
             // adjust
@@ -2718,7 +2725,7 @@ uint16_t TCPIP_UDP_ArrayGet(UDP_SOCKET s, uint8_t *cData, uint16_t reqBytes)
                     pSkt->pCurrRxSeg = pFrag->pDSeg;
                     pSkt->rxSegLen = pFrag->totTransportLen;
                     pSkt->rxCurr = pFrag->pTransportLayer;
-                } 
+                }
 #endif  // (_TCPIP_IPV4_FRAGMENTATION != 0)
             }
         }
@@ -2752,26 +2759,26 @@ uint16_t TCPIP_UDP_Discard(UDP_SOCKET s)
 
 /*****************************************************************************
   Function:
-	static UDP_SOCKET_DCPT* _UDPFindMatchingSocket(TCPIP_MAC_PACKET* pRxPkt, UDP_HEADER *h, IP_ADDRESS_TYPE addressType)
+    static UDP_SOCKET_DCPT* _UDPFindMatchingSocket(TCPIP_MAC_PACKET* pRxPkt, UDP_HEADER *h, IP_ADDRESS_TYPE addressType)
 
   Summary:
-	Matches an incoming UDP segment to a currently active socket.
-	
+    Matches an incoming UDP segment to a currently active socket.
+
   Description:
-	This function attempts to match an incoming UDP segment to a currently
-	active socket for processing.
+    This function attempts to match an incoming UDP segment to a currently
+    active socket for processing.
 
   Precondition:
-	UDP segment header and IP header have both been retrieved.
+    UDP segment header and IP header have both been retrieved.
 
   Parameters:
     pRxPkt - packet received containing UDP datagram
-	h - The UDP header that was received.
+    h - The UDP header that was received.
     addressType - IPv4/IPv6
-	
+
   Returns:
-  	A UDP_SOCKET_DCPT handle of a matching socket, or 0 when no
-  	match could be made.
+    A UDP_SOCKET_DCPT handle of a matching socket, or 0 when no
+    match could be made.
   ***************************************************************************/
 static UDP_SOCKET_DCPT* _UDPFindMatchingSocket(TCPIP_MAC_PACKET* pRxPkt, UDP_HEADER *h, IP_ADDRESS_TYPE addressType)
 {
@@ -2788,21 +2795,21 @@ static UDP_SOCKET_DCPT* _UDPFindMatchingSocket(TCPIP_MAC_PACKET* pRxPkt, UDP_HEA
     IPV4_ADDR _pktSrcAddress;
     _pktSrcAddress.Val = 0;
 #endif // defined (TCPIP_STACK_USE_IPV4)
-    TCPIP_UDP_SKT_FLAGS _flags; 
+    TCPIP_UDP_SKT_FLAGS _flags;
     _flags.Val = 0;
 
 
     // This packet is said to be matching with current socket:
     // 1. Packet destination port matches the socket local port
     // and
-    // 2. Packet address type matches the socket address type (IPv4/IPv6) or socket type is IP_ADDRESS_TYPE_ANY 
+    // 2. Packet address type matches the socket address type (IPv4/IPv6) or socket type is IP_ADDRESS_TYPE_ANY
     // and
     // 3. Packet source port number matches the socket remote port number or the looseRemPort flag is set
     // and
     // 4. Packet incoming network interface matches the socket network interface or looseNetIf flag is set
     // and (IPv4 only for now)
     // 5. packet source address matches the socket expected source address or looseRemAddress flag is set
-    
+
 
     pPktIf = (TCPIP_NET_IF*)pRxPkt->pktIf;
     for(sktIx = 0; sktIx < nUdpSockets; sktIx++)
@@ -2812,11 +2819,11 @@ static UDP_SOCKET_DCPT* _UDPFindMatchingSocket(TCPIP_MAC_PACKET* pRxPkt, UDP_HEA
         while(true)
         {
             pSkt = UDPSocketDcpt[sktIx];
-            if(pSkt == 0) 
+            if(pSkt == 0)
             {   // not valid socket
                 break;
             }
-            if(_RxSktIsLocked(pSkt)) 
+            if(_RxSktIsLocked(pSkt))
             {   // socket disabled
                 break;
             }
@@ -2851,7 +2858,7 @@ static UDP_SOCKET_DCPT* _UDPFindMatchingSocket(TCPIP_MAC_PACKET* pRxPkt, UDP_HEA
         {   // cannot handle this port
             continue;
         }
-       
+
         exactMatch = looseMatch = 0;
 
         // 2. packet address type
@@ -2898,7 +2905,10 @@ static UDP_SOCKET_DCPT* _UDPFindMatchingSocket(TCPIP_MAC_PACKET* pRxPkt, UDP_HEA
         {
             if(_pSktNet == pPktIf)
             {
-                if(TCPIP_IPV6_AddressFind(pPktIf, TCPIP_IPV6_PacketGetDestAddress(pRxPkt), IPV6_ADDR_TYPE_UNICAST) != 0)
+                const IPV6_ADDR* pPktDstAddress = TCPIP_IPV6_PacketGetDestAddress(pRxPkt);
+                IPV6_ADDRESS_TYPE pktAddressType = (IPV6_ADDRESS_TYPE)TCPIP_IPV6_AddressTypeGet (pPktIf, pPktDstAddress);
+
+                if(TCPIP_IPV6_AddressFind(pPktIf, pPktDstAddress, pktAddressType.bits.type) != 0)
                 {   // interface match
                     exactMatch |= TCPIP_UDP_PKT_MATCH_NET;
                 }
@@ -2973,7 +2983,7 @@ static UDP_SOCKET_DCPT* _UDPFindMatchingSocket(TCPIP_MAC_PACKET* pRxPkt, UDP_HEA
                 }
             }
 #endif  // defined (TCPIP_STACK_USE_IPV6)
-            
+
             pSkt->addType = addressType;
             return pSkt;
         }
@@ -3026,7 +3036,7 @@ bool TCPIP_UDP_SocketNetSet(UDP_SOCKET s, TCPIP_NET_HANDLE hNet)
 TCPIP_NET_HANDLE TCPIP_UDP_SocketNetGet(UDP_SOCKET s)
 {
     UDP_SOCKET_DCPT* pSkt = _UDPSocketDcpt(s);
-    
+
     return pSkt?pSkt->pSktNet:0;
 }
 
@@ -3058,13 +3068,13 @@ bool TCPIP_UDP_Bind(UDP_SOCKET s, IP_ADDRESS_TYPE addType, UDP_PORT localPort,  
         {   // cannot change the type w/o a disconnect...
             return false;
         }
-        
+
         // don't use the remote address for ANY
         localAddress = 0;
     }
     else
     {   // specific address type wanted
-        if(addType != IP_ADDRESS_TYPE_IPV4 && addType != IP_ADDRESS_TYPE_IPV6) 
+        if(addType != IP_ADDRESS_TYPE_IPV4 && addType != IP_ADDRESS_TYPE_IPV6)
         {   // sanity check
             return false;
         }
@@ -3163,13 +3173,13 @@ bool TCPIP_UDP_RemoteBind(UDP_SOCKET s, IP_ADDRESS_TYPE addType, UDP_PORT remote
         {   // cannot change the type w/o a disconnect...
             return false;
         }
-        
+
         // don't use the remote address for ANY
         remoteAddress = 0;
     }
     else
     {   // specific address type wanted
-        if(addType != IP_ADDRESS_TYPE_IPV4 && addType != IP_ADDRESS_TYPE_IPV6) 
+        if(addType != IP_ADDRESS_TYPE_IPV4 && addType != IP_ADDRESS_TYPE_IPV6)
         {   // sanity check
             return false;
         }
@@ -3187,7 +3197,7 @@ bool TCPIP_UDP_RemoteBind(UDP_SOCKET s, IP_ADDRESS_TYPE addType, UDP_PORT remote
         if((pBindIf = pSkt->pSktNet) == 0)
         {   // use the default; IPv6 cannot handle no interface!
             pBindIf = (TCPIP_NET_IF*)TCPIP_STACK_NetDefaultGet();
-        } 
+        }
         _UDPv6AllocateTxPacketStruct (pBindIf, pSkt, true);
         if(pSkt->pPkt == 0)
         {   // out of memory
@@ -3229,7 +3239,7 @@ bool TCPIP_UDP_OptionsSet(UDP_SOCKET hUDP, UDP_SOCKET_OPTION option, void* optPa
 
     if(pSkt)
     {
-        int stickyOp = 0;   // 0 = no op; 1 = set; 2 = clr  
+        int stickyOp = 0;   // 0 = no op; 1 = set; 2 = clr
         if((option & UDP_OPTION_STRICT_SET_STICKY) != 0)
         {
             stickyOp = 1;
@@ -3246,7 +3256,7 @@ bool TCPIP_UDP_OptionsSet(UDP_SOCKET hUDP, UDP_SOCKET_OPTION option, void* optPa
                 pSkt->flags.looseRemPort = (optParam == 0);
                 if(stickyOp)
                 {
-                    pSkt->extFlags.stickyLooseRemPort = (stickyOp == 1) ? 1 : 0; 
+                    pSkt->extFlags.stickyLooseRemPort = (stickyOp == 1) ? 1 : 0;
                 }
                 return true;
 
@@ -3255,7 +3265,7 @@ bool TCPIP_UDP_OptionsSet(UDP_SOCKET hUDP, UDP_SOCKET_OPTION option, void* optPa
                 pSkt->flags.looseNetIf = (optParam == 0);
                 if(stickyOp)
                 {
-                    pSkt->extFlags.stickyLooseNetIf = (stickyOp == 1) ? 1 : 0; 
+                    pSkt->extFlags.stickyLooseNetIf = (stickyOp == 1) ? 1 : 0;
                 }
                 return true;
 
@@ -3263,7 +3273,7 @@ bool TCPIP_UDP_OptionsSet(UDP_SOCKET hUDP, UDP_SOCKET_OPTION option, void* optPa
                 pSkt->flags.looseRemAddress = (optParam == 0);
                 if(stickyOp)
                 {
-                    pSkt->extFlags.stickyLooseRemAddress = (stickyOp == 1) ? 1 : 0; 
+                    pSkt->extFlags.stickyLooseRemAddress = (stickyOp == 1) ? 1 : 0;
                 }
                 return true;
 
@@ -3272,7 +3282,7 @@ bool TCPIP_UDP_OptionsSet(UDP_SOCKET hUDP, UDP_SOCKET_OPTION option, void* optPa
                 {   // set limited broadcast address (for now)
                     pSkt->destAddress.Val = 0xffffffff;
                     pSkt->flags.destSet = 1;
-                } 
+                }
                 else
                 {   // the discrete address will have to be set and take effect
                     pSkt->destAddress.Val = 0;
@@ -3284,7 +3294,7 @@ bool TCPIP_UDP_OptionsSet(UDP_SOCKET hUDP, UDP_SOCKET_OPTION option, void* optPa
             case UDP_OPTION_BUFFER_POOL:
 #if defined (TCPIP_STACK_USE_IPV6)
                 if(pSkt->addType == IP_ADDRESS_TYPE_IPV6)
-                {   
+                {
                     return false;
                 }
 #endif  // defined (TCPIP_STACK_USE_IPV6)
@@ -3364,27 +3374,27 @@ bool TCPIP_UDP_OptionsSet(UDP_SOCKET hUDP, UDP_SOCKET_OPTION option, void* optPa
             case UDP_OPTION_TOS:
                 pSkt->flags.tos = (uint8_t)(unsigned int)optParam;
                 return true;
-                
+
             case UDP_OPTION_DF:
                 pSkt->flags.df = (optParam != 0);
                 return true;
-                
+
             case UDP_OPTION_FIXED_DEST_ADDRESS:
                 pSkt->flags.fixedDestAddress = (optParam != 0);
                 return true;
-                
+
             case UDP_OPTION_FIXED_DEST_PORT:
                 pSkt->flags.fixedDestPort = (optParam != 0);
                 return true;
-                
+
             case UDP_OPTION_ENFORCE_STRICT_NET:
                 pSkt->flags.noNetStrict = (optParam == 0);
                 return true;
-                
+
             default:
                 break;
         }
-    }    
+    }
 
     return false;
 }
@@ -3421,7 +3431,7 @@ bool TCPIP_UDP_OptionsGet(UDP_SOCKET hUDP, UDP_SOCKET_OPTION option, void* optPa
             case UDP_OPTION_TX_BUFF:
                 *(uint16_t*)optParam = pSkt->txSize;
                 return true;
-                
+
             case UDP_OPTION_TX_QUEUE_LIMIT:
                 *(uint8_t*)optParam = pSkt->txAllocLimit;
                 return true;
@@ -3481,7 +3491,7 @@ bool TCPIP_UDP_OptionsGet(UDP_SOCKET hUDP, UDP_SOCKET_OPTION option, void* optPa
              case UDP_OPTION_TOS:
                 *(uint8_t*)optParam = pSkt->flags.tos;
                 return true;
-                
+
              case UDP_OPTION_DF:
                 *(bool*)optParam = pSkt->flags.df != 0;
                 return true;
@@ -3489,19 +3499,19 @@ bool TCPIP_UDP_OptionsGet(UDP_SOCKET hUDP, UDP_SOCKET_OPTION option, void* optPa
             case UDP_OPTION_FIXED_DEST_ADDRESS:
                 *(bool*)optParam = pSkt->flags.fixedDestAddress != 0;
                 return true;
-                
+
             case UDP_OPTION_FIXED_DEST_PORT:
                 *(bool*)optParam = pSkt->flags.fixedDestPort != 0;
                 return true;
-                
+
              case UDP_OPTION_ENFORCE_STRICT_NET:
                 *(bool*)optParam = pSkt->flags.noNetStrict == 0;
                 return true;
-                
+
            default:
                 break;
         }
-    }    
+    }
 
     return false;
 }
@@ -3635,7 +3645,7 @@ static bool _UDPIsAvailablePort(UDP_PORT port)
     // Find an available socket that matches the specified socket type
     for(skt = 0; skt < nUdpSockets; skt++)
     {
-        pSkt = UDPSocketDcpt[skt]; 
+        pSkt = UDPSocketDcpt[skt];
         if(pSkt && pSkt->localPort == port)
         {
             return false;
@@ -3659,7 +3669,7 @@ TCPIP_UDP_SIGNAL_HANDLE TCPIP_UDP_SignalHandlerRegister(UDP_SOCKET s, TCPIP_UDP_
             pSkt->sigParam = hParam;
             pSkt->sigMask = sigMask;
             sHandle = (TCPIP_UDP_SIGNAL_HANDLE)handler;
-            // Note: this may change if multiple notfication handlers required 
+            // Note: this may change if multiple notfication handlers required
         }
     }
 
@@ -3675,7 +3685,7 @@ bool TCPIP_UDP_SignalHandlerDeregister(UDP_SOCKET s, TCPIP_UDP_SIGNAL_HANDLE hSi
     UDP_SOCKET_DCPT *pSkt = _UDPSocketDcpt(s);
 
     if(pSkt != 0)
-    {  
+    {
         if(pSkt->sigHandler == (TCPIP_UDP_SIGNAL_FUNCTION)hSig)
         {
             pSkt->sigHandler = 0;
@@ -3702,7 +3712,7 @@ static void _UDP_RxPktAcknowledge(TCPIP_MAC_PACKET* pRxPkt, TCPIP_MAC_PKT_ACK_RE
     for(pFragPkt = pRxPkt; pFragPkt != 0; pFragPkt = pFragNext)
     {
         pFragNext = pFragPkt->pkt_next;
-        TCPIP_PKT_PacketAcknowledge(pFragPkt, ackRes); 
+        TCPIP_PKT_PacketAcknowledge(pFragPkt, ackRes);
     }
 }
 
@@ -3735,7 +3745,7 @@ bool TCPIP_UDP_PacketHandlerDeregister(TCPIP_UDP_PROCESS_HANDLE pktHandle)
     {
         udpPktHandler = 0;
         res = true;
-    } 
+    }
 
     OSAL_CRIT_Leave(OSAL_CRIT_TYPE_LOW, critSect);
     return res;

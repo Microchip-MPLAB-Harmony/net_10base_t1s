@@ -3,7 +3,7 @@
 
   Company:
     Microchip Technology Inc.
-    
+
   File Name:
     ipv6_manager.h
 
@@ -72,20 +72,21 @@ typedef struct
     uint32_t mtuIncreaseTimer;
     uint16_t linkMTU;
     uint16_t multicastMTU;
-    uint8_t curHopLimit;
     SINGLE_LIST listNeighborCache;                // IPV6_HEAP_NDP_NC_ENTRY list
     SINGLE_LIST listDefaultRouter;                // IPV6_HEAP_NDP_DR_ENTRY list
     SINGLE_LIST listDestinationCache;             // IPV6_HEAP_NDP_DC_ENTRY list
     SINGLE_LIST listPrefixList;                   // IPV6_HEAP_NDP_PL_ENTRY list
     SINGLE_LIST rxFragments;                      // IPV6_RX_FRAGMENT_BUFFER list
+    uint8_t curHopLimit;
     uint8_t initState;
     uint8_t policyPreferTempOrPublic;
+    uint8_t g3PanIdSet;                         // The G3-PLC network PAN_Id has been set for this interface
     // IPv6 runtime configuration parameters.
     uint32_t        rxfragmentBufSize;  // RX fragmented buffer size
     uint32_t        fragmentPktRxTimeout;  // fragmented packet timeout value
+    uint16_t        g3PanId;                  // PAN_Id for a G3 network
+    uint16_t        pad16;
 } IPV6_INTERFACE_CONFIG;
-
-
 
 // stack private API
 //
@@ -822,7 +823,7 @@ void TCPIP_IPV6_ErrorSend (TCPIP_NET_IF * pNetIf, TCPIP_MAC_PACKET* pRxPkt, cons
 void TCPIP_IPV6_ClientsNotify(TCPIP_NET_IF* pNetIf, IPV6_EVENT_TYPE evType, const void* evParam);
 
 
-IPV6_INTERFACE_CONFIG* TCPIP_IPV6_InterfaceConfigGet(TCPIP_NET_IF* pNetIf);
+IPV6_INTERFACE_CONFIG* TCPIP_IPV6_InterfaceConfigGet(const TCPIP_NET_IF* pNetIf);
 
 
 /*****************************************************************************
@@ -892,7 +893,7 @@ void TCPIP_IPV6_TimeoutHandler(uint32_t curSysTick);
 
   Precondition:
         pRxPkt - valid IPv6 packet, pMacLayer, pNetLayer filed properly set
-        
+
 
   Parameters:
         pRxPkt - packet to query
@@ -901,7 +902,7 @@ void TCPIP_IPV6_TimeoutHandler(uint32_t curSysTick);
   Returns:
      a valid pointer to an IPV6_ADDR if it succeeds
      0 - if call failed
-      
+
   Remarks:
         This function is mainly meant for RX packets.
  */
@@ -929,7 +930,7 @@ static __inline__ const IPV6_ADDR* __attribute__((always_inline)) TCPIP_IPV6_Pac
 
   Precondition:
         pRxPkt - valid IPv6 packet, pMacLayer, pNetLayer filed properly set
-        
+
 
   Parameters:
         pRxPkt - packet to query
@@ -938,7 +939,7 @@ static __inline__ const IPV6_ADDR* __attribute__((always_inline)) TCPIP_IPV6_Pac
   Returns:
      a valid pointer to an IPV6_ADDR if it succeeds
      0 - if call failed
-      
+
   Remarks:
         This function is mainly meant for RX packets.
  */
@@ -964,7 +965,7 @@ static __inline__ const IPV6_ADDR* __attribute__((always_inline)) TCPIP_IPV6_Pac
   Precondition:
         ptrPacket - valid IPV6_PACKET pointer
         pMacAdd   - valid TCPIP_MAC_ADDR pointer
-        
+
 
   Parameters:
         ptrPacket - packet to set the TCPIP_MAC_ADDR for
@@ -973,7 +974,7 @@ static __inline__ const IPV6_ADDR* __attribute__((always_inline)) TCPIP_IPV6_Pac
 
   Returns:
      None
-      
+
   Remarks:
      None
  */
@@ -993,7 +994,7 @@ void TCPIP_IPV6_SetRemoteMacAddress(IPV6_PACKET * ptrPacket, const TCPIP_MAC_ADD
 
   Precondition:
         ptrPacket - valid IPV6_PACKET pointer
-        
+
 
   Parameters:
         ptrPacket - packet to set the TCPIP_MAC_ADDR for
@@ -1002,7 +1003,7 @@ void TCPIP_IPV6_SetRemoteMacAddress(IPV6_PACKET * ptrPacket, const TCPIP_MAC_ADD
 
   Returns:
      None
-      
+
   Remarks:
      This function will be called by the MAC driver once it's done transmitting a IPv6 packet.
  */

@@ -53,7 +53,7 @@ Microchip or any third party.
 
 /****************************************************************************
   Section:
-	UDP Global Variables
+    UDP Global Variables
   ***************************************************************************/
  
 
@@ -88,7 +88,7 @@ static const void* udpPktHandlerParam;
 
 /****************************************************************************
   Section:
-	Function Prototypes
+    Function Prototypes
   ***************************************************************************/
 
 #if ((TCPIP_UDP_DEBUG_LEVEL & TCPIP_UDP_DEBUG_MASK_RX_CHECK) != 0)
@@ -510,22 +510,22 @@ static  bool _UDPSocketBind(UDP_SOCKET_DCPT* pSkt, TCPIP_NET_IF* pNet, IP_MULTI_
 
 /****************************************************************************
   Section:
-	Connection Management Functions
+    Connection Management Functions
   ***************************************************************************/
 
 /*****************************************************************************
   Function:
-	void TCPIP_UDP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const TCPIP_UDP_MODULE_CONFIG* pUdpInit)
+    void TCPIP_UDP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const TCPIP_UDP_MODULE_CONFIG* pUdpInit)
 
   Summary:
-	Initializes the UDP module.
+    Initializes the UDP module.
 
   Description:
-	Initializes the UDP module.  This function initializes all the UDP 
-	sockets to the closed state.
+    Initializes the UDP module.  This function initializes all the UDP 
+    sockets to the closed state.
 
   Precondition:
-	If passed as a parameter, the used stack heap should be initialized
+    If passed as a parameter, the used stack heap should be initialized
 
   Parameters:
     stackCtrl  - pointer to a Stack initialization structure
@@ -537,11 +537,11 @@ static  bool _UDPSocketBind(UDP_SOCKET_DCPT* pSkt, TCPIP_NET_IF* pNet, IP_MULTI_
                     - poolBufferSize:   size of the buffers in the pool; all equal    
 
   Returns:
-  	true if success,
+    true if success,
     false otherwise
-  	
+    
   Remarks:
-	This function is called only once per interface
+    This function is called only once per interface
     but it actually performs initialization just once
 
     At the time of the call the stack manager makes sure that:
@@ -659,22 +659,22 @@ bool TCPIP_UDP_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const 
 
 /*****************************************************************************
   Function:
-	void TCPIP_UDP_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl)
+    void TCPIP_UDP_Deinitialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl)
 
   Summary:
-	De-Initializes the UDP module.
+    De-Initializes the UDP module.
 
   Description:
-	De-Initializes the UDP module.
+    De-Initializes the UDP module.
     This function initializes each socket to the CLOSED state.
     If dynamic memory was allocated for the UDP sockets, the function
-	will deallocate it.
+    will deallocate it.
 
   Precondition:
-	TCPIP_UDP_Initialize() should have been called
+    TCPIP_UDP_Initialize() should have been called
 
   Parameters:
-	stackCtrl   - pointer to Stack data showing which interface is closing
+    stackCtrl   - pointer to Stack data showing which interface is closing
 
   Returns:
     None
@@ -1018,7 +1018,7 @@ static UDP_SOCKET _UDPOpen(IP_ADDRESS_TYPE addType, UDP_OPEN_TYPE opType, UDP_PO
 
     // fill in all the socket parameters
     // so that the RX thread can see all the right data
-    pSkt->localPort = localPort;	
+    pSkt->localPort = localPort;    
     pSkt->remotePort = remotePort;
     pSkt->addType = addType;
     pSkt->txAllocLimit = TCPIP_UDP_SOCKET_DEFAULT_TX_QUEUE_LIMIT; 
@@ -1285,7 +1285,7 @@ static void _UDPv4TxAckFnc (TCPIP_MAC_PACKET * pPkt, const void * param)
 
     OSAL_CRITSECT_DATA_TYPE status = 0;
 
-	while(pSkt != 0)
+    while(pSkt != 0)
     {  
         // make sure the user threads don't mess with the socket right now
         status =  OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
@@ -1488,7 +1488,7 @@ static uint16_t _UDPv4IsTxPutReady(UDP_SOCKET_DCPT* pSkt)
 // Handles an incoming UDP v4 packet.
 static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv4(TCPIP_MAC_PACKET* pRxPkt)
 {
-    UDP_HEADER*		 pUDPHdr;
+    UDP_HEADER*      pUDPHdr;
     UDP_SOCKET_DCPT* pSkt;
     uint16_t         udpTotLength;
     const IPV4_ADDR* pPktSrcAdd;
@@ -1500,29 +1500,33 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv4(TCPIP_MAC_PACKET* pRxPkt)
     pUDPHdr = (UDP_HEADER*)pRxPkt->pTransportLayer;
     udpTotLength = TCPIP_Helper_ntohs(pUDPHdr->Length);
 
+    bool isFragmented = false;
+
 #if (_TCPIP_IPV4_FRAGMENTATION == 0)
     if(udpTotLength != pRxPkt->totTransportLen)
     {   // discard suspect packet
         return TCPIP_MAC_PKT_ACK_STRUCT_ERR;
     }
+#else
+    isFragmented = pRxPkt->pkt_next != 0;
 #endif  // (_TCPIP_IPV4_FRAGMENTATION != 0)
 
     pPktSrcAdd = TCPIP_IPV4_PacketGetSourceAddress(pRxPkt);
     pPktDstAdd = TCPIP_IPV4_PacketGetDestAddress(pRxPkt);
-	// See if we need to validate the checksum field (0x0000 is disabled)
+    // See if we need to validate the checksum field (0x0000 is disabled)
 #ifdef TCPIP_UDP_USE_RX_CHECKSUM
-	if((pUDPHdr->Checksum != 0))
-	{
+    if(pUDPHdr->Checksum != 0 && (isFragmented || (pRxPkt->pktFlags & TCPIP_MAC_PKT_FLAG_RX_CHKSUM_UDP) == 0))
+    {   // no hardware checksum offload 
         IPV4_PSEUDO_HEADER  pseudoHdr;
         uint16_t            calcChkSum;
-	    // Calculate IP pseudoheader checksum.
-	    pseudoHdr.SourceAddress.Val = pPktSrcAdd->Val;
-	    pseudoHdr.DestAddress.Val = pPktDstAdd->Val;
-	    pseudoHdr.Zero	= 0;
-	    pseudoHdr.Protocol = IP_PROT_UDP;
-	    pseudoHdr.Length = pUDPHdr->Length;
+        // Calculate IP pseudoheader checksum.
+        pseudoHdr.SourceAddress.Val = pPktSrcAdd->Val;
+        pseudoHdr.DestAddress.Val = pPktDstAdd->Val;
+        pseudoHdr.Zero  = 0;
+        pseudoHdr.Protocol = IP_PROT_UDP;
+        pseudoHdr.Length = pUDPHdr->Length;
 
-	    calcChkSum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)&pseudoHdr, sizeof(pseudoHdr), 0);
+        calcChkSum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)&pseudoHdr, sizeof(pseudoHdr), 0);
 #if (_TCPIP_IPV4_FRAGMENTATION != 0)
         TCPIP_MAC_PACKET* pFragPkt;
         uint16_t totCalcUdpLen = 0;
@@ -1552,7 +1556,7 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv4(TCPIP_MAC_PACKET* pRxPkt)
         {   // discard packet
             return TCPIP_MAC_PKT_ACK_CHKSUM_ERR;
         }
-	}
+    }
 #endif // TCPIP_UDP_USE_RX_CHECKSUM
 
     pUDPHdr->SourcePort = TCPIP_Helper_ntohs(pUDPHdr->SourcePort);
@@ -1680,25 +1684,28 @@ static uint16_t _UDPv4Flush(UDP_SOCKET_DCPT* pSkt)
     pUDPHdr->Length = TCPIP_Helper_htons(udpTotLen);
     pUDPHdr->Checksum = 0;
 
-    // add the pseudo header
-    pseudoHdr.SourceAddress.Val = pv4Pkt->srcAddress.Val;
-    pseudoHdr.DestAddress.Val = pv4Pkt->destAddress.Val;
-    pseudoHdr.Zero = 0;
-    pseudoHdr.Protocol = IP_PROT_UDP;
-    pseudoHdr.Length = pUDPHdr->Length;
-    checksum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)&pseudoHdr, sizeof(pseudoHdr), 0);
+    if((pSkt->pSktNet->txOffload & TCPIP_MAC_CHECKSUM_UDP) == 0)
+    {   // not handled by hardware; add the pseudo header
+        pseudoHdr.SourceAddress.Val = pv4Pkt->srcAddress.Val;
+        pseudoHdr.DestAddress.Val = pv4Pkt->destAddress.Val;
+        pseudoHdr.Zero = 0;
+        pseudoHdr.Protocol = IP_PROT_UDP;
+        pseudoHdr.Length = pUDPHdr->Length;
 
-    if(pSkt->flags.txSplitAlloc != 0)
-    {
-        checksum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)pUDPHdr, sizeof(UDP_HEADER), checksum);
-        checksum = ~TCPIP_Helper_CalcIPChecksum(pZSeg->segLoad, udpLoadLen, checksum);
-    }
-    else
-    {   // one contiguous buffer
-        checksum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)pUDPHdr, udpTotLen, checksum);
-    }
+        checksum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)&pseudoHdr, sizeof(pseudoHdr), 0);
 
-    pUDPHdr->Checksum = ~checksum;
+        if(pSkt->flags.txSplitAlloc != 0)
+        {
+            checksum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)pUDPHdr, sizeof(UDP_HEADER), checksum);
+            checksum = ~TCPIP_Helper_CalcIPChecksum(pZSeg->segLoad, udpLoadLen, checksum);
+        }
+        else
+        {   // one contiguous buffer
+            checksum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)pUDPHdr, udpTotLen, checksum);
+        }
+
+        pUDPHdr->Checksum = ~checksum;
+    }
 
     isMcastDest = TCPIP_Helper_IsMcastAddress(&pv4Pkt->destAddress);
     if(isMcastDest)
@@ -1807,7 +1814,7 @@ static void _UDPv6TxAckFnc (void* pkt, bool success, const void * param)
 
     OSAL_CRITSECT_DATA_TYPE status = 0;
 
-	while(pSkt != 0)
+    while(pSkt != 0)
     {  
         // make sure the user threads don't mess with the socket right now
         status = OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
@@ -1873,7 +1880,7 @@ static void _UDPv6TxMacAckFnc (TCPIP_MAC_PACKET* pPkt, const void * param)
 
     OSAL_CRITSECT_DATA_TYPE status = 0;
 
-	while(pSkt != 0)
+    while(pSkt != 0)
     {  
         // make sure the user threads don't mess with the socket right now
         status = OSAL_CRIT_Enter(OSAL_CRIT_TYPE_LOW);
@@ -2037,7 +2044,7 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv6(TCPIP_MAC_PACKET* pRxPkt)
 
 
 #ifdef TCPIP_UDP_USE_RX_CHECKSUM
-    if(h->Checksum != 0)
+    if(h->Checksum != 0 && (pRxPkt->pktFlags & TCPIP_MAC_PKT_FLAG_RX_CHKSUM_UDP) == 0)
     {
         IPV6_PSEUDO_HEADER  pseudoHeader;
         uint16_t            calcChkSum;
@@ -2051,7 +2058,7 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv6(TCPIP_MAC_PACKET* pRxPkt)
         pseudoHeader.zero2 = 0;
         pseudoHeader.NextHeader = IP_PROT_UDP;
 
-	    calcChkSum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)&pseudoHeader, sizeof(pseudoHeader), 0);
+        calcChkSum = ~TCPIP_Helper_CalcIPChecksum((uint8_t*)&pseudoHeader, sizeof(pseudoHeader), 0);
         if((pRxPkt->pktFlags & TCPIP_MAC_PKT_FLAG_SPLIT) != 0)
         {
             calcChkSum = TCPIP_Helper_PacketChecksum(pRxPkt, (uint8_t*)h, udpTotLength, calcChkSum);
@@ -2065,7 +2072,7 @@ static TCPIP_MAC_PKT_ACK_RES TCPIP_UDP_ProcessIPv6(TCPIP_MAC_PACKET* pRxPkt)
         {   // discard packet
             return TCPIP_MAC_PKT_ACK_CHKSUM_ERR;
         }
-	}
+    }
 #endif // TCPIP_UDP_USE_RX_CHECKSUM
 
 
@@ -2117,7 +2124,7 @@ static uint16_t _UDPv6Flush(UDP_SOCKET_DCPT* pSkt)
     UDP_HEADER*     pUDPHeader;
 
     pSktNet = (TCPIP_NET_IF*)pSkt->pV6Pkt->netIfH;
-	if(pSktNet == 0 || !TCPIP_IPV6_InterfaceIsReady(pSktNet))
+    if(pSktNet == 0 || !TCPIP_IPV6_InterfaceIsReady(pSktNet))
     {   // IPv6 client socket requires explicit binding
         return 0;
     }
@@ -2409,8 +2416,8 @@ bool TCPIP_UDP_SocketInfoGet(UDP_SOCKET s, UDP_SOCKET_INFO* pInfo)
         break;
     }
 
-	pInfo->remotePort = pSkt->remotePort;
-	pInfo->localPort = pSkt->localPort;
+    pInfo->remotePort = pSkt->remotePort;
+    pInfo->localPort = pSkt->localPort;
     pInfo->hNet = pSkt->pSktNet;
     pInfo->rxQueueSize = TCPIP_Helper_SingleListCount(&pSkt->rxQueue);
     pInfo->txSize = pSkt->txEnd - pSkt->txStart;
@@ -2441,7 +2448,7 @@ bool TCPIP_UDP_SocketInfoGet(UDP_SOCKET s, UDP_SOCKET_INFO* pInfo)
         pInfo->flags |= UDP_SOCKET_FLAG_STICKY_ADD;
     }
 
-	return true;
+    return true;
 
 }
 
@@ -2546,7 +2553,7 @@ uint16_t TCPIP_UDP_ArrayPut(UDP_SOCKET s, const uint8_t *cData, uint16_t wDataLe
 
             if(wDataLen)
             {
-                memcpy(pSkt->txWrite, cData, wDataLen);
+                TCPIP_Helper_Memcpy(pSkt->txWrite, cData, wDataLen);
                 pSkt->txWrite += wDataLen;
             }
 
@@ -2628,7 +2635,7 @@ uint16_t TCPIP_UDP_TxCountGet(UDP_SOCKET s)
 
 /****************************************************************************
   Section:
-	Receive Functions
+    Receive Functions
   ***************************************************************************/
 
 uint16_t TCPIP_UDP_GetIsReady(UDP_SOCKET s)
@@ -2685,7 +2692,7 @@ uint16_t TCPIP_UDP_ArrayGet(UDP_SOCKET s, uint8_t *cData, uint16_t reqBytes)
         {
             if(cData != 0)
             {
-                memcpy(cData, pSkt->rxCurr, xtractBytes);
+                TCPIP_Helper_Memcpy(cData, pSkt->rxCurr, xtractBytes);     
                 cData += xtractBytes;
             }
             // adjust
@@ -2752,26 +2759,26 @@ uint16_t TCPIP_UDP_Discard(UDP_SOCKET s)
 
 /*****************************************************************************
   Function:
-	static UDP_SOCKET_DCPT* _UDPFindMatchingSocket(TCPIP_MAC_PACKET* pRxPkt, UDP_HEADER *h, IP_ADDRESS_TYPE addressType)
+    static UDP_SOCKET_DCPT* _UDPFindMatchingSocket(TCPIP_MAC_PACKET* pRxPkt, UDP_HEADER *h, IP_ADDRESS_TYPE addressType)
 
   Summary:
-	Matches an incoming UDP segment to a currently active socket.
-	
+    Matches an incoming UDP segment to a currently active socket.
+    
   Description:
-	This function attempts to match an incoming UDP segment to a currently
-	active socket for processing.
+    This function attempts to match an incoming UDP segment to a currently
+    active socket for processing.
 
   Precondition:
-	UDP segment header and IP header have both been retrieved.
+    UDP segment header and IP header have both been retrieved.
 
   Parameters:
     pRxPkt - packet received containing UDP datagram
-	h - The UDP header that was received.
+    h - The UDP header that was received.
     addressType - IPv4/IPv6
-	
+    
   Returns:
-  	A UDP_SOCKET_DCPT handle of a matching socket, or 0 when no
-  	match could be made.
+    A UDP_SOCKET_DCPT handle of a matching socket, or 0 when no
+    match could be made.
   ***************************************************************************/
 static UDP_SOCKET_DCPT* _UDPFindMatchingSocket(TCPIP_MAC_PACKET* pRxPkt, UDP_HEADER *h, IP_ADDRESS_TYPE addressType)
 {
@@ -2898,7 +2905,10 @@ static UDP_SOCKET_DCPT* _UDPFindMatchingSocket(TCPIP_MAC_PACKET* pRxPkt, UDP_HEA
         {
             if(_pSktNet == pPktIf)
             {
-                if(TCPIP_IPV6_AddressFind(pPktIf, TCPIP_IPV6_PacketGetDestAddress(pRxPkt), IPV6_ADDR_TYPE_UNICAST) != 0)
+                const IPV6_ADDR* pPktDstAddress = TCPIP_IPV6_PacketGetDestAddress(pRxPkt);
+                IPV6_ADDRESS_TYPE pktAddressType = (IPV6_ADDRESS_TYPE)TCPIP_IPV6_AddressTypeGet (pPktIf, pPktDstAddress);
+                
+                if(TCPIP_IPV6_AddressFind(pPktIf, pPktDstAddress, pktAddressType.bits.type) != 0)
                 {   // interface match
                     exactMatch |= TCPIP_UDP_PKT_MATCH_NET;
                 }

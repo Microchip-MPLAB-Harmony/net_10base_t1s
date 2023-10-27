@@ -217,16 +217,16 @@ SYSTEM_OBJECTS sysObj;
 // *****************************************************************************
 /*** ARP Service Initialization Data ***/
 const TCPIP_ARP_MODULE_CONFIG tcpipARPInitData =
-{ 
-    .cacheEntries       = TCPIP_ARP_CACHE_ENTRIES,     
-    .deleteOld          = TCPIP_ARP_CACHE_DELETE_OLD,    
-    .entrySolvedTmo     = TCPIP_ARP_CACHE_SOLVED_ENTRY_TMO, 
-    .entryPendingTmo    = TCPIP_ARP_CACHE_PENDING_ENTRY_TMO, 
-    .entryRetryTmo      = TCPIP_ARP_CACHE_PENDING_RETRY_TMO, 
-    .permQuota          = TCPIP_ARP_CACHE_PERMANENT_QUOTA, 
-    .purgeThres         = TCPIP_ARP_CACHE_PURGE_THRESHOLD, 
-    .purgeQuanta        = TCPIP_ARP_CACHE_PURGE_QUANTA, 
-    .retries            = TCPIP_ARP_CACHE_ENTRY_RETRIES, 
+{
+    .cacheEntries       = TCPIP_ARP_CACHE_ENTRIES,
+    .deleteOld          = TCPIP_ARP_CACHE_DELETE_OLD,
+    .entrySolvedTmo     = TCPIP_ARP_CACHE_SOLVED_ENTRY_TMO,
+    .entryPendingTmo    = TCPIP_ARP_CACHE_PENDING_ENTRY_TMO,
+    .entryRetryTmo      = TCPIP_ARP_CACHE_PENDING_RETRY_TMO,
+    .permQuota          = TCPIP_ARP_CACHE_PERMANENT_QUOTA,
+    .purgeThres         = TCPIP_ARP_CACHE_PURGE_THRESHOLD,
+    .purgeQuanta        = TCPIP_ARP_CACHE_PURGE_QUANTA,
+    .retries            = TCPIP_ARP_CACHE_ENTRY_RETRIES,
     .gratProbeCount     = TCPIP_ARP_GRATUITOUS_PROBE_COUNT,
 };
 
@@ -235,14 +235,14 @@ const TCPIP_ARP_MODULE_CONFIG tcpipARPInitData =
 const TCPIP_UDP_MODULE_CONFIG tcpipUDPInitData =
 {
     .nSockets       = TCPIP_UDP_MAX_SOCKETS,
-    .sktTxBuffSize  = TCPIP_UDP_SOCKET_DEFAULT_TX_SIZE, 
+    .sktTxBuffSize  = TCPIP_UDP_SOCKET_DEFAULT_TX_SIZE,
 };
 
 /*** TCP Sockets Initialization Data ***/
 const TCPIP_TCP_MODULE_CONFIG tcpipTCPInitData =
 {
     .nSockets       = TCPIP_TCP_MAX_SOCKETS,
-    .sktTxBuffSize  = TCPIP_TCP_SOCKET_DEFAULT_TX_SIZE, 
+    .sktTxBuffSize  = TCPIP_TCP_SOCKET_DEFAULT_TX_SIZE,
     .sktRxBuffSize  = TCPIP_TCP_SOCKET_DEFAULT_RX_SIZE,
 };
 
@@ -254,7 +254,7 @@ const TCPIP_TCP_MODULE_CONFIG tcpipTCPInitData =
 
 
 /*** ICMP Server Initialization Data ***/
-const TCPIP_ICMP_MODULE_CONFIG tcpipICMPInitData = 
+const TCPIP_ICMP_MODULE_CONFIG tcpipICMPInitData =
 {
     0
 };
@@ -275,7 +275,7 @@ const TCPIP_DNS_CLIENT_MODULE_CONFIG tcpipDNSClientInitData =
 {
     .deleteOldLease         = TCPIP_DNS_CLIENT_DELETE_OLD_ENTRIES,
     .cacheEntries           = TCPIP_DNS_CLIENT_CACHE_ENTRIES,
-    .entrySolvedTmo         = TCPIP_DNS_CLIENT_CACHE_ENTRY_TMO,    
+    .entrySolvedTmo         = TCPIP_DNS_CLIENT_CACHE_ENTRY_TMO,
     .nIPv4Entries  = TCPIP_DNS_CLIENT_CACHE_PER_IPV4_ADDRESS,
     .ipAddressType       = TCPIP_DNS_CLIENT_ADDRESS_TYPE,
     .nIPv6Entries  = TCPIP_DNS_CLIENT_CACHE_PER_IPV6_ADDRESS,
@@ -286,9 +286,9 @@ const TCPIP_DNS_CLIENT_MODULE_CONFIG tcpipDNSClientInitData =
 /*** IPv4 Initialization Data ***/
 
 
-const TCPIP_IPV4_MODULE_CONFIG  tcpipIPv4InitData = 
+const TCPIP_IPV4_MODULE_CONFIG  tcpipIPv4InitData =
 {
-    .arpEntries = TCPIP_IPV4_ARP_SLOTS, 
+    .arpEntries = TCPIP_IPV4_ARP_SLOTS,
 };
 
 
@@ -338,6 +338,8 @@ const TCPIP_STACK_MODULE_CONFIG TCPIP_STACK_MODULE_CONFIG_TBL [] =
     {TCPIP_MODULE_TCP,              &tcpipTCPInitData},             // TCPIP_MODULE_TCP
     {TCPIP_MODULE_DNS_CLIENT,       &tcpipDNSClientInitData},       // TCPIP_MODULE_DNS_CLIENT
 
+    {TCPIP_MODULE_COMMAND,          0},                             // TCPIP_MODULE_COMMAND,
+    {TCPIP_MODULE_IPERF,            0},                             // TCPIP_MODULE_IPERF,
     { TCPIP_MODULE_MANAGER,         &tcpipHeapConfig },             // TCPIP_MODULE_MANAGER
 
 // MAC modules
@@ -482,7 +484,7 @@ void SYS_Initialize ( void* data )
 
     NVMCTRL_Initialize( );
 
-  
+
     PORT_Initialize();
 
     CLOCK_Initialize();
@@ -511,21 +513,21 @@ void SYS_Initialize ( void* data )
     sysObj.drvSPI0 = DRV_SPI_Initialize(DRV_SPI_INDEX_0, (SYS_MODULE_INIT *)&drvSPI0InitData);
 
 
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
-        
+
     sysObj.sysTime = SYS_TIME_Initialize(SYS_TIME_INDEX_0, (SYS_MODULE_INIT *)&sysTimeInitData);
-    
+
     /* MISRAC 2012 deviation block end */
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
      H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
         sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
    /* MISRAC 2012 deviation block end */
     SYS_CMD_Initialize((SYS_MODULE_INIT*)&sysCmdInit);
 
-    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
+    /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -
      H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
-        
+
     sysObj.sysDebug = SYS_DEBUG_Initialize(SYS_DEBUG_INDEX_0, (SYS_MODULE_INIT*)&debugInit);
 
     /* MISRAC 2012 deviation block end */

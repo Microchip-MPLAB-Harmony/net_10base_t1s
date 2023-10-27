@@ -9,13 +9,12 @@
 
   Summary:
     TCP/IP API definitions.
-	
+    
   Description:
     This is the global TCP/IP header file that any user of the TCP/IP API should include.
     It contains the basic TCP/IP types and data structures and includes all the 
     of the TCP/IP stack modules.
   
-
 *******************************************************************************/
 //DOM-IGNORE-BEGIN
 /*
@@ -41,8 +40,14 @@ implied, are granted under any patent or other intellectual property rights of
 Microchip or any third party.
 */
 
-//DOM-IGNORE-END
 
+
+
+
+
+
+
+//DOM-IGNORE-END
 
 #ifndef __TCPIP_H__
 #define __TCPIP_H__
@@ -336,24 +341,25 @@ typedef enum
     TCPIP_MODULE_FTP_SERVER,
     TCPIP_MODULE_HTTP_SERVER,
     TCPIP_MODULE_HTTP_NET_SERVER,
+    TCPIP_MODULE_HTTP_SERVER_V2,    /* new HTTP server v2 module */
     TCPIP_MODULE_TELNET_SERVER,
     TCPIP_MODULE_SNMP_SERVER,
     TCPIP_MODULE_SNMPV3_SERVER,
     TCPIP_MODULE_DYNDNS_CLIENT,
-    TCPIP_MODULE_BERKELEY,
 
-    /*DOM-IGNORE-BEGIN*/    // 3rd layer modules: 30 - 37 /*DOM-IGNORE-END*/
+    /*DOM-IGNORE-BEGIN*/    // 3rd layer modules: 30 - 38 /*DOM-IGNORE-END*/
+    TCPIP_MODULE_BERKELEY,
     TCPIP_MODULE_REBOOT_SERVER,
     TCPIP_MODULE_COMMAND,
     TCPIP_MODULE_IPERF,
     TCPIP_MODULE_TFTP_CLIENT,       /* TFTP client module */
     TCPIP_MODULE_DHCPV6_CLIENT,     /* DHCPV6 client */
     TCPIP_MODULE_SMTPC,             /* SMTP (new) client */
-	TCPIP_MODULE_TFTP_SERVER,       /* TFTP Server module */
-	TCPIP_MODULE_FTP_CLIENT,        /* FTP client */
+    TCPIP_MODULE_TFTP_SERVER,       /* TFTP Server module */
+    TCPIP_MODULE_FTP_CLIENT,        /* FTP client */
 
     /* add other modules here */
-	TCPIP_MODULE_MAC_BRIDGE,        /* MAC layer 2 bridge */
+    TCPIP_MODULE_MAC_BRIDGE,        /* MAC layer 2 bridge */
     //
     /*  */
     TCPIP_MODULES_NUMBER,       /* number of modules in the TCP/IP stack itself */
@@ -385,8 +391,9 @@ typedef enum
 #define TCPIP_STACK_IF_NAME_97J60           "97J60"
 #define TCPIP_STACK_IF_NAME_PIC32INT        "PIC32INT"
 #define TCPIP_STACK_IF_NAME_MRF24WN         "MRF24WN"
-#define TCPIP_STACK_IF_NAME_WINC	        "WINC"
+#define TCPIP_STACK_IF_NAME_WINC            "WINC"
 #define TCPIP_STACK_IF_NAME_WILC1000        "WILC1000"
+#define TCPIP_STACK_IF_NAME_G3ADP           "G3ADPMAC"
 
 /* alias for unknown interface */
 #define TCPIP_STACK_IF_NAME_ALIAS_UNK       "unk"
@@ -396,6 +403,8 @@ typedef enum
 #define TCPIP_STACK_IF_NAME_ALIAS_WLAN      "wlan"
 /* alias for PPP interface */
 #define TCPIP_STACK_IF_NAME_ALIAS_PPP       "ppp"
+/* alias for G3 ADP interface */
+#define TCPIP_STACK_IF_NAME_ALIAS_G3ADP     "g3adp"
 
 // *****************************************************************************
 /* Configuration Power Modes
@@ -452,16 +461,38 @@ typedef enum
     TCPIP_NETWORK_CONFIG_DHCP_SERVER_ON       /*DOM-IGNORE-BEGIN*/ = 0x0004 /*DOM-IGNORE-END*/,   
 
     /* DNS CLIENT enabled on this interface */
-    TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON     	  /*DOM-IGNORE-BEGIN*/ = 0x0008 /*DOM-IGNORE-END*/,	  
+    TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON        /*DOM-IGNORE-BEGIN*/ = 0x0008 /*DOM-IGNORE-END*/,   
     /* DNS Server Enabled on this Interface */
-    TCPIP_NETWORK_CONFIG_DNS_SERVER_ON		  /*DOM-IGNORE-BEGIN*/ = 0x0010 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_DNS_SERVER_ON        /*DOM-IGNORE-BEGIN*/ = 0x0010 /*DOM-IGNORE-END*/,   
     /* Multicast traffic enabled on this Interface */
-    TCPIP_NETWORK_CONFIG_MULTICAST_ON		  /*DOM-IGNORE-BEGIN*/ = 0x0020 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_MULTICAST_ON         /*DOM-IGNORE-BEGIN*/ = 0x0020 /*DOM-IGNORE-END*/,   
     /* Packet logging is enabled on this Interface */
-    TCPIP_NETWORK_CONFIG_PKT_LOG_ON		      /*DOM-IGNORE-BEGIN*/ = 0x0040 /*DOM-IGNORE-END*/,   
+    TCPIP_NETWORK_CONFIG_PKT_LOG_ON           /*DOM-IGNORE-BEGIN*/ = 0x0040 /*DOM-IGNORE-END*/,   
 
     /* the network configuration contains an IPv6 static address and subnet prefix length */
     TCPIP_NETWORK_CONFIG_IPV6_ADDRESS         /*DOM-IGNORE-BEGIN*/ = 0x0100 /*DOM-IGNORE-END*/,   
+
+    /* G3-PLC IPv6 general interface flags */
+    /* the network will be part of a G3-PLC network */
+    TCPIP_NETWORK_CONFIG_IPV6_G3_NET          /*DOM-IGNORE-BEGIN*/ = 0x0200 /*DOM-IGNORE-END*/,   
+
+    /* The IPv6 will suppress the Duplicate Address Detection on this interface */
+    TCPIP_NETWORK_CONFIG_IPV6_NO_DAD          /*DOM-IGNORE-BEGIN*/ = 0x0400 /*DOM-IGNORE-END*/,   
+    
+    /* G3-PLC IPv6 router/coordinator interface flags */
+    /* the network will act as an IPv6 border router/coordinator, replying to solicitations */
+    TCPIP_NETWORK_CONFIG_IPV6_ROUTER          /*DOM-IGNORE-BEGIN*/ = 0x0800 /*DOM-IGNORE-END*/,   
+
+    /* when configured as an IPv6 router, sending advertisements is enabled  */
+    TCPIP_NETWORK_CONFIG_IPV6_ADV_ENABLED     /*DOM-IGNORE-BEGIN*/ = 0x1000 /*DOM-IGNORE-END*/,   
+
+    /* Suppress the RS (Router Solicitation) messages on this interface */
+    TCPIP_NETWORK_CONFIG_IPV6_NO_RS           /*DOM-IGNORE-BEGIN*/ = 0x2000 /*DOM-IGNORE-END*/,   
+    
+    /* G3-PLC IPv6 device interface flags */
+    /* Send RS messages to a router unicast address rather than multicast.
+      By default the 'all IPv6 routers' multicast address: 'ff02::02' is used */
+    TCPIP_NETWORK_CONFIG_IPV6_UNICAST_RS      /*DOM-IGNORE-BEGIN*/ = 0x4000 /*DOM-IGNORE-END*/,   
 
     /* add other configuration flags here */
 }TCPIP_NETWORK_CONFIG_FLAGS;
@@ -599,8 +630,8 @@ typedef struct
 
 typedef struct
 {
-	TCPIP_STACK_MODULE		moduleId;
-	const void * const		configData;
+    TCPIP_STACK_MODULE      moduleId;
+    const void * const      configData;
 }TCPIP_STACK_MODULE_CONFIG;
 
 // *****************************************************************************
@@ -616,7 +647,7 @@ typedef struct
    Parameters:
     ppStackInit  - Pointer to the address of the initialization data.
               It should be updated to a TCPIP_STACK_INIT pointer that carries the stack initialization data:
-                -    pNetConf  	 - pointer to an array of TCPIP_NETWORK_CONFIG to support
+                -    pNetConf    - pointer to an array of TCPIP_NETWORK_CONFIG to support
                 -    nNets       - number of network configurations in the array
                 -    pModConfig  - pointer to an array of TCPIP_STACK_MODULE_CONFIG
                 -    nModules    - number of modules to initialize 

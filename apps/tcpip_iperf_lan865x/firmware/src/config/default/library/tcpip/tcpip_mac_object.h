@@ -3,13 +3,13 @@
 
   Company:
     Microchip Technology Inc.
-    
+
   File Name:
     tcpip_mac_object.h
 
   Summary:
    Multiple MAC module API definitions.
-    
+
   Description:
    This file provides the API definitions for Multiple MAC module implementation.
 *******************************************************************************/
@@ -46,8 +46,8 @@ Microchip or any third party.
 
 // DOM-IGNORE-END
 
-#ifndef _TCPIP_MAC_OBJECT_H_ 
-#define _TCPIP_MAC_OBJECT_H_ 
+#ifndef _TCPIP_MAC_OBJECT_H_
+#define _TCPIP_MAC_OBJECT_H_
 
 #include "tcpip/tcpip_mac.h"
 
@@ -57,7 +57,7 @@ Microchip or any third party.
     extern "C" {
 
 #endif
-// DOM-IGNORE-END  
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -70,7 +70,7 @@ Microchip or any third party.
 typedef struct TCPIP_MAC_OBJECT_TYPE
 {
     uint16_t            macId;          // one of the TCPIP_MODULE_MAC_ID IDs
-    uint8_t             macType;        // a TCPIP_MAC_TYPE value 
+    uint8_t             macType;        // a TCPIP_MAC_TYPE value
     uint8_t             reserved;       // reserved for future use
     const char*         macName;        // PIC32INT, MRF24WN, etc
     SYS_MODULE_OBJ      (*TCPIP_MAC_Initialize)(const SYS_MODULE_INDEX index, const SYS_MODULE_INIT * const init);
@@ -82,7 +82,7 @@ typedef struct TCPIP_MAC_OBJECT_TYPE
     void                (*TCPIP_MAC_Close)(DRV_HANDLE hMac);
     bool                (*TCPIP_MAC_LinkCheck)(DRV_HANDLE hMac);
     TCPIP_MAC_RES       (*TCPIP_MAC_RxFilterHashTableEntrySet)(DRV_HANDLE hMac, const TCPIP_MAC_ADDR* DestMACAddr);
-    bool 	            (*TCPIP_MAC_PowerMode)(DRV_HANDLE hMac, TCPIP_MAC_POWER_MODE pwrMode);
+    bool                (*TCPIP_MAC_PowerMode)(DRV_HANDLE hMac, TCPIP_MAC_POWER_MODE pwrMode);
     TCPIP_MAC_RES       (*TCPIP_MAC_PacketTx)(DRV_HANDLE hMac, TCPIP_MAC_PACKET * ptrPacket);
     TCPIP_MAC_PACKET*   (*TCPIP_MAC_PacketRx)(DRV_HANDLE hMac, TCPIP_MAC_RES* pRes, TCPIP_MAC_PACKET_RX_STAT* pPktStat);
     TCPIP_MAC_RES       (*TCPIP_MAC_Process)(DRV_HANDLE hMac);
@@ -104,8 +104,8 @@ typedef struct
                                         // multiple MAC objects of the same type
                                         // to share an unique const object table
     void*               mac_data[];     // specific MAC object data
-}TCPIP_MAC_DCPT; 
-    
+}TCPIP_MAC_DCPT;
+
 // supported MAC objects
 extern const TCPIP_MAC_OBJECT DRV_ETHMAC_PIC32MACObject;
 extern const TCPIP_MAC_OBJECT DRV_GMAC_Object;
@@ -122,6 +122,7 @@ extern const TCPIP_MAC_OBJECT WDRV_WILC1000_MACObject;
 extern const TCPIP_MAC_OBJECT DRV_PIC32WK_MACObject;
 extern const TCPIP_MAC_OBJECT WDRV_PIC32MZW1_MACObject;
 extern const TCPIP_MAC_OBJECT DRV_PPP_MACObject;
+extern const TCPIP_MAC_OBJECT DRV_G3ADP_MACObject;
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
@@ -129,4 +130,4 @@ extern const TCPIP_MAC_OBJECT DRV_PPP_MACObject;
 #endif
 //DOM-IGNORE-END
 
-#endif  // _TCPIP_MAC_OBJECT_H_ 
+#endif  // _TCPIP_MAC_OBJECT_H_

@@ -3,6 +3,26 @@
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## 10BASE-T1S Release v1.3.1
+### Bug Fixes
+
+The following table provides the list of bug fixes in the v1.3.1 release:
+
+| Device  | Application          | Module             | Description                                                    |
+| ------  | ------               | ------             | ------                                                                |
+| LAN867x |tcpip_iperf_lan867x   | driver/LAN867x/src | Support last version of net v3.11.0 and add settings for enabling SQI-measurement |
+| LAN867x |tcpip_iperf_lan867x   | apps               | Update LAN867x rev.C1 example projects with latest MPLAB® Harmony package |
+| LAN865x |tcpip_iperf_lan865x   | driver/LAN865x/src | Support last version of net v3.11.0                                |
+| LAN865x |tcpip_iperf_lan865x   | apps               | Update LAN865x rev.B1 example projects with latest MPLAB® Harmony package |
+### Dependencies
+
+* [MPLAB® X IDE v6.15](https://www.microchip.com/mplab/mplab-x-ide) or later
+* [MPLAB® XC32 C/C++ Compiler v4.35](https://www.microchip.com/mplab/compilers) or later
+**(OR)** [MPLAB® XC32 Functional Safety Compiler v4.09](https://www.microchip.com/mplab/compilers) or later
+* [net v3.11.0](https://github.com/Microchip-MPLAB-Harmony/net/tree/v3.11.0) or later
+
+- **Release notes for v1.3.0 apply**
+
 ## 10BASE-T1S Release v1.3.0
 ### New Features
 

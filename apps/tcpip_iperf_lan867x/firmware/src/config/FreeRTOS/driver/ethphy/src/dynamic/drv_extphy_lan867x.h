@@ -556,7 +556,7 @@ typedef struct {
 #define LAN867x_PHY_ID2_MASK  (0xC16F)
 #define LAN867x_PHY_ID_REV_B1 (0x2)
 #define LAN867x_PHY_ID_REV_C1 (0x4)
-
+#define LAN867x_PHY_ID_REV_C2 (0x5)
 /******************************************************************************
 *  FUNCTION DECLARATIONS
 ******************************************************************************/

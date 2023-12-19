@@ -181,7 +181,7 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
         break;
         /* Rev.B1 End */
 
-        /* Rev.C0/1 Start */
+        /* Rev.C0/1/2 Start */
     case 13: /* check LAN867x chip health */
         miimRes = Lan867x_Write_Register(&clientObj, 0x1F00D8, 0x0005);
         break;
@@ -269,7 +269,7 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
     case 33:
         miimRes = Lan867x_Write_Register(&clientObj, 0x1F0093, 0x06E9); /* FRAME_DECODER_CONTROL_2 */
         break;
-        /* Rev.C0/1 End */
+        /* Rev.C0/1/2 End */
 
 #ifdef SQI_CONFIG_ENABLE /*SQI configuration Start*/
     case 34:
@@ -394,7 +394,7 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
                         SYS_CONSOLE_PRINT("LAN867x Reset has occurred,pos=2 \r\n");
                     }
                     if (info.version != LAN867x_PHY_ID_REV_B1) {
-                        state = 12; //Start initial settings for Rev C0/C1,otherwise for Rev B
+                        state = 12; //Start initial settings for Rev C0/C1/C2,otherwise for Rev B
                     }
                 }
                 break;
@@ -436,7 +436,7 @@ static DRV_ETHPHY_RESULT DRV_EXTPHY_MIIConfigure(const DRV_ETHPHY_OBJECT_BASE *p
                 break;
 
             case 32:
-                if (!((info.type) && (info.version == LAN867x_PHY_ID_REV_C1))) {
+                if (!((info.type) && ((info.version == LAN867x_PHY_ID_REV_C1) || (info.version == LAN867x_PHY_ID_REV_C2)))) {
                     state = 33;
 #ifndef SQI_CONFIG_ENABLE
                     state = 48;
@@ -643,6 +643,9 @@ static DRV_ETHPHY_RESULT DRV_ETHPHY_Detect(const struct DRV_ETHPHY_OBJECT_BASE_T
                         break;
                     case LAN867x_PHY_ID_REV_C1:
                         SYS_CONSOLE_PRINT("LAN867x Rev.C1 \r\n");
+                        break;
+                    case LAN867x_PHY_ID_REV_C2:
+                        SYS_CONSOLE_PRINT("LAN867x Rev.C2 \r\n");
                         break;
                     default:
                         SYS_CONSOLE_PRINT("LAN867x Unknown version!\r\n");

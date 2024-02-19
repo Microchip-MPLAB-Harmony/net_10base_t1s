@@ -2,6 +2,10 @@
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
 # Microchip MPLAB® Harmony 3 Release Notes
+## 10BASE-T1S Release v1.3.2
+### Bug Fixes
+
+- **Fix version string in package.yml**
 
 ## 10BASE-T1S Release v1.3.1
 ### New Features

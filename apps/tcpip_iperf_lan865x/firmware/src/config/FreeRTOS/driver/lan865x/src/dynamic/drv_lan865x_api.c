@@ -1501,7 +1501,7 @@ static void PrintRateLimited(const char *statement, ...)
     }
     ++cnt_;
     if (cnt_ <= PRINT_RATE_THRESHOLD) {
-        va_list args = {0};
+        va_list args;
         va_start( args, statement );
         (void)vsnprintf(tmpBuf, sizeof(tmpBuf), statement, args);
         va_end( args );

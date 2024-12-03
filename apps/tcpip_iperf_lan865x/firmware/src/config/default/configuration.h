@@ -96,7 +96,7 @@ extern "C" {
 
 #define SYS_CMD_ENABLE
 #define SYS_CMD_DEVICE_MAX_INSTANCES       SYS_CONSOLE_DEVICE_MAX_INSTANCES
-#define SYS_CMD_PRINT_BUFFER_SIZE          1024U
+#define SYS_CMD_PRINT_BUFFER_SIZE          1000U
 #define SYS_CMD_BUFFER_DMA_READY
 
 
@@ -257,7 +257,7 @@ extern "C" {
 #define TCPIP_NETWORK_DEFAULT_HOST_NAME_IDX0              "MCHP_LAN865x"
 #define TCPIP_NETWORK_DEFAULT_MAC_ADDR_IDX0               "00:04:25:1C:A0:02"
 
-#define TCPIP_NETWORK_DEFAULT_IP_ADDRESS_IDX0         "192.168.100.10"
+#define TCPIP_NETWORK_DEFAULT_IP_ADDRESS_IDX0         "192.168.100.11"
 #define TCPIP_NETWORK_DEFAULT_IP_MASK_IDX0            "255.255.255.0"
 #define TCPIP_NETWORK_DEFAULT_GATEWAY_IDX0            "192.168.100.1"
 #define TCPIP_NETWORK_DEFAULT_DNS_IDX0                "192.168.100.1"
@@ -267,7 +267,7 @@ extern "C" {
                                                     TCPIP_NETWORK_CONFIG_DHCP_CLIENT_ON |\
                                                     TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON |\
                                                     TCPIP_NETWORK_CONFIG_IP_STATIC
-
+                                                    
 #define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0         DRV_LAN865X_MACObject
 
 
@@ -290,7 +290,7 @@ extern "C" {
 
 #define TCPIP_IPV4_COMMANDS false
 
-#define TCPIP_IPV4_FORWARDING_ENABLE    false
+#define TCPIP_IPV4_FORWARDING_ENABLE    false 
 
 
 
@@ -328,7 +328,7 @@ extern "C" {
 #define TCPIP_STACK_USE_TCP
 #define TCPIP_STACK_USE_UDP
 
-#define TCPIP_STACK_TICK_RATE		        		5
+#define TCPIP_STACK_TICK_RATE		        		1
 #define TCPIP_STACK_SECURE_PORT_ENTRIES             10
 #define TCPIP_STACK_LINK_RATE		        		333
 
@@ -410,6 +410,7 @@ extern "C" {
 #define SINGLE_THREADED
 #define NO_SIG_WRAPPER
 #define NO_ERROR_STRINGS
+#define WOLFSSL_MAX_ERROR_SZ 38 // Fix Mandatory Misra 21.18 caused by removing error strings with defining NO_ERROR_STRINGS
 #define NO_WOLFSSL_MEMORY
 // ---------- FUNCTIONAL CONFIGURATION END ----------
 

@@ -3,12 +3,14 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>tcpip_iperf_10base_t1s</name>
-            <creation-uuid>c3da73fa-6024-402d-b99e-e7dc968f41f1</creation-uuid>
+            <name>tcpip_iperf_lan865x</name>
+            <creation-uuid>8fcd2f96-75da-4309-a703-43925c5689aa</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
-            <sourceRootList/>
+            <sourceRootList>
+                <sourceRootElem>.</sourceRootElem>
+            </sourceRootList>
             <confList>
                 <confElem>
                     <name>default</name>

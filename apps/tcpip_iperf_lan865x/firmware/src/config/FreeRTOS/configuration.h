@@ -96,11 +96,11 @@ extern "C" {
 
 #define SYS_CMD_ENABLE
 #define SYS_CMD_DEVICE_MAX_INSTANCES       SYS_CONSOLE_DEVICE_MAX_INSTANCES
-#define SYS_CMD_PRINT_BUFFER_SIZE          1000U
+#define SYS_CMD_PRINT_BUFFER_SIZE          1024U
 #define SYS_CMD_BUFFER_DMA_READY
 
 /* Command System Service RTOS Configurations*/
-#define SYS_CMD_RTOS_STACK_SIZE                1536
+#define SYS_CMD_RTOS_STACK_SIZE                768
 #define SYS_CMD_RTOS_TASK_PRIORITY             2
 
 
@@ -260,7 +260,7 @@ extern "C" {
 #define TCPIP_NETWORK_DEFAULT_HOST_NAME_IDX0              "MCHP_LAN865x"
 #define TCPIP_NETWORK_DEFAULT_MAC_ADDR_IDX0               "00:04:25:1C:A0:02"
 
-#define TCPIP_NETWORK_DEFAULT_IP_ADDRESS_IDX0         "192.168.100.10"
+#define TCPIP_NETWORK_DEFAULT_IP_ADDRESS_IDX0         "192.168.100.11"
 #define TCPIP_NETWORK_DEFAULT_IP_MASK_IDX0            "255.255.255.0"
 #define TCPIP_NETWORK_DEFAULT_GATEWAY_IDX0            "192.168.100.1"
 #define TCPIP_NETWORK_DEFAULT_DNS_IDX0                "192.168.100.1"
@@ -416,6 +416,7 @@ extern "C" {
 #define SINGLE_THREADED
 #define NO_SIG_WRAPPER
 #define NO_ERROR_STRINGS
+#define WOLFSSL_MAX_ERROR_SZ 38 // Fix Mandatory Misra 21.18 caused by removing error strings with defining NO_ERROR_STRINGS
 #define NO_WOLFSSL_MEMORY
 // ---------- FUNCTIONAL CONFIGURATION END ----------
 

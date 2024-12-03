@@ -3,12 +3,14 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>tcpip_iperf_10base_t1s_freertos</name>
-            <creation-uuid>f767dda2-6251-4555-8c04-cb0d4e13c6d2</creation-uuid>
+            <name>tcpip_iperf_lan865x_freertos</name>
+            <creation-uuid>268a52c2-8c83-4900-8871-6832f09f61d2</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
-            <sourceRootList/>
+            <sourceRootList>
+                <sourceRootElem>.</sourceRootElem>
+            </sourceRootList>
             <confList>
                 <confElem>
                     <name>FreeRTOS</name>

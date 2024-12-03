@@ -16,6 +16,8 @@
     This facilitates an easy method to view status information
     and control applications using any standard web browser.
 
+  Note:
+    The http module is obsolete. The new http_net module should be used!
 *******************************************************************************/
 //DOM-IGNORE-BEGIN
 /*
@@ -63,6 +65,10 @@ Microchip or any third party.
 #endif
 // DOM-IGNORE-END  
 
+// NOTE: The http module is deprecated and should not be used for new projects. The new http_net module should be used.
+//
+// #warning "The http module is obsolete. The new http_net module should be used!"
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Commands and Server Responses
@@ -89,8 +95,8 @@ typedef enum
     HTTP_MPFS_UP,                // An MPFS Upload is being processed
     HTTP_MPFS_SIGNATURE,         // MPFS Upload looking for signature
     HTTP_MPFS_OK,                // An MPFS Upload was successful  
-	HTTP_MPFS_WAIT,              // An MPFS Upload waiting for the write operation to complete
-	HTTP_MPFS_ERROR,             // An MPFS Upload was not a valid image
+    HTTP_MPFS_WAIT,              // An MPFS Upload waiting for the write operation to complete
+    HTTP_MPFS_ERROR,             // An MPFS Upload was not a valid image
 
 } HTTP_STATUS;
 
@@ -1253,7 +1259,7 @@ int    TCPIP_HTTP_ActiveConnectionCountGet(int* pOpenCount);
     None.
 
   Parameters:
-	connHandle  - HTTP connection handle
+    connHandle  - HTTP connection handle
 
   Returns:
     the start address of current connection upload buffer..
@@ -1280,7 +1286,7 @@ const void* TCPIP_HTTP_CurrentConnectionUploadBufferStartGet(HTTP_CONN_HANDLE co
     None.
 
   Parameters:
-	connHandle  - HTTP connection handle
+    connHandle  - HTTP connection handle
 
   Returns:
     the end address of current connection upload buffer..
@@ -1307,7 +1313,7 @@ const void* TCPIP_HTTP_CurrentConnectionUploadBufferEndGet(HTTP_CONN_HANDLE conn
     None.
 
   Parameters:
-	connHandle  - HTTP connection handle
+    connHandle  - HTTP connection handle
 
   Returns:
     the Current address of current connection upload buffer..
@@ -1334,8 +1340,8 @@ const void* TCPIP_HTTP_CurrentConnectionUploadBufferCurrGet(HTTP_CONN_HANDLE con
     None.
 
   Parameters:
-	connHandle  - HTTP connection handle
-	uploadBufferStart - start upload buffer.
+    connHandle  - HTTP connection handle
+    uploadBufferStart - start upload buffer.
 
   Returns:
     None.
@@ -1361,8 +1367,8 @@ void TCPIP_HTTP_CurrentConnectionUploadBufferStartSet(HTTP_CONN_HANDLE connHandl
     None.
 
   Parameters:
-	connHandle  - HTTP connection handle
-	uploadBufferEnd - end upload buffer.
+    connHandle  - HTTP connection handle
+    uploadBufferEnd - end upload buffer.
 
   Returns:
     None.
@@ -1388,8 +1394,8 @@ void TCPIP_HTTP_CurrentConnectionUploadBufferEndSet(HTTP_CONN_HANDLE connHandle,
     None.
 
   Parameters:
-	connHandle  - HTTP connection handle
-	uploadBufferCurr - current upload buffer 
+    connHandle  - HTTP connection handle
+    uploadBufferCurr - current upload buffer 
 
   Returns:
     None.
@@ -1416,8 +1422,8 @@ void TCPIP_HTTP_CurrentConnectionUploadBufferCurrSet(HTTP_CONN_HANDLE connHandle
     None.
 
   Parameters:
-	connHandle  - HTTP connection handle
-	stat - current state.
+    connHandle  - HTTP connection handle
+    stat - current state.
 
   Returns:
     None.
@@ -1568,7 +1574,7 @@ HTTP_IO_RESULT TCPIP_HTTP_GetExecute(HTTP_CONN_HANDLE connHandle);
     TCP buffer.
     The connection byteCount (see TCPIP_HTTP_CurrentConnectionByteCountGet
     will indicate the number of bytes remaining to be read before the 
-	browser request is complete.
+    browser request is complete.
 
     Since data is still in the TCP buffer, the application must call
     TCPIP_TCP_ArrayGet in order to retrieve bytes.  When this is done,
@@ -1695,7 +1701,7 @@ uint8_t TCPIP_HTTP_FileAuthenticate(HTTP_CONN_HANDLE connHandle, uint8_t* cFile)
     The value returned by this function is stored in the corresponding connection data
     and will be available with TCPIP_HTTP_CurrentConnectionIsAuthorizedGet
     in any of the TCPIP_HTTP_GetExecute, TCPIP_HTTP_PostExecute, or 
-	TCPIP_HTTP_Print_varname callbacks.
+    TCPIP_HTTP_Print_varname callbacks.
 
   Precondition:
     None.
@@ -1723,7 +1729,7 @@ uint8_t TCPIP_HTTP_UserAuthenticate(HTTP_CONN_HANDLE connHandle, uint8_t* cUser,
     void TCPIP_HTTP_Print_varname(HTTP_CONN_HANDLE connHandle)
     void TCPIP_HTTP_Print_varname(HTTP_CONN_HANDLE connHandle, uint16_t wParam1)
     void TCPIP_HTTP_Print_varname(HTTP_CONN_HANDLE connHandle, uint16_t wParam1, 
-	                              uint16_t wParam2, ...)
+                                  uint16_t wParam2, ...)
 
   Summary:
     Inserts dynamic content into a web page
@@ -1781,7 +1787,7 @@ uint8_t TCPIP_HTTP_UserAuthenticate(HTTP_CONN_HANDLE connHandle, uint8_t* cUser,
     especially when managing its output state.  Exercise caution when using
     global or static variables inside this routine.  Use the connection
     callbackPos or the connection data buffer for storage associated with 
-	individual requests.
+    individual requests.
  */
 void TCPIP_HTTP_Print_varname(HTTP_CONN_HANDLE connHandle,  uint16_t wParam1, uint16_t wParam2, ...);
 

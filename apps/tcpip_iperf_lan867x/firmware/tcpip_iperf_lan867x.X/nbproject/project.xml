@@ -4,11 +4,13 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>tcpip_iperf_lan867x</name>
-            <creation-uuid>d34f5356-cf9e-41c3-86ce-db7fc10f859b</creation-uuid>
+            <creation-uuid>5748d811-ce4c-473c-8dba-7dad52c26774</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
-            <sourceRootList/>
+            <sourceRootList>
+                <sourceRootElem>.</sourceRootElem>
+            </sourceRootList>
             <confList>
                 <confElem>
                     <name>default</name>

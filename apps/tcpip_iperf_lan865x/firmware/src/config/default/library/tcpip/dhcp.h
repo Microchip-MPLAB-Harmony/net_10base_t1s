@@ -74,25 +74,58 @@ Microchip or any third party.
 
   Description:
     None.
+
+  Remarks:
+    The lease related events are first.
+    They are followed by the connection related events.
  */
 typedef enum
 {
     DHCP_EVENT_NONE     = 0,     // DHCP no event
+    // lease related events
     DHCP_EVENT_DISCOVER,         // DHCP discovery sent: cycle started
+    DHCP_EVENT_OFFER,            // DHCP offer received
     DHCP_EVENT_REQUEST,          // DHCP request sent
     DHCP_EVENT_ACK,              // DHCP request acknowledge was received
-    DHCP_EVENT_ACK_INVALID,      // DHCP acknowledge received but discarded as invalid
-    DHCP_EVENT_DECLINE,          // DHCP lease declined
+    DHCP_EVENT_DECLINE,          // DHCP decline sent because the ARP probe failed
     DHCP_EVENT_NACK,             // DHCP negative acknowledge was received
     DHCP_EVENT_TIMEOUT,          // DHCP server timeout
     DHCP_EVENT_BOUND,            // DHCP lease obtained
     DHCP_EVENT_REQUEST_RENEW,    // lease request renew sent
     DHCP_EVENT_REQUEST_REBIND,   // lease request rebind sent
+    DHCP_EVENT_UNKNOWN,          // an unknown/unsupported DHCP message has been received
+    // connection related events
     DHCP_EVENT_CONN_LOST,        // connection to the DHCP server lost
     DHCP_EVENT_CONN_ESTABLISHED, // connection re-established
-    DHCP_EVENT_SERVICE_DISABLED  // DHCP service disabled, reverted to the default IP address
+    DHCP_EVENT_SERVICE_DISABLED, // DHCP service disabled, reverted to the default IP address
 
 } TCPIP_DHCP_EVENT_TYPE;
+
+// *****************************************************************************
+/* Structure: TCPIP_DHCP_EVENT_INFO
+
+  Summary:
+    Reports DHCP event information.
+
+  Description:
+    This data structure is used in the extended DHCP events
+    for reporting extended info about an DHCP event.
+
+  Remarks:
+    Connection events do not have associated client and server addresses and transaction IDs.
+ */
+typedef struct
+{
+    uint32_t        dhcpTimeMs;             // current DHCP time, milliseconds
+    IPV4_ADDR       clientAddress;          // for RX events (DHCP_EVENT_OFFER, DHCP_EVENT_ACK, DHCP_EVENT_NACK, DHCP_EVENT_UNKNOWN) this is the destination IPv4 address of the DHCP packet
+                                            // for TX and other events this is the client IPv4 address when the DHCP message that triggered the event was sent
+
+    IPV4_ADDR       serverAddress;          // for RX events (DHCP_EVENT_OFFER, DHCP_EVENT_ACK, DHCP_EVENT_NACK, DHCP_EVENT_UNKNOWN) this is the source IPv4 address of the DHCP packet (server that sent the message)
+                                            // for TX and other events this is the current bound address.
+                                            // If the client is not bound or the network broadcast is used, then this is a broadcast address
+    uint32_t        transactionId;          // transaction ID associated with the DHCP message  
+                                            // For a connection related event, this is the last ID that has been used
+}TCPIP_DHCP_EVENT_INFO;
 
 // *****************************************************************************
 /* Enumeration: TCPIP_DHCP_STATUS
@@ -108,16 +141,16 @@ typedef enum
 {
     TCPIP_DHCP_IDLE = 0,            // idle/inactive state
     TCPIP_DHCP_WAIT_LINK,           // waiting for an active connection
-    TCPIP_DHCP_SEND_DISCOVERY,		// sending a Discover message
-    TCPIP_DHCP_GET_OFFER,			// waiting for a DHCP Offer
-    TCPIP_DHCP_SEND_REQUEST,		// sending a REQUEST message (REQUESTING)
-    TCPIP_DHCP_GET_REQUEST_ACK,	    // waiting for a Request ACK message
+    TCPIP_DHCP_SEND_DISCOVERY,      // sending a Discover message
+    TCPIP_DHCP_GET_OFFER,           // waiting for a DHCP Offer
+    TCPIP_DHCP_SEND_REQUEST,        // sending a REQUEST message (REQUESTING)
+    TCPIP_DHCP_GET_REQUEST_ACK,     // waiting for a Request ACK message
     TCPIP_DHCP_WAIT_LEASE_CHECK,    // waiting for received lease verification
     TCPIP_DHCP_WAIT_LEASE_RETRY,    // waiting for another attempt after the lease verification failed
     TCPIP_DHCP_SKIP_LEASE_CHECK,    // skip the lease verification state
-    TCPIP_DHCP_BOUND,				// bound
-    TCPIP_DHCP_SEND_RENEW,			// sending a REQUEST message (RENEW state)
-    TCPIP_DHCP_GET_RENEW_ACK,		// waiting for ACK in RENEW state
+    TCPIP_DHCP_BOUND,               // bound
+    TCPIP_DHCP_SEND_RENEW,          // sending a REQUEST message (RENEW state)
+    TCPIP_DHCP_GET_RENEW_ACK,       // waiting for ACK in RENEW state
     TCPIP_DHCP_SEND_REBIND,         // sending REQUEST message (REBIND state)
     TCPIP_DHCP_GET_REBIND_ACK,      // waiting for ACK in REBIND state
 } TCPIP_DHCP_STATUS;
@@ -163,19 +196,34 @@ typedef struct
 /*
   Type:
     TCPIP_DHCP_EVENT_HANDLER
+    TCPIP_DHCP_EVENT_HANDLER_EX
 
   Summary:
-    DHCP event handler prototype.
+    DHCP event handler prototypes.
 
   Description:
-    Prototype of a DHCP event handler. Clients can register a handler with the
-    DHCP service. Once an DHCP event occurs the DHCP service will called the
-    registered handler.
+    Prototype of a DHCP simple and extended event handler.
+    Clients can register a handler with the DHCP service.
+    Once an DHCP event occurs the DHCP service will called the registered handler.
+
+  Parameters:
+    hNet    - Interface the DHCP event occurred on.
+    evType  - type of event that occurred
+    evInfo  - associated event information 
+              For the extended handler only
+    param   - user supplied parameter.
+              Not used by the DHCP module.
+
+  Remarks:
+    For the extended handler, evInfo points to a constant structure that should not be modified
+    and which is valid only in the context of the event handler call.
+
     The handler has to be short and fast. It is meant for
     setting an event flag, <i>not</i> for lengthy processing!
  */
 
 typedef void    (*TCPIP_DHCP_EVENT_HANDLER)(TCPIP_NET_HANDLE hNet, TCPIP_DHCP_EVENT_TYPE evType, const void* param);
+typedef void    (*TCPIP_DHCP_EVENT_HANDLER_EX)(TCPIP_NET_HANDLE hNet, TCPIP_DHCP_EVENT_TYPE evType, const TCPIP_DHCP_EVENT_INFO* evInfo, const void* param);
 
 
 // *****************************************************************************
@@ -256,7 +304,7 @@ typedef struct
 
   Description:
     This function enables the DHCP client for the specified interface, if it is 
-	disabled. If it is already enabled, no action is taken.
+    disabled. If it is already enabled, no action is taken.
 
   Precondition:
     The DHCP module must be initialized.
@@ -265,8 +313,8 @@ typedef struct
     hNet - Interface to enable the DHCP client on.
 
   Returns:
-    - true	- if successful
-    - false	- if unsuccessful
+    - true  - if successful
+    - false - if unsuccessful
  */
 bool TCPIP_DHCP_Enable(TCPIP_NET_HANDLE hNet);
 
@@ -290,8 +338,8 @@ bool TCPIP_DHCP_Enable(TCPIP_NET_HANDLE hNet);
     pNetIf - Interface to disable the DHCP client on.
 
   Returns:
-    - true	- if successful
-    - false	- if unsuccessful
+    - true  - if successful
+    - false - if unsuccessful
 
   Remarks:
     When the DHCP client is disabled and the interface continues using its old configuration,
@@ -313,7 +361,7 @@ bool TCPIP_DHCP_Disable(TCPIP_NET_HANDLE hNet );
 
   Description:
     This function attempts to contact the server and renew the DHCP lease for 
-	the specified interface.
+    the specified interface.
     The interface should have the DHCP enabled and in bound state
     for this call to succeed.
 
@@ -324,7 +372,7 @@ bool TCPIP_DHCP_Disable(TCPIP_NET_HANDLE hNet );
     hNet - Interface on which to renew the DHCP lease.
 
   Returns:
-    - true	- if successful
+    - true  - if successful
     - false - if unsuccessful
  */
 bool TCPIP_DHCP_Renew(TCPIP_NET_HANDLE hNet);
@@ -355,9 +403,9 @@ bool TCPIP_DHCP_Renew(TCPIP_NET_HANDLE hNet);
     hNet - Interface to renew the DHCP lease on.
 
   Returns:
-    - true	- if successful
+    - true  - if successful
     - false - if the supplied IP address is invalid or the DHCP client
-			  is in the middle of a transaction
+              is in the middle of a transaction
 
 
  Remarks:
@@ -378,7 +426,7 @@ bool TCPIP_DHCP_Request(TCPIP_NET_HANDLE hNet, IPV4_ADDR reqAddress);
 
   Description:
     This function returns the current state of the DHCP client on the specified 
-	interface.
+    interface.
 
   Precondition:
     The DHCP module must be initialized.
@@ -387,8 +435,8 @@ bool TCPIP_DHCP_Request(TCPIP_NET_HANDLE hNet, IPV4_ADDR reqAddress);
     hNet- Interface to query.
 
   Returns:
-    - true	- if the DHCP client service is enabled on the specified interface
-    - false	- if the DHCP client service is not enabled on the specified interface
+    - true  - if the DHCP client service is enabled on the specified interface
+    - false - if the DHCP client service is not enabled on the specified interface
  */
 bool TCPIP_DHCP_IsEnabled(TCPIP_NET_HANDLE hNet);
 
@@ -411,8 +459,8 @@ bool TCPIP_DHCP_IsEnabled(TCPIP_NET_HANDLE hNet);
     hNet- Interface to query.
 
   Returns:
-    - true	- if the DHCP client service is currently active on the specified interface
-    - false	- if the DHCP client service is not active on the specified interface
+    - true  - if the DHCP client service is currently active on the specified interface
+    - false - if the DHCP client service is not active on the specified interface
 
  Remarks:
     The DHCP client service could be enabled bot not active.
@@ -459,7 +507,7 @@ bool TCPIP_DHCP_IsBound(TCPIP_NET_HANDLE hNet);
 
   Description:
     This function determines if the DHCP client on the specified interface received 
-	any reply from a DHCP server.
+    any reply from a DHCP server.
 
   Precondition:
     The DHCP module must be initialized.
@@ -479,7 +527,7 @@ bool TCPIP_DHCP_IsBound(TCPIP_NET_HANDLE hNet);
 // *****************************************************************************
 /* Function:
     bool TCPIP_DHCP_RequestTimeoutSet(TCPIP_NET_HANDLE hNet, uint16_t initTmo, 
-	                                  uint16_t dhcpBaseTmo)
+                                      uint16_t dhcpBaseTmo)
 
   Summary:
     Sets the DHCP client request and base time-out values.
@@ -515,14 +563,13 @@ bool TCPIP_DHCP_RequestTimeoutSet(TCPIP_NET_HANDLE hNet, uint16_t initTmo,
 
 // *****************************************************************************
 /* Function:
-    TCPIP_DHCP_HandlerRegister(TCPIP_NET_HANDLE hNet, TCPIP_DHCP_EVENT_HANDLER handler, 
-	                           const void* hParam)
+    TCPIP_DHCP_HandlerRegister(TCPIP_NET_HANDLE hNet, TCPIP_DHCP_EVENT_HANDLER handler, const void* hParam)
 
   Summary:
-    Registers a DHCP Handler.
+    Registers a simple DHCP Handler.
 
   Description:
-    This function registers a DHCP event handler.
+    This function registers a simple DHCP event handler (not carrying extended event info).
     The DHCP module will call the registered handler when a
     DHCP event (TCPIP_DHCP_EVENT_TYPE) occurs.
 
@@ -551,8 +598,46 @@ bool TCPIP_DHCP_RequestTimeoutSet(TCPIP_NET_HANDLE hNet, uint16_t initTmo,
     callback.
  */
 
-TCPIP_DHCP_HANDLE      TCPIP_DHCP_HandlerRegister(TCPIP_NET_HANDLE hNet, 
-                          TCPIP_DHCP_EVENT_HANDLER handler, const void* hParam);
+TCPIP_DHCP_HANDLE      TCPIP_DHCP_HandlerRegister(TCPIP_NET_HANDLE hNet, TCPIP_DHCP_EVENT_HANDLER handler, const void* hParam);
+
+// *****************************************************************************
+/* Function:
+    TCPIP_DHCP_HandlerRegisterEx(TCPIP_NET_HANDLE hNet, TCPIP_DHCP_EVENT_HANDLER_EX exHandler, const void* hParam)
+
+  Summary:
+    Registers an extended DHCP Handler.
+
+  Description:
+    This function registers an extended DHCP event handler which will carry extended event info.
+    The DHCP module will call the registered handler when a
+    DHCP event (TCPIP_DHCP_EVENT_TYPE) occurs.
+
+  Precondition:
+    The DHCP module must be initialized.
+
+  Parameters:
+    hNet    - Interface handle.
+              Use hNet == 0 to register on all interfaces available.
+    exHandler - Handler to be called when a DHCP event occurs.
+    hParam  - Parameter to be used in the handler call.
+              This is user supplied and is not used by the DHCP module.
+
+
+  Returns:
+    Returns a valid handle if the call succeeds, or a null handle if
+    the call failed (out of memory, for example).
+
+  Remarks:
+    The handler has to be short and fast. It is meant for
+    setting an event flag, not for lengthy processing!
+
+    The hParam is passed by the client and will be used by the DHCP when the
+    notification is made. It is used for per-thread content or if more modules,
+    for example, share the same handler and need a way to differentiate the
+    callback.
+ */
+
+TCPIP_DHCP_HANDLE      TCPIP_DHCP_HandlerRegisterEx(TCPIP_NET_HANDLE hNet, TCPIP_DHCP_EVENT_HANDLER_EX exHandler, const void* hParam);
 
 // *****************************************************************************
 /* Function:
@@ -562,16 +647,16 @@ TCPIP_DHCP_HANDLE      TCPIP_DHCP_HandlerRegister(TCPIP_NET_HANDLE hNet,
     Deregisters a previously registered DHCP handler.
     
   Description:
-    This function deregisters the DHCP event handler.
+    This function deregisters a simple or extended DHCP event handler.
 
   Precondition:
     The DHCP module must be initialized.
 
   Parameters:
-    hDhcp   - A handle returned by a previous call to TCPIP_DHCP_HandlerRegister.
+    hDhcp   - A handle returned by a previous call to TCPIP_DHCP_HandlerRegister/TCPIP_DHCP_HandlerRegisterEx.
 
   Returns:
-    - true	- if the call succeeds
+    - true  - if the call succeeds
     - false - if no such handler is registered
  */
 
@@ -598,9 +683,9 @@ bool             TCPIP_DHCP_HandlerDeRegister(TCPIP_DHCP_HANDLE hDhcp);
                 Could be NULL if not needed
 
   Returns:
-    - true	- if the interface is enabled and exists and the DHCP client service 
-	          is enabled on that interface and a lease is acquired
-    - false	- otherwise
+    - true  - if the interface is enabled and exists and the DHCP client service 
+              is enabled on that interface and a lease is acquired
+    - false - otherwise
  */
 bool TCPIP_DHCP_InfoGet(TCPIP_NET_HANDLE hNet, TCPIP_DHCP_INFO* pDhcpInfo);
 
@@ -608,7 +693,7 @@ bool TCPIP_DHCP_InfoGet(TCPIP_NET_HANDLE hNet, TCPIP_DHCP_INFO* pDhcpInfo);
 // *****************************************************************************
 /* Function:
     bool TCPIP_DHCP_HostNameCallbackRegister(TCPIP_NET_HANDLE hNet, 
-	                  TCPIP_DHCP_HOST_NAME_CALLBACK nameCallback, bool writeBack)
+                      TCPIP_DHCP_HOST_NAME_CALLBACK nameCallback, bool writeBack)
 
   Summary:
     Registers a DHCP host name callback with the DHCP client.

@@ -181,7 +181,6 @@ void _TCPIP_PKT_PacketAcknowledge(TCPIP_MAC_PACKET* pPkt, TCPIP_MAC_PKT_ACK_RES 
         pPkt->ackRes = ackRes;
     }
 
-    pPkt->pktPriority = 0; //clear the packet priority to default
     if(pPkt->ackFunc)
     {
        TCPIP_PKT_FlightLogAcknowledge(pPkt, moduleId, ackRes);
@@ -1127,7 +1126,8 @@ void TCPIP_PKT_FlightLogAcknowledge(TCPIP_MAC_PACKET* pPkt, TCPIP_STACK_MODULE m
                 discardPkt = true;
                 break;
             }
-            else if((pLogEntry->logFlags & TCPIP_PKT_LOG_FLAG_SKT_PARAM) != 0)
+
+            if((pLogEntry->logFlags & TCPIP_PKT_LOG_FLAG_SKT_PARAM) != 0)
             {   // a socket entry; check against skt discard mask
                 if(((1 << pLogEntry->sktNo) & _pktLogInfo.sktLogMask) == 0)
                 {   // discard it

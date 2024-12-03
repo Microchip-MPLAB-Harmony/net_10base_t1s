@@ -78,9 +78,10 @@
 // *****************************************************************************
 // *****************************************************************************
 /* Following MISRA-C rules are deviated in the below code block */
-/* MISRA C-2012 Rule 11.1 */
-/* MISRA C-2012 Rule 11.3 */
-/* MISRA C-2012 Rule 11.8 */
+/* MISRA C-2012 Rule 7.2 - Deviation record ID - H3_MISRAC_2012_R_7_2_DR_1 */
+/* MISRA C-2012 Rule 11.1 - Deviation record ID - H3_MISRAC_2012_R_11_1_DR_1 */
+/* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+/* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 /* Forward declaration of PHY initialization data */
 const DRV_ETHPHY_INIT tcpipPhyInitData_LAN867x;
 
@@ -122,11 +123,13 @@ const DRV_ETHPHY_INIT tcpipPhyInitData_LAN867x =
     .phyAddress             = DRV_LAN867x_PHY_ADDRESS,
     .phyFlags               = DRV_LAN867x_PHY_CONFIG_FLAGS,
     .pPhyObject             = &DRV_ETHPHY_OBJECT_LAN867x,
-    .resetFunction          = 0,
     .ethphyTmo              = &drvlan867xTmo,
     .pMiimObject            = &DRV_MIIM_OBJECT_BASE_Default,
     .pMiimInit              = &drvMiimInitData_0,
     .miimIndex              = 0,
+
+
+    .resetFunction          = 0,
 };
 
 
@@ -467,7 +470,6 @@ void SYS_Initialize ( void* data )
     SERCOM1_USART_Initialize();
 
     EVSYS_Initialize();
-
 
 
     /* MISRAC 2012 deviation block start */

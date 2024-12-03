@@ -3,7 +3,7 @@
 
   Company:
     Microchip Technology Inc.
-
+    
   File Name:
     ipv6.h
 
@@ -12,7 +12,7 @@
 
   Description:
     Like IPv4 , IPv6 (Internet Protocol Version 6) is the another version of IP protocol.
-    This is the next-generation protocol  which works parallel with IPv4. Microchip TCP/IP
+    This is the next-generation protocol  which works parallel with IPv4. Microchip TCP/IP 
     stack is a dual stack architecture where both Ipv4 and Ipv6 works simultaneously.
     (RFC - 2460,3484)
 *******************************************************************************/
@@ -59,7 +59,7 @@ Microchip or any third party.
     extern "C" {
 
 #endif
-// DOM-IGNORE-END
+// DOM-IGNORE-END  
 
 // *****************************************************************************
 // *****************************************************************************
@@ -68,7 +68,7 @@ Microchip or any third party.
 // *****************************************************************************
 
 // *****************************************************************************
-/*
+/* 
   Enumeration:
     IPV6_NEXT_HEADER_TYPE
 
@@ -98,13 +98,13 @@ typedef enum
 } IPV6_NEXT_HEADER_TYPE;
 
 // IP Version details
-#define IP_VERSION_6    (1u) // Using IPv6
+#define IP_VERSION_6    (1u) // Using IPv6 
 #define IP_VERSION_4    (0u) // Using IPv4
 
 // *****************************************************************************
-/*
+/* 
   Enumeration:
-    IPV6_ACTION
+    IPV6_ACTION 
 
   Summary:
     Provides a list of possible IPv6 actions.
@@ -116,7 +116,7 @@ typedef enum
     None.
  */
 typedef enum {
-    IPV6_ACTION_NONE = 0, // No action. Skip the option
+    IPV6_ACTION_NONE = 0, // No action. Skip the option 
     IPV6_ACTION_DISCARD_SILENT, // Discard the packet silently
     IPV6_ACTION_DISCARD_PP_0, // Discard the packet and send an ICMP parameter problem message with code value 0
     IPV6_ACTION_DISCARD_PP_2, // Discard the packet and send an ICMP parameter problem message with code value 2
@@ -137,8 +137,8 @@ typedef enum {
 #define IPV6_TLV_UNREC_OPT_SKIP_OPTION          0x00
 /* IPv6 action code for the unrecognized option reaction to discard the packet silently */
 #define IPV6_TLV_UNREC_OPT_DISCARD_SILENT       0x01
-/* IPv6 action code for the unrecognized option reaction to discard the packet and send
-an ICMP parameter problem message
+/* IPv6 action code for the unrecognized option reaction to discard the packet and send 
+an ICMP parameter problem message 
 */
 #define IPV6_TLV_UNREC_OPT_DISCARD_PP           0x02
 /* IPv6 action code for the unrecognized option reaction to discard the packet and send
@@ -147,19 +147,19 @@ an ICMP parameter problem message
 #define IPV6_TLV_UNREC_OPT_DISCARD_PP_NOT_MC    0x03
 
 /* Header offset for payload length */
-#define IPV6_HEADER_OFFSET_PAYLOAD_LENGTH       (0x04u)
+#define IPV6_HEADER_OFFSET_PAYLOAD_LENGTH       (0x04u) 
 /* Header offset for next header */
-#define IPV6_HEADER_OFFSET_NEXT_HEADER          (0x06u)
+#define IPV6_HEADER_OFFSET_NEXT_HEADER          (0x06u) 
 /* Header offset for source address */
 #define IPV6_HEADER_OFFSET_SOURCE_ADDR          (0x08u)
 /* Header offset for destination address */
-#define IPV6_HEADER_OFFSET_DEST_ADDR            (0x08u + sizeof (IPV6_ADDR))
+#define IPV6_HEADER_OFFSET_DEST_ADDR            (0x08u + sizeof (IPV6_ADDR)) 
 
 
 // *****************************************************************************
-/*
-  Enumeration:
-    IPV6_ADDRESS_PREFERENCE
+/* 
+  Enumeration: 
+    IPV6_ADDRESS_PREFERENCE 
 
   Summary:
     Provides selection of public versus temporary addresses.
@@ -178,9 +178,9 @@ typedef enum
 
 
 // *****************************************************************************
-/*
-  Enumeration:
-  IPV6_SEGMENT_TYPE
+/* 
+  Enumeration: 
+  IPV6_SEGMENT_TYPE 
 
   Summary:
     Provides an enumeration of IPv6 segment types.
@@ -216,7 +216,7 @@ extern const TCPIP_MAC_ADDR  IPV6_MULTICAST_MAC_ADDRESS;
 //DOM-IGNORE-END
 
 // *****************************************************************************
-/*
+/* 
   Type:
     IPV6_TLV_OPTION_TYPE
 
@@ -242,7 +242,7 @@ typedef union
 
 
 // *****************************************************************************
-/*
+/* 
   Type:
     IPV6_ADDRESS_TYPE
 
@@ -268,7 +268,7 @@ typedef union
 
 
 // *****************************************************************************
-/*
+/* 
   Type:
     IPV6_ADDRESS_POLICY
 
@@ -276,9 +276,9 @@ typedef union
     Data structure for IPv6 address policy.
 
   Description:
-    The policy table is the longest matching prefix lookup table and is
+    The policy table is the longest matching prefix lookup table and is 
     used to select the destination IPv6 Address.
-
+    
     If Precedence(A) > Precedence(B), address A has higher precedence than address B.
     The label value Label(A) allows for policies that prefer a particular
     source address prefix for use with a destination address prefix.
@@ -289,7 +289,7 @@ typedef union
     2002::/16           30      2
     ::/96               20      3
     ::ffff:0.0.0.0/96   10      4
-
+    
   Example -
     const IPV6_ADDRESS_POLICY gPolicyTable[] = {
     {{{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01}}, 128, 50,  0},          // Loopback address
@@ -299,7 +299,7 @@ typedef union
     {{{0x20, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},  32,  5,  5},            // 2001::/32 - Teredo tunneling
     {{{0xfc, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},   7,  3, 13},            // ULA
     };
-
+  
   Remarks:
     None.
  */
@@ -313,7 +313,7 @@ typedef struct
 
 
 // *****************************************************************************
-/*
+/* 
   Structure :
     IPV6_DATA_SEGMENT_HEADER
 
@@ -340,8 +340,8 @@ typedef struct _IPV6_DATA_SEGMENT_HEADER
 
 
 // *****************************************************************************
-/*
-  Structure:
+/* 
+  Structure: 
     IPV6_RX_FRAGMENT_BUFFER
 
   Summary:
@@ -351,13 +351,13 @@ typedef struct _IPV6_DATA_SEGMENT_HEADER
     Each fragment is composed of unfragmentable Part and  fragmentable part.
     Allocate  memory for the fragmented packet w.r.t to TCPIP_IPV6_RX_FRAGMENTED_BUFFER_SIZE.
     The RFC specifies that the fragments must be reassembled in one minute or less.secondsRemaining
-    is the times remaining for reassemble.
+    is the times remaining for reassemble.  
 
   Remarks:
     None.
  */
 typedef struct _IPV6_RX_FRAGMENT_BUFFER {
-    struct _IPV6_RX_FRAGMENT_BUFFER * next; // Next fragmented packet
+    struct _IPV6_RX_FRAGMENT_BUFFER * next; // Next fragmented packet    
     uint8_t *ptrPacket; // Packet information
     uint32_t identification; // Fragment id
     uint16_t bytesInPacket; // Number of bytes written to packet
@@ -368,7 +368,7 @@ typedef struct _IPV6_RX_FRAGMENT_BUFFER {
 
 
 // *****************************************************************************
-/*
+/* 
   Structure:
     IPV6_FRAGMENT_HEADER
 
@@ -412,10 +412,10 @@ typedef struct __attribute__((__packed__))
 
 
 // *****************************************************************************
-/*
+/* 
   Structure:
     IPV6_HEADER
-
+    
   Summary:
     IPv6 packet header definition.
 
@@ -427,8 +427,8 @@ typedef struct __attribute__((__packed__))
  */
 typedef struct
 {
-    unsigned long V_T_F; // Version , Traffic class and Flow Label
-    unsigned short PayloadLength; // Length of IPv6 payload, i.e. the rest of packet following this IPv6 header in octets
+    unsigned long V_T_F; // Version , Traffic class and Flow Label 
+    unsigned short PayloadLength; // Length of IPv6 payload, i.e. the rest of packet following this IPv6 header in octets 
     unsigned char NextHeader; // Identifies the type of header immediately following IPv6 header
     unsigned char HopLimit; // Decremented by 1 by each node that forwards the packet
     IPV6_ADDR SourceAddress; // 128 bit address of originator
@@ -437,9 +437,9 @@ typedef struct
 
 
 // *****************************************************************************
-/*
+/* 
   Enumeration:
-    IPV6_EVENT_TYPE
+    IPV6_EVENT_TYPE 
 
   Summary:
     This enumeration is used to notify IPv6 client applications.
@@ -456,7 +456,7 @@ typedef enum
     IPV6_EVENT_ADDRESS_REMOVED, // Event is generated when IPv6 address removed from the list
     //
     IPV6_EVENT_ULA_ADDRESS_GENERATED, // Event is generated when IPv6 unique local address included to the list
-    IPV6_EVENT_ULA_ADDRESS_FAILED, // Event is generated when IPv6 unique local address is failed
+    IPV6_EVENT_ULA_ADDRESS_FAILED, // Event is generated when IPv6 unique local address is failed  
 
 } IPV6_EVENT_TYPE;
 
@@ -470,14 +470,14 @@ typedef enum
   Description:
     The format of a notification handler registered with the IPv6 module.
     Once an IPV6_EVENT_TYPE occurs the IPv6 module will be called for the registered handler.
-
+    
   Remarks:
     If pNetIf == 0, the notification is called for events on any interface.
 */
 typedef const void * IPV6_HANDLE; // Pointer to IPv6 object
 
 // *****************************************************************************
-/*
+/* 
   Structure:
     TCPIP_IPV6_MODULE_CONFIG
 
@@ -497,7 +497,7 @@ typedef struct
 }TCPIP_IPV6_MODULE_CONFIG;
 
 // *****************************************************************************
-/*
+/* 
   Type:
     IPV6_EVENT_HANDLER
 
@@ -530,21 +530,21 @@ typedef void (*IPV6_EVENT_HANDLER)(TCPIP_NET_HANDLE hNet, IPV6_EVENT_TYPE evType
 
 
 // *****************************************************************************
-/*
+/* 
   Type:
     IPV6_PACKET_ACK_FNC
-
+    
   Summary:
     Packet allocation and deallocation acknowledgment callback function.
 
   Description:
     Packet allocation and deallocation acknowledgment callback function.
-
+     
   Parameters:
     void * - Pointer to the packet that was transmitted
     bool - True if the packet was sent, false otherwise
     const void* - 0
-
+    
   Returns:
     None
 
@@ -554,20 +554,20 @@ typedef void (*IPV6_EVENT_HANDLER)(TCPIP_NET_HANDLE hNet, IPV6_EVENT_TYPE evType
 typedef void (*IPV6_PACKET_ACK_FNC)(void*, bool, const void*);
 
 //*****************************************************************************
-/*
+/* 
   Structure:
     IPV6_PACKET
-
+    
   Summary:
     Packet structure/state tracking for IPv6 packets.
 
   Description:
-    IPv6 packets are queued for future transmission.queuedPacketTimeout is used to
+    IPv6 packets are queued for future transmission.queuedPacketTimeout is used to 
     time-out IPv6 queued packets.
-
+     
   Remarks:
     For IPv6 queuing the time out has to be 0!
-    The queue is processed separately by the NDP.IPV6_PACKET_ACK_FNC is called after the
+    The queue is processed separately by the NDP.IPV6_PACKET_ACK_FNC is called after the 
     successful removal and inclusion of the packet.
 */
 typedef struct _IPV6_PACKET
@@ -595,7 +595,7 @@ typedef struct _IPV6_PACKET
     TCPIP_MAC_PACKET_ACK_FUNC macAckFnc;        // function to be called when MAC done with a TX packet
     void* ackParam;                             // parameter to be used
     void* clientData;                           // optional packet client data
-    void * neighbor;                            // The neighbor that the message was received from
+    void * neighbor;                            // The neighbor that the message was received from    
     unsigned short offsetInSegment;             // Offset used for storing fragment transmission information
     uint32_t queuedPacketTimeout;               // Time out for IPv6 packets which are queued
     TCPIP_NET_HANDLE netIfH;                    // packet network interface
@@ -604,15 +604,15 @@ typedef struct _IPV6_PACKET
 } IPV6_PACKET;
 
 // *****************************************************************************
-/*
+/* 
   Enumeration:
-    IPV6_ULA_FLAGS
+    IPV6_ULA_FLAGS 
 
   Summary:
     Provides a list of possible ULA action flags.
 
   Description:
-    This enumeration provides a list of possible flags for the Unique Local Address
+    This enumeration provides a list of possible flags for the Unique Local Address 
     (ULA) generation.
 
   Remarks:
@@ -628,7 +628,7 @@ typedef enum
 } IPV6_ULA_FLAGS;
 
 // *****************************************************************************
-/*
+/* 
   Enumeration:
     IPV6_ULA_RESULT
 
@@ -636,7 +636,7 @@ typedef enum
     Provides a list of possible ULA results.
 
   Description:
-    This enumeration provides a list of possible results for the Unique Local Address
+    This enumeration provides a list of possible results for the Unique Local Address 
     (ULA) generation.
 
   Remarks:
@@ -656,7 +656,7 @@ typedef enum
 } IPV6_ULA_RESULT;
 
 // *****************************************************************************
-/*
+/* 
   Enumeration:
     TCPIP_IPV6_RESULT
 
@@ -688,7 +688,7 @@ typedef enum
 } TCPIP_IPV6_RESULT;
 
 // *****************************************************************************
-/*
+/* 
   Enumeration:
     TCPIP_IPV6_NEIGHBOR_FLAGS
 
@@ -754,14 +754,14 @@ typedef const void* TCPIP_IPV6_PROCESS_HANDLE;
   Returns:
     true - if the packet is processed by the external handler.
            In this case the IPv6 module will no longer process the packet
-    false - the packet needs to be processed internally by the IPv6 as usual
+    false - the packet needs to be processed internally by the IPv6 as usual           
 
   Remarks:
     The packet handler is called in the IPv6 context.
     The handler should be kept as short as possible as it affects the processing of all the other
     IPv6 RX traffic.
 
-    Before calling the external packet handler
+    Before calling the external packet handler 
     - the rxPkt->pktIf is updated
     - the rxPkt->pNetLayer points to an IPV6_HEADER data structure.
 
@@ -777,7 +777,7 @@ typedef const void* TCPIP_IPV6_PROCESS_HANDLE;
     }
     Failure to do that will result in memory leaks and starvation of the MAC driver.
     See the tcpip_mac.h for details.
-
+    
  */
 typedef bool(*TCPIP_IPV6_PACKET_HANDLER)(TCPIP_NET_HANDLE hNet, struct _tag_TCPIP_MAC_PACKET* rxPkt, const void* hParam);
 
@@ -796,7 +796,7 @@ typedef bool(*TCPIP_IPV6_PACKET_HANDLER)(TCPIP_NET_HANDLE hNet, struct _tag_TCPI
     Determines if an interface is ready for IPv6 transactions.
 
   Description:
-    Returns the current state of the IPv6 interface (i.e., determines
+    Returns the current state of the IPv6 interface (i.e., determines 
     if an interface is ready for IPv6 transactions).
 
   Precondition:
@@ -818,7 +818,7 @@ bool TCPIP_IPV6_InterfaceIsReady(TCPIP_NET_HANDLE netH);
 //*****************************************************************************
 /*
   Function:
-    IPV6_ADDR_STRUCT * TCPIP_IPV6_DASSourceAddressSelect (TCPIP_NET_HANDLE hNetIf,
+    IPV6_ADDR_STRUCT * TCPIP_IPV6_DASSourceAddressSelect (TCPIP_NET_HANDLE hNetIf, 
                                    const IPV6_ADDR * dest, const IPV6_ADDR * requestedSource)
 
   Summary:
@@ -826,12 +826,12 @@ bool TCPIP_IPV6_InterfaceIsReady(TCPIP_NET_HANDLE netH);
     address.
 
   Description:
-    The IPv6 policy table is used to select the destination address. The destination
-    address selection algorithm takes a list of IPv6 addresses (gPolicyTable) and
-    sorts the linked list. There are eight sorting rules. Starting with the last rule
-    and working to the most important, using a stable sorting algorithm, will produce
-    a sorted list most  efficiently.  The best average run time we'll get with a stable
-    sort with O(1) memory usage is O(n^2), so we'll use an insertion sort.  This will
+    The IPv6 policy table is used to select the destination address. The destination 
+    address selection algorithm takes a list of IPv6 addresses (gPolicyTable) and 
+    sorts the linked list. There are eight sorting rules. Starting with the last rule 
+    and working to the most important, using a stable sorting algorithm, will produce 
+    a sorted list most  efficiently.  The best average run time we'll get with a stable 
+    sort with O(1) memory usage is O(n^2), so we'll use an insertion sort.  This will 
     usually be most efficient for small lists (which should be the typical case).
     If a rule determines a result, then the remaining rules are not relevant and should be
     ignored.
@@ -848,18 +848,18 @@ bool TCPIP_IPV6_InterfaceIsReady(TCPIP_NET_HANDLE netH);
   Returns:
     - On Success - Pointer to the selected source address
     - On Failure - NULL
-
+    
   Remarks:
     None.
   */
-IPV6_ADDR_STRUCT * TCPIP_IPV6_DASSourceAddressSelect(TCPIP_NET_HANDLE hNetIf,
+IPV6_ADDR_STRUCT * TCPIP_IPV6_DASSourceAddressSelect(TCPIP_NET_HANDLE hNetIf, 
                        const IPV6_ADDR * dest, const IPV6_ADDR * requestedSource);
 
 
 //*****************************************************************************
 /*
   Function:
-    IPV6_PACKET * TCPIP_IPV6_TxPacketAllocate (TCPIP_NET_HANDLE netH,
+    IPV6_PACKET * TCPIP_IPV6_TxPacketAllocate (TCPIP_NET_HANDLE netH, 
                                  IPV6_PACKET_ACK_FNC ackFnc, void* ackParam);
 
 
@@ -867,7 +867,7 @@ IPV6_ADDR_STRUCT * TCPIP_IPV6_DASSourceAddressSelect(TCPIP_NET_HANDLE hNetIf,
     Dynamically allocates a packet for transmitting IP protocol data.
 
   Description:
-    This function dynamically allocates a packet for transmitting IP protocol data and
+    This function dynamically allocates a packet for transmitting IP protocol data and 
     sets the packet IPv6 protocol for a TX packet.
 
   Precondition:
@@ -902,7 +902,7 @@ IPV6_PACKET * TCPIP_IPV6_TxPacketAllocate(TCPIP_NET_HANDLE netH, IPV6_PACKET_ACK
     Determines whether a TX packet can be written to.
 
   Description:
-    This function determines whether a TX packet can be written to.  This function
+    This function determines whether a TX packet can be written to.  This function 
     will allocate additional space to the packet to accommodate the user.
 
   Precondition:
@@ -916,7 +916,7 @@ IPV6_PACKET * TCPIP_IPV6_TxPacketAllocate(TCPIP_NET_HANDLE netH, IPV6_PACKET_ACK
   Returns:
     - On Success - The amount of space available
     - On Failure - 0
-
+  
   Remarks:
     None.
  */
@@ -982,7 +982,7 @@ bool TCPIP_IPV6_Put(IPV6_PACKET * pkt, unsigned char v);
 //*****************************************************************************
 /*
   Function:
-    unsigned short TCPIP_IPV6_ArrayPutHelper (IPV6_PACKET * ptrPacket,
+    unsigned short TCPIP_IPV6_ArrayPutHelper (IPV6_PACKET * ptrPacket, 
              const void * dataSource, uint8_t dataType, unsigned short len)
 
   Summary:
@@ -1014,7 +1014,7 @@ unsigned short TCPIP_IPV6_ArrayPutHelper(IPV6_PACKET * pkt, const void * dataSou
 //******************************************************************************
 /*
   Function:
-        unsigned short TCPIP_IPV6_PutArray (IPV6_PACKET * ptrPacket,
+        unsigned short TCPIP_IPV6_PutArray (IPV6_PACKET * ptrPacket, 
                                   const void * dataSource, unsigned short len)
 
   Summary:
@@ -1046,7 +1046,7 @@ unsigned short TCPIP_IPV6_ArrayPutHelper(IPV6_PACKET * pkt, const void * dataSou
 //*****************************************************************************
 /*
   Function:
-    unsigned short TCPIP_IPV6_PayloadSet (IPV6_PACKET * ptrPacket, uint8_t* payload,
+    unsigned short TCPIP_IPV6_PayloadSet (IPV6_PACKET * ptrPacket, uint8_t* payload, 
                                           unsigned short len)
 
   Summary:
@@ -1087,7 +1087,7 @@ unsigned short TCPIP_IPV6_PayloadSet(IPV6_PACKET * pkt, uint8_t* payload, unsign
     Flushes a IP TX packet.
 
   Description:
-    This function flushes a IP TX packet. Determines the link-layer address,
+    This function flushes a IP TX packet. Determines the link-layer address, 
     if necessary and calculates the upper-layer checksum, if necessary.
 
   Precondition:
@@ -1216,7 +1216,7 @@ void  TCPIP_IPV6_DestAddressSet(IPV6_PACKET * p, const IPV6_ADDR * addr);
     p - pointer to IPv6 packet
 
   Returns:
-    IPV6_ADDR *
+    IPV6_ADDR * 
     - On Success - Get a valid IPv6 Destination address
     - On Failure - NULL
   Remarks:
@@ -1267,7 +1267,7 @@ void  TCPIP_IPV6_SourceAddressSet(IPV6_PACKET * p, const IPV6_ADDR * addr);
   Precondition:
     TCPIP_IPV6_Initialize should be called.
     TCPIP_IPV6_InterfaceIsReady should be true.
-
+    
   Parameters:
     p - pointer to IPv6 packet
 
@@ -1285,7 +1285,7 @@ IPV6_ADDR *  TCPIP_IPV6_SourceAddressGet(IPV6_PACKET * p);
 //*****************************************************************************
 /*
   Function:
-    IPV6_ADDR_STRUCT * TCPIP_IPV6_UnicastAddressAdd (TCPIP_NET_HANDLE netH,
+    IPV6_ADDR_STRUCT * TCPIP_IPV6_UnicastAddressAdd (TCPIP_NET_HANDLE netH, 
                 const IPV6_ADDR * address, int prefixLen, uint8_t skipProcessing)
 
   Summary:
@@ -1303,12 +1303,12 @@ IPV6_ADDR *  TCPIP_IPV6_SourceAddressGet(IPV6_PACKET * p);
     netH            - The interface to which the the address is to be addded
     address         - The address to add
     prefixLen       - The prefix length associated to this static address
-                      (providing the subnet prefix length). If 0, the default value
+                      (providing the subnet prefix length). If 0, the default value 
                       of 64 will be used
     skipProcessing  - true to skip Duplicate address detection; otherwise, false
 
   Returns:
-    IPV6_ADDR_STRUCT *
+    IPV6_ADDR_STRUCT * 
     - On Success - Pointer to the structure of the newly allocated address
     - On Failure - NULL
 
@@ -1319,7 +1319,7 @@ IPV6_ADDR *  TCPIP_IPV6_SourceAddressGet(IPV6_PACKET * p);
     Therefore the prefixLen parameter should probably always be 64.
 
 */
-IPV6_ADDR_STRUCT * TCPIP_IPV6_UnicastAddressAdd(TCPIP_NET_HANDLE netH,
+IPV6_ADDR_STRUCT * TCPIP_IPV6_UnicastAddressAdd(TCPIP_NET_HANDLE netH, 
             const IPV6_ADDR * address, int prefixLen, uint8_t skipProcessing);
 
 
@@ -1371,7 +1371,7 @@ void TCPIP_IPV6_AddressUnicastRemove(TCPIP_NET_HANDLE netH, const IPV6_ADDR * ad
     address - The new listener
 
   Returns:
-    IPV6_ADDR_STRUCT *
+    IPV6_ADDR_STRUCT * 
     - On Success - Pointer to the new listener
     - On Failure - NULL
 
@@ -1412,12 +1412,12 @@ void TCPIP_IPV6_MulticastListenerRemove(TCPIP_NET_HANDLE netH, const IPV6_ADDR *
 //****************************************************************************
 /*
   Function:
-    IPV6_ULA_RESULT TCPIP_IPV6_UniqueLocalUnicastAddressAdd (TCPIP_NET_HANDLE netH,
+    IPV6_ULA_RESULT TCPIP_IPV6_UniqueLocalUnicastAddressAdd (TCPIP_NET_HANDLE netH, 
           uint16_t subnetID, IPV6_ULA_FLAGS genFlags, IP_MULTI_ADDRESS* ntpAddress)
-
+    
   Summary:
     Adds a Unique Local Unicast Address (ULA) to a specified interface.
-
+    
   Description:
     This function starts the process of adding an ULA address to the
     specified interface. The segments of the generated address are as
@@ -1426,26 +1426,26 @@ void TCPIP_IPV6_MulticastListenerRemove(TCPIP_NET_HANDLE netH, const IPV6_ADDR *
     - L            - 1 bit set to 1, locally assigned
     - Global ID    - 40 bit random generated identifier
     - subnet ID    - 16 bit subnet identifier
-    - Interface ID - 64 bit interface identifier generated as a EUI64 from the
+    - Interface ID - 64 bit interface identifier generated as a EUI64 from the 
                      specified interface MAC
-
+    
     The randomness of the "Global ID" prefix of the generated IPv6 address
     is obtained by using an NTP server. The supplied NTP server will be
     contacted to obtain an NTP time stamp. This time stamp together with the
     EUI64 identifier obtained from the interface MAC are passed through a
     160 bits hash algorithm (SHA1) and the least significant 40 bits are
     used as the GlobalID of the interface.
-
+    
   Preconditions:
     The IPv6 stack is initialized and the interface is up and configured.
-
+    
   Input:
     netH -        The interface to add the address to.
     subnetID -    The subnet ID to be used.
     genFlags -    Address generation flags:
                   * IPV6_ULA_FLAG_NTPV4 - if set, the NTP server will be contacted over an IPv4 connection.
                     Otherwise, a default IPv6 connection will be attempted
-                  * IPV6_ULA_FLAG_GENERATE_ONLY - if set, the address will not
+                  * IPV6_ULA_FLAG_GENERATE_ONLY - if set, the address will not 
                     be added to the list of the addresses for the specified interface
                   * IPV6_ULA_FLAG_SKIP_DAD - if set, the DAD processing will be skipped
     ntpAddress -  The NTP server address - it is an IPv4/IPv6 address as
@@ -1463,10 +1463,10 @@ void TCPIP_IPV6_MulticastListenerRemove(TCPIP_NET_HANDLE netH, const IPV6_ADDR *
     Only one address generation at a time is supported for now. Before
     attempting a new address generation the previous operation has to be
     completed, otherwise the call will fail.
-
+    
     This function requires that the NTP client is enabled in the stack. If
     not, the call will fail.
-
+    
     The caller will be notified by the outcome of the operation by the
     stack using the standard IPv6 notification handler (registered by
     TCPIP_IPV6_HandlerRegister call).
@@ -1474,14 +1474,14 @@ void TCPIP_IPV6_MulticastListenerRemove(TCPIP_NET_HANDLE netH, const IPV6_ADDR *
     The ntpAddress parameter is not currently used!
     The NTP timestamp will be obtained using the default NTP server address
 */
-IPV6_ULA_RESULT    TCPIP_IPV6_UniqueLocalUnicastAddressAdd (TCPIP_NET_HANDLE netH,
+IPV6_ULA_RESULT    TCPIP_IPV6_UniqueLocalUnicastAddressAdd (TCPIP_NET_HANDLE netH, 
          uint16_t subnetID, IPV6_ULA_FLAGS genFlags, IP_MULTI_ADDRESS* ntpAddress);
 
 
 //*****************************************************************************
 /*
   Function:
-    bool    TCPIP_IPV6_RouterAddressAdd(TCPIP_NET_HANDLE netH, const IPV6_ADDR * rAddress,
+    bool    TCPIP_IPV6_RouterAddressAdd(TCPIP_NET_HANDLE netH, const IPV6_ADDR * rAddress, 
                                              unsigned long validTime, int flags);
 
   Summary:
@@ -1510,7 +1510,7 @@ IPV6_ULA_RESULT    TCPIP_IPV6_UniqueLocalUnicastAddressAdd (TCPIP_NET_HANDLE net
     If such router does not exist the stack will eventually discard the entry automatically.
 
 */
-bool    TCPIP_IPV6_RouterAddressAdd(TCPIP_NET_HANDLE netH, const IPV6_ADDR * rAddress,
+bool    TCPIP_IPV6_RouterAddressAdd(TCPIP_NET_HANDLE netH, const IPV6_ADDR * rAddress, 
                                     unsigned long validTime, int flags);
 
 //*****************************************************************************
@@ -1569,7 +1569,7 @@ void    TCPIP_IPV6_DefaultRouterDelete(TCPIP_NET_HANDLE netH);
 //*****************************************************************************
 /*
   Function:
-    IPV6_HANDLE TCPIP_IPV6_HandlerRegister(TCPIP_NET_HANDLE hNet,
+    IPV6_HANDLE TCPIP_IPV6_HandlerRegister(TCPIP_NET_HANDLE hNet, 
                               IPV6_EVENT_HANDLER handler, const void* hParam)
 
   Summary:
@@ -1584,8 +1584,8 @@ void    TCPIP_IPV6_DefaultRouterDelete(TCPIP_NET_HANDLE netH);
   Parameters:
     netH  - Specifies interface to register on.
     handler - Handler to be called for event.
-    hParam - The hParam is passed by the client and will be used by the
-            IPv6 when the notification is made. It is used for per-thread
+    hParam - The hParam is passed by the client and will be used by the 
+            IPv6 when the notification is made. It is used for per-thread 
             content or if more modules, for example, share the same handler
             and need a way to differentiate the callback.
 
@@ -1593,11 +1593,11 @@ void    TCPIP_IPV6_DefaultRouterDelete(TCPIP_NET_HANDLE netH);
     Handle to registered callback.
     - On Success - Returns a valid handle
     - On Failure - null handle
-
+    
   Remarks:
     None.
  */
-IPV6_HANDLE TCPIP_IPV6_HandlerRegister(TCPIP_NET_HANDLE hNet,
+IPV6_HANDLE TCPIP_IPV6_HandlerRegister(TCPIP_NET_HANDLE hNet, 
                               IPV6_EVENT_HANDLER handler, const void* hParam);
 
 
@@ -1634,14 +1634,14 @@ bool TCPIP_IPV6_HandlerDeregister(IPV6_HANDLE hIpv6);
 
   Summary:
     Helper to get the maximum datagream data size (MDDS) on a specific interface.
-
+   
   Description:
     The function is a helper to allow retrieving the MDDS on the specified interface.
-
+   
   Precondition:
     IPv6 properly initialized
     Interface properly initialized
-
+        
 
   Parameters:
     netH      - handle of the interface
@@ -1649,7 +1649,7 @@ bool TCPIP_IPV6_HandlerDeregister(IPV6_HANDLE hIpv6);
   Returns:
     - the maximum datagrem data size that can be transported on the selected interface
     - 0 - invalid interface specified
-
+      
   Remarks:
     None
 
@@ -1663,10 +1663,10 @@ int TCPIP_IPV6_MaxDatagramDataSizeGet(TCPIP_NET_HANDLE netH);
 
   Summary:
     Helper to get the IPv6 fragmentation support.
-
+   
   Description:
     The function is a helper to return the IPv6 fragmentation support.
-
+   
   Precondition:
     IPv6 properly initialized
 
@@ -1674,9 +1674,9 @@ int TCPIP_IPV6_MaxDatagramDataSizeGet(TCPIP_NET_HANDLE netH);
     None
 
   Returns:
-    - true  - if the fragmentation is enabled and supported by the IPv6 module
+    - true  - if the fragmentation is enabled and supported by the IPv6 module 
     - false - fragmentation is not supported
-
+      
   Remarks:
     The IPv6 fragmentation support is always enabled.
 
@@ -1722,7 +1722,7 @@ static __inline__ bool __attribute__((always_inline)) TCPIP_IPV6_IsFragmentation
     The call will fail if a handler is already registered.
     Use TCPIP_IPV6_PacketHandlerDeregister first
 
-    Exists only if TCPIP_IPV6_EXTERN_PACKET_PROCESS is true
+    Exists only if TCPIP_IPV6_EXTERN_PACKET_PROCESS is true 
 
   */
 TCPIP_IPV6_PROCESS_HANDLE     TCPIP_IPV6_PacketHandlerRegister(TCPIP_IPV6_PACKET_HANDLER pktHandler, const void* handlerParam);
@@ -1759,7 +1759,7 @@ TCPIP_IPV6_PROCESS_HANDLE     TCPIP_IPV6_PacketHandlerRegister(TCPIP_IPV6_PACKET
     </code>
 
   Remarks:
-    Exists only if TCPIP_IPV6_EXTERN_PACKET_PROCESS is true
+    Exists only if TCPIP_IPV6_EXTERN_PACKET_PROCESS is true 
 
   */
 bool    TCPIP_IPV6_PacketHandlerDeregister(TCPIP_IPV6_PROCESS_HANDLE pktHandle);

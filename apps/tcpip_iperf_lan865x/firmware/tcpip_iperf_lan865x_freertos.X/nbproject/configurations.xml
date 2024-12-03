@@ -28,8 +28,8 @@
               <itemPath>../src/config/FreeRTOS/driver/spi/src/drv_spi_local.h</itemPath>
               <itemPath>../src/config/FreeRTOS/driver/spi/drv_spi.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/FreeRTOS/driver/driver_common.h</itemPath>
             <itemPath>../src/config/FreeRTOS/driver/driver.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/driver/driver_common.h</itemPath>
           </logicalFolder>
           <logicalFolder name="library" displayName="library" projectFiles="true">
             <logicalFolder name="tcpip" displayName="tcpip" projectFiles="true">
@@ -38,126 +38,126 @@
                   <itemPath>../src/config/FreeRTOS/library/tcpip/src/common/helpers.h</itemPath>
                   <itemPath>../src/config/FreeRTOS/library/tcpip/src/common/sys_fs_shell.h</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tftpc_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/udp_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_reboot_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/snmp_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/icmp_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/igmp_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ftpc_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/lldp_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_packet.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcpv6_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/smtpc_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/berkeley_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/arp_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tftps_private.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/ndp_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_types.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/sntp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/http_net_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp_server_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/berkeley_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/smtp_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_module_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dnss_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_notify.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcps_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/sntp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_private.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/snmp_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp_server_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/telnet_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tftpc_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/http_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcp_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/zero_conf_link_local_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ftp_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ipv6_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/arp_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/link_list.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/lldp_tlv.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ftpc_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/arp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_helpers_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_packet.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcps_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_module_manager.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_manager_control.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/smtpc_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/http_net_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tftps_manager.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/ipv4_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dns_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_notify.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_types.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tftpc_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ftpc_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/snmp_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/lldp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/nbns_manager.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_heap_alloc.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/hash_fnv.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/zero_conf_helper.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tftps_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dns_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/oahash.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_commands_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ipv6_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_reboot_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcp_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/http_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/lldp_tlv.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcpv6_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/udp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dnss_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ftp_private.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcps_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ipv6_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/arp_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/zero_conf_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/smtpc_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/snmpv3_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tftps_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp_server_private.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/ndp_private.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/igmp_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/lldp_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ftpc_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/nbns_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/icmpv6_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ipv6_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp_server_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcpv6_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dns_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/http_net_private.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/ipv4_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/zero_conf_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/http_net_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dnss_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/udp_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/link_list.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_announce_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/zero_conf_helper.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ddns_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/lldp_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/igmp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/icmp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tftpc_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/zero_conf_link_local_private.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/iperf_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/snmpv3_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcp_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_helpers_private.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/oahash.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/smtpc_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dns_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/icmpv6_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ddns_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/udp_private.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/http_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dnss_manager.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/ftp_manager.h</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/hash_fnv.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/telnet_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcpv6_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp_private.h</itemPath>
               </logicalFolder>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/ftpc.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/smtp.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/telnet.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/http.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/ipv6.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/nbns.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/sntp.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_helpers.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_ethernet.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_mac_object.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/icmpv6.h</itemPath>
               <itemPath>../src/config/FreeRTOS/library/tcpip/dhcp_server.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/snmpv3.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_reboot.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/arp.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_announce.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_mac_bridge.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/dns.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/dnss.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/dhcps.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/ndp.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_mac.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_common_ports.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/zero_conf_link_local.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/zero_conf_multicast_dns.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/ipv4.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/lldp.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/icmp.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/http_net.h</itemPath>
               <itemPath>../src/config/FreeRTOS/library/tcpip/dhcpv6.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_commands.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/ddns.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/udp.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/ftp.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/tcp.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/tftpc.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/berkeley_api.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/igmp.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_heap.h</itemPath>
               <itemPath>../src/config/FreeRTOS/library/tcpip/dhcp.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/tftps.h</itemPath>
               <itemPath>../src/config/FreeRTOS/library/tcpip/snmp.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/library/tcpip/smtpc.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/ipv4.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/dhcps.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_announce.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_commands.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/zero_conf_multicast_dns.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/http.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/smtp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/snmpv3.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_helpers.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/telnet.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_mac_object.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/igmp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_reboot.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/berkeley_api.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/ftp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/http_net.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_heap.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/ftpc.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tftpc.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tftps.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_ethernet.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_common_ports.h</itemPath>
               <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_manager.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_mac_bridge.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/icmpv6.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/dnss.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/sntp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/udp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/zero_conf_link_local.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/dns.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/arp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_mac.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/ddns.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/nbns.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/ndp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/icmp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/ipv6.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/smtpc.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/lldp.h</itemPath>
               <itemPath>../src/config/FreeRTOS/library/tcpip/iperf.h</itemPath>
             </logicalFolder>
           </logicalFolder>
@@ -170,8 +170,8 @@
           </logicalFolder>
           <logicalFolder name="osal" displayName="osal" projectFiles="true">
             <itemPath>../src/config/FreeRTOS/osal/osal.h</itemPath>
-            <itemPath>../src/config/FreeRTOS/osal/osal_freertos.h</itemPath>
             <itemPath>../src/config/FreeRTOS/osal/osal_definitions.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/osal/osal_freertos.h</itemPath>
           </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="clock" displayName="clock" projectFiles="true">
@@ -201,13 +201,13 @@
                 <itemPath>../src/config/FreeRTOS/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h</itemPath>
               </logicalFolder>
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
-                <itemPath>../src/config/FreeRTOS/peripheral/sercom/usart/plib_sercom1_usart.h</itemPath>
                 <itemPath>../src/config/FreeRTOS/peripheral/sercom/usart/plib_sercom_usart_common.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/peripheral/sercom/usart/plib_sercom1_usart.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="tc" displayName="tc" projectFiles="true">
-              <itemPath>../src/config/FreeRTOS/peripheral/tc/plib_tc0.h</itemPath>
               <itemPath>../src/config/FreeRTOS/peripheral/tc/plib_tc_common.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/tc/plib_tc0.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
@@ -218,10 +218,10 @@
               <itemPath>../src/config/FreeRTOS/system/command/sys_command.h</itemPath>
             </logicalFolder>
             <logicalFolder name="console" displayName="console" projectFiles="true">
-              <itemPath>../src/config/FreeRTOS/system/console/sys_console.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/system/console/src/sys_console_uart_definitions.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/system/console/src/sys_console_uart.h</itemPath>
               <itemPath>../src/config/FreeRTOS/system/console/src/sys_console_local.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/console/src/sys_console_uart_definitions.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/console/sys_console.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/console/src/sys_console_uart.h</itemPath>
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/FreeRTOS/system/debug/sys_debug.h</itemPath>
@@ -232,8 +232,8 @@
               <itemPath>../src/config/FreeRTOS/system/dma/sys_dma_mapping.h</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
-              <itemPath>../src/config/FreeRTOS/system/int/sys_int.h</itemPath>
               <itemPath>../src/config/FreeRTOS/system/int/sys_int_mapping.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/int/sys_int.h</itemPath>
             </logicalFolder>
             <logicalFolder name="ports" displayName="ports" projectFiles="true">
               <itemPath>../src/config/FreeRTOS/system/ports/sys_ports_mapping.h</itemPath>
@@ -244,48 +244,48 @@
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/FreeRTOS/system/time/src/sys_time_local.h</itemPath>
-              <itemPath>../src/config/FreeRTOS/system/time/sys_time.h</itemPath>
               <itemPath>../src/config/FreeRTOS/system/time/sys_time_definitions.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/time/sys_time.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/FreeRTOS/system/system_common.h</itemPath>
-            <itemPath>../src/config/FreeRTOS/system/sys_time_h2_adapter.h</itemPath>
-            <itemPath>../src/config/FreeRTOS/system/system_module.h</itemPath>
             <itemPath>../src/config/FreeRTOS/system/sys_random_h2_adapter.h</itemPath>
             <itemPath>../src/config/FreeRTOS/system/system.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/system/sys_time_h2_adapter.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/system/system_common.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/system/system_module.h</itemPath>
           </logicalFolder>
-          <itemPath>../src/config/FreeRTOS/device.h</itemPath>
-          <itemPath>../src/config/FreeRTOS/configuration.h</itemPath>
-          <itemPath>../src/config/FreeRTOS/toolchain_specifics.h</itemPath>
-          <itemPath>../src/config/FreeRTOS/user.h</itemPath>
           <itemPath>../src/config/FreeRTOS/system_config.h</itemPath>
-          <itemPath>../src/config/FreeRTOS/FreeRTOSConfig.h</itemPath>
-          <itemPath>../src/config/FreeRTOS/config.h</itemPath>
           <itemPath>../src/config/FreeRTOS/system_definitions.h</itemPath>
-          <itemPath>../src/config/FreeRTOS/device_vectors.h</itemPath>
-          <itemPath>../src/config/FreeRTOS/interrupts.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/config.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/user.h</itemPath>
           <itemPath>../src/config/FreeRTOS/definitions.h</itemPath>
-          <itemPath>../src/config/FreeRTOS/device_cache.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/interrupts.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/device.h</itemPath>
           <itemPath>../src/config/FreeRTOS/sys_tasks.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/toolchain_specifics.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/configuration.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/device_vectors.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/device_cache.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/FreeRTOSConfig.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="FreeRTOS" displayName="FreeRTOS" projectFiles="true">
         <logicalFolder name="Source" displayName="Source" projectFiles="true">
           <logicalFolder name="include" displayName="include" projectFiles="true">
-            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/stack_macros.h</itemPath>
-            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/mpu_prototypes.h</itemPath>
-            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/message_buffer.h</itemPath>
-            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/stream_buffer.h</itemPath>
-            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/deprecated_definitions.h</itemPath>
-            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/timers.h</itemPath>
-            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/mpu_wrappers.h</itemPath>
+            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/FreeRTOS.h</itemPath>
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/event_groups.h</itemPath>
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/queue.h</itemPath>
-            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/portable.h</itemPath>
+            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/deprecated_definitions.h</itemPath>
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/projdefs.h</itemPath>
-            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/FreeRTOS.h</itemPath>
+            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/message_buffer.h</itemPath>
+            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/timers.h</itemPath>
+            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/mpu_wrappers.h</itemPath>
+            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/stack_macros.h</itemPath>
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/task.h</itemPath>
-            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/list.h</itemPath>
+            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/portable.h</itemPath>
+            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/mpu_prototypes.h</itemPath>
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/semphr.h</itemPath>
+            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/stream_buffer.h</itemPath>
+            <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/list.h</itemPath>
             <itemPath>../src/third_party/rtos/FreeRTOS/Source/include/croutine.h</itemPath>
           </logicalFolder>
           <logicalFolder name="portable" displayName="portable" projectFiles="true">
@@ -304,108 +304,108 @@
                        displayName="ATSAME54P20A_DFP"
                        projectFiles="true">
           <logicalFolder name="component" displayName="component" projectFiles="true">
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/i2s.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/port.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dmac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/trng.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/icm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/oscctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/aes.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ccl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/rstc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sercom.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ramecc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/nvmctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/supc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sdhc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/usb.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/freqm.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/osc32kctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/gclk.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pdec.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dsu.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/eic.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/can.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pukcc.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/wdt.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/fuses.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/evsys.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/adc.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/hmatrixb.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/cmcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/gmac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/eic.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/qspi.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/rtc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/freqm.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/adc.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/ac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dsu.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/port.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/oscctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/rtc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/nvmctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/can.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/rstc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/gclk.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sdhc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pdec.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/gmac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/supc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pukcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/icm.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/i2s.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/evsys.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/cmcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dmac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/fuses.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ccl.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/aes.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/trng.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ramecc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pm.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/usb.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pcc.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/mclk.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sercom.h</itemPath>
           </logicalFolder>
           <logicalFolder name="instance" displayName="instance" projectFiles="true">
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc0.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom5.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/freqm.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom6.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/evsys.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/fuses.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/hmatrix.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/gclk.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc3.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom3.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/dmac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc4.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom4.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/can1.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc1.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/rtc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/qspi.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom5.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/usb.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc2.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/dsu.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom4.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/cmcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom3.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/adc0.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pdec.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom2.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/adc1.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/osc32kctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom1.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/eic.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/port.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom0.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/oscctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/supc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/nvmctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/ac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/aes.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/ccl.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc4.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc2.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/gclk.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/rstc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc4.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/i2s.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc3.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc2.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/ramecc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/can1.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc0.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pm.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/dmac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc3.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/dac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom7.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sdhc1.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/icm.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/can0.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sdhc0.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc1.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc0.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc7.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/freqm.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc1.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/wdt.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/trng.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/rtc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc5.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/mclk.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/gmac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/trng.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc0.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/icm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/fuses.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/ac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/wdt.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/eic.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/ramecc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sdhc1.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc7.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/cmcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom7.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc6.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/qspi.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/ccl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/adc0.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc5.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sdhc0.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/adc1.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc4.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/oscctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pdec.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom1.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/can0.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/aes.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/evsys.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc3.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/nvmctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom2.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc2.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/supc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/osc32kctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/rstc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc1.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/port.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/dsu.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom0.h</itemPath>
           </logicalFolder>
           <logicalFolder name="pio" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAME54P20A_DFP/pio/same54p20a.h</itemPath>
@@ -416,16 +416,16 @@
           <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
             <logicalFolder name="Core" displayName="Core" projectFiles="true">
               <logicalFolder name="Include" displayName="Include" projectFiles="true">
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm4.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armcc.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm4.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -438,144 +438,151 @@
       </logicalFolder>
       <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
         <logicalFolder name="port" displayName="port" projectFiles="true">
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Fill_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_CRT_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_ecc_pukcl.h</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_RedMod_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_rng_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccAdd_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Div_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccConv_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_sam6156.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_u2238.h</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Square_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ExpMod_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Smult_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha384_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_rng_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/pic32mz-crypt.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha256_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccAdd_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEcDsa_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccConv_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Comp_pb.h</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccQuickDualMul_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccMul_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_crya_saml11.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_mapping_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ExpMod_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccAdd_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Headers_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Fmult_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Rc_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha1_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_hwInt.h</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha512_hw.h</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccDbl_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_typedef_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccMul_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_CondCopy_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccConv_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_sam11105.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha1_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_hwInt.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_mapping_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_rsa_pukcl.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Rc_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/pic32mz-crypt.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEcDsa_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Headers_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_crya_saml11.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_ecc_pukcl.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccMul_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_ecc_ba414e.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ClearFlags_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_FastCopy_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Comp_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_cf_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha224_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccDbl_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha256_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_pukcl_definitions.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Fmult_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_PrimeGen_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Swap_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Services_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccAddSub_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_hwInt.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_JumpTable_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccAdd_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_sam6149.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GCD_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_CRT_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_pukcl_functions.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Rng_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Fill_pb.h</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_SelfTest_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEcDsa_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ClearFlags_pb.h</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Hardware_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_pukcl_functions.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_rsa_pukcl.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GCD_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_PrimeGen_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Services_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha384_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_hwInt.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_pukcl_definitions.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_JumpTable_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_sam11105.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_typedef_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccDbl_pb.h</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_sam6150.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_FastCopy_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_sam6149.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEcDsa_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccAddSub_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_ecc_ba414e.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Swap_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_sam6156.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccConv_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Div_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Smult_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_u2238.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Rng_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccMul_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha224_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_CondCopy_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_cf_pb.h</itemPath>
         </logicalFolder>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mem_track.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed448.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve448.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs7.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ecc.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/compress.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md4.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/poly1305.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hash.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/des3.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha20_poly1305.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rsa.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/memory.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pwdbased.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md2.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dsa.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_encrypt.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha512.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cryptocb.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/settings.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cpuid.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/aes.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfevent.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/types.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/integer.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rc2.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/arc4.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_operations.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_pkcs11.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_448.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dh.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fips_test.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_port.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_operations.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/signature.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/random.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-int.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_448.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/error-crypt.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/certs_test.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/asn.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp_int.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha256.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha3.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs11.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/visibility.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/arc4.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-impl.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_superclass.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_class.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/srp.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs12.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/selftest.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve25519.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/camellia.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed25519.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfmath.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ripemd.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md5.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/asn_public.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hmac.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/logging.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/tfm.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/coding.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cmac.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/misc.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/eccsi.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/siphash.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sakke.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/kdf.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/falcon.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_operations.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-int.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_operations.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rc2.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/eccsi.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha256.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/integer.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_superclass.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/kdf.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/selftest.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_class.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cryptocb.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/camellia.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md2.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fips_test.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp_int.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/siphash.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/memory.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/error-crypt.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha3.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/random.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cmac.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dh.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hmac.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/misc.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/compress.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_encrypt.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/des3.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md5.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/certs_test.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rsa.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_port.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pwdbased.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed25519.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfevent.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs11.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ecc.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha512.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/logging.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/aes.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sakke.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/types.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cpuid.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/poly1305.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs12.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/srp.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md4.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_pkcs11.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mem_track.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/tfm.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ripemd.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hash.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfmath.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/visibility.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve25519.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/settings.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha20_poly1305.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dsa.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/asn_public.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/coding.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/signature.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs7.h</itemPath>
       </logicalFolder>
       <itemPath>../src/app.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>tcpip_iperf_lan865x_freertos.mc3</itemPath>
+      <itemPath>mcc-manifest-generated-success.yml</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -616,22 +623,22 @@
                   <itemPath>../src/config/FreeRTOS/library/tcpip/src/helpers.c</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_commands.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ipv4.c</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_packet.c</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_helpers.c</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_heap_internal.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp.c</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_notify.c</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/iperf.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/hash_fnv.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_heap_alloc.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/oahash.c</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcp.c</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/udp.c</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_manager.c</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp.c</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_heap_alloc.c</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/hash_fnv.c</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/arp.c</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/icmp.c</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ipv4.c</itemPath>
-                <itemPath>../src/config/FreeRTOS/library/tcpip/src/oahash.c</itemPath>
                 <itemPath>../src/config/FreeRTOS/library/tcpip/src/dns.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_manager.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/icmp.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/iperf.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/arp.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_heap_internal.c</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -701,16 +708,16 @@
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/FreeRTOS/system/time/src/sys_time.c</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/FreeRTOS/system/sys_time_h2_adapter.c</itemPath>
             <itemPath>../src/config/FreeRTOS/system/sys_random_h2_adapter.c</itemPath>
+            <itemPath>../src/config/FreeRTOS/system/sys_time_h2_adapter.c</itemPath>
           </logicalFolder>
+          <itemPath>../src/config/FreeRTOS/exceptions.c</itemPath>
+          <itemPath>../src/config/FreeRTOS/interrupts.c</itemPath>
+          <itemPath>../src/config/FreeRTOS/initialization.c</itemPath>
           <itemPath>../src/config/FreeRTOS/tasks.c</itemPath>
+          <itemPath>../src/config/FreeRTOS/libc_syscalls.c</itemPath>
           <itemPath>../src/config/FreeRTOS/freertos_hooks.c</itemPath>
           <itemPath>../src/config/FreeRTOS/startup_xc32.c</itemPath>
-          <itemPath>../src/config/FreeRTOS/initialization.c</itemPath>
-          <itemPath>../src/config/FreeRTOS/interrupts.c</itemPath>
-          <itemPath>../src/config/FreeRTOS/libc_syscalls.c</itemPath>
-          <itemPath>../src/config/FreeRTOS/exceptions.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="FreeRTOS" displayName="FreeRTOS" projectFiles="true">
@@ -727,125 +734,122 @@
               <itemPath>../src/third_party/rtos/FreeRTOS/Source/portable/MemMang/heap_1.c</itemPath>
             </logicalFolder>
           </logicalFolder>
+          <itemPath>../src/third_party/rtos/FreeRTOS/Source/event_groups.c</itemPath>
           <itemPath>../src/third_party/rtos/FreeRTOS/Source/list.c</itemPath>
           <itemPath>../src/third_party/rtos/FreeRTOS/Source/FreeRTOS_tasks.c</itemPath>
-          <itemPath>../src/third_party/rtos/FreeRTOS/Source/event_groups.c</itemPath>
-          <itemPath>../src/third_party/rtos/FreeRTOS/Source/stream_buffer.c</itemPath>
+          <itemPath>../src/third_party/rtos/FreeRTOS/Source/queue.c</itemPath>
           <itemPath>../src/third_party/rtos/FreeRTOS/Source/timers.c</itemPath>
           <itemPath>../src/third_party/rtos/FreeRTOS/Source/croutine.c</itemPath>
-          <itemPath>../src/third_party/rtos/FreeRTOS/Source/queue.c</itemPath>
+          <itemPath>../src/third_party/rtos/FreeRTOS/Source/stream_buffer.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
         <logicalFolder name="port" displayName="port" projectFiles="true">
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha384_sam6156.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rng_u2242.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_aes_u2238.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_aes_sam6149.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha1_sam11105.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rsa_pukcl.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_tdes_sam6150.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_wolfcryptcb.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha224_sam11105.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_ecc_pukcl.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha224_sam6156.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha256_sam11105.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/pic32mz-crypt.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sam_u2803.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rng_sam6334.c</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha256_sam6156.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_ecc_ba414e.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_aes_u2238.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rng_u2242.c</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha1_sam6156.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha224_sam6156.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rng_sam6334.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_ecc_pukcl.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/pic32mz-crypt.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha224_sam11105.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sam_u2803.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_tdes_sam6150.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha256_sam11105.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha384_sam6156.c</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha512_sam6156.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rsa_pukcl.c</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_pukcl_functions.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_aes_sam6149.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_wolfcryptcb.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha1_sam11105.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_ecc_ba414e.c</itemPath>
         </logicalFolder>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/aes.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/dsa.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_dsp.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md5.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ecc_fp.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/arc4.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md4.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/curve25519.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_armthumb.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/srp.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_low_mem.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/rsa.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_encrypt.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/coding.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_operations.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md2.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_448.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha3.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/compress.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_c32.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/curve448.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/hmac.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_c64.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ed25519.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/asm.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wolfmath.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cmac.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/error.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pkcs7.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha256.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/camellia.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_448.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cpuid.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_dsp32.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/rc2.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/chacha.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/misc.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wolfevent.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/blake2s.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/blake2b.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/logging.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/misc.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/compress.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/asm.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/hmac.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_low_mem.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pkcs12.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/des3.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_arm32.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/asn.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/poly1305.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_cortexm.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_port.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_arm64.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_operations.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ed448.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ecc.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_low_mem.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/chacha20_poly1305.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pwdbased.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ripemd.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/memory.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_int.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/dh.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/signature.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/evp.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_pkcs11.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/tfm.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/random.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/hash.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha512.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cryptocb.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_x86_64.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/integer.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/eccsi.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sakke.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/falcon.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/kdf.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/siphash.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/curve25519.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/error.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_operations.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/asn.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/des3.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sakke.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/curve448.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/hash.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pwdbased.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_c32.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/eccsi.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha3.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/signature.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_operations.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/camellia.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_dsp32.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/logging.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pkcs7.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/aes.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/rc2.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/poly1305.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wolfmath.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_pkcs11.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_encrypt.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha256.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ed25519.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_c64.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_448.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_dsp.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md4.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ecc_fp.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_low_mem.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/coding.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/kdf.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/rsa.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/chacha20_poly1305.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_448.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_x86_64.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md2.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cmac.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/falcon.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/dsa.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_int.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/blake2s.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_arm64.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/srp.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/memory.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_armthumb.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ripemd.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/blake2b.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/random.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_port.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ed448.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cpuid.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md5.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_arm32.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/integer.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_cortexm.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/tfm.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/arc4.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ecc.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cryptocb.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/dh.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha512.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/evp.c</itemPath>
       </logicalFolder>
       <itemPath>../src/app.c</itemPath>
-      <itemPath>../src/config/FreeRTOS/pin_configurations.csv</itemPath>
       <itemPath>../src/main.c</itemPath>
-    </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>tcpip_iperf_10base_t1s_freertos.mc3</itemPath>
+      <itemPath>../src/config/FreeRTOS/pin_configurations.csv</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="FreeRTOS" type="2">
@@ -856,12 +860,12 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.35</languageToolchainVersion>
+        <languageToolchainVersion>4.45</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
-        <pack name="SAME54_DFP" vendor="Microchip" version="3.8.234"/>
+        <pack name="SAME54_DFP" vendor="Microchip" version="3.9.244"/>
+        <pack name="CMSIS" vendor="ARM" version="6.1.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -905,7 +909,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="false"/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value="-O3"/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -977,7 +981,7 @@
         <property key="no-device-startup-code" value="true"/>
         <property key="no-startup-files" value="false"/>
         <property key="oXC32ld-extra-opts" value=""/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value="-O3"/>
         <property key="preprocessor-macros" value=""/>
         <property key="remove-unused-sections" value="true"/>
         <property key="report-memory-usage" value="false"/>
@@ -1043,6 +1047,7 @@
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="event.recorder.debugger.behavior" value="Running"/>
         <property key="event.recorder.enabled" value="false"/>
         <property key="event.recorder.scvd.files" value=""/>
         <property key="firmware.path"
@@ -1067,6 +1072,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-fffff"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="D:/Driver/bitbucket/net_10base_t1s/apps/tcpip_iperf_lan865x/firmware/tcpip_iperf_lan865x_freertos.X/debug/FreeRTOS/tcpip_iperf_lan865x_freertos_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -1098,6 +1105,7 @@
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="event.recorder.debugger.behavior" value="Running"/>
         <property key="event.recorder.enabled" value="false"/>
         <property key="event.recorder.scvd.files" value=""/>
         <property key="firmware.path"
@@ -1122,8 +1130,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-fffff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/Users/I67424/HarmonyProjects/tcpip_iperf_lan865x/firmware/tcpip_iperf_10base_t1s_freertos.X/debug/FreeRTOS/tcpip_iperf_10base_t1s_freertos_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

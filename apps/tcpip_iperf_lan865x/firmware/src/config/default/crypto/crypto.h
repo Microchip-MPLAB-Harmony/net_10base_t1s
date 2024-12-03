@@ -97,7 +97,7 @@ typedef struct CRYPT_MD5_CTX {
 	to it. This function sets the necessary values for the structure.
 */
 
-int CRYPT_MD5_Initialize(CRYPT_MD5_CTX*);
+int CRYPT_MD5_Initialize(CRYPT_MD5_CTX* md5);
 
 //******************************************************************************
 /* Function:
@@ -139,7 +139,7 @@ int CRYPT_MD5_Initialize(CRYPT_MD5_CTX*);
 	to it. This function sets the necessary values for the structure.
 */
 
-int CRYPT_MD5_DataSizeSet(CRYPT_MD5_CTX*, unsigned int);
+int CRYPT_MD5_DataSizeSet(CRYPT_MD5_CTX* md5, unsigned int sz);
 
 //********************************************************************************************
 /*
@@ -181,7 +181,7 @@ int CRYPT_MD5_DataSizeSet(CRYPT_MD5_CTX*, unsigned int);
     the context holding variable between calls to CRYPT_MD5_DataAdd.                         
 */
 
-int CRYPT_MD5_DataAdd(CRYPT_MD5_CTX*, const unsigned char*, unsigned int);
+int CRYPT_MD5_DataAdd(CRYPT_MD5_CTX* md5, const unsigned char* input, unsigned int sz);
 
 //******************************************************************************
 /* Function:
@@ -221,7 +221,7 @@ int CRYPT_MD5_DataAdd(CRYPT_MD5_CTX*, const unsigned char*, unsigned int);
 	context holding variable between calls to CRYPT_MD5_DataAdd and CRYPT_MD5_Finalize.
 */
 
-int CRYPT_MD5_Finalize(CRYPT_MD5_CTX*, unsigned char*);
+int CRYPT_MD5_Finalize(CRYPT_MD5_CTX* md5, unsigned char* digest);
 
 enum {
     CRYPT_MD5_DIGEST_SIZE = 16 
@@ -271,7 +271,7 @@ typedef struct CRYPT_SHA_CTX
 	to it. This function sets the necessary values for the structure.
 */
 
-int CRYPT_SHA_Initialize(CRYPT_SHA_CTX*);
+int CRYPT_SHA_Initialize(CRYPT_SHA_CTX* sha);
 
 //******************************************************************************
 /* Function:
@@ -312,7 +312,7 @@ int CRYPT_SHA_Initialize(CRYPT_SHA_CTX*);
 	to it. This function sets the necessary values for the structure.
 */
 
-int CRYPT_SHA_DataSizeSet(CRYPT_SHA_CTX*, unsigned int);
+int CRYPT_SHA_DataSizeSet(CRYPT_SHA_CTX* sha, unsigned int sz);
 
 //******************************************************************************
 /* Function:
@@ -353,7 +353,7 @@ int CRYPT_SHA_DataSizeSet(CRYPT_SHA_CTX*, unsigned int);
 	context holding variable between calls to CRYPT_SHA_DataAdd.
 */
 
-int CRYPT_SHA_DataAdd(CRYPT_SHA_CTX*, const unsigned char*, unsigned int);
+int CRYPT_SHA_DataAdd(CRYPT_SHA_CTX* sha, const unsigned char* input, unsigned int sz);
 
 //******************************************************************************
 /* Function:
@@ -393,7 +393,7 @@ int CRYPT_SHA_DataAdd(CRYPT_SHA_CTX*, const unsigned char*, unsigned int);
 	context holding variable between calls to CRYPT_SHA_DataAdd and CRYPT_SHA_Finalize.
 */
 
-int CRYPT_SHA_Finalize(CRYPT_SHA_CTX*, unsigned char*);
+int CRYPT_SHA_Finalize(CRYPT_SHA_CTX* sha, unsigned char* digest);
 
 enum {
     CRYPT_SHA_DIGEST_SIZE = 20
@@ -442,7 +442,7 @@ typedef struct CRYPT_SHA256_CTX {
 	to it. This function sets the necessary values for the structure.
 */
 
-int CRYPT_SHA256_Initialize(CRYPT_SHA256_CTX*);
+int CRYPT_SHA256_Initialize(CRYPT_SHA256_CTX* sha256);
 
 //******************************************************************************
 /* Function:
@@ -483,7 +483,7 @@ int CRYPT_SHA256_Initialize(CRYPT_SHA256_CTX*);
 	to it. This function sets the necessary values for the structure.
 */
 
-int CRYPT_SHA256_DataSizeSet(CRYPT_SHA256_CTX*, unsigned int);
+int CRYPT_SHA256_DataSizeSet(CRYPT_SHA256_CTX* sha256, unsigned int sz);
 
 //******************************************************************************
 /* Function:
@@ -524,7 +524,7 @@ int CRYPT_SHA256_DataSizeSet(CRYPT_SHA256_CTX*, unsigned int);
 	context holding variable between calls to CRYPT_SHA256_DataAdd.
 */
 
-int CRYPT_SHA256_DataAdd(CRYPT_SHA256_CTX*, const unsigned char*, unsigned int);
+int CRYPT_SHA256_DataAdd(CRYPT_SHA256_CTX* sha256, const unsigned char* input, unsigned int sz);
 
 //******************************************************************************
 /* Function:
@@ -564,7 +564,7 @@ int CRYPT_SHA256_DataAdd(CRYPT_SHA256_CTX*, const unsigned char*, unsigned int);
 	context holding variable between calls to CRYPT_SHA256_DataAdd and CRYPT_SHA256_Finalize.
 */
 
-int CRYPT_SHA256_Finalize(CRYPT_SHA256_CTX*, unsigned char*);
+int CRYPT_SHA256_Finalize(CRYPT_SHA256_CTX* sha256, unsigned char* digest);
 
 enum {
     CRYPT_SHA256_DIGEST_SIZE = 32 
@@ -606,7 +606,7 @@ enum {
 	to it. This function sets the necessary values for the structure.
 */
 
-int CRYPT_SHA224_Initialize(CRYPT_SHA256_CTX*);
+int CRYPT_SHA224_Initialize(CRYPT_SHA256_CTX* sha224);
 
 //******************************************************************************
 /* Function:
@@ -647,7 +647,7 @@ int CRYPT_SHA224_Initialize(CRYPT_SHA256_CTX*);
 	context holding variable between calls to CRYPT_SHA224_DataAdd.
 */
 
-int CRYPT_SHA224_DataAdd(CRYPT_SHA256_CTX*, const unsigned char*, unsigned int);
+int CRYPT_SHA224_DataAdd(CRYPT_SHA256_CTX* sha224, const unsigned char* input, unsigned int sz);
 
 //******************************************************************************
 /* Function:
@@ -687,7 +687,7 @@ int CRYPT_SHA224_DataAdd(CRYPT_SHA256_CTX*, const unsigned char*, unsigned int);
 	context holding variable between calls to CRYPT_SHA224_DataAdd and CRYPT_SHA224_Finalize.
 */
 
-int CRYPT_SHA224_Finalize(CRYPT_SHA256_CTX*, unsigned char*);
+int CRYPT_SHA224_Finalize(CRYPT_SHA256_CTX* sha224, unsigned char* digest);
 
 enum {
     CRYPT_SHA224_DIGEST_SIZE = 28 
@@ -736,7 +736,7 @@ typedef struct CRYPT_SHA384_CTX {
 	to it. This function sets the necessary values for the structure.
 */
 
-int CRYPT_SHA384_Initialize(CRYPT_SHA384_CTX*);
+int CRYPT_SHA384_Initialize(CRYPT_SHA384_CTX* sha384);
 
 //******************************************************************************
 /* Function:
@@ -777,7 +777,7 @@ int CRYPT_SHA384_Initialize(CRYPT_SHA384_CTX*);
 	context holding variable between calls to CRYPT_SHA384_DataAdd.
 */
 
-int CRYPT_SHA384_DataAdd(CRYPT_SHA384_CTX*, const unsigned char*, unsigned int);
+int CRYPT_SHA384_DataAdd(CRYPT_SHA384_CTX* sha384, const unsigned char* input, unsigned int sz);
 
 //******************************************************************************
 /* Function:
@@ -817,7 +817,7 @@ int CRYPT_SHA384_DataAdd(CRYPT_SHA384_CTX*, const unsigned char*, unsigned int);
 	context holding variable between calls to CRYPT_SHA384_DataAdd and CRYPT_SHA384_Finalize.
 */
 
-int CRYPT_SHA384_Finalize(CRYPT_SHA384_CTX*, unsigned char*);
+int CRYPT_SHA384_Finalize(CRYPT_SHA384_CTX* sha384, unsigned char* digest);
 
 enum {
     CRYPT_SHA384_DIGEST_SIZE = 48
@@ -867,7 +867,7 @@ typedef struct CRYPT_SHA512_CTX {
 	to it. This function sets the necessary values for the structure.
 */
 
-int CRYPT_SHA512_Initialize(CRYPT_SHA512_CTX*);
+int CRYPT_SHA512_Initialize(CRYPT_SHA512_CTX* sha512);
 
 //******************************************************************************
 /* Function:
@@ -908,7 +908,7 @@ int CRYPT_SHA512_Initialize(CRYPT_SHA512_CTX*);
 	context holding variable between calls to CRYPT_SHA512_DataAdd.
 */
 
-int CRYPT_SHA512_DataAdd(CRYPT_SHA512_CTX*, const unsigned char*, unsigned int);
+int CRYPT_SHA512_DataAdd(CRYPT_SHA512_CTX* sha512, const unsigned char* input, unsigned int sz);
 
 //******************************************************************************
 /* Function:
@@ -948,7 +948,7 @@ int CRYPT_SHA512_DataAdd(CRYPT_SHA512_CTX*, const unsigned char*, unsigned int);
 	context holding variable between calls to CRYPT_SHA512_DataAdd and CRYPT_SHA512_Finalize.
 */
 
-int CRYPT_SHA512_Finalize(CRYPT_SHA512_CTX*, unsigned char*);
+int CRYPT_SHA512_Finalize(CRYPT_SHA512_CTX* sha512, unsigned char* digest);
 
 enum {
     CRYPT_SHA512_DIGEST_SIZE = 64 
@@ -1007,7 +1007,7 @@ typedef struct CRYPT_HMAC_CTX {
     None.  
 */
 
-int CRYPT_HMAC_SetKey(CRYPT_HMAC_CTX*, int, const unsigned char*, unsigned int);
+int CRYPT_HMAC_SetKey(CRYPT_HMAC_CTX* hmac, int type, const unsigned char* key, unsigned int sz);
 
 //*********************************************************************************
 /*
@@ -1050,7 +1050,7 @@ int CRYPT_HMAC_SetKey(CRYPT_HMAC_CTX*, int, const unsigned char*, unsigned int);
   
 */
 
-int CRYPT_HMAC_DataAdd(CRYPT_HMAC_CTX*, const unsigned char*, unsigned int);
+int CRYPT_HMAC_DataAdd(CRYPT_HMAC_CTX* hmac, const unsigned char* input, unsigned int sz);
 
 //******************************************************************************
 /* Function:
@@ -1091,7 +1091,7 @@ int CRYPT_HMAC_DataAdd(CRYPT_HMAC_CTX*, const unsigned char*, unsigned int);
 	The area pointed to by the digest parameter must be large enough to hold the results.
 */
 
-int CRYPT_HMAC_Finalize(CRYPT_HMAC_CTX*, unsigned char*);
+int CRYPT_HMAC_Finalize(CRYPT_HMAC_CTX* hmac, unsigned char* digest);
 
 /* HMAC types */
 enum {
@@ -1145,8 +1145,9 @@ enum {
 	Output buffer must be large enough to hold the contents of the operation.
 */
 
-int CRYPT_HUFFMAN_Compress(unsigned char*, unsigned int, const unsigned char*,
-                           unsigned int, unsigned int);
+int CRYPT_HUFFMAN_Compress(unsigned char* out, unsigned int outSz,
+                           const unsigned char* in, unsigned int inSz,
+                           unsigned int flags);
 
 //******************************************************************************
 /* Function:
@@ -1185,8 +1186,8 @@ int CRYPT_HUFFMAN_Compress(unsigned char*, unsigned int, const unsigned char*,
 	Output buffer must be large enough to hold the contents of the operation.
 */
 
-int CRYPT_HUFFMAN_DeCompress(unsigned char*, unsigned int, const unsigned char*,
-                             unsigned int);
+int CRYPT_HUFFMAN_DeCompress(unsigned char* out, unsigned int outSz,
+                             const unsigned char* in, unsigned int inSz);
 
 /* flag to use static huffman */
 enum {
@@ -1244,8 +1245,7 @@ typedef struct CRYPT_RNG_CTX {
   Remarks:  
 */
 
-#define CRYPT_RNG_Initialize CRYPT_RNG_Initialize
-int CRYPT_RNG_Initialize(CRYPT_RNG_CTX*);
+int CRYPT_RNG_Initialize(CRYPT_RNG_CTX* rng);
 
 //******************************************************************************
 /* Function:
@@ -1311,7 +1311,7 @@ int CRYPT_RNG_Deinitialize(CRYPT_RNG_CTX* rng);
   Remarks:
 */
 
-int CRYPT_RNG_Get(CRYPT_RNG_CTX*, unsigned char*);
+int CRYPT_RNG_Get(CRYPT_RNG_CTX* rng, unsigned char* b);
 
 //******************************************************************************
 /* Function:
@@ -1355,7 +1355,7 @@ int CRYPT_RNG_Get(CRYPT_RNG_CTX*, unsigned char*);
   Remarks:
 */
 
-int CRYPT_RNG_BlockGenerate(CRYPT_RNG_CTX*, unsigned char*, unsigned int);
+int CRYPT_RNG_BlockGenerate(CRYPT_RNG_CTX* rng, unsigned char* b, unsigned int sz);
 
 
 /* TDES */
@@ -1413,8 +1413,8 @@ typedef struct CRYPT_TDES_CTX {
 	The input data must be a multiple of 8 bytes, and must be padded at the end with zeros to meet the length.
 */
 
-int CRYPT_TDES_KeySet(CRYPT_TDES_CTX*, const unsigned char*,
-                      const unsigned char*, int);
+int CRYPT_TDES_KeySet(CRYPT_TDES_CTX* tdes, const unsigned char* key,
+                      const unsigned char* iv, int dir);
 
 //******************************************************************************
 /* Function:
@@ -1462,7 +1462,7 @@ int CRYPT_TDES_KeySet(CRYPT_TDES_CTX*, const unsigned char*,
 	The IV must be 8 bytes long.
 */
 
-int CRYPT_TDES_IvSet(CRYPT_TDES_CTX*, const unsigned char*);
+int CRYPT_TDES_IvSet(CRYPT_TDES_CTX* tdes, const unsigned char* iv);
 
 //******************************************************************************
 /* Function:
@@ -1510,8 +1510,8 @@ int CRYPT_TDES_IvSet(CRYPT_TDES_CTX*, const unsigned char*);
 	The input data must be padded at the end with zeros to make the length a multiple of 8.
 */
 
-int CRYPT_TDES_CBC_Encrypt(CRYPT_TDES_CTX*, unsigned char*,
-                           const unsigned char*, unsigned int);
+int CRYPT_TDES_CBC_Encrypt(CRYPT_TDES_CTX* tdes, unsigned char* out,
+                           const unsigned char* in, unsigned int inSz);
 
 //******************************************************************************
 /* Function:
@@ -1560,8 +1560,8 @@ int CRYPT_TDES_CBC_Encrypt(CRYPT_TDES_CTX*, unsigned char*,
 	zero-padded at the end if the original data was not a multiple of 8 bytes long.
 */
 
-int CRYPT_TDES_CBC_Decrypt(CRYPT_TDES_CTX*, unsigned char*,
-                           const unsigned char*, unsigned int);
+int CRYPT_TDES_CBC_Decrypt(CRYPT_TDES_CTX* tdes, unsigned char* out,
+                           const unsigned char* in, unsigned int inSz);
 
 /* key direction flags for setup */
 enum {
@@ -1617,8 +1617,8 @@ typedef struct CRYPT_AES_CTX {
   Remarks:
 */
 
-int CRYPT_AES_KeySet(CRYPT_AES_CTX*, const unsigned char*, unsigned int,
-                      const unsigned char*, int);
+int CRYPT_AES_KeySet(CRYPT_AES_CTX* aes, const unsigned char* key,
+                     unsigned int keyLen, const unsigned char* iv, int dir);
 
 //******************************************************************************
 /* Function:
@@ -1655,7 +1655,7 @@ int CRYPT_AES_KeySet(CRYPT_AES_CTX*, const unsigned char*, unsigned int,
 	Direction, as set previously in CRYPT_AES_KeySet, is preserved.
 */
 
-int CRYPT_AES_IvSet(CRYPT_AES_CTX*, const unsigned char*);
+int CRYPT_AES_IvSet(CRYPT_AES_CTX* aes, const unsigned char* iv);
 
 //******************************************************************************
 /* Function:
@@ -1700,8 +1700,8 @@ int CRYPT_AES_IvSet(CRYPT_AES_CTX*, const unsigned char*);
 	The output buffer must be equal in size to the input buffer.
 */
 
-int CRYPT_AES_CBC_Encrypt(CRYPT_AES_CTX*, unsigned char*,
-                           const unsigned char*, unsigned int);
+int CRYPT_AES_CBC_Encrypt(CRYPT_AES_CTX* aes, unsigned char* out,
+                          const unsigned char* in, unsigned int inSz);
 
 //******************************************************************************
 /* Function:
@@ -1747,8 +1747,8 @@ int CRYPT_AES_CBC_Encrypt(CRYPT_AES_CTX*, unsigned char*,
 	The output buffer must be equal in size to the input buffer.
 */
 
-int CRYPT_AES_CBC_Decrypt(CRYPT_AES_CTX*, unsigned char*,
-                           const unsigned char*, unsigned int);
+int CRYPT_AES_CBC_Decrypt(CRYPT_AES_CTX* aes, unsigned char* out,
+                          const unsigned char* in, unsigned int inSz);
 
 
 //******************************************************************************
@@ -1793,8 +1793,8 @@ int CRYPT_AES_CBC_Decrypt(CRYPT_AES_CTX*, unsigned char*,
 	The output buffer must be equal in size to the input buffer.
 */
 
-int CRYPT_AES_CTR_Encrypt(CRYPT_AES_CTX*, unsigned char*,
-                          const unsigned char*, unsigned int);
+int CRYPT_AES_CTR_Encrypt(CRYPT_AES_CTX* aes, unsigned char* out,
+                          const unsigned char* in, unsigned int inSz);
 //******************************************************************************
 /* Function:
     int CRYPT_AES_GCM_SetKey(CRYPT_AES_CTX* aes, const unsigned char* key, unsigned int len);
@@ -1963,8 +1963,8 @@ int CRYPT_AES_GCM_Decrypt(CRYPT_AES_CTX* aes, unsigned char* out,
 	Input and output buffers must be equal in size (CRYPT_AES_BLOCK_SIZE).
 */
 
-int CRYPT_AES_DIRECT_Encrypt(CRYPT_AES_CTX*, unsigned char*,
-                           const unsigned char*);
+int CRYPT_AES_DIRECT_Encrypt(CRYPT_AES_CTX* aes, unsigned char* out,
+                             const unsigned char* in);
 
 //******************************************************************************
 /* Function:
@@ -2008,8 +2008,8 @@ int CRYPT_AES_DIRECT_Encrypt(CRYPT_AES_CTX*, unsigned char*,
 	Input and output buffers must be equal in size (CRYPT_AES_BLOCK_SIZE).
 */
 
-int CRYPT_AES_DIRECT_Decrypt(CRYPT_AES_CTX*, unsigned char*,
-                           const unsigned char*);
+int CRYPT_AES_DIRECT_Decrypt(CRYPT_AES_CTX* aes, unsigned char* out,
+                             const unsigned char* in);
 
 /* key direction flags for setup, ctr always uses ENCRYPT flag */
 enum {
@@ -2059,7 +2059,7 @@ typedef struct CRYPT_RSA_CTX {
   Remarks:
 */
 
-int CRYPT_RSA_Initialize(CRYPT_RSA_CTX*);
+int CRYPT_RSA_Initialize(CRYPT_RSA_CTX* rsa);
 
 //******************************************************************************
 /* Function:
@@ -2094,7 +2094,7 @@ int CRYPT_RSA_Initialize(CRYPT_RSA_CTX*);
   Remarks:
 */
 
-int CRYPT_RSA_Free(CRYPT_RSA_CTX*);
+int CRYPT_RSA_Free(CRYPT_RSA_CTX* rsa);
 
 
 //******************************************************************************
@@ -2135,8 +2135,8 @@ int CRYPT_RSA_Free(CRYPT_RSA_CTX*);
   Remarks:
 */
 
-int CRYPT_RSA_PublicKeyDecode(CRYPT_RSA_CTX*, const unsigned char*,
-                              unsigned int);
+int CRYPT_RSA_PublicKeyDecode(CRYPT_RSA_CTX* rsa, const unsigned char* in,
+                              unsigned int inSz);
 
 //******************************************************************************
 /* Function:
@@ -2176,8 +2176,8 @@ int CRYPT_RSA_PublicKeyDecode(CRYPT_RSA_CTX*, const unsigned char*,
   Remarks:
 */
 
-int CRYPT_RSA_PrivateKeyDecode(CRYPT_RSA_CTX*, const unsigned char*,
-                               unsigned int);
+int CRYPT_RSA_PrivateKeyDecode(CRYPT_RSA_CTX* rsa, const unsigned char* in,
+                               unsigned int inSz);
 
 
 //******************************************************************************
@@ -2229,9 +2229,9 @@ int CRYPT_RSA_PrivateKeyDecode(CRYPT_RSA_CTX*, const unsigned char*,
   Remarks:
 */
 
-int CRYPT_RSA_PublicEncrypt(CRYPT_RSA_CTX*, unsigned char*,
-                            unsigned int, const unsigned char*, unsigned int,
-                            CRYPT_RNG_CTX*);
+int CRYPT_RSA_PublicEncrypt(CRYPT_RSA_CTX* rsa, unsigned char* out,
+                            unsigned int outSz, const unsigned char* in,
+                            unsigned int inSz, CRYPT_RNG_CTX* rng);
 
 //******************************************************************************
 /* Function:
@@ -2277,9 +2277,9 @@ int CRYPT_RSA_PublicEncrypt(CRYPT_RSA_CTX*, unsigned char*,
   Remarks:
 */
 
-int CRYPT_RSA_PrivateDecrypt(CRYPT_RSA_CTX*, unsigned char*,
-                             unsigned int, const unsigned char*, unsigned int);
-
+int CRYPT_RSA_PrivateDecrypt(CRYPT_RSA_CTX* rsa, unsigned char* out,
+                             unsigned int outSz, const unsigned char* in,
+                             unsigned int inSz);
 
 //******************************************************************************
 /* Function:
@@ -2319,7 +2319,7 @@ int CRYPT_RSA_PrivateDecrypt(CRYPT_RSA_CTX*, unsigned char*,
   Remarks:
 */
 
-int CRYPT_RSA_EncryptSizeGet(CRYPT_RSA_CTX*);                             
+int CRYPT_RSA_EncryptSizeGet(CRYPT_RSA_CTX* rsa);                             
 
 
 
@@ -2363,7 +2363,7 @@ typedef struct CRYPT_ECC_CTX {
   Remarks:
 */
 
-int CRYPT_ECC_Initialize(CRYPT_ECC_CTX*);
+int CRYPT_ECC_Initialize(CRYPT_ECC_CTX* ecc);
 
 //******************************************************************************
 /* Function:
@@ -2399,7 +2399,7 @@ int CRYPT_ECC_Initialize(CRYPT_ECC_CTX*);
   Remarks:
 */
 
-int CRYPT_ECC_Free(CRYPT_ECC_CTX*);
+int CRYPT_ECC_Free(CRYPT_ECC_CTX* ecc);
 
 
 //******************************************************************************
@@ -2445,8 +2445,8 @@ int CRYPT_ECC_Free(CRYPT_ECC_CTX*);
   Remarks:
 */
 
-int CRYPT_ECC_PublicExport(CRYPT_ECC_CTX*, unsigned char*, unsigned int,
-                           unsigned int*);
+int CRYPT_ECC_PublicExport(CRYPT_ECC_CTX* ecc, unsigned char* out,
+                           unsigned int outSz, unsigned int* usedSz);
 
 //******************************************************************************
 /* Function:
@@ -2490,7 +2490,7 @@ int CRYPT_ECC_PublicExport(CRYPT_ECC_CTX*, unsigned char*, unsigned int,
   Remarks:
 */
 
-int CRYPT_ECC_PublicImport(CRYPT_ECC_CTX*, const unsigned char*, unsigned int);
+int CRYPT_ECC_PublicImport(CRYPT_ECC_CTX* ecc, const unsigned char* in, unsigned int inSz);
 
 //******************************************************************************
 /* Function:
@@ -2530,8 +2530,8 @@ int CRYPT_ECC_PublicImport(CRYPT_ECC_CTX*, const unsigned char*, unsigned int);
   Remarks:
 */
 
-int CRYPT_ECC_PrivateImport(CRYPT_ECC_CTX*, const unsigned char*, unsigned int,
-                            const unsigned char*, unsigned int);
+int CRYPT_ECC_PrivateImport(CRYPT_ECC_CTX* ecc, const unsigned char* priv,
+         unsigned int privSz, const unsigned char* pub, unsigned int pubSz);
 
 
 //******************************************************************************
@@ -2573,7 +2573,7 @@ int CRYPT_ECC_PrivateImport(CRYPT_ECC_CTX*, const unsigned char*, unsigned int,
 
   Remarks:
 */
-int CRYPT_ECC_DHE_KeyMake(CRYPT_ECC_CTX*, CRYPT_RNG_CTX*, int);
+int CRYPT_ECC_DHE_KeyMake(CRYPT_ECC_CTX* ecc, CRYPT_RNG_CTX* rng, int keySz);
 
 //******************************************************************************
 /* Function:
@@ -2615,7 +2615,6 @@ int CRYPT_ECC_DHE_KeyMake(CRYPT_ECC_CTX*, CRYPT_RNG_CTX*, int);
     ret = CRYPT_ECC_Initialize(&userA);
     ret = CRYPT_ECC_Initialize(&userB);
 	...
-	// Make or import the appropriate keys
 	...
     ret = CRYPT_ECC_DHE_SharedSecretMake(&userA, &userB, sharedA, aSz, &usedA);
     </code>
@@ -2623,8 +2622,8 @@ int CRYPT_ECC_DHE_KeyMake(CRYPT_ECC_CTX*, CRYPT_RNG_CTX*, int);
   Remarks:
 */
 
-int CRYPT_ECC_DHE_SharedSecretMake(CRYPT_ECC_CTX*, CRYPT_ECC_CTX*,
-                                   unsigned char*, unsigned int, unsigned int*);
+int CRYPT_ECC_DHE_SharedSecretMake(CRYPT_ECC_CTX* priv, CRYPT_ECC_CTX* pub,
+                  unsigned char* out, unsigned int outSz, unsigned int* usedSz);
 
 
 //******************************************************************************
@@ -2667,7 +2666,6 @@ int CRYPT_ECC_DHE_SharedSecretMake(CRYPT_ECC_CTX*, CRYPT_ECC_CTX*,
 
     ret = CRYPT_ECC_Initialize(&userA);
 	...
-	// Import or generate private key
 	...
     ret = CRYPT_ECC_DSA_HashSign(&userA, &mcRng, sig, sigSz, &usedA, ourData,
                                  CRYPT_SHA_DIGEST_SIZE);
@@ -2676,9 +2674,10 @@ int CRYPT_ECC_DHE_SharedSecretMake(CRYPT_ECC_CTX*, CRYPT_ECC_CTX*,
   Remarks:
 */
 
-int CRYPT_ECC_DSA_HashSign(CRYPT_ECC_CTX*, CRYPT_RNG_CTX*, unsigned char*,
-        unsigned int, unsigned int*, const unsigned char*, unsigned int);
-
+int CRYPT_ECC_DSA_HashSign(CRYPT_ECC_CTX* ecc, CRYPT_RNG_CTX* rng,
+                           unsigned char* sig, unsigned int sigSz,
+                           unsigned int* usedSz, const unsigned char* in,
+                           unsigned int inSz);
 //******************************************************************************
 /* Function:
     int CRYPT_ECC_DSA_HashVerify(CRYPT_ECC_CTX* ecc, const unsigned char* sig,
@@ -2719,7 +2718,6 @@ int CRYPT_ECC_DSA_HashSign(CRYPT_ECC_CTX*, CRYPT_RNG_CTX*, unsigned char*,
 
     ret = CRYPT_ECC_Initialize(&userA);
 	...
-	// Import or generate private key
 	...
     ret = CRYPT_ECC_DSA_HashVerify(&userA, sig, sigSz, ourData,
                                    CRYPT_SHA_DIGEST_SIZE, &verifyStatus);
@@ -2728,9 +2726,9 @@ int CRYPT_ECC_DSA_HashSign(CRYPT_ECC_CTX*, CRYPT_RNG_CTX*, unsigned char*,
   Remarks:
 */
 
-int CRYPT_ECC_DSA_HashVerify(CRYPT_ECC_CTX*, const unsigned char*,
-                     unsigned int, unsigned char*, unsigned int, int*);
-
+int CRYPT_ECC_DSA_HashVerify(CRYPT_ECC_CTX* ecc, const unsigned char* sig,
+                             unsigned int sigSz, unsigned char* hash,
+                             unsigned int hashSz, int* status);
 
 //******************************************************************************
 /* Function:
@@ -2763,7 +2761,6 @@ int CRYPT_ECC_DSA_HashVerify(CRYPT_ECC_CTX*, const unsigned char*,
 
     ret = CRYPT_ECC_Initialize(&userA);
 	...
-	// Import or generate private key
 	...
     ret = CRYPT_ECC_KeySizeGet(&userA);
     </code>
@@ -2771,7 +2768,7 @@ int CRYPT_ECC_DSA_HashVerify(CRYPT_ECC_CTX*, const unsigned char*,
   Remarks:
 */
 
-int CRYPT_ECC_KeySizeGet(CRYPT_ECC_CTX*);
+int CRYPT_ECC_KeySizeGet(CRYPT_ECC_CTX* ecc);
 
 //******************************************************************************
 /* Function:
@@ -2804,7 +2801,6 @@ int CRYPT_ECC_KeySizeGet(CRYPT_ECC_CTX*);
 
     ret = CRYPT_ECC_Initialize(&userA);
 	...
-	// Import or generate private key
 	...
     ret = CRYPT_ECC_SignatureSizeGet(&userA);
     </code>
@@ -2812,7 +2808,7 @@ int CRYPT_ECC_KeySizeGet(CRYPT_ECC_CTX*);
   Remarks:
 */
 
-int CRYPT_ECC_SignatureSizeGet(CRYPT_ECC_CTX*);
+int CRYPT_ECC_SignatureSizeGet(CRYPT_ECC_CTX* ecc);
 
 
 
@@ -2848,7 +2844,7 @@ int CRYPT_ECC_SignatureSizeGet(CRYPT_ECC_CTX*);
 	String needs to be >= 80 chars.
 */
 
-int CRYPT_ERROR_StringGet(int, char*);
+int CRYPT_ERROR_StringGet(int err, char* str);
 
 
 #ifdef __cplusplus

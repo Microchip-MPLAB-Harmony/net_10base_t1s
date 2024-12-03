@@ -3,7 +3,7 @@ TCP/IP Stack Ethernet PHY and MAC Driver Definitions Header File
 
   Company:
     Microchip Technology Inc.
-
+    
   File Name:
     tcpip_ethernet.h
 
@@ -57,7 +57,7 @@ Microchip or any third party.
     extern "C" {
 
 #endif
-// DOM-IGNORE-END
+// DOM-IGNORE-END  
 
 
 // *****************************************************************************
@@ -106,11 +106,11 @@ typedef enum
     // Use half duplex or half duplex negotiation capability needed
     TCPIP_ETH_OPEN_HDUPLEX
         /*DOM-IGNORE-BEGIN*/ = 0x00000004 /*DOM-IGNORE-END*/,
-
+            
     // Use 1000MBps or 1000MBps negotiation capability needed
     TCPIP_ETH_OPEN_1000
         /*DOM-IGNORE-BEGIN*/ = 0x00000008 /*DOM-IGNORE-END*/,
-
+            
     // Use 100MBps or 100MBps negotiation capability needed
     TCPIP_ETH_OPEN_100
         /*DOM-IGNORE-BEGIN*/ = 0x00000010 /*DOM-IGNORE-END*/,
@@ -162,7 +162,7 @@ typedef enum
     TCPIP_ETH_OPEN_DEFAULT = (TCPIP_ETH_OPEN_AUTO|TCPIP_ETH_OPEN_FDUPLEX|TCPIP_ETH_OPEN_HDUPLEX|
                         TCPIP_ETH_OPEN_100|TCPIP_ETH_OPEN_10|TCPIP_ETH_OPEN_MDIX_AUTO)
 
-} TCPIP_ETH_OPEN_FLAGS;
+} TCPIP_ETH_OPEN_FLAGS; 
 
 
 
@@ -206,7 +206,7 @@ typedef enum
     TCPIP_ETH_PAUSE_TYPE_ALL    = (TCPIP_ETH_PAUSE_TYPE_PAUSE|TCPIP_ETH_PAUSE_TYPE_ASM_DIR|
                            TCPIP_ETH_PAUSE_TYPE_EN_TX|TCPIP_ETH_PAUSE_TYPE_EN_RX),
 
-} TCPIP_ETH_PAUSE_TYPE;
+} TCPIP_ETH_PAUSE_TYPE; 
 
 
 //DOM-IGNORE-BEGIN

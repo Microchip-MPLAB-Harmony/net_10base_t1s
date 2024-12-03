@@ -3,12 +3,12 @@
 
   Company:
     Microchip Technology Inc.
-
+    
   File Name:
     tcpip_manager_control.h
 
   Summary:
-
+    
   Description:
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
@@ -60,10 +60,10 @@ Microchip or any third party.
 
 // minimum timeout (maximum rate) for link check, ms
 // 5 times per second should be frequent enough
-#define _TCPIP_STACK_LINK_MIN_TMO       200
+#define _TCPIP_STACK_LINK_MIN_TMO       200 
 // adjust it vs the stack rate
 
-#if (!defined(TCPIP_STACK_LINK_RATE) || TCPIP_STACK_LINK_RATE < TCPIP_STACK_TICK_RATE || TCPIP_STACK_LINK_RATE < _TCPIP_STACK_LINK_MIN_TMO)
+#if (!defined(TCPIP_STACK_LINK_RATE) || TCPIP_STACK_LINK_RATE < TCPIP_STACK_TICK_RATE || TCPIP_STACK_LINK_RATE < _TCPIP_STACK_LINK_MIN_TMO) 
 #define _TCPIP_STACK_LINK_RATE  _TCPIP_STACK_LINK_MIN_TMO   // use the minimum value
 #else
 #define _TCPIP_STACK_LINK_RATE  TCPIP_STACK_LINK_RATE       // user value
@@ -77,7 +77,7 @@ typedef void    (*tcpipModuleSignalHandler)(void);
 // types of packets/frames processed by this stack
 typedef struct
 {
-    uint16_t        frameType;      // one of valid TCPIP_ETHER_TYPE_ values
+    uint16_t        frameType;      // one of valid TCPIP_ETHER_TYPE_ values 
     uint16_t        moduleId;       // TCPIP_STACK_MODULE: corresponding module handling this
     uint32_t        pktTypeFlags;   // user packet flags to set for this type
 
@@ -134,7 +134,7 @@ typedef union
         uint16_t bIsDnsClientEnabled    : 1;    // DNS client  enable/disable  .
         uint16_t bIsDnsServerEnabled    : 1;    // DNS server Enable and Disable
         uint16_t bIsDNSServerAuto       : 1;    // DNS Server auto enable/disable on this interface
-        uint16_t bInterfaceEnabled      : 1;    // 0 when TCPIP_MAC_POWER_DOWN/TCPIP_MAC_POWER_LOW
+        uint16_t bInterfaceEnabled      : 1;    // 0 when TCPIP_MAC_POWER_DOWN/TCPIP_MAC_POWER_LOW 
         uint16_t bIPv6Enabled           : 1;
         uint16_t bIPv6InConfig          : 1;
 volatile uint16_t bNewTcpipEventAvlbl   : 1;    // event available flag
@@ -186,7 +186,7 @@ typedef struct
 #include "tcpip/src/tcpip_helpers_private.h"
 
 // TCPIP network structure containing interface information
-//
+//  
 typedef struct _tag_TCPIP_NET_IF
 {
     struct  // TCPIP_STACK_NET_IF_DCPT!!!; Anonymous for now;
@@ -229,7 +229,7 @@ typedef struct _tag_TCPIP_NET_IF
 #if (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
     struct _tag_TCPIP_NET_IF* pPriIf;           // pointer to the primary interface
                                                 // pPriIf == pIf, means primary
-                                                // else alias
+                                                // else alias  
     struct _tag_TCPIP_NET_IF* pAlias;           // linked list of alias interfaces belonging to this primary
 #endif  // (_TCPIP_STACK_ALIAS_INTERFACE_SUPPORT)
                                                 // ((__aligned__)) !!!
@@ -247,13 +247,13 @@ typedef struct _tag_TCPIP_NET_IF
                                                 // stored to avoid the run time division
     uint16_t            activeEvents;           // TCPIP_MAC_EVENT accumulated event available
                                                 // TCPIP_MAC_EVENT fits within 16 bits!
-                                                // link up/down events are not
+                                                // link up/down events are not 
                                                 // necessarily triggered by hardware
     uint16_t            currEvents;             // current TCPIP_MAC_EVENT processed event
     uint16_t            linkMtu;                // current interface link MTU
 
-    uint8_t             txOffload;              // MAC TX TCPIP_MAC_CHECKSUM_OFFLOAD_FLAGS
-    uint8_t             rxOffload;              // MAC RX TCPIP_MAC_CHECKSUM_OFFLOAD_FLAGS
+    uint8_t             txOffload;              // MAC TX TCPIP_MAC_CHECKSUM_OFFLOAD_FLAGS        
+    uint8_t             rxOffload;              // MAC RX TCPIP_MAC_CHECKSUM_OFFLOAD_FLAGS        
                                                 // Not used. The MAC sets the pktFlags when calculating RX checksums!
     union
     {
@@ -266,8 +266,8 @@ typedef struct _tag_TCPIP_NET_IF
             uint8_t reserved       : 4;        // available
         };
         uint8_t        v;
-    }exFlags;                               // additional extended flags
-    uint8_t             macType;            // a TCPIP_MAC_TYPE value: ETH, Wi-Fi, etc;
+    }exFlags;                               // additional extended flags      
+    uint8_t             macType;            // a TCPIP_MAC_TYPE value: ETH, Wi-Fi, etc; 
 
     char                ifName[7];          // native interface name + \0
     uint8_t             bridgePort;         // bridge port this interface belongs to; < 256
@@ -290,10 +290,10 @@ typedef struct  _TAG_TCPIP_LIST_NODE
 // network interface action for initialization/deinitialization
 typedef enum
 {
-    TCPIP_STACK_ACTION_INIT,         // stack is initialized
+    TCPIP_STACK_ACTION_INIT,         // stack is initialized 
     TCPIP_STACK_ACTION_REINIT,       // stack is reinitialized
     TCPIP_STACK_ACTION_DEINIT,       // stack is deinitialized
-    TCPIP_STACK_ACTION_IF_UP,        // interface is brought up
+    TCPIP_STACK_ACTION_IF_UP,        // interface is brought up 
     TCPIP_STACK_ACTION_IF_DOWN,      // interface is brought down
 }TCPIP_STACK_ACTION;
 
@@ -303,15 +303,15 @@ typedef struct _TCPIP_STACK_MODULE_CTRL
 {
     // permanent data; this data is maintained by the stack for one full session
     // i.e., across StackInit() -> StackDeInit() calls
-    //
+    // 
     //
     uint16_t    nIfs;       // number of the interfaces supported in this session
-    uint16_t    nAliases;   // number of alias interfaces in this session
+    uint16_t    nAliases;   // number of alias interfaces in this session         
     // number of the modules enabled in this session
     int     nModules;
     // allocation parameters
     const void* memH;                   // handle to be used in the TCPIP_HEAP_ calls
-    TCPIP_STACK_HEAP_TYPE   heapType;   // type of the heap
+    TCPIP_STACK_HEAP_TYPE   heapType;   // type of the heap                
 
     // transient data; contains info for a specific call
     //
@@ -325,7 +325,7 @@ typedef struct _TCPIP_STACK_MODULE_CTRL
     // the power mode for this interface to go to
     // valid only if stackAction == init/reinit; ignored for deinit
     TCPIP_MAC_POWER_MODE  powerMode;
-
+    
 }TCPIP_STACK_MODULE_CTRL;
 
 
@@ -460,7 +460,7 @@ static __inline__ TCPIP_NET_IF*  __attribute__((always_inline)) _TCPIPStackHandl
 {
     // do some checking
     // if #debug enabled, etc
-    return (TCPIP_NET_IF*)hNet;
+    return (TCPIP_NET_IF*)hNet; 
 }
 
 // more checking, for user passed handles
@@ -516,7 +516,7 @@ TCPIP_NET_IF* _TCPIPStackAnyNetLinked(bool useDefault);
 // does NOT check primary/virtual interface!
 TCPIP_NET_IF* _TCPIPStackAnyNetDirected(const IPV4_ADDR* pIpAdd);
 
-// converts between an interface name and a MAC (TCPIP_STACK_MODULE) ID
+// converts between an interface name and a MAC (TCPIP_STACK_MODULE) ID 
 // TCPIP_MODULE_MAC_NONE - no MAC id could be found
 TCPIP_STACK_MODULE    TCPIP_STACK_StringToMACId(const char* str);
 
@@ -605,7 +605,7 @@ bool                _TCPIPStackModuleSignalRequest(TCPIP_STACK_MODULE modId, TCP
 
 
 // de-registers a previous registered signal handler
-void           _TCPIPStackSignalHandlerDeregister(tcpipSignalHandle handle);
+void           _TCPIPStackSignalHandlerDeregister(tcpipSignalHandle handle); 
 
 
 // inserts a RX packet into the interface RX queue
@@ -634,7 +634,7 @@ void _TCPIPStackModuleRxPurge(TCPIP_STACK_MODULE modId, TCPIP_NET_IF* pNetIf);
 
 // return the stack heap configuration parameters
 const TCPIP_STACK_HEAP_CONFIG* _TCPIPStackHeapConfig(void);
-
+            
 static __inline__ uint16_t  __attribute__((always_inline)) _TCPIPStackNetLinkMtu(TCPIP_NET_IF* pNetIf)
 {
     return pNetIf ? pNetIf->linkMtu : 0;
@@ -734,7 +734,7 @@ uint32_t _TCPIP_MsecCountGet(void);
 
 void        TCPIP_STACK_TimeMeasureStart(bool reset);
 
-uint64_t    TCPIP_STACK_TimeMeasureGet(bool stop);
+uint64_t    TCPIP_STACK_TimeMeasureGet(bool stop);    
 
 
 #endif // defined(TCPIP_STACK_TIME_MEASUREMENT)

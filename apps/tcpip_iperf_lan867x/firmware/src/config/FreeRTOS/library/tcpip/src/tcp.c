@@ -1646,7 +1646,7 @@ static bool _TCPv4Flush(TCB_STUB * pSkt, IPV4_PACKET* pv4Pkt, uint16_t hdrLen, u
         return true; 
     }
     // failed
-    TCPIP_PKT_FlightLogAcknowledge(&pv4Pkt->macPkt, TCPIP_THIS_MODULE_ID, TCPIP_MAC_PKT_ACK_IP_REJECT_ERR);
+    TCPIP_PKT_PacketAcknowledge(&pv4Pkt->macPkt, TCPIP_MAC_PKT_ACK_IP_REJECT_ERR);
 
     return false;
 }
@@ -3261,7 +3261,7 @@ uint16_t TCPIP_TCP_ArrayFind(TCP_SOCKET hTCP, const uint8_t* cFindArray, uint16_
     const uint8_t *cFindArrayStart;
     uint8_t i, j, k;
     bool isFinding;
-    uint8_t buffer[32];
+    uint8_t buffer[32] = {0};
 
     TCB_STUB* pSkt = _TcpSocketChk(hTCP); 
     

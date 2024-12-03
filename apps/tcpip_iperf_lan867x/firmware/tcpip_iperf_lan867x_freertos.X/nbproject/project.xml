@@ -4,11 +4,13 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>tcpip_iperf_lan867x_freertos</name>
-            <creation-uuid>50c9de63-f287-4be3-9767-4b4c31c1c128</creation-uuid>
+            <creation-uuid>99db90bd-14d3-4ad8-9129-fb85e1f8b3d2</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
-            <sourceRootList/>
+            <sourceRootList>
+                <sourceRootElem>.</sourceRootElem>
+            </sourceRootList>
             <confList>
                 <confElem>
                     <name>FreeRTOS</name>

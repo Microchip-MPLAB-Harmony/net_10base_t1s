@@ -19,7 +19,7 @@
 
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2013-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2013-2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -173,11 +173,11 @@ typedef enum
     DRV_ETHPHY_CFG_RGMII       /*DOM-IGNORE-BEGIN*/ = 0x04 /*DOM-IGNORE-END*/ ,
     /*  GMII data interface in configuration fuses. */
     DRV_ETHPHY_CFG_GMII        /*DOM-IGNORE-BEGIN*/ = 0x08 /*DOM-IGNORE-END*/ ,
-    /*  Configuration fuses is ALT */
+    /*  I/O Configuration fuses is ALT */
     DRV_ETHPHY_CFG_ALTERNATE   /*DOM-IGNORE-BEGIN*/ = 0x10 /*DOM-IGNORE-END*/ ,
 
-    /*  Configuration fuses is DEFAULT */
-    DRV_ETHPHY_CFG_DEFAULT     /*DOM-IGNORE-BEGIN*/ = 0x20 /*DOM-IGNORE-END*/ ,
+    /*  I/O Configuration fuses is DEFAULT */
+    DRV_ETHPHY_CFG_DEFAULT     /*DOM-IGNORE-BEGIN*/ = 0x00 /*DOM-IGNORE-END*/ ,
 
     /*  Use the fuses configuration to detect if you are RMII/MII and ALT/DEFAULT configuration */
     /*  NOTE: - this option does not check the consistency btw the software call and the way the */
@@ -2127,6 +2127,7 @@ extern const DRV_ETHPHY_OBJECT_BASE  DRV_ETHPHY_OBJECT_BASE_Default;
 extern const DRV_ETHPHY_OBJECT_BASE  DRV_ETHPHY_OBJECT_BASE_lan9303;
 extern const DRV_ETHPHY_OBJECT_BASE  DRV_ETHPHY_OBJECT_BASE_ksz8863;
 extern const DRV_ETHPHY_OBJECT_BASE  DRV_ETHPHY_OBJECT_BASE_lan9354;
+extern const DRV_ETHPHY_OBJECT_BASE  DRV_ETHPHY_OBJECT_BASE_Dummy;
 
 
 // *****************************************************************************
@@ -2153,6 +2154,7 @@ extern const DRV_ETHPHY_OBJECT  DRV_ETHPHY_OBJECT_LAN8742A;
 extern const DRV_ETHPHY_OBJECT  DRV_ETHPHY_OBJECT_VSC8540;
 extern const DRV_ETHPHY_OBJECT  DRV_ETHPHY_OBJECT_LAN9354;
 extern const DRV_ETHPHY_OBJECT  DRV_ETHPHY_OBJECT_LAN8770;
+extern const DRV_ETHPHY_OBJECT  DRV_ETHPHY_OBJECT_LAN8840;
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

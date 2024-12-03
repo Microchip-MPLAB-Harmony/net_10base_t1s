@@ -20,7 +20,7 @@
 *******************************************************************************/
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2017-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2017-2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -1229,7 +1229,40 @@ bool DRV_PIC32CGMAC_LibIsTxComplete(DRV_GMAC_DRIVER* pMACDrv);
     None
  *****************************************************************************/
 void DRV_PIC32CGMAC_LibTxEnable(DRV_GMAC_DRIVER* pMACDrv, bool enable);
+/*******************************************************************************
+  Function:
+    void  DRV_PIC32CGMAC_LibClearTxIndex(DRV_GMAC_DRIVER* pMACDrv, GMAC_QUE_LIST queueIdx);
+ 
+  Summary:
+    Reset Transmit processing indexes.
 
+  Description:
+    After TXEN reset, the Transmit Queue Pointer will point to the start of the 
+    transmit descriptor list. The GMAC H/W engine will look into the first descriptor for 
+    any subsequent transmission. So, the software indexes used for Transmit descriptors
+    must be cleared.
+
+  Precondition:
+    None
+
+  Parameters:
+    pMACDrv         - driver instance.
+    queueIdx        - queue Index
+
+  Returns:
+    None
+
+  Example:
+    <code>
+    DRV_PIC32CGMAC_LibClearTxIndex(pMACDrv, queueIdx); 
+    </code>
+
+  Remarks:
+    Any TX packets in transmit queues must be acked/cleared
+
+    <p>Replaces:<p><c><b>void  DRV_PIC32CGMAC_LibClearTxIndex(DRV_GMAC_DRIVER* pMACDrv, GMAC_QUE_LIST queueIdx)</b></c>
+ *****************************************************************************/
+void  DRV_PIC32CGMAC_LibClearTxIndex(DRV_GMAC_DRIVER* pMACDrv, GMAC_QUE_LIST queueIdx);
 /****************************************************************************
   Function: 
     uint32_t DRV_PIC32CGMAC_LibGetxxxxxx(void)

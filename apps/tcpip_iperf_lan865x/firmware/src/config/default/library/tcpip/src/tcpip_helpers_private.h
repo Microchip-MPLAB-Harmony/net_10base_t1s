@@ -3,12 +3,12 @@
 
   Company:
     Microchip Technology Inc.
-
+    
   File Name:
     tcpip_helpers_private.h
 
   Summary:
-
+    
   Description:
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
@@ -68,8 +68,8 @@ uint16_t        TCPIP_Helper_ChecksumFold(uint32_t checksum);
 uint16_t        TCPIP_Helper_PacketCopy(TCPIP_MAC_PACKET* pSrcPkt, uint8_t* pDest, uint8_t** pStartAdd, uint16_t len, bool srchTransport);
 
 
-// Protocols understood by the TCPIP_Helper_ExtractURLFields() function.  IMPORTANT: If you
-// need to reorder these (change their constant values), you must also reorder
+// Protocols understood by the TCPIP_Helper_ExtractURLFields() function.  IMPORTANT: If you 
+// need to reorder these (change their constant values), you must also reorder 
 // the constant arrays in TCPIP_Helper_ExtractURLFields().
 typedef enum
 {

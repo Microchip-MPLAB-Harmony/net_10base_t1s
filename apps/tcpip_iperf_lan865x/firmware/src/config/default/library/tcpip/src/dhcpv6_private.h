@@ -3,7 +3,7 @@
 
   Company:
     Microchip Technology Inc.
-
+    
   File Name:
     dhcp_private.h
 
@@ -71,7 +71,7 @@ typedef enum
     TCPIP_DHCPV6_IA_SUBSTATE_RES_RETRANSMIT,    // retransmission of the message is needed
 
 
-    // results that affect the run state
+    // results that affect the run state 
     TCPIP_DHCPV6_IA_SUBSTATE_RES_RUN_NEXT,      // processing done, need to advance to the next run state
                                                 // this is usually returned by the Wait substate functions
     TCPIP_DHCPV6_IA_SUBSTATE_RES_RUN_JUMP,      // processing done, advance is done to a new run state
@@ -79,7 +79,7 @@ typedef enum
     TCPIP_DHCPV6_IA_SUBSTATE_RES_RUN_RESTART,   // process needs to be restarted with the 1st run state:
                                                 // ->TCPIP_DHCPV6_IA_STATE_SOLICIT; probably no usable data obtained
 
-    // errors < 0
+    // errors < 0 
     TCPIP_DHCPV6_IA_SUBSTATE_RES_ERROR_TRANSIENT    = -1,   // a transient error occurred
     TCPIP_DHCPV6_IA_SUBSTATE_RES_ERROR_FATAL        = -2,   // a fatal error occurred
 
@@ -88,10 +88,10 @@ typedef enum
 
 
 // DHCPV6 debugging levels/masks
-// basic debugging - asserts
+// basic debugging - asserts 
 #define TCPIP_DHCPV6_DEBUG_MASK_BASIC           (0x0001)
 // run-time conditions, not critical
-#define TCPIP_DHCPV6_DEBUG_MASK_COND            (0x0002)
+#define TCPIP_DHCPV6_DEBUG_MASK_COND            (0x0002) 
 // report in messages
 #define TCPIP_DHCPV6_DEBUG_MASK_IN              (0x0004)
 // report out messages
@@ -100,7 +100,7 @@ typedef enum
 #define TCPIP_DHCPV6_DEBUG_MASK_CLIENT_STATE    (0x0010)
 // report client state when user notification is made
 #define TCPIP_DHCPV6_DEBUG_MASK_CLIENT_NOTIFY_STATE (0x0020)
-// report client events
+// report client events 
 #define TCPIP_DHCPV6_DEBUG_MASK_CLIENT_NOTIFY_EVENT (0x0040)
 
 // advanced: report changes in the current IA state
@@ -172,7 +172,7 @@ typedef enum
 #define TCPIP_DHCPV6_CONFIRM_MRD            10      // secs Max Confirm duration
 
 // Renew - TCPIP_DHCPV6_MSG_TYPE_RENEW
-#define TCPIP_DHCPV6_RENEW_IDELAY           0      //
+#define TCPIP_DHCPV6_RENEW_IDELAY           0      // 
 #define TCPIP_DHCPV6_RENEW_IRT              10      // secs Initial Renew timeout
 #define TCPIP_DHCPV6_RENEW_MRT              600     // secs Max Renew timeout value
 #define TCPIP_DHCPV6_RENEW_MRC              0       // MRC
@@ -180,7 +180,7 @@ typedef enum
 
 
 // Rebind TCPIP_DHCPV6_MSG_TYPE_REBIND
-#define TCPIP_DHCPV6_REBIND_IDELAY          0
+#define TCPIP_DHCPV6_REBIND_IDELAY          0      
 #define TCPIP_DHCPV6_REBIND_IRT             10      // secs Initial Rebind timeout
 #define TCPIP_DHCPV6_REBIND_MRT             600     // secs Max Rebind timeout value
 #define TCPIP_DHCPV6_REBIND_MRC             0
@@ -190,10 +190,10 @@ typedef enum
 #define TCPIP_DHCPV6_INFO_REQ_IDELAY        1       // sec Max delay of first Information-request
 #define TCPIP_DHCPV6_INFO_REQ_IRT           1       // sec Initial Information-request timeout
 #define TCPIP_DHCPV6_INFO_REQ_MRT           3600    // secs Max Information-request timeout value - RFC 7083 update
-#define TCPIP_DHCPV6_INFO_REQ_MRC           0
-#define TCPIP_DHCPV6_INFO_REQ_MRD           0
+#define TCPIP_DHCPV6_INFO_REQ_MRC           0    
+#define TCPIP_DHCPV6_INFO_REQ_MRD           0    
 #define TCPIP_DHCPV6_INFO_REQ_MRT_MIN      60    // RFC 7083 - min/max admisible values for INF_MAX_RT
-#define TCPIP_DHCPV6_INFO_REQ_MRT_MAX   86400
+#define TCPIP_DHCPV6_INFO_REQ_MRT_MAX   86400   
 
 
 // Release - TCPIP_DHCPV6_MSG_TYPE_RELEASE
@@ -201,14 +201,14 @@ typedef enum
 #define TCPIP_DHCPV6_RELEASE_IRT            1       // sec Initial Release timeout
 #define TCPIP_DHCPV6_RELEASE_MRT            0       // MAX Release attempts
 #define TCPIP_DHCPV6_RELEASE_MRC            5       // MAX Release attempts
-#define TCPIP_DHCPV6_RELEASE_MRD            0
+#define TCPIP_DHCPV6_RELEASE_MRD            0     
 
 // Decline - TCPIP_DHCPV6_MSG_TYPE_DECLINE
 #define TCPIP_DHCPV6_DECLINE_IDELAY         0
 #define TCPIP_DHCPV6_DECLINE_IRT            1       // sec Initial Decline timeout
-#define TCPIP_DHCPV6_DECLINE_MRT            0
+#define TCPIP_DHCPV6_DECLINE_MRT            0      
 #define TCPIP_DHCPV6_DECLINE_MRC            5       // Max Decline attempts
-#define TCPIP_DHCPV6_DECLINE_MRD            0
+#define TCPIP_DHCPV6_DECLINE_MRD            0       
 
 #define TCPIP_DHCPV6_HOP_COUNT_LIMIT        32      // Max hop count in a Relay-forward message
 
@@ -248,8 +248,8 @@ typedef enum
                                                 // A client sends a Confirm message to any available server to determine whether the
                                                 // addresses it was assigned are still appropriate to the link to which the client is connected.
                                                 // Client uses Confirm to validate addresses when it may have moved to a new link
-                                                //
-
+                                                // 
+    
 
     TCPIP_DHCPV6_MSG_TYPE_RENEW,            // (5) Client Renew message to the server that originally provided the client?s addresses;
                                             // Client -> Server
@@ -362,7 +362,7 @@ typedef struct __attribute__((aligned(2), packed))
     uint16_t    duid_type;      // == TCPIP_DHCPV6_DUID_TYPE_EN
     uint32_t    ent_number;     // Vendor?s registered Private Enterprise Number as maintained by IANA
     uint8_t     identifier[TCPIP_DHCPV6_DUID_EN_IDENTIFIER_LENGTH];   // variable length;
-
+                                
 
     // Remarks:
     //  - This form of DUID is assigned by the vendor to the device
@@ -393,7 +393,7 @@ typedef struct __attribute__((aligned(2), packed))
     //  - DUID-LL MUST NOT be used by DHCP clients or servers that cannot tell
     //    whether or not a network interface is permanently attached to the device
     //    on which the DHCP client is running!
-    //
+    // 
 }TCPIP_DHCPV6_DUID_LL;
 
 // minimum accepted size DUID_LL
@@ -438,22 +438,22 @@ typedef enum
     TCPIP_DHCPV6_OPT_CODE_CLIENT_ID      = 1,   // TCPIP_DHCPV6_MSG_TYPE_SOLICIT | TCPIP_DHCPV6_MSG_TYPE_ADVERTISE    | TCPIP_DHCPV6_MSG_TYPE_REQUEST | TCPIP_DHCPV6_MSG_TYPE_CONFIRM |
                                                 // TCPIP_DHCPV6_MSG_TYPE_RENEW   | TCPIP_DHCPV6_MSG_TYPE_REBIND       | TCPIP_DHCPV6_MSG_TYPE_DECLINE | TCPIP_DHCPV6_MSG_TYPE_RELEASE |
                                                 // TCPIP_DHCPV6_MSG_TYPE_REPLY   | TCPIP_DHCPV6_MSG_TYPE_RECONFIGURE  | TCPIP_DHCPV6_MSG_TYPE_INFO_REQUEST
-                                                // may be part of STATELESS DHCP (not required)
+                                                // may be part of STATELESS DHCP (not required) 
                                                 // Server, Client
                                                 //
     TCPIP_DHCPV6_OPT_CODE_SERVER_ID      = 2,   // TCPIP_DHCPV6_MSG_TYPE_ADVERTISE | TCPIP_DHCPV6_MSG_TYPE_REQUEST | TCPIP_DHCPV6_MSG_TYPE_RENEW       | TCPIP_DHCPV6_MSG_TYPE_DECLINE |
-                                                // TCPIP_DHCPV6_MSG_TYPE_RELEASE   | TCPIP_DHCPV6_MSG_TYPE_REPLY   | TCPIP_DHCPV6_MSG_TYPE_RECONFIGURE | TCPIP_DHCPV6_MSG_TYPE_INFO_REQUEST
-                                                // part of STATELESS DHCP!
+                                                // TCPIP_DHCPV6_MSG_TYPE_RELEASE   | TCPIP_DHCPV6_MSG_TYPE_REPLY   | TCPIP_DHCPV6_MSG_TYPE_RECONFIGURE | TCPIP_DHCPV6_MSG_TYPE_INFO_REQUEST 
+                                                // part of STATELESS DHCP! 
                                                 // Server, Client
                                                 //
     TCPIP_DHCPV6_OPT_CODE_IA_NA          = 3,   // TCPIP_DHCPV6_MSG_TYPE_SOLICIT | TCPIP_DHCPV6_MSG_TYPE_ADVERTISE | TCPIP_DHCPV6_MSG_TYPE_REQUEST | TCPIP_DHCPV6_MSG_TYPE_CONFIRM |
                                                 // TCPIP_DHCPV6_MSG_TYPE_RENEW   | TCPIP_DHCPV6_MSG_TYPE_REBIND    | TCPIP_DHCPV6_MSG_TYPE_DECLINE | TCPIP_DHCPV6_MSG_TYPE_RELEASE |
-                                                // TCPIP_DHCPV6_MSG_TYPE_REPLY
+                                                // TCPIP_DHCPV6_MSG_TYPE_REPLY 
                                                 // Server, Client
                                                 //
     TCPIP_DHCPV6_OPT_CODE_IA_TA          = 4,   // TCPIP_DHCPV6_MSG_TYPE_SOLICIT | TCPIP_DHCPV6_MSG_TYPE_ADVERTISE | TCPIP_DHCPV6_MSG_TYPE_REQUEST | TCPIP_DHCPV6_MSG_TYPE_CONFIRM |
                                                 // TCPIP_DHCPV6_MSG_TYPE_RENEW   | TCPIP_DHCPV6_MSG_TYPE_REBIND    | TCPIP_DHCPV6_MSG_TYPE_DECLINE | TCPIP_DHCPV6_MSG_TYPE_RELEASE |
-                                                // TCPIP_DHCPV6_MSG_TYPE_REPLY
+                                                // TCPIP_DHCPV6_MSG_TYPE_REPLY 
                                                 // Server, Client
                                                 //
     TCPIP_DHCPV6_OPT_CODE_IA_ADDR        = 5,   // TCPIP_DHCPV6_OPT_CODE_IA_NA | TCPIP_DHCPV6_OPT_CODE_IA_TA messages
@@ -462,19 +462,19 @@ typedef enum
     TCPIP_DHCPV6_OPT_CODE_OPTION_REQ     = 6,   // TCPIP_DHCPV6_MSG_TYPE_SOLICIT |                               | TCPIP_DHCPV6_MSG_TYPE_REQUEST | TCPIP_DHCPV6_MSG_TYPE_CONFIRM |
                                                 // TCPIP_DHCPV6_MSG_TYPE_RENEW   | TCPIP_DHCPV6_MSG_TYPE_REBIND       | TCPIP_DHCPV6_MSG_TYPE_DECLINE | TCPIP_DHCPV6_MSG_TYPE_RELEASE |
                                                 // TCPIP_DHCPV6_MSG_TYPE_RECONFIGURE  | TCPIP_DHCPV6_MSG_TYPE_INFO_REQUEST
-                                                // part of STATELESS DHCP!
+                                                // part of STATELESS DHCP! 
                                                 // Client
                                                 // Server (as part of TCPIP_DHCPV6_MSG_TYPE_RECONFIGURE)
                                                 //
     TCPIP_DHCPV6_OPT_CODE_PREFERENCE     = 7,   // TCPIP_DHCPV6_MSG_TYPE_ADVERTISE | TCPIP_DHCPV6_MSG_TYPE_REPLY
                                                 // Server
-                                                // may be part of STATELESS DHCP!
+                                                // may be part of STATELESS DHCP! 
                                                 //
     TCPIP_DHCPV6_OPT_CODE_ELAPSED_TIME   = 8,   // TCPIP_DHCPV6_MSG_TYPE_SOLICIT |                               | TCPIP_DHCPV6_MSG_TYPE_REQUEST | TCPIP_DHCPV6_MSG_TYPE_CONFIRM |
                                                 // TCPIP_DHCPV6_MSG_TYPE_RENEW   | TCPIP_DHCPV6_MSG_TYPE_REBIND       | TCPIP_DHCPV6_MSG_TYPE_DECLINE | TCPIP_DHCPV6_MSG_TYPE_RELEASE |
                                                 // TCPIP_DHCPV6_MSG_TYPE_INFO_REQUEST
                                                 // Client
-                                                // may be part of STATELESS DHCP!
+                                                // may be part of STATELESS DHCP! 
                                                 //
     TCPIP_DHCPV6_OPT_CODE_RELAY_MSG      = 9,   // OPTION_NOT_SUPPORTED!
                                                 // TCPIP_DHCPV6_MSG_TYPE_RELAY_FORW | TCPIP_DHCPV6_MSG_TYPE_RELAY_REPLY
@@ -488,16 +488,16 @@ typedef enum
                                                 // TCPIP_DHCPV6_MSG_TYPE_DECLINE | TCPIP_DHCPV6_MSG_TYPE_RECONFIGURE  | TCPIP_DHCPV6_MSG_TYPE_INFO_REQUEST |
                                                 // TCPIP_DHCPV6_MSG_TYPE_RELAY_FORW | TCPIP_DHCPV6_MSG_TYPE_RELAY_REPLY
                                                 // Server, Client
-                                                // may be part of STATELESS DHCP!
-                                                //
-
+                                                // may be part of STATELESS DHCP! 
+                                                //  
+    
                                                 //
     TCPIP_DHCPV6_OPT_CODE_UNICAST        = 12,  // TCPIP_DHCPV6_MSG_TYPE_REPLY
                                                 // Server
                                                 //
-    TCPIP_DHCPV6_OPT_CODE_STATUS_CODE    = 13,  // TCPIP_DHCPV6_MSG_TYPE_ADVERTISE | TCPIP_DHCPV6_MSG_TYPE_REPLY
+    TCPIP_DHCPV6_OPT_CODE_STATUS_CODE    = 13,  // TCPIP_DHCPV6_MSG_TYPE_ADVERTISE | TCPIP_DHCPV6_MSG_TYPE_REPLY 
                                                 // Server
-                                                // part of STATELESS DHCP!
+                                                // part of STATELESS DHCP! 
                                                 //
     TCPIP_DHCPV6_OPT_CODE_RAPID_COMMIT   = 14,  // TCPIP_DHCPV6_MSG_TYPE_SOLICIT | TCPIP_DHCPV6_MSG_TYPE_REPLY
                                                 // Server, Client
@@ -508,7 +508,7 @@ typedef enum
                                                 // TCPIP_DHCPV6_MSG_TYPE_DECLINE |                               | TCPIP_DHCPV6_MSG_TYPE_INFO_REQUEST |
                                                 // TCPIP_DHCPV6_MSG_TYPE_RELAY_FORW | TCPIP_DHCPV6_MSG_TYPE_RELAY_REPLY
                                                 // Client, Relay
-                                                // may be part of STATELESS DHCP!
+                                                // may be part of STATELESS DHCP! 
                                                 //
     TCPIP_DHCPV6_OPT_CODE_VENDOR_CLASS   = 16,  // OPTION_NOT_SUPPORTED!
                                                 // TCPIP_DHCPV6_MSG_TYPE_SOLICIT | TCPIP_DHCPV6_MSG_TYPE_ADVERTISE    | TCPIP_DHCPV6_MSG_TYPE_REQUEST | TCPIP_DHCPV6_MSG_TYPE_CONFIRM |
@@ -516,7 +516,7 @@ typedef enum
                                                 // TCPIP_DHCPV6_MSG_TYPE_DECLINE |                               | TCPIP_DHCPV6_MSG_TYPE_INFO_REQUEST |
                                                 // TCPIP_DHCPV6_MSG_TYPE_RELAY_FORW | TCPIP_DHCPV6_MSG_TYPE_RELAY_REPLY
                                                 // Client, Relay
-                                                // may be part of STATELESS DHCP!
+                                                // may be part of STATELESS DHCP! 
                                                 //
     TCPIP_DHCPV6_OPT_CODE_VENDOR_OPTS    = 17,  // OPTION_NOT_SUPPORTED!
                                                 // TCPIP_DHCPV6_MSG_TYPE_SOLICIT | TCPIP_DHCPV6_MSG_TYPE_ADVERTISE    | TCPIP_DHCPV6_MSG_TYPE_REQUEST | TCPIP_DHCPV6_MSG_TYPE_CONFIRM |
@@ -524,60 +524,60 @@ typedef enum
                                                 // TCPIP_DHCPV6_MSG_TYPE_DECLINE |                               | TCPIP_DHCPV6_MSG_TYPE_INFO_REQUEST |
                                                 // TCPIP_DHCPV6_MSG_TYPE_RELAY_FORW | TCPIP_DHCPV6_MSG_TYPE_RELAY_REPLY
                                                 // Client, Relay
-                                                // may be part of STATELESS DHCP!
+                                                // may be part of STATELESS DHCP! 
                                                 //
     TCPIP_DHCPV6_OPT_CODE_INTERFACE_ID   = 18,  // OPTION_NOT_SUPPORTED!
                                                 // TCPIP_DHCPV6_MSG_TYPE_RELAY_FORW | TCPIP_DHCPV6_MSG_RELAY_REPL
                                                 // Server, relay
-                                                // part of STATELESS DHCP for a relay!
+                                                // part of STATELESS DHCP for a relay!    
                                                 //
     TCPIP_DHCPV6_OPT_CODE_RECONF_MSG     = 19,  // TCPIP_DHCPV6_MSG_TYPE_RECONFIGURE
                                                 // Server
-                                                //
+                                                // 
     TCPIP_DHCPV6_OPT_CODE_RECONF_ACCEPT  = 20,  // OPTION_NOT_SUPPORTED! (reconfigure messages require authentication)
                                                 // TCPIP_DHCPV6_MSG_TYPE_SOLICIT | TCPIP_DHCPV6_MSG_TYPE_ADVERTISE    | TCPIP_DHCPV6_MSG_TYPE_REQUEST |
-                                                // TCPIP_DHCPV6_MSG_TYPE_RENEW   | TCPIP_DHCPV6_MSG_TYPE_REBIND       |
+                                                // TCPIP_DHCPV6_MSG_TYPE_RENEW   | TCPIP_DHCPV6_MSG_TYPE_REBIND       | 
                                                 // TCPIP_DHCPV6_MSG_TYPE_REPLY   | TCPIP_DHCPV6_MSG_TYPE_INFO_REQUEST
                                                 // Server, Client
                                                 //
                                                 //
-    TCPIP_DHCPV6_OPT_CODES_SUPPORTED,           // number of basic DHCPv6 options supported
+    TCPIP_DHCPV6_OPT_CODES_SUPPORTED,           // number of basic DHCPv6 options supported 
 
     // Extended options
 
     // RFC 3319 - DHCPv6 Options for Session Initiation Protocol (SIP) Servers
-    TCPIP_DHCPV6_OPT_CODE_SIP_SERVER_D          = 21,       // SIP Servers Domain Name List
+    TCPIP_DHCPV6_OPT_CODE_SIP_SERVER_D          = 21,       // SIP Servers Domain Name List                   
     TCPIP_DHCPV6_OPT_CODE_SIP_SERVER_A          = 22,       // SIP Servers IPv6 Address List
-                                                            // part of STATELESS DHCP!
-
+                                                            // part of STATELESS DHCP! 
+    
 
 
     // RFC 3646 - DNS Configuration Options for DHCPv6
     TCPIP_DHCPV6_OPT_CODE_DNS_SERVERS           = 23,       // DNS Recursive Name Server
                                                             // TCPIP_DHCPV6_MSG_TYPE_SOLICIT | TCPIP_DHCPV6_MSG_TYPE_ADVERTISE    | TCPIP_DHCPV6_MSG_TYPE_REQUEST |
-                                                            // TCPIP_DHCPV6_MSG_TYPE_RENEW   | TCPIP_DHCPV6_MSG_TYPE_REBIND       |
+                                                            // TCPIP_DHCPV6_MSG_TYPE_RENEW   | TCPIP_DHCPV6_MSG_TYPE_REBIND       | 
                                                             // TCPIP_DHCPV6_MSG_TYPE_REPLY   | TCPIP_DHCPV6_MSG_TYPE_INFO_REQUEST
-                                                            // part of STATELESS DHCP!
+                                                            // part of STATELESS DHCP! 
                                                             //
                                                             //
     TCPIP_DHCPV6_OPT_CODE_DOMAIN_LIST           = 24,       // Domain Search List
                                                             // TCPIP_DHCPV6_MSG_TYPE_SOLICIT | TCPIP_DHCPV6_MSG_TYPE_ADVERTISE    | TCPIP_DHCPV6_MSG_TYPE_REQUEST |
-                                                            // TCPIP_DHCPV6_MSG_TYPE_RENEW   | TCPIP_DHCPV6_MSG_TYPE_REBIND       |
+                                                            // TCPIP_DHCPV6_MSG_TYPE_RENEW   | TCPIP_DHCPV6_MSG_TYPE_REBIND       | 
                                                             // TCPIP_DHCPV6_MSG_TYPE_REPLY   | TCPIP_DHCPV6_MSG_TYPE_INFO_REQUEST
-                                                            // part of STATELESS DHCP!
+                                                            // part of STATELESS DHCP! 
                                                             //
     // RFC 3633 - IPv6 Prefix Options for DHCPv6
     TCPIP_DHCPV6_OPT_CODE_IA_PD                 = 25,       // Identity Association for Prefix Delegation Option
     TCPIP_DHCPV6_OPT_CODE_IAPREFIX              = 26,       // IPv6 address prefixes associated with an IA_PD
 
-    // RFC 3898 -
+    // RFC 3898 - 
 
     TCPIP_DHCPV6_OPT_CODE_NIS_SERVERS           = 27,       //
     TCPIP_DHCPV6_OPT_CODE_NISP_SERVERS          = 28,       //
     TCPIP_DHCPV6_OPT_CODE_NIS_DOMAIN_NAME       = 29,       //
     TCPIP_DHCPV6_OPT_CODE_NISP_DOMAIN_NAME      = 30,       //
 
-    // RFC 4075 -
+    // RFC 4075 - 
     TCPIP_DHCPV6_OPT_CODE_SNTP_SERVER_LIST      = 31,       //
 
     /* Options 32 - 63 */
@@ -585,45 +585,45 @@ typedef enum
     // RFC 4242
     TCPIP_DHCPV6_OPT_CODE_REFRESH_TIME          = 32,       // Information Refresh Time
 
-    // RFC 4280 -
+    // RFC 4280 - 
     TCPIP_DHCPV6_OPT_CODE_BCMS_CONTROLLER_DOMAIN_LIST  = 33,   // BCMCS Controller Domain Name list.
     TCPIP_DHCPV6_OPT_CODE_BMCS_CONTROLLER_IPV6_ADDR    = 34,   // BCMCS Controller IPv6 address list.
 
     // 35 ?
 
     // RFC 4776
-    TCPIP_DHCPV6_OPT_CODE_GEOCONF_CIVIC         = 36,       //
+    TCPIP_DHCPV6_OPT_CODE_GEOCONF_CIVIC         = 36,       // 
 
     // RFC 4649
-    TCPIP_DHCPV6_OPT_CODE_REMOTE_ID             = 37,       //
+    TCPIP_DHCPV6_OPT_CODE_REMOTE_ID             = 37,       //  
 
     // RFC 4580
-    TCPIP_DHCPV6_OPT_CODE_RELAY_AGENT_SUBSCRIBER_ID = 38,   // Relay Agent Subscriber-ID.
+    TCPIP_DHCPV6_OPT_CODE_RELAY_AGENT_SUBSCRIBER_ID = 38,   // Relay Agent Subscriber-ID.   
 
     // RFC 4704
-    TCPIP_DHCPV6_OPT_CODE_FQDN                  = 39,       // FQDN, Fully Qualified Domain Name.
+    TCPIP_DHCPV6_OPT_CODE_FQDN                  = 39,       // FQDN, Fully Qualified Domain Name.   
 
     // RFC 5192
-    TCPIP_DHCPV6_OPT_CODE_PANA_AUTH_AGENT       = 40,       // PANA Authentication Agent.
+    TCPIP_DHCPV6_OPT_CODE_PANA_AUTH_AGENT       = 40,       // PANA Authentication Agent.   
 
 
-    //  RFC 4833 -
-    TCPIP_DHCPV6_OPT_CODE_NEW_POSIX_TIMEZONE   = 41,        //
+    //  RFC 4833 - 
+    TCPIP_DHCPV6_OPT_CODE_NEW_POSIX_TIMEZONE   = 41,        // 
     TCPIP_DHCPV6_OPT_CODE_NEW_TZDB_TIMEZONE    = 42,        //
 
     // RFC 4994
     TCPIP_DHCPV6_OPT_CODE_ECHO_REQUEST          = 43,       // Echo Request
 
-    // RFC 5007 -
-    TCPIP_DHCPV6_OPT_CODE_LQ_QUERY              = 44,       //
-    TCPIP_DHCPV6_OPT_CODE_CLIENT_DATA           = 45,       //
-    TCPIP_DHCPV6_OPT_CODE_CLT_TIME              = 46,       //
-    TCPIP_DHCPV6_OPT_CODE_LQ_RELAY_DATA         = 47,       //
+    // RFC 5007 - 
+    TCPIP_DHCPV6_OPT_CODE_LQ_QUERY              = 44,       // 
+    TCPIP_DHCPV6_OPT_CODE_CLIENT_DATA           = 45,       // 
+    TCPIP_DHCPV6_OPT_CODE_CLT_TIME              = 46,       // 
+    TCPIP_DHCPV6_OPT_CODE_LQ_RELAY_DATA         = 47,       // 
     TCPIP_DHCPV6_OPT_CODE_LQ_CLIENT_LINK        = 48,       //
 
 
     // RFC 6610
-    TCPIP_DHCPV6_OPT_CODE_MIPV6_HOME_NETWORK_ID                 = 49,   // MIPv6 Home Network ID FQDN.
+    TCPIP_DHCPV6_OPT_CODE_MIPV6_HOME_NETWORK_ID                 = 49,   // MIPv6 Home Network ID FQDN.  
     TCPIP_DHCPV6_OPT_CODE_MIPV6_HOME_NETWORK_INFO  = 50,                // MIPv6 Visited Home Network Information
 
     /* Options 64 - 95 */
@@ -635,52 +635,52 @@ typedef enum
     TCPIP_DHCPV6_OPT_CODE_MIPV6_HOME_AGENT_FQDN                 = 73,   // MIPv6 Home Agent FQDN
 
     // RFC 5223
-    TCPIP_DHCPV6_OPT_CODE_LOST_SERVER           = 51,       // LoST Server.
+    TCPIP_DHCPV6_OPT_CODE_LOST_SERVER           = 51,       // LoST Server. 
 
     //  RFC 5417
     TCPIP_DHCPV6_OPT_CODE_CAPWAP_ACCESS_CONTROLLER_ADDRESSES    = 52,   // CAPWAP Access Controller addresses.
 
 
     // RFC 5460
-    TCPIP_DHCPV6_OPT_CODE_RELAY_ID              = 53,       //
+    TCPIP_DHCPV6_OPT_CODE_RELAY_ID              = 53,       //  
 
     // RFC 5678
-    TCPIP_DHCPV6_OPT_CODE_IPV6_ADDRESS_MOS      = 54,       //
+    TCPIP_DHCPV6_OPT_CODE_IPV6_ADDRESS_MOS      = 54,       //  
     TCPIP_DHCPV6_OPT_CODE_IPV6_FQDN_MOS         = 55,       //
 
     // RFC 5908
-    TCPIP_DHCPV6_OPT_CODE_NTP_SERVER            = 56,       //
+    TCPIP_DHCPV6_OPT_CODE_NTP_SERVER            = 56,       // 
 
     // RFC 5986
-    TCPIP_DHCPV6_OPT_CODE_V6_ACCESS_DOMAIN      = 57,       //
+    TCPIP_DHCPV6_OPT_CODE_V6_ACCESS_DOMAIN      = 57,       //  
 
     // RFC 6011
-    TCPIP_DHCPV6_OPT_CODE_SIP_UA_CS_LIST        = 58,       //
+    TCPIP_DHCPV6_OPT_CODE_SIP_UA_CS_LIST        = 58,       //  
 
     //  RFC 5970
 
-    TCPIP_DHCPV6_OPT_CODE_BOOTFILE_URL          = 59,       //
-    TCPIP_DHCPV6_OPT_CODE_BOOTFILE_PARAM        = 60,       //
+    TCPIP_DHCPV6_OPT_CODE_BOOTFILE_URL          = 59,       // 
+    TCPIP_DHCPV6_OPT_CODE_BOOTFILE_PARAM        = 60,       // 
     TCPIP_DHCPV6_OPT_CODE_CLIENT_ARCH_TYPE      = 61,       //
-    TCPIP_DHCPV6_OPT_CODE_NII                   = 62,       //
+    TCPIP_DHCPV6_OPT_CODE_NII                   = 62,       // 
 
     // RFC 6225
-    TCPIP_DHCPV6_OPT_CODE_GEOLOCATION           = 63,       //
+    TCPIP_DHCPV6_OPT_CODE_GEOLOCATION           = 63,       //  
 
     // RFC 6334
-    TCPIP_DHCPV6_OPT_CODE_AFTR_NAME             = 64,       //
+    TCPIP_DHCPV6_OPT_CODE_AFTR_NAME             = 64,       //  
 
     // RFC 6440
-    TCPIP_DHCPV6_OPT_CODE_ERP_LOCAL_DOMAIN_NAME = 65,       //
+    TCPIP_DHCPV6_OPT_CODE_ERP_LOCAL_DOMAIN_NAME = 65,       // 
 
     // RFC 6422
-    TCPIP_DHCPV6_OPT_CODE_RSOO                  = 66,       //
+    TCPIP_DHCPV6_OPT_CODE_RSOO                  = 66,       //  
 
     //  RFC 6603
-    TCPIP_DHCPV6_OPT_CODE_PD_EXCLUDE            = 67,       //
+    TCPIP_DHCPV6_OPT_CODE_PD_EXCLUDE            = 67,       // 
 
     // RFC 6607
-    TCPIP_DHCPV6_OPT_CODE_VIRTUAL_SUBNET_SELECTION = 68,    //
+    TCPIP_DHCPV6_OPT_CODE_VIRTUAL_SUBNET_SELECTION = 68,    //  
 
     // RFC 7083
     TCPIP_DHCPV6_OPT_CODE_MAX_RT                = 82,       // server->client; override the TCPIP_DHCPV6_SOLICIT_MRT (SOL_MAX_RT) value
@@ -749,7 +749,7 @@ typedef struct __attribute__((aligned(1), packed))
                                         // A client will never attempt to extend the lifetimes of any addresses in an IA with T1 set to 0xffffffff!
                                         // A client will never attempt to use a Rebind message to locate a different server to extend the
                                         // lifetimes of any addresses in an IA with T2 set to 0xffffffff.!
-                                        //
+                                        // 
     // A DHCP message may contain multiple IA_NA options!
     // More than one IA Address Option can appear in an IA_NA
     // option or an IA_TA option.!
@@ -789,7 +789,7 @@ typedef struct __attribute__((aligned(1), packed))
     uint16_t                        optCode;    // = TCPIP_DHCPV6_OPT_CODE_IA_TA
     uint16_t                        optLen;     // = 4 + length of IA_TA-options field
                                         //
-    TCPIP_DHCPV6_OPTION_IATA_BODY   body;
+    TCPIP_DHCPV6_OPTION_IATA_BODY   body;                                        
     uint8_t                         iataOpt[];  // Options associated with this IA_TA.
 
 }TCPIP_DHCPV6_OPTION_IATA;
@@ -799,7 +799,7 @@ typedef struct __attribute__((aligned(1), packed))
 // The IA Address option must be encapsulated in the Options field of an IA_NA or IA_TA option.!
 // An IA Address option may appear only in an IA_NA option or an IA_TA option.
 // More than one IA Address Option can appear in an IA_NA option or an IA_TA option.
-//
+// 
 
 typedef struct
 {
@@ -810,7 +810,7 @@ typedef struct
                                         // preferred and valid lifetimes
                                         // server->client: the client MUST use the values in the preferred and valid
                                         // lifetime fields for the preferred and valid lifetimes
-                                        //
+                                        // 
 }TCPIP_DHCPV6_OPTION_IA_ADDR_BODY;
 
 
@@ -836,7 +836,7 @@ typedef struct __attribute__((aligned(1), packed))
 {
     uint16_t            optCode;        // = TCPIP_DHCPV6_OPT_CODE_OPTION_REQ
     uint16_t            optLen;         // 2 * number of requested options.
-    uint16_t            reqCode[];      // option codes for options requested by the client
+    uint16_t            reqCode[];      // option codes for options requested by the client 
 
 }TCPIP_DHCPV6_OPTION_OPTION_REQ;
 
@@ -901,7 +901,7 @@ typedef struct __attribute__((aligned(1), packed))
 // When a client receives this option, where permissible and appropriate,
 // the client sends messages directly to the server using the IPv6 address
 // specified in the server-address field of the option.
-//
+// 
 typedef struct __attribute__((aligned(1), packed))
 {
     uint16_t            optCode;        // = TCPIP_DHCPV6_OPT_CODE_UNICAST
@@ -920,7 +920,7 @@ typedef struct __attribute__((aligned(1), packed))
     uint16_t            statusCode;     // numeric code for the status encoded in this option: TCPIP_DHCPV6_SERVER_STATUS_CODE
     uint8_t             statusMsg[];       // UTF-8 encoded text string suitable for display to an end user
                                         // which MUST NOT be null-terminated.
-
+    
 }TCPIP_DHCPV6_OPTION_STATUS_CODE;
 
 
@@ -932,7 +932,7 @@ typedef struct __attribute__((aligned(1), packed))
 // server is available for the client (e.g., where the client is directly connected to a server over a
 // point-to-point link). Although the protocol does not necessarily prohibit the use of this option
 // with multiple servers, it would cause problems as discussed in [RFC3315] and is thus inadvisable."
-//
+//  
 typedef struct __attribute__((aligned(1), packed))
 {
     uint16_t            optCode;        // = TCPIP_DHCPV6_OPT_CODE_RAPID_COMMIT
@@ -1031,7 +1031,7 @@ typedef struct __attribute__((aligned(1), packed))
 {
     uint16_t                        optCode;    // = TCPIP_DHCPV6_OPT_CODE_RECONF_MSG
     uint16_t                        optLen;     // 1
-    uint8_t                         msgType;    // TCPIP_DHCPV6_MSG_TYPE_RENEW / TCPIP_DHCPV6_MSG_TYPE_INFO_REQUEST
+    uint8_t                         msgType;    // TCPIP_DHCPV6_MSG_TYPE_RENEW / TCPIP_DHCPV6_MSG_TYPE_INFO_REQUEST 
 }TCPIP_DHCPV6_OPTION_RECONF_MSG;
 
 
@@ -1060,14 +1060,14 @@ typedef struct __attribute__((aligned(1), packed))
                                                 // must be a multiple of 16
                                                 //
     IPV6_ADDR                       dnsAddr[];  // 16 bytes DNS server IPV6 address
-
+    
 }TCPIP_DHCPV6_OPTION_DNS_SERVERS;
 
 // Domain Search List option
 // part of STATELESS DHCP!
 // Specifies the domain search list the client is to use when resolving hostnames with DNS.
 // This option does not apply to other name resolution mechanisms.
-//
+// 
 typedef struct __attribute__((aligned(1), packed))
 {
     uint16_t                        optCode;        // = TCPIP_DHCPV6_OPT_CODE_DOMAIN_LIST
@@ -1080,7 +1080,7 @@ typedef struct __attribute__((aligned(1), packed))
                                                     //      section 3.1 of RFC 1035 [10].
                                                     //      A domain name, or list of domain names, in DHCP MUST NOT be stored in compressed form,
                                                     //      as described in section 4.1.4 of RFC 1035.
-                                                    //
+                                                    // 
 }TCPIP_DHCPV6_OPTION_DOMAIN_SEARCH_LIST;
 
 
@@ -1088,7 +1088,7 @@ typedef struct __attribute__((aligned(1), packed))
 // SOL_MAX_RT option - RFC 7083
 // A DHCPv6 server sends the SOL_MAX_RT option to a client to override
 // the default value of TCPIP_DHCPV6_SOLICIT_MRT (SOL_MAX_RT)
-//
+// 
 typedef struct __attribute__((aligned(1), packed))
 {
     uint16_t                        optCode;        // = TCPIP_DHCPV6_OPT_CODE_MAX_RT
@@ -1103,7 +1103,7 @@ typedef struct __attribute__((aligned(1), packed))
 // INF_MAX_RT Option - RFC 7083
 // A server sends the INF_MAX_RT option to a client to override
 // the default value of TCPIP_DHCPV6_INFO_REQ_MRT (INF_MAX_RT).
-//
+// 
 typedef struct __attribute__((aligned(1), packed))
 {
     uint16_t                        optCode;        // = TCPIP_DHCPV6_OPT_CODE_INFO_MAX_RT
@@ -1142,7 +1142,7 @@ typedef struct
     uint32_t    iTime;  // time of the initial message transmission; seconds
     uint32_t    iTimeMs;// time of the initial message transmission - ms
     int32_t     rt;     // current retramsmission timeout; milliseconds
-    uint32_t    waitTick;   // tick when timeout occurs; corresponds to rt + rand();
+    uint32_t    waitTick;   // tick when timeout occurs; corresponds to rt + rand();   
 
     uint32_t    elapsedTime;    // time from the beginning of this DHCP transaction
                                 // in hundredths of a second (10^-2 seconds)
@@ -1251,10 +1251,10 @@ typedef struct _tag_TCPIP_DHCPV6_MSG_BUFFER
 {
     struct _tag_TCPIP_DHCPV6_MSG_BUFFER*    next;       // safecast to SGL_LIST_NODE
     struct _tag_TCPIP_DHCPV6_IA_DCPT*       txOwner;    // IA that owns this TX message
-    uint16_t                                bufferSize; // allocated size of the buffer
-    uint16_t                                msgLen;     // size of the carried message
+    uint16_t                                bufferSize; // allocated size of the buffer 
+    uint16_t                                msgLen;     // size of the carried message 
     uint8_t*                                pMsgData;   // pointing to message payload: normally to msgData
-    uint16_t                                optLen;     // size of the carried options (whole message w/o TCPIP_DHCPV6_MESSAGE_HEADER
+    uint16_t                                optLen;     // size of the carried options (whole message w/o TCPIP_DHCPV6_MESSAGE_HEADER 
     uint8_t*                                pOptData;   // pointing to option payload: TCPIP_DHCPV6_MESSAGE_HEADER->options
     uint8_t                                 msgData[];  // data buffer: pClient->msgBufferSize
 }TCPIP_DHCPV6_MSG_BUFFER;
@@ -1265,7 +1265,7 @@ typedef struct
 {
     TCPIP_DHCPV6_IA_TYPE    type;       // IANA/IATA
     uint32_t                genId;      // generated IA ID
-    uint32_t                tAcquire;   // current time when the IA address was acquired - REPLY
+    uint32_t                tAcquire;   // current time when the IA address was acquired - REPLY 
     union
     {
         TCPIP_DHCPV6_OPTION_IANA_BODY   ianaBody;
@@ -1302,7 +1302,7 @@ typedef struct _tag_TCPIP_DHCPV6_IA_DCPT
     TCPIP_DHCPV6_CLIENT_MSG_TYPE            cliMsgType;     // current mesage to be transmitted
     TCPIP_UINT32_VAL                        transactionId;  // current transaction ID
                                                             // Note: host order, not converted!
-    TCPIP_DHCPV6_MSG_TRANSMIT_DCPT          msgTxDcpt;      // message transmit descriptor
+    TCPIP_DHCPV6_MSG_TRANSMIT_DCPT          msgTxDcpt;      // message transmit descriptor 
     TCPIP_DHCPV6_OPTION_MASK_SET_3*         pOroOptMask;    // pointer to current ORO options mask
     TCPIP_DHCPV6_MSG_WRITE_DCPT             wrDcpt;         // current write descriptor
     TCPIP_DHCPV6_MSG_BUFFER*                msgBuffer;      // buffer for the DHCP message to be assembled
@@ -1325,17 +1325,17 @@ typedef struct _tag_TCPIP_DHCPV6_IA_DCPT
                                                         //
     TCPIP_DHCPV6_IA_FLAGS                   flags;
     // IA data
-    TCPIP_DHCPV6_IA_BODY                    iaBody;     // parameters for this IA_NA
-    TCPIP_DHCPV6_ADDR_NODE                  addNodes[_TCPIP_DHCPV6_IA_ADDRESS_NODES]; // storage for the addresses belonging to this IA
+    TCPIP_DHCPV6_IA_BODY                    iaBody;     // parameters for this IA_NA 
+    TCPIP_DHCPV6_ADDR_NODE                  addNodes[_TCPIP_DHCPV6_IA_ADDRESS_NODES]; // storage for the addresses belonging to this IA 
     SINGLE_LIST                             addList;   // list of TCPIP_DHCPV6_ADDR_NODE holding multiple address body structures for this IA
 
 
     uint32_t                                lastT1;     // last known T1 - IANA
     uint32_t                                lastT2;     // last known T2 - IANA
-
+ 
     uint16_t                                lastStatusCode; // TCPIP_DHCPV6_SERVER_STATUS_CODE: last status code for the IA
     uint8_t                                 lastStatusMsg[TCPIP_DHCPV6_STATUS_CODE_MESSAGE_LEN];// latest status message associated with the IA
-                                                            // status Code message
+                                                            // status Code message    
 }TCPIP_DHCPV6_IA_DCPT;
 
 // round generation counters
@@ -1350,7 +1350,7 @@ typedef struct
 typedef struct _tag_TCPIP_DHCPV6_CLIENT_DCPT
 {
     TCPIP_DHCPV6_DUID_DCPT              clientDuid;     // DUID to be used for this client
-
+    
     // current state
     volatile int16_t                    state;          // TCPIP_DHCPV6_CLIENT_STATE
     volatile int16_t                    prevState;      // TCPIP_DHCPV6_CLIENT_STATE
@@ -1393,32 +1393,32 @@ typedef struct _tag_TCPIP_DHCPV6_CLIENT_DCPT
     //
     SINGLE_LIST                         buffFreeList;   // TCPIP_DHCPV6_MSG_BUFFER buffers in a free list for RX/TX transfers
     SINGLE_LIST                         rxMsgList;      // queue of TCPIP_DHCPV6_MSG_BUFFER messages waiting for processing
-                                                        // the TCPIP_DHCPV6_MSG_BUFFER::buffer contains the TCPIP_DHCPV6_MESSAGE_HEADER structures.
+                                                        // the TCPIP_DHCPV6_MSG_BUFFER::buffer contains the TCPIP_DHCPV6_MESSAGE_HEADER structures. 
     SINGLE_LIST                         txMsgList;      // queue of TCPIP_DHCPV6_MSG_BUFFER messages waiting for transmission
-                                                        // the TCPIP_DHCPV6_MSG_BUFFER::buffer contains the TCPIP_DHCPV6_MESSAGE_HEADER data to be transmittted.
+                                                        // the TCPIP_DHCPV6_MSG_BUFFER::buffer contains the TCPIP_DHCPV6_MESSAGE_HEADER data to be transmittted. 
 
-    // specific IA processing lists
+    // specific IA processing lists 
     DOUBLE_LIST                         iaStateList[TCPIP_DHCPV6_IA_STATE_NUMBER];    // queue of IAs in one of the corresponding run state
     DOUBLE_LIST                         iaFreeList;     // queue of free/unused IAs (failed DAD, released, etc.)
 
     SINGLE_LIST                         advertiseList;  // queue of advertisements received from servers: TCPIP_DHCPV6_MSG_BUFFER
-                                                        // the TCPIP_DHCPV6_MSG_BUFFER::buffer contains the TCPIP_DHCPV6_MESSAGE_HEADER structures.
+                                                        // the TCPIP_DHCPV6_MSG_BUFFER::buffer contains the TCPIP_DHCPV6_MESSAGE_HEADER structures. 
                                                         // these are global advertisements, for all IAs!
     SINGLE_LIST                         replyList;      // queue of replies received from servers: TCPIP_DHCPV6_MSG_BUFFER
-                                                        // the TCPIP_DHCPV6_MSG_BUFFER::buffer contains the TCPIP_DHCPV6_MESSAGE_HEADER structures.
+                                                        // the TCPIP_DHCPV6_MSG_BUFFER::buffer contains the TCPIP_DHCPV6_MESSAGE_HEADER structures. 
                                                         // these are global replies, for all IAs!
 
-    TCPIP_MAC_EVENT                     connEvent;      // serialized connection event: not used
-                                                        // makes sure that CONN_LOST and CONN_ESTABLISHED are
+    TCPIP_MAC_EVENT                     connEvent;      // serialized connection event: not used 
+                                                        // makes sure that CONN_LOST and CONN_ESTABLISHED are 
                                                         // always executed in sequence
     int                                 nDnsServers;    // how many DNS servers we have
     IPV6_ADDR                           dnsServersAdd[TCPIP_DHCPV6_DNS_SERVERS_NO];   // DNS Servers storage
     int                                 domainSearchListSize;   // size of domainSearchList
-    uint8_t                             domainSearchList[TCPIP_DHCPV6_DOMAIN_SEARCH_LIST_SIZE]; // Domain Search list storage
+    uint8_t                             domainSearchList[TCPIP_DHCPV6_DOMAIN_SEARCH_LIST_SIZE]; // Domain Search list storage 
 
     uint16_t                            lastStatusCode; // TCPIP_DHCPV6_SERVER_STATUS_CODE last status code for the client
     uint8_t                             lastStatusMsg[TCPIP_DHCPV6_STATUS_CODE_MESSAGE_LEN];// latest status message associated with the client
-
+    
 #if defined(TCPIP_DHCPV6_STATISTICS_ENABLE) && (TCPIP_DHCPV6_STATISTICS_ENABLE != 0)
     union
     {
@@ -1436,7 +1436,7 @@ typedef struct _tag_TCPIP_DHCPV6_CLIENT_DCPT
             uint16_t    rxDisabled:     1;  // RX disabled - when closing, etc
         };
     }flags;
-
+    
     TCPIP_DHCPV6_CONFIG_FLAGS           configFlags;     // configuration/start up flags
 }TCPIP_DHCPV6_CLIENT_DCPT;
 
@@ -1472,7 +1472,7 @@ typedef struct  _TAG_DHCPV6_LIST_NODE
     TCPIP_DHCPV6_EVENT_HANDLER      handler;    // handler to be called for event
     const void*                     hParam;     // handler parameter
     TCPIP_NET_HANDLE                hNet;       // interface that's registered for
-                                                // 0 if all
+                                                // 0 if all    
 }TCPIP_DHCPV6_LIST_NODE;
 
 

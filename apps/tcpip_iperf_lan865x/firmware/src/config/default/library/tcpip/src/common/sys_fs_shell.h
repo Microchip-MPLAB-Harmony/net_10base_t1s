@@ -13,7 +13,7 @@
     this shell so multiple users can have different roots and working directories
     without influencing themselves.
     This is useful for multiple command prompts/consoles, multiple FTP/HTTP server clients, etc.
-
+    
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
 /*
@@ -78,17 +78,17 @@ typedef struct _tag_SYS_FS_SHELL_OBJ
     //      "/" :
     //          - If the shell was created with the SYS_FS_SHELL_FLAG_REL_ROOT flag (default setting) then this refers to the
     //            root of the shell
-    //            See SYS_FS_Shell_Create and SYS_FS_SHELL_CREATE_FLAGS
+    //            See SYS_FS_Shell_Create and SYS_FS_SHELL_CREATE_FLAGS  
     //            Example: SYS_FS_Shell_Create("/srv/ftp", ...); and then access file "/filename" is OK
     //            translating to "/srv/ftp/filename"
     //
     //          - If the shell was created with SYS_FS_SHELL_FLAG_ABS_ROOT flag, then this means absolute path access;
     //            For access to be allowed, this MUST be under the root with which the object was created!
-    //            See SYS_FS_Shell_Create and SYS_FS_SHELL_CREATE_FLAGS
+    //            See SYS_FS_Shell_Create and SYS_FS_SHELL_CREATE_FLAGS  
     //            Example: SYS_FS_Shell_Create("/srv/ftp", ...); and then access file "/srv/ftp/dir/file" is OK
     //            but file "/srv/dir/file" will fail!
     //
-    //      "./" - means relative to the cwd (current working directory).
+    //      "./" - means relative to the cwd (current working directory). 
     //              Absolute path will be: "root + cwd + name"
     //
     //      "../../dir/file" - go up n levels from the cwd and open the file
@@ -105,17 +105,17 @@ typedef struct _tag_SYS_FS_SHELL_OBJ
     // file delete
     SYS_FS_RESULT (*fileDelete)(const struct _tag_SYS_FS_SHELL_OBJ* pObj, const char *fname);
 
-    // directory open
+    // directory open 
     SYS_FS_HANDLE (*dirOpen)(const struct _tag_SYS_FS_SHELL_OBJ* pObj, const char *fname);
-
-    // directory make
+    
+    // directory make 
     SYS_FS_HANDLE (*dirMake)(const struct _tag_SYS_FS_SHELL_OBJ* pObj, const char *fname);
 
     // common file/dir operations, based on a handle
     // the file shell object is not intended as a complete replacement of the SYS_FS file handle operations
     // it just implements some of the most common ones
     // by default these redirect to the SYS_FS
-    // however different implementations could do this differently
+    // however different implementations could do this differently 
 
     // file close
     SYS_FS_RESULT (*fileClose)(const struct _tag_SYS_FS_SHELL_OBJ* pObj, SYS_FS_HANDLE handle);
@@ -143,7 +143,7 @@ typedef struct _tag_SYS_FS_SHELL_OBJ
     // cwd starting with:
     //      "/" - relative/absolute based on the value of SYS_FS_SHELL_FLAG_REL_ROOT/SYS_FS_SHELL_FLAG_ABS_ROOT flag.
     //          Always checked against the root directory
-    //          New cwd = cwd parameter
+    //          New cwd = cwd parameter  
     //
     //      "./" - relative to the existent cwd
     //          New cwd = old cwd + cwd
@@ -207,13 +207,13 @@ typedef enum
 
 // rootDir - could be something like:
 //      "/" - to allow access to the whole file system
-//      "/srv/ftp" - to allow access only to any directory below this path
+//      "/srv/ftp" - to allow access only to any directory below this path 
 // flags - creation flags SYS_FS_SHELL_CREATE_FLAGS; see above
 // malloc_func - standard malloc style allocation function to be used
 //      if 0, the build time SYS_FS_SHELL_MALLOC symbol is used
 // free_func - standard free style deallocation function to be used
 //      if 0, the build time SYS_FS_SHELL_FREE symbol is used
-// pRes - address to store the operation result. Could be 0 if not needed.
+// pRes - address to store the operation result. Could be 0 if not needed. 
 const SYS_FS_SHELL_OBJ* SYS_FS_Shell_Create(const char* rootDir, SYS_FS_SHELL_CREATE_FLAGS flags, void*(*malloc_func)(size_t), void(*free_fnc)(void*), SYS_FS_SHELL_RES* pRes);
 
 

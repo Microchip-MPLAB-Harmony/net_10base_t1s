@@ -96,7 +96,7 @@ extern "C" {
 
 #define SYS_CMD_ENABLE
 #define SYS_CMD_DEVICE_MAX_INSTANCES       SYS_CONSOLE_DEVICE_MAX_INSTANCES
-#define SYS_CMD_PRINT_BUFFER_SIZE          2560U
+#define SYS_CMD_PRINT_BUFFER_SIZE          1024U
 #define SYS_CMD_BUFFER_DMA_READY
 
 
@@ -319,7 +319,7 @@ extern "C" {
 #define TCPIP_STACK_USE_TCP
 #define TCPIP_STACK_USE_UDP
 
-#define TCPIP_STACK_TICK_RATE		        		1
+#define TCPIP_STACK_TICK_RATE		        		5
 #define TCPIP_STACK_SECURE_PORT_ENTRIES             10
 #define TCPIP_STACK_LINK_RATE		        		333
 
@@ -374,7 +374,7 @@ extern "C" {
 #define TCPIP_GMAC_ETH_OPEN_FLAGS                   \
                                                         TCPIP_ETH_OPEN_HDUPLEX |\
                                                         TCPIP_ETH_OPEN_10 |\
-                                                        TCPIP_ETH_OPEN_RMII |\
+                                                            TCPIP_ETH_OPEN_RMII |\
                                                         0
 
 #define TCPIP_GMAC_MODULE_ID                       GMAC_BASE_ADDRESS
@@ -447,6 +447,7 @@ extern "C" {
 #define SINGLE_THREADED
 #define NO_SIG_WRAPPER
 #define NO_ERROR_STRINGS
+#define WOLFSSL_MAX_ERROR_SZ 38 // Fix Mandatory Misra 21.18 caused by removing error strings with defining NO_ERROR_STRINGS
 #define NO_WOLFSSL_MEMORY
 // ---------- FUNCTIONAL CONFIGURATION END ----------
 

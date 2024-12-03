@@ -3,12 +3,12 @@
 
   Company:
     Microchip Technology Inc.
-
+    
   File Name:
     tcp_private.h
 
   Summary:
-
+    
   Description:
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
@@ -79,7 +79,7 @@ Microchip or any third party.
 #define TCP_MIN_TX_BUFF_SIZE    (256U)
 #define TCP_MAX_TX_BUFF_SIZE    (65535U)
 
-// for efficiency reasons,
+// for efficiency reasons, 
 // any request to change a TX/RX buffer size
 // that results in a difference less than this limit
 // will be ignored
@@ -119,7 +119,7 @@ typedef struct
     TCB Definitions
   ***************************************************************************/
 
-// TCP Control Block (TCB) stub data storage.
+// TCP Control Block (TCB) stub data storage. 
 typedef struct
 {
     uint8_t*            txStart;                    // First byte of skt TX buffer
@@ -130,7 +130,7 @@ typedef struct
                                                     // Note: This TX buffer is for the user/app to write data, and the skt to read and transmit it
                                                     // So:
                                                     //      - tx total size: txEnd - rxStart
-                                                    //      - txBuffSize = txEnd - txStart - 1;     usable size
+                                                    //      - txBuffSize = txEnd - txStart - 1;     usable size  
                                                     //      - put space = txTail - txHead - 1 (+ txEnd - txStart; if txHead is behind txTail)
                                                     //      - unack data = txUnackedTail - txTail
                                                     //      - can send data = txHead - txUnackedTail
@@ -143,11 +143,11 @@ typedef struct
     uint8_t*            rxTail;                     // Tail pointer for RX - user read pointer
                                                     // Note: This RX buffer is for the skt to write data (as it receives), and the user/app to read it
                                                     // So:
-                                                    //      - rx total size: rxEnd - rxStart + 1 (created with 1 extra byte)
-                                                    //      - rxBuffSize = avlbl slots =  rxEnd - rxStart;     usable size
+                                                    //      - rx total size: rxEnd - rxStart + 1 (created with 1 extra byte) 
+                                                    //      - rxBuffSize = avlbl slots =  rxEnd - rxStart;     usable size  
                                                     //      - avlbl read bytes == rxHead - rxTail (+ rxEnd - rxStart + 1; if rxHead is behind rxTail)
                                                     //      - init: rxBuff = alloc(rxBuffSize + 1);
-                                                    //              rxStart = rxBuff; rxEnd = rxBuff + rxBuffSize;
+                                                    //              rxStart = rxBuff; rxEnd = rxBuff + rxBuffSize; 
                                                     //
     uint32_t            eventTime;                  // Packet retransmissions, state changes
     uint32_t            eventTime2;                 // Window updates, automatic transmission
@@ -185,7 +185,7 @@ typedef struct
         IPV6_PACKET*  pV6Pkt;                       // IPv6 use;
         void*         pTxPkt;                       // generic
     };
-    //
+    // 
     uint32_t            retryInterval;              // How long to wait before retrying transmission
     uint32_t            MySEQ;                      // Local sequence number
     uint32_t            RemoteSEQ;                  // Remote sequence number
@@ -210,13 +210,13 @@ typedef struct
         uint16_t nonLinger      : 1;                // linger option
         uint16_t nonGraceful    : 1;                // graceful close
         uint16_t ackSent        : 1;                // acknowledge sent in this pass
-        uint16_t seqInc         : 1;                // sequence number incremented after FIN ack
-        uint16_t forceKill      : 1;                // socket should be killed, even if it's server socket
+        uint16_t seqInc         : 1;                // sequence number incremented after FIN ack 
+        uint16_t forceKill      : 1;                // socket should be killed, even if it's server socket 
         uint16_t forceFlush     : 1;                // flush data any time caller writes to the socket
                                                     // i.e., disable Nagle
-        uint16_t srcSet         : 1;                // source address is set
-        uint16_t openBindIf     : 1;                // socket is bound to interface when opened
-        uint16_t openBindAdd    : 1;                // socket is bound to address when opened
+        uint16_t srcSet         : 1;                // source address is set 
+        uint16_t openBindIf     : 1;                // socket is bound to interface when opened 
+        uint16_t openBindAdd    : 1;                // socket is bound to address when opened 
         uint16_t halfThresFlush : 1;                // when set, socket will flush at half TX buffer threshold
     } flags;
     uint8_t             smState;                    // TCPIP_TCP_STATE: State of this socket

@@ -1,12 +1,12 @@
 /*******************************************************************************
  NDP Private API Header File
-
+ 
   Company:
     Microchip Technology Inc.
-
+    
   File Name:
     ndp_private.h
-
+    
   Summary:
 
   Description:

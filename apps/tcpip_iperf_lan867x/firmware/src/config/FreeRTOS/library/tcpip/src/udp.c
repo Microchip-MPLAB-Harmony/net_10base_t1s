@@ -3217,6 +3217,14 @@ bool TCPIP_UDP_RemoteBind(UDP_SOCKET s, IP_ADDRESS_TYPE addType, UDP_PORT remote
             _RxSktUnlock(pSkt);
             return false;
         }
+
+#if defined (TCPIP_STACK_USE_IPV4)
+        if(addType == (uint8_t)IP_ADDRESS_TYPE_IPV4)
+        {
+            pSkt->pktSrcAddress.Val = remoteAddress->v4Add.Val;
+        } 
+#endif  // defined (TCPIP_STACK_USE_IPV4)
+
         if(pSkt->extFlags.stickyLooseRemAddress == 0)
         {
             pSkt->flags.looseRemAddress = 0;
@@ -3318,11 +3326,11 @@ bool TCPIP_UDP_OptionsSet(UDP_SOCKET hUDP, UDP_SOCKET_OPTION option, void* optPa
                 return true;
 
             case UDP_OPTION_TX_QUEUE_LIMIT:
-                pSkt->txAllocLimit = (uint8_t)(unsigned int)optParam;
+                pSkt->txAllocLimit = (uint16_t)(unsigned int)optParam;
                 return true;
 
             case UDP_OPTION_RX_QUEUE_LIMIT:
-                pSkt->rxQueueLimit = (uint8_t)(unsigned int)optParam;
+                pSkt->rxQueueLimit = (uint16_t)(unsigned int)optParam;
                 return true;
 
             case UDP_OPTION_RX_AUTO_ADVANCE:
@@ -3433,11 +3441,11 @@ bool TCPIP_UDP_OptionsGet(UDP_SOCKET hUDP, UDP_SOCKET_OPTION option, void* optPa
                 return true;
                 
             case UDP_OPTION_TX_QUEUE_LIMIT:
-                *(uint8_t*)optParam = pSkt->txAllocLimit;
+                *(uint16_t*)optParam = pSkt->txAllocLimit;
                 return true;
 
             case UDP_OPTION_RX_QUEUE_LIMIT:
-                *(uint8_t*)optParam = pSkt->rxQueueLimit;
+                *(uint16_t*)optParam = pSkt->rxQueueLimit;
                 return true;
 
             case UDP_OPTION_RX_AUTO_ADVANCE:

@@ -3,7 +3,7 @@
 
   Company:
     Microchip Technology Inc.
-
+    
   File Name:
     berkeley_manager.h
 
@@ -12,7 +12,7 @@
 
   Description:
     This file provides the BSD Internal Stack API definitions.
-
+    
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
 /*
@@ -73,8 +73,8 @@ struct BSDSocket
 
     uint16_t                SocketType;     // Socket type
     uint8_t                 bsdState;       // Socket state: BSD_SCK_STATE
-    uint8_t                 addressFamily;
-    int16_t                 nativeSkt;      // corresponding native socket
+    uint8_t                 addressFamily; 
+    int16_t                 nativeSkt;      // corresponding native socket                
     uint16_t                backlog;        // maximum number or client connection
 
 #if defined(TCPIP_STACK_USE_IPV4)

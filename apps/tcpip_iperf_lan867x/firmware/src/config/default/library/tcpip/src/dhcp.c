@@ -33,6 +33,7 @@ source software license terms, no license or other rights, whether express or
 implied, are granted under any patent or other intellectual property rights of
 Microchip or any third party.
 */
+
 #include <ctype.h>
 #include "tcpip/src/tcpip_private.h"
 

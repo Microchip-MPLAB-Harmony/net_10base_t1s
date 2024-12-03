@@ -501,6 +501,9 @@ static void _CommandModDeinit(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv
 static void _CommandModRunning(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 #endif  // defined(TCPIP_STACK_RUN_TIME_INIT) && (TCPIP_STACK_RUN_TIME_INIT != 0)
 
+#if defined(TCPIP_STACK_USE_SNMPV3_SERVER)  
+static void _Command_SNMPv3USMSet(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
+#endif
 // TCPIP stack command table
 static const SYS_CMD_DESCRIPTOR    tcpipCmdTbl[]=
 {
@@ -615,6 +618,10 @@ static const SYS_CMD_DESCRIPTOR    tcpipCmdTbl[]=
     {"deinit",         _CommandModDeinit,          ": deinit"},
     {"runstat",       _CommandModRunning,          ": runstat"},
 #endif  // defined(TCPIP_STACK_RUN_TIME_INIT) && (TCPIP_STACK_RUN_TIME_INIT != 0)
+
+#if defined(TCPIP_STACK_USE_SNMPV3_SERVER)    
+    {"snmpv3",  _Command_SNMPv3USMSet,     ": snmpv3"},
+#endif    
 };
 
 bool TCPIP_Commands_Initialize(const TCPIP_STACK_MODULE_CTRL* const stackCtrl, const TCPIP_COMMAND_MODULE_CONFIG* const pCmdInit)
@@ -4047,7 +4054,7 @@ void TCPIP_COMMAND_Task(void)
 #if (TCPIP_ARP_COMMANDS != 0)
 static void _CommandArp(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
-    // arp <interface> <req/query/del/list> <ipAddr>
+    // arp <interface> <req/query/del/list/insert> <ipAddr> <macAddr>\r\n");
     //
     TCPIP_NET_HANDLE netH;
     IPV4_ADDR ipAddr;
@@ -4165,11 +4172,32 @@ static void _CommandArp(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
             return;
         }
 
+        if (strcmp(argv[2], "insert") == 0)
+        {   // insert an address
+            if (argc < 5 || !TCPIP_Helper_StringToMACAddress(argv[4], macAddr.v))
+            {
+                (*pCmdIO->pCmdApi->msg)(cmdIoParam, "Invalid MAC address string \r\n");
+                return;
+            }
+
+
+            arpRes = TCPIP_ARP_EntrySet(netH, &ipAddr, &macAddr, true);
+            if(arpRes >= 0)
+            {
+                (*pCmdIO->pCmdApi->print)(cmdIoParam, "arp: Added MAC address %s for %s (%d)\r\n", argv[4], argv[3], arpRes);
+            }
+            else
+            {
+                (*pCmdIO->pCmdApi->msg)(cmdIoParam, "arp: Failed to insert MAC address!\r\n");
+            }
+            return;
+        }
+
         break;
     }
 
     (*pCmdIO->pCmdApi->msg)(cmdIoParam, "Usage: arp interface list\r\n");
-    (*pCmdIO->pCmdApi->msg)(cmdIoParam, "Usage: arp interface req/query/del ipAddr\r\n");
+    (*pCmdIO->pCmdApi->msg)(cmdIoParam, "Usage: arp interface req/query/del/insert <ipAddr> <macAddr>\r\n");
     (*pCmdIO->pCmdApi->msg)(cmdIoParam, "Ex: arp eth0 req 192.168.1.105 \r\n");
 }
 #endif  // (TCPIP_ARP_COMMANDS != 0)
@@ -6772,7 +6800,7 @@ static void _CommandIpv4Table(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv
     // ip table index
     size_t ix;
     const void* cmdIoParam = pCmdIO->cmdIoParam;
-    TCPIP_IPV4_FORWARD_ENTRY_BIN fwdEntry;
+    TCPIP_IPV4_FORWARD_ENTRY_BIN fwdEntry = {0};
     unsigned int index = 0;
 
     if(argc > 2)
@@ -7891,6 +7919,297 @@ static void _CommandModRunning(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** arg
 }
 #endif  // defined(TCPIP_STACK_RUN_TIME_INIT) && (TCPIP_STACK_RUN_TIME_INIT != 0)
 
+#if defined(TCPIP_STACK_USE_SNMPV3_SERVER)  
+static uint8_t SNMPV3_USM_ERROR_STR[SNMPV3_USM_NO_ERROR][100]=
+{
+    /* SNMPV3_USM_SUCCESS=0 */
+    "\r\n",
+    /* SNMPV3_USM_INVALID_INPUTCONFIG */
+    "Error! Invalid input parameter \r\n", 
+    /* SNMPV3_USM_INVALID_USER */
+    "Error! User index position value exceeds the user configuration \r\n",
+    /* SNMPV3_USM_INVALID_USERNAME */
+    "Error! Invalid user name \r\n",
+   /* SNMPV3_USM_INVALID_USER_NAME_LENGTH */
+    "Error!Invalid User name length \r\n",
+    /* SNMPV3_USM_INVALID_PRIVAUTH_PASSWORD_LEN */
+    "Error!Invalid Auth and Priv password length \r\n",
+    /* SNMPV3_USM_INVALID_PRIVAUTH_LOCALIZED_PASSWORD_LEN */
+    "Error!Invalid Auth and Priv localized password length \r\n",
+    /* SNMPV3_USM_INVALID_PRIVAUTH_TYPE */
+    "Error!Privacy Authentication security level configuration not allowed \r\n",
+    /* SNMPV3_USM_INVALID_AUTH_CONFIG_NOT_ALLOWED */
+    "Error! Authentication security level configuration not allowed \r\n",
+    /* SNMPV3_USM_INVALID_PRIV_CONFIG_NOT_ALLOWED */
+    "Error! Privacy security level configuration not allowed \r\n",
+    /*SNMPV3_USM_INVALID_SECURITY_LEVEL */
+    "Error! Invalid USM Security level type  \r\n",
+    /*SNMPV3_USM_NOT_SUPPORTED */
+    "Error! USM Set configuration not allowed \r\n",
+};
+/*
+ "Usage: snmpv3 usm <pos> <name> <security-level> <authpass> <privpass>"
+ * pos - USM config table 
+ * 
+ * usmOpcode = 0 ; only user name configuration
+ * usmOpcode = 1 ; both username and security level configuration
+ * usmOpcode = 0 ; only user name configuration
+ * usmOpcode = 1 ; both username and security level configuration
+ */
+
+static void _Command_SNMPv3USMSet(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
+{
+    const void* cmdIoParam = pCmdIO->cmdIoParam;
+    uint8_t  usmPos=TCPIP_SNMPV3_USM_MAX_USER;
+    bool     usmUserNameOpcode=false;
+    bool     usmSecLevelOpcode=false;
+    bool     usmAuthPasswdOpcode=false;
+    bool     usmPrivPasswdOpcode=false;
+    bool     usmUserInfo=false;
+    char     userNameBuf[TCPIP_SNMPV3_USER_SECURITY_NAME_LEN+1];
+    char     authPwBuf[TCPIP_SNMPV3_PRIVAUTH_PASSWORD_LEN+1];
+    char     privPwBuf[TCPIP_SNMPV3_PRIVAUTH_PASSWORD_LEN+1];
+    SNMPV3_PRIV_PROT_TYPE privType=SNMPV3_NO_PRIV;
+    SNMPV3_HMAC_HASH_TYPE hashType=SNMPV3_NO_HMAC_AUTH;
+    uint8_t  secLev = NO_AUTH_NO_PRIV;
+    uint8_t  configArgs=0;
+    TCPIP_SNMPV3_USM_CONFIG_ERROR_TYPE result=SNMPV3_USM_NO_ERROR;
+    
+    if(argc < 3)
+    {
+        (*pCmdIO->pCmdApi->msg)(cmdIoParam, "Usage: snmpv3 usm <pos> <u name> <l security-level> <a type authpass> <p type privpass> <info>\r\n");
+        (*pCmdIO->pCmdApi->print)(cmdIoParam, "SNMPv3 USM position range - 0 to %d \r\n", TCPIP_SNMPV3_USM_MAX_USER-1);
+        (*pCmdIO->pCmdApi->print)(cmdIoParam, "SNMPv3 USM security level NoAuthNoPriv- %d, AuthNoPriv- %d, AuthPriv- %d \r\n", NO_AUTH_NO_PRIV, AUTH_NO_PRIV, AUTH_PRIV);
+        (*pCmdIO->pCmdApi->print)(cmdIoParam, "SNMPv3 USM authentication supported type md5- %d sha- %d \r\n", SNMPV3_HMAC_MD5, SNMPV3_HMAC_SHA1);
+        (*pCmdIO->pCmdApi->print)(cmdIoParam, "SNMPv3 USM privacy supported type DES- %d AES- %d \r\n", SNMPV3_DES_PRIV, SNMPV3_AES_PRIV);
+        (*pCmdIO->pCmdApi->msg)(cmdIoParam, "Ex: snmpv3 usm 2 u mchp l 3 a 0 auth12345 p 1 priv12345 \r\n");
+        (*pCmdIO->pCmdApi->msg)(cmdIoParam, "Ex: snmpv3 usm info \r\n");
+        return;
+    }
+
+    configArgs = 1;
+    if(argc >= 3)
+    {
+        if(strcmp(argv[configArgs], "usm") == 0)
+        {
+            configArgs = configArgs +1;
+            if(strcmp("info",argv[configArgs]) == 0)
+            {
+                usmUserInfo = true;
+            }
+            else
+            {
+                usmPos = atoi(argv[configArgs]);
+                if(usmPos>= TCPIP_SNMPV3_USM_MAX_USER)
+                {
+                    (*pCmdIO->pCmdApi->msg)(cmdIoParam,"Invalid USM configuration position\r\n");
+                    return;
+                }
+            }
+        }
+    }
+  
+    // more than position field 
+    memset(userNameBuf, 0, sizeof(userNameBuf));
+    memset(authPwBuf, 0, sizeof(authPwBuf));
+    memset(privPwBuf, 0, sizeof(privPwBuf));
+
+    configArgs = configArgs + 1;
+    // verify there are enough commands for this SNMPv3 configuration
+    if(argc == configArgs)
+    {
+        (*pCmdIO->pCmdApi->msg)(cmdIoParam,"SNMPv3 insufficient user inputs\r\n");
+        return;
+    }
+    
+    if(usmUserInfo != true)
+    {
+        while(argc > 3)
+        {
+            if(strncmp("u",argv[configArgs],1) == 0)
+            {
+                if(argc == configArgs+1)
+                {
+                    (*pCmdIO->pCmdApi->msg)(cmdIoParam,"SNMPv3 User name is missing\r\n");
+                    return;
+                }
+                strncpy(userNameBuf,argv[configArgs+1],TCPIP_SNMPV3_USER_SECURITY_NAME_LEN);
+                usmUserNameOpcode = true;
+                configArgs = configArgs+2;
+            }
+            else if(strncmp("l",argv[configArgs],1) == 0)
+            {
+                if(argc == configArgs+1)
+                {
+                    (*pCmdIO->pCmdApi->msg)(cmdIoParam,"SNMPv3 security level is missing\r\n");
+                    return;
+                }
+                secLev = atoi(argv[configArgs+1]);
+                usmSecLevelOpcode = true;
+                configArgs = configArgs+2;
+            }
+            else if(strncmp("a",argv[configArgs],1) == 0)
+            {
+                if(argc == configArgs+1)
+                {
+                    (*pCmdIO->pCmdApi->msg)(cmdIoParam,"SNMPv3 Authentication Hash type is missing\r\n");
+                    return;
+                }
+                hashType = atoi(argv[configArgs+1]);
+                if(argc == configArgs+2)
+                {
+                    (*pCmdIO->pCmdApi->msg)(cmdIoParam,"SNMPv3 Authentication password is missing\r\n");
+                    return;
+                }
+                strncpy(authPwBuf,argv[configArgs+2],TCPIP_SNMPV3_PRIVAUTH_PASSWORD_LEN);
+                usmAuthPasswdOpcode = true;
+                configArgs = configArgs+3;
+            }
+            else if(strncmp("p",argv[configArgs],1) == 0)
+            {
+                if(argc == configArgs+1)
+                {
+                    (*pCmdIO->pCmdApi->msg)(cmdIoParam,"SNMPv3 Privacy Hash type is missing\r\n");
+                    return;
+                }
+                privType = atoi(argv[configArgs+1]);
+                if(argc == configArgs+2)
+                {
+                    (*pCmdIO->pCmdApi->msg)(cmdIoParam,"SNMPv3 Privacy password is missing\r\n");
+                    return;
+                }
+                strncpy(privPwBuf,argv[configArgs+2],TCPIP_SNMPV3_PRIVAUTH_PASSWORD_LEN);
+                usmPrivPasswdOpcode = true;
+                configArgs = configArgs+3;
+            }
+            else
+            {
+                (*pCmdIO->pCmdApi->msg)(cmdIoParam,"invalid number of arguments\r\n");
+                return;
+            }
+            if(configArgs>=argc)
+            {
+                (*pCmdIO->pCmdApi->msg)(cmdIoParam,"End of arguments\r\n");
+                break;
+            }
+        }
+    }
+    
+    if(usmUserNameOpcode)
+    {
+        uint8_t userNameLen = 0;
+        userNameLen = strlen((char*)userNameBuf);
+        result = TCPIP_SNMPV3_SetUSMUserName(userNameBuf,userNameLen,usmPos);
+        if(result != SNMPV3_USM_SUCCESS)
+        {
+            (*pCmdIO->pCmdApi->msg)(cmdIoParam,(char*)SNMPV3_USM_ERROR_STR[result]);
+            return;
+        }
+        else
+        {
+            (*pCmdIO->pCmdApi->msg)(cmdIoParam,"USM user name configured successfully\r\n");
+        }
+    }
+    if(usmSecLevelOpcode)
+    {
+        uint8_t userNameLen = 0;
+        userNameLen = strlen((char*)userNameBuf);
+        result = TCPIP_SNMPV3_SetUSMSecLevel(userNameBuf,userNameLen,secLev);
+        if(result != SNMPV3_USM_SUCCESS)
+        {
+            (*pCmdIO->pCmdApi->msg)(cmdIoParam,(char*)SNMPV3_USM_ERROR_STR[result]);
+            return;
+        }
+        else
+        {
+            (*pCmdIO->pCmdApi->msg)(cmdIoParam,"USM Security level configured successfully\r\n");
+        }
+    }
+    
+    if(usmAuthPasswdOpcode)
+    {
+        uint8_t userNameLen = 0;
+        uint8_t authPwLen=0;
+        userNameLen = strlen((char*)userNameBuf);
+        authPwLen = strlen((char*)authPwBuf);
+        result = TCPIP_SNMPV3_SetUSMAuth(userNameBuf,userNameLen,authPwBuf,authPwLen,hashType);
+        if(result != SNMPV3_USM_SUCCESS)
+        {
+            (*pCmdIO->pCmdApi->msg)(cmdIoParam,(char*)SNMPV3_USM_ERROR_STR[result]);
+            return;
+        }
+        else
+        {
+            (*pCmdIO->pCmdApi->msg)(cmdIoParam,"USM Authentication password configured successfully\r\n");
+        }
+    }
+    
+    if(usmPrivPasswdOpcode)
+    {
+        uint8_t userNameLen = 0;
+        uint8_t privPwLen=0;
+        userNameLen = strlen((char*)userNameBuf);
+        privPwLen = strlen((char*)privPwBuf);
+        result = TCPIP_SNMPV3_SetUSMPrivacy(userNameBuf,userNameLen,privPwBuf,privPwLen,privType);
+        if(result != SNMPV3_USM_SUCCESS)
+        {
+            (*pCmdIO->pCmdApi->msg)(cmdIoParam,(char*)SNMPV3_USM_ERROR_STR[result]);
+            return;
+        }
+        else
+        {
+            (*pCmdIO->pCmdApi->msg)(cmdIoParam,"USM Privacy password configured successfully\r\n");
+        }
+    }
+    if(usmAuthPasswdOpcode || usmPrivPasswdOpcode)
+    {
+        TCPIP_SNMPV3_USMAuthPrivLocalization(usmPos);
+    }
+    if(usmUserInfo)
+    {
+        uint8_t usmUserLen=0;
+        uint8_t usmUserAuthLen=0;
+        uint8_t usmUserPrivLen=0;
+        STD_BASED_SNMPV3_SECURITY_LEVEL securityLevel=NO_AUTH_NO_PRIV;
+        uint8_t i=0;
+        
+        (*pCmdIO->pCmdApi->msg)(cmdIoParam,"SNMPv3 USM CONFIGURATION DETAILS\r\n");
+        
+        for(i=0;i<TCPIP_SNMPV3_USM_MAX_USER;i++)
+        {
+            memset(userNameBuf,0,sizeof(userNameBuf));
+            result = TCPIP_SNMPV3_GetUSMUserName(userNameBuf,&usmUserLen,i);
+            if(result != SNMPV3_USM_SUCCESS)
+            {
+                (*pCmdIO->pCmdApi->msg)(cmdIoParam,(char*)SNMPV3_USM_ERROR_STR[result]);
+            }
+             
+            memset(authPwBuf,0,sizeof(authPwBuf));
+            result = TCPIP_SNMPV3_GetUSMAuth(userNameBuf,usmUserLen,authPwBuf,&usmUserAuthLen,&hashType);
+            if(result != SNMPV3_USM_SUCCESS)
+            {
+                (*pCmdIO->pCmdApi->msg)(cmdIoParam,(char*)SNMPV3_USM_ERROR_STR[result]);
+            }
+
+            memset(privPwBuf,0,sizeof(privPwBuf));
+            result = TCPIP_SNMPV3_GetUSMPrivacy(userNameBuf,usmUserLen,privPwBuf,&usmUserPrivLen,&privType);
+            if(result != SNMPV3_USM_SUCCESS)
+            {
+                (*pCmdIO->pCmdApi->msg)(cmdIoParam,(char*)SNMPV3_USM_ERROR_STR[result]);
+            }
+
+            result = TCPIP_SNMPV3_GetUSMSecLevel(userNameBuf,usmUserLen,&securityLevel);
+            if(result != SNMPV3_USM_SUCCESS)
+            {
+                (*pCmdIO->pCmdApi->msg)(cmdIoParam,(char*)SNMPV3_USM_ERROR_STR[result]);
+            }
+            
+            (*pCmdIO->pCmdApi->print)(cmdIoParam,"index:%d  username: %s  secLevel: %d authType: %d authpw: %s  privType: %d privpw: %s \r\n", i,userNameBuf, securityLevel,hashType,authPwBuf,privType,privPwBuf );
+        }
+    }
+    
+}
+#endif
 
 #endif // defined(TCPIP_STACK_COMMAND_ENABLE)
 

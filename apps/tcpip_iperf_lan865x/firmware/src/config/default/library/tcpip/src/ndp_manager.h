@@ -1,16 +1,16 @@
 /*******************************************************************************
  NDP Manager API Header File
-
+ 
   Company:
     Microchip Technology Inc.
-
+    
   File Name:
     ndp_manager.h
-
+    
   Summary:
-
+  
   Description:
-
+  
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
 /*

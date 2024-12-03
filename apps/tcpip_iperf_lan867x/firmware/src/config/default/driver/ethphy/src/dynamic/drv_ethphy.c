@@ -19,7 +19,7 @@
 
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2013-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2013-2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -155,6 +155,7 @@ static const _DRV_PHY_OperPhaseF _DRV_PHY_ClientOpTbl[] =
 
 static void _DRV_ETHPHY_SetupPhaseIdle(DRV_ETHPHY_CLIENT_OBJ * hClientObj);
 static void _DRV_ETHPHY_SetupPhaseDetect(DRV_ETHPHY_CLIENT_OBJ * hClientObj);
+static void _DRV_ETHPHY_SetupPhaseReadId(DRV_ETHPHY_CLIENT_OBJ * hClientObj);
 static void _DRV_ETHPHY_SetupPhaseReset(DRV_ETHPHY_CLIENT_OBJ * hClientObj);
 static void _DRV_ETHPHY_SetupPhaseNegotiate(DRV_ETHPHY_CLIENT_OBJ * hClientObj);
 
@@ -164,6 +165,7 @@ static const _DRV_PHY_OperPhaseF _DRV_PHY_SetupPhasesTbl[] =
 {
     _DRV_ETHPHY_SetupPhaseIdle,
     _DRV_ETHPHY_SetupPhaseDetect,
+    _DRV_ETHPHY_SetupPhaseReadId,
     _DRV_ETHPHY_SetupPhaseReset,
     _DRV_ETHPHY_SetupPhaseNegotiate,
 };
@@ -1054,8 +1056,8 @@ static void _DRV_ETHPHY_SetupPhaseDetect(DRV_ETHPHY_CLIENT_OBJ * hClientObj)
             res =  hClientObj->vendorDetect(gDrvEthBaseObj, (DRV_HANDLE)hClientObj);
             if(res == DRV_ETHPHY_RES_OK)
             {   // everything seems to be fine
-                // initiate the PHY reset
-                _DRV_PHY_SetOperPhase(hClientObj, DRV_ETHPHY_SETUP_PHASE_RESET, 0);
+                // initiate the PHY ID Read
+                _DRV_PHY_SetOperPhase(hClientObj, DRV_ETHPHY_SETUP_PHASE_READ_ID, 0);
             }
             else if(res < 0)
             {   // failed 
@@ -1290,6 +1292,52 @@ static DRV_ETHPHY_RESULT _DRV_ETHPHY_DefaultDetect( const struct DRV_ETHPHY_OBJE
 }
 
 // performs the PHY reset
+static void _DRV_ETHPHY_SetupPhaseReadId(DRV_ETHPHY_CLIENT_OBJ * hClientObj)
+{
+    switch(hClientObj->operSubPhase)
+    {
+        case 0:
+            // read the PHY Identifier 1 (2h) register
+            if(_DRV_PHY_SMIReadStart(hClientObj, PHY_REG_PHYID1))
+            {
+                _DRV_PHY_SetOperPhase(hClientObj, DRV_ETHPHY_SETUP_PHASE_READ_ID, 1);
+            }
+            break;
+        case 1:
+            // wait the register read to complete
+            if(!_DRV_PHY_SMITransfer_Wait(hClientObj))
+            {
+                break;
+            }     
+            hClientObj->phyId_1 = hClientObj->smiData;
+            
+            // read the PHY Identifier 2 (3h) register
+            if(_DRV_PHY_SMIReadStart(hClientObj, PHY_REG_PHYID2))
+            {
+                _DRV_PHY_SetOperPhase(hClientObj, DRV_ETHPHY_SETUP_PHASE_READ_ID, 2);
+            }
+            break;
+
+        case 2:
+            // wait the register read to complete
+            if(!_DRV_PHY_SMITransfer_Wait(hClientObj))
+            {
+                break;
+            }
+
+            hClientObj->phyId_2 = hClientObj->smiData;
+            _DRV_PHY_SetOperPhase(hClientObj, DRV_ETHPHY_SETUP_PHASE_RESET, 0);
+            break;
+
+        default:
+            // shouldn't happen
+            _DRV_ETHPHY_SetOperDoneResult(hClientObj, DRV_ETHPHY_RES_DTCT_ERR);
+            break;
+    }
+
+}
+
+// performs the PHY reset
 static void _DRV_ETHPHY_SetupPhaseReset(DRV_ETHPHY_CLIENT_OBJ * hClientObj)
 {
     __BMCONbits_t bmcon;
@@ -1427,7 +1475,7 @@ static void _DRV_ETHPHY_SetupPhaseNegotiate_SubPhase_Start(DRV_ETHPHY_CLIENT_OBJ
     }
 
 }
-
+    
 // DRV_ETHPHY_SETUP_NEG_SUBPHASE_READ_STD_STATUS
 static void _DRV_ETHPHY_SetupPhaseNegotiate_SubPhase_Read_Std_Status(DRV_ETHPHY_CLIENT_OBJ * hClientObj)
 {
@@ -1495,7 +1543,8 @@ static void _DRV_ETHPHY_SetupPhaseNegotiate_SubPhase_Read_Std_Status(DRV_ETHPHY_
         }
     }
 
-    matchStdCpbl = (stdReqs & (_PHY_STD_CPBL_MASK | _BMSTAT_AN_ABLE_MASK)) & phyBmstatCpbl; // common features
+    // Standard Capabilities of PHY compared with Standard features Requested in configuration 
+    matchStdCpbl = ((stdReqs & (_PHY_STD_CPBL_MASK | _BMSTAT_AN_ABLE_MASK))| _BMSTAT_EXTSTAT_MASK | _BMSTAT_EXTEND_ABLE_MASK) & phyBmstatCpbl; 
     
     if(!matchStdCpbl && !(phyBmstatCpbl & _BMSTAT_EXTSTAT_MASK) )
     {   // no match?
@@ -1508,7 +1557,8 @@ static void _DRV_ETHPHY_SetupPhaseNegotiate_SubPhase_Read_Std_Status(DRV_ETHPHY_
     hClientObj->operReg[0] = matchStdCpbl;
     hClientObj->vendorData = 0;
     
-    if (phyBmstatCpbl & _BMSTAT_EXTSTAT_MASK)
+    // Check Phy is extended register capable and extended status capable
+    if ((phyBmstatCpbl & _BMSTAT_EXTSTAT_MASK) && (phyBmstatCpbl & _BMSTAT_EXTEND_ABLE_MASK))
     {
         if(_DRV_PHY_SMIReadStart(hClientObj, PHY_REG_EXTSTAT))
         {
@@ -1521,6 +1571,7 @@ static void _DRV_ETHPHY_SetupPhaseNegotiate_SubPhase_Read_Std_Status(DRV_ETHPHY_
     }
 
 }
+
 
 // DRV_ETHPHY_SETUP_NEG_SUBPHASE_READ_EXT_STATUS
 static void _DRV_ETHPHY_SetupPhaseNegotiate_SubPhase_Read_Ext_Status(DRV_ETHPHY_CLIENT_OBJ * hClientObj)
@@ -1621,15 +1672,13 @@ static void _DRV_ETHPHY_SetupPhaseNegotiate_SubPhase_Config_MDIX(DRV_ETHPHY_CLIE
 static void _DRV_ETHPHY_SetupPhaseNegotiate_SubPhase_Write_ANAD(DRV_ETHPHY_CLIENT_OBJ * hClientObj)
 {
     DRV_ETHPHY_INSTANCE *hDriver = hClientObj->hDriver;
-
     // restore match capabilities
     uint16_t  matchStdCpbl = hClientObj->operReg[0];
-    uint16_t  matchExtCpbl = hClientObj->operReg[1];
     TCPIP_ETH_OPEN_FLAGS  openFlags = hClientObj->hDriver->openFlags;
 
     if((matchStdCpbl &_BMSTAT_AN_ABLE_MASK) && (openFlags & TCPIP_ETH_OPEN_AUTO))
     {   // ok, we can perform auto negotiation
-        uint16_t anadReg;
+        uint16_t anadReg = 0;
 
         anadReg = (((matchStdCpbl >> _BMSTAT_CAPABILITY_POS) << _ANAD_CAPABLITY_POS) & _ANAD_NEGOTIATION_MASK) | _PHY_PROT_802_3;
         
@@ -1638,14 +1687,18 @@ static void _DRV_ETHPHY_SetupPhaseNegotiate_SubPhase_Write_ANAD(DRV_ETHPHY_CLIEN
         {
             anadReg |= _ANAD_PAUSE_MASK;
         }
-        if(hDriver->macPauseType & TCPIP_ETH_PAUSE_TYPE_ASM_DIR)
-        {
-            anadReg |= _ANAD_ASM_DIR_MASK;
-        }        
+        if (!((hClientObj->phyId_1 == KSZ9031_PHYID1) && (((hClientObj->phyId_2)&(KSZ9031_PHYID2)) == KSZ9031_PHYID2)))
+        {    
+            if(hDriver->macPauseType & TCPIP_ETH_PAUSE_TYPE_ASM_DIR)
+            {
+               anadReg |= _ANAD_ASM_DIR_MASK;
+            } 
+        }
 
+        // advertise our capabilities
         if(_DRV_PHY_SMIWriteStart(hClientObj, PHY_REG_ANAD, anadReg))
-        {   // advertise our capabilities
-            if (matchExtCpbl  && (openFlags & TCPIP_ETH_OPEN_1000))
+        {   // check for extended capabilities
+            if ((matchStdCpbl & _BMSTAT_EXTSTAT_MASK) && (matchStdCpbl & _BMSTAT_EXTEND_ABLE_MASK))
             {
                 _DRV_PHY_SetOperPhase(hClientObj, DRV_ETHPHY_SETUP_PHASE_NEGOTIATE, DRV_ETHPHY_SETUP_NEG_SUBPHASE_READ_1000B_CTRL);
             }
@@ -1729,8 +1782,6 @@ static void _DRV_ETHPHY_SetupPhaseNegotiate_SubPhase_Write_1000B_Ctrl(DRV_ETHPHY
     }
     
 }
-
-
 
 // advertise, negotiation restart phase
 // DRV_ETHPHY_SETUP_NEG_SUBPHASE_READ_AN_STATUS
@@ -2034,7 +2085,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_HWConfigFlagsGet( DRV_HANDLE handle, DRV_ETHPHY_CON
             }
            
             ethRes = DRV_ETHPHY_RES_OK;
-#elif defined(TCPIP_IF_GMAC0) || defined(TCPIP_IF_GMAC1)
+#elif defined(DRV_SAMA7G) && (defined(DRV_GMAC0) || defined(DRV_GMAC1))
             gmac_registers_t *  pGmacRegs = (gmac_registers_t *) hClientObj->ethphyId;
             if(pGmacRegs->GMAC_NCR & GMAC_NCR_MIIONRGMII_Msk)
             {
@@ -2057,7 +2108,7 @@ DRV_ETHPHY_RESULT DRV_ETHPHY_HWConfigFlagsGet( DRV_HANDLE handle, DRV_ETHPHY_CON
                     ethRes = DRV_ETHPHY_RES_OK;
                 }
             }  
-#elif defined(TCPIP_IF_GMAC_SAM9X7)
+#elif defined(TCPIP_IF_GMAC_SAM9X7) || defined(DRV_SAMA7D6)
             gmac_registers_t *  pGmacRegs = (gmac_registers_t *) hClientObj->ethphyId;
             if ((pGmacRegs->GMAC_UR & GMAC_UR_MIM_Msk) == GMAC_UR_MIM_RGMII)
             {

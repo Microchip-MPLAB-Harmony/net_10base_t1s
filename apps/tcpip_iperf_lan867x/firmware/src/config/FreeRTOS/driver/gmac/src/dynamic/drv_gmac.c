@@ -3,7 +3,7 @@
 *******************************************************************************/
 
 /*
-Copyright (C) 2017-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2017-2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -262,11 +262,11 @@ static const DRV_PIC32CGMAC_HW_REG_DCPT macPIC32CHwRegDcpt[] =
 //table of different Link startup
 static const _DRV_GMAC_LinkStateF _DRV_GMAC_LinkStateTbl[] =
 {
-    _DRV_GMAC_LinkStateStartLink,       // DRV_PIC32CGMAC_LINK_CHECK_START_LINK
-    _DRV_GMAC_LinkStateGetLink,         // DRV_PIC32CGMAC_LINK_CHECK_GET_LINK
-    _DRV_GMAC_LinkStateWaitLinkUp,      // DRV_PIC32CGMAC_LINK_CHECK_WAIT_LINK_UP
-    _DRV_GMAC_LinkStateNegComplete,     // DRV_PIC32CGMAC_LINK_CHECK_NEG_COMPLETE
-    _DRV_GMAC_LinkStateNegResult,       // DRV_PIC32CGMAC_LINK_CHECK_NEG_RESULT
+    _DRV_GMAC_LinkStateStartLink,       // DRV_GMAC_LINK_CHECK_START_LINK
+    _DRV_GMAC_LinkStateGetLink,         // DRV_GMAC_LINK_CHECK_GET_LINK
+    _DRV_GMAC_LinkStateWaitLinkUp,      // DRV_GMAC_LINK_CHECK_WAIT_LINK_UP
+    _DRV_GMAC_LinkStateNegComplete,     // DRV_GMAC_LINK_CHECK_NEG_COMPLETE
+    _DRV_GMAC_LinkStateNegResult,       // DRV_GMAC_LINK_CHECK_NEG_RESULT
 };
 
 //convert mac id to index
@@ -777,8 +777,7 @@ TCPIP_MAC_RES DRV_GMAC_PacketTx(DRV_HANDLE hMac, TCPIP_MAC_PACKET * ptrPacket)
         // check that packets are properly formatted and
         // have room to store the packet info
         if(pSeg == 0)
-        {   // cannot send this packet            
-            
+        {   // cannot send this packet      
             return TCPIP_MAC_RES_PACKET_ERR;
         }
         else
@@ -792,7 +791,10 @@ TCPIP_MAC_RES DRV_GMAC_PacketTx(DRV_HANDLE hMac, TCPIP_MAC_PACKET * ptrPacket)
         
     }       
     _MacTxPendingPackets(pMACDrv,queueIdx);
-    _MACTxAcknowledgeEth(pMACDrv,queueIdx); 
+    if(DRV_PIC32CGMAC_LibIsTxComplete(pMACDrv))
+    {
+        _MACTxAcknowledgeEth(pMACDrv,queueIdx);
+    }
         
     return TCPIP_MAC_RES_OK;
 }
@@ -1238,18 +1240,29 @@ TCPIP_MAC_RES DRV_GMAC_Process(DRV_HANDLE hMac)
         return TCPIP_MAC_RES_OP_ERR;
     }
 
+    if(DRV_PIC32CGMAC_LibIsTxComplete(pMACDrv))
+    {
+        // Clear the TXCOMP transmit status
+        DRV_PIC32CGMAC_LibClearTxComplete(pMACDrv);
+        //start processing high priority Queue first
+        for(queueIdx = pMACDrv->sGmacData.gmacConfig.macQueNum -1; queueIdx >= (int32_t)GMAC_QUE_0; queueIdx--)
+        {
+            if ((pMACDrv->sGmacData.gmac_queue[queueIdx]._TxDescUnAckQueue.head) != NULL)
+            {
+                _MACTxAcknowledgeEth(pMACDrv,queueIdx); 
+            }
+        }
+    }
     //start processing high priority Queue first
     for(queueIdx = pMACDrv->sGmacData.gmacConfig.macQueNum -1; queueIdx >= (int32_t)GMAC_QUE_0; queueIdx--)
-    { 
-        if(pMACDrv->sGmacData.gmacConfig.gmac_queue_config[queueIdx].queueTxEnable)
+    {
+        if ((pMACDrv->sGmacData.gmac_queue[queueIdx]._TxQueue.head) != NULL)
         {
-            _MACTxAcknowledgeEth(pMACDrv,queueIdx); 
-            _MacTxPendingPackets(pMACDrv,queueIdx);            
+            _MacTxPendingPackets(pMACDrv,queueIdx); 
         }
     }
 
     return TCPIP_MAC_RES_OK;
-
 }
 
 TCPIP_MAC_RES DRV_GMAC_StatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_RX_STATISTICS* pRxStatistics, TCPIP_MAC_TX_STATISTICS* pTxStatistics) 
@@ -1281,7 +1294,6 @@ TCPIP_MAC_RES DRV_GMAC_StatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_RX_STATISTICS* p
     }
 
     return TCPIP_MAC_RES_OK;
-
 }
 
 TCPIP_MAC_RES DRV_GMAC_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, int nEntries, int* pHwEntries)  
@@ -1355,13 +1367,7 @@ TCPIP_MAC_RES DRV_GMAC_ParametersGet(DRV_HANDLE hMac, TCPIP_MAC_PARAMETERS* pMac
 // acknowledge the ETHC packets
 static void _MACTxAcknowledgeEth(DRV_GMAC_DRIVER * pMACDrv, GMAC_QUE_LIST queueIdx)  
 {
-    // Check if TXCOMP transmit status is set
-    if(DRV_PIC32CGMAC_LibIsTxComplete(pMACDrv))
-    {
-        // Clear the TXCOMP transmit status
-        DRV_PIC32CGMAC_LibClearTxComplete(pMACDrv);
-        DRV_PIC32CGMAC_LibTxAckPacket(pMACDrv,queueIdx);
-    }
+    DRV_PIC32CGMAC_LibTxAckPacket(pMACDrv,queueIdx);
 }
 
 
@@ -1569,6 +1575,8 @@ static void _MacTxDiscardQueues(DRV_GMAC_DRIVER * pMACDrv,TCPIP_MAC_PKT_ACK_RES 
             DRV_PIC32CGMAC_LibTxEnable(pMACDrv, false);
             //Acknowledge the TX packets Queued
             DRV_PIC32CGMAC_LibTxAckPendPacket(pMACDrv, queueIdx, ackRes); 
+            // Reset Transmit Indexes
+            DRV_PIC32CGMAC_LibClearTxIndex(pMACDrv, queueIdx);
             // Enable GMAC Transmit
             DRV_PIC32CGMAC_LibTxEnable(pMACDrv, true);            
         }
@@ -1580,6 +1588,8 @@ static void _MacTxDiscardQueues(DRV_GMAC_DRIVER * pMACDrv,TCPIP_MAC_PKT_ACK_RES 
             DRV_PIC32CGMAC_LibTxEnable(pMACDrv, false);
             //Acknowledge the unacknowledged TX packets
             DRV_PIC32CGMAC_LibTxClearUnAckPacket(pMACDrv, queueIdx, ackRes); 
+            // Reset Transmit Indexes
+            DRV_PIC32CGMAC_LibClearTxIndex(pMACDrv, queueIdx);
             // Enable GMAC Transmit
             DRV_PIC32CGMAC_LibTxEnable(pMACDrv, true);     
         }

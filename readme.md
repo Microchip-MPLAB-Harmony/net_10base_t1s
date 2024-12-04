@@ -22,9 +22,11 @@ Refer to the following links for release notes, training materials,
 and interface reference information.
 
 - [Release Notes](release_notes.md)
-- [Microchip Software License Agreement](Microchip_SLA001.md)
+- [Microchip SLA](Microchip_SLA001.md)
 - [10BASE-T1S Support](https://www.microchip.com/support)
 
+To clone or download these applications from Github, go to the [main page of this repository](https://github.com/Microchip-MPLAB-Harmony/net_10base_t1s) and then click **Clone** button to clone this repository or download as zip file.
+This content can also be downloaded using MCC content manager available as part of the MPLAB® X IDE.
 # Contents Summary
 
 | Folder    | Description                                   |
@@ -36,6 +38,13 @@ and interface reference information.
 
 ## Code Examples
 
+Click [here](https://onlinedocs.microchip.com/v2/keyword-lookup?keyword=NET_10BASE_T1S_EXAMPLE_APPS&redirect=true) to view the online documentation of code examples hosted in this repository.
+
+To view the documentation offline, follow these steps:
+ - Download the publication as a zip file from [here](https://onlinedocs.microchip.com/download/GUID-62DF519A-5876-4E28-8BC9-4B47D851D2E0?type=webhelp).
+ - Extract the zip file into a folder.
+ - Navigate to the folder and open **index.html** in a web browser of your choice.
+ 
 The following applications are provided to demonstrate the typical or
 interesting usage models of one or more peripheral libraries.
 
@@ -60,11 +69,12 @@ Note: Please refer to AN4964 provided on the Microchip LAN865x product websites:
 
 ____
 
-[![License](https://img.shields.io/badge/license-Harmony%20license-orange.svg)](https://github.com/Microchip-MPLAB-Harmony/net_10base_t1s/blob/master/mplab_harmony_license.md)
+[![License](https://img.shields.io/badge/license-Harmony%20license-orange.svg)](https://github.com/Microchip-MPLAB-Harmony/net_10base_t1s/blob/master/Microchip_SLA001.md)
 [![Commit activity](https://img.shields.io/github/commit-activity/y/Microchip-MPLAB-Harmony/net_10base_t1s.svg)](https://github.com/Microchip-MPLAB-Harmony/net_10base_t1s/graphs/commit-activity)
 [![Contributors](https://img.shields.io/github/contributors-anon/Microchip-MPLAB-Harmony/net_10base_t1s.svg)]()
 ____
-
+[![Developer Help](https://img.shields.io/badge/Youtube-Developer%20Help-red.svg)](https://www.youtube.com/MicrochipDeveloperHelp)
+[![Developer Help](https://img.shields.io/badge/XWiki-Developer%20Help-torquiose.svg)](https://developerhelp.microchip.com/xwiki/bin/view/software-tools/harmony/)
 [![Follow us on Youtube](https://img.shields.io/badge/Youtube-Follow%20us%20on%20Youtube-red.svg)](https://www.youtube.com/user/MicrochipTechnology)
 [![Follow us on LinkedIn](https://img.shields.io/badge/LinkedIn-Follow%20us%20on%20LinkedIn-blue.svg)](https://www.linkedin.com/company/microchip-technology)
 [![Follow us on Facebook](https://img.shields.io/badge/Facebook-Follow%20us%20on%20Facebook-blue.svg)](https://www.facebook.com/microchiptechnology/)

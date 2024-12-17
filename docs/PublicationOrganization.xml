@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<publication>
+   <title>MPLAB® Harmony 3 10BASE-T1S Package</title>
+   <urls>
+      <url>
+         <loc>GUID-F3B7988C-E31B-4344-A357-96EE0A5737CE.html</loc>
+         <lastmod>2024-12-03T11:15:29</lastmod>
+         <title>1 Example applications</title>
+         <description/>
+         <urls/>
+      </url>
+      <url>
+         <loc>GUID-6AE7E8FC-97DB-4200-AE4C-0248CB717D96.html</loc>
+         <lastmod>2024-12-03T12:36:54</lastmod>
+         <title>2 TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY</title>
+         <description/>
+         <urls/>
+      </url>
+      <url>
+         <loc>GUID-3715C039-ACC3-4990-B22E-6DC8B4DE618D.html</loc>
+         <lastmod>2024-12-03T12:31:48</lastmod>
+         <title>3 TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY</title>
+         <description/>
+         <urls/>
+      </url>
+      <url>
+         <loc>GUID-0FB3F908-88EE-45CE-94F5-E97AF9049C9B.html</loc>
+         <lastmod>2022-04-04T12:20:47</lastmod>
+         <title> Microchip Information</title>
+         <description/>
+         <urls>
+            <url>
+               <loc>GUID-21750586-F9F2-4E33-87FB-8F2994BF4744.html</loc>
+               <lastmod>2024-10-22T09:29:46</lastmod>
+               <title> Trademarks</title>
+               <description>The “Microchip” name and logo, the “M” logo, and other names, logos, and brands are registered and unregistered trademarks of Microchip Technology Incorporated or its affiliates and/or subsidiaries ...</description>
+               <urls/>
+            </url>
+            <url>
+               <loc>GUID-125F1A93-76CC-4BD7-BACA-01844FBD5F4F.html</loc>
+               <lastmod>2024-06-13T17:02:57</lastmod>
+               <title> Legal Notice</title>
+               <description>This publication and the information herein may be used only with Microchip products, including to design, test, and integrate Microchip products with your application. Use of this information in any ...</description>
+               <urls/>
+            </url>
+            <url>
+               <loc>GUID-E8251634-7B15-4073-A103-5A5F128B8699.html</loc>
+               <lastmod>2024-10-22T09:23:41</lastmod>
+               <title> Microchip Devices Code Protection Feature</title>
+               <description>Note the following details of the code protection feature on Microchip products:Microchip products meet the specifications contained in their particular Microchip Data Sheet.Microchip believes that ...</description>
+               <urls/>
+            </url>
+         </urls>
+      </url>
+   </urls>
+</publication>

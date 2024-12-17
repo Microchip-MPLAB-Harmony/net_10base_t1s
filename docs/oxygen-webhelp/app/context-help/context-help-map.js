@@ -1,0 +1,1 @@
+define(function() { return [{"appname":"", "appid":"NET_10BASE_T1S_EXAMPLE_APPS", "path":"GUID-F3B7988C-E31B-4344-A357-96EE0A5737CE.html"},{"appname":"", "appid":"NET_10BASE_T1S_README_ETHERNET_PHY", "path":"GUID-6AE7E8FC-97DB-4200-AE4C-0248CB717D96.html"},{"appname":"", "appid":"NET_10BASE_T1S_README_ETHERNET_MAC_PHY", "path":"GUID-3715C039-ACC3-4990-B22E-6DC8B4DE618D.html"}]});

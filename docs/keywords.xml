@@ -1,19 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <keywords publicationid="GUID-62DF519A-5876-4E28-8BC9-4B47D851D2E0"
           language="en-US"
-          version="1"
-          documenttitle="MPLAB® Harmony 10BASE-T1S Package"
+          version="2"
+          documenttitle="MPLAB® Harmony 3 10BASE-T1S Package"
           pubtype="Online Reference"
           pubsubtype=""
           pubuserguidesubtype=""
           pubproducthierarchy=""
           devices=""
-          revisiondate="13/06/2022 00:00:00"
-          revisionletter="A"
+          revisiondate="02/12/2024 00:00:00"
+          revisionletter="B"
           isbn=""
           pubid=""
           reachid=""
           description=""
-          lastmodified="19/12/2023 16:06:52"
+          lastmodified="03/12/2024 12:37:02"
           covertitle="MPLAB® Harmony 3 10BASE-T1S Package"
-          frontcover=""/>
+          frontcover="">
+   <keyworditem topicid="GUID-F3B7988C-E31B-4344-A357-96EE0A5737CE"
+                nocomponent="true"
+                parent="">
+      <device/>
+      <module/>
+      <component/>
+      <register>Example applications</register>
+      <title>Example applications</title>
+      <bitfield/>
+      <keyword>NET_10BASE_T1S_EXAMPLE_APPS</keyword>
+   </keyworditem>
+   <keyworditem topicid="GUID-6AE7E8FC-97DB-4200-AE4C-0248CB717D96"
+                nocomponent="true"
+                parent="">
+      <device/>
+      <module/>
+      <component/>
+      <register>TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY</register>
+      <title>TCP/IP Client using the LAN867x 10BASE-T1S Ethernet PHY</title>
+      <bitfield/>
+      <keyword>NET_10BASE_T1S_README_ETHERNET_PHY</keyword>
+   </keyworditem>
+   <keyworditem topicid="GUID-3715C039-ACC3-4990-B22E-6DC8B4DE618D"
+                nocomponent="true"
+                parent="">
+      <device/>
+      <module/>
+      <component/>
+      <register>TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY</register>
+      <title>TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY</title>
+      <bitfield/>
+      <keyword>NET_10BASE_T1S_README_ETHERNET_MAC_PHY</keyword>
+   </keyworditem>
+</keywords>

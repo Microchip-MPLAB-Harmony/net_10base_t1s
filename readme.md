@@ -38,7 +38,7 @@ This content can also be downloaded using MCC content manager available as part 
 
 ## Code Examples
 
-Click [here](https://onlinedocs.microchip.com/v2/keyword-lookup?keyword=NET_10BASE_T1S_EXAMPLE_APPS&redirect=true) to view the online documentation of code examples hosted in this repository.
+Click [here](https://onlinedocs.microchip.com/v2/keyword-lookup?keyword=NET_10BASE_T1S_README_EXAMPLE_APPS&redirect=true) to view the online documentation of code examples hosted in this repository.
 
 To view the documentation offline, follow these steps:
  - Download the publication as a zip file from [here](https://onlinedocs.microchip.com/download/GUID-62DF519A-5876-4E28-8BC9-4B47D851D2E0?type=webhelp).

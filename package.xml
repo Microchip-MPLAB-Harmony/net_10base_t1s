@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Package name="10base-t1s">
     <Dependencies>
-        <Dependency name="net" version="v3.12.3"/>
+        <Dependency name="net" version="v3.14.2"/>
     </Dependencies>
 </Package>

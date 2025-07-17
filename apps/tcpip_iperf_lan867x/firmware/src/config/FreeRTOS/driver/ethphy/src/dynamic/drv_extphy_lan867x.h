@@ -1,6 +1,21 @@
+/*******************************************************************************
+  MCHP LAN867x definitions
+
+  Company:
+    Microchip Technology Inc.
+    
+  File Name:
+    drv_extphy_lan867x.h
+
+  Summary:
+    MCHP LAN867x definitions
+
+  Description:
+    This file provides the MCHP LAN867x definitions.
+ *******************************************************************************/
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2012-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -20,23 +35,8 @@ for any third-party software incorporated in the software and any applicable ope
 source software license terms, no license or other rights, whether express or
 implied, are granted under any patent or other intellectual property rights of
 Microchip or any third party.
- */
+*/
 //DOM-IGNORE-END
-/*******************************************************************************
-  MCHP LAN867x definitions
-
-  Company:
-    Microchip Technology Inc.
-    
-  File Name:
-    drv_extphy_lan867x.h
-
-  Summary:
-    MCHP LAN867x definitions
-
-  Description:
-    This file provides the MCHP LAN867x definitions.
- *******************************************************************************/
 
 #ifndef LAN867x_H_
 #define LAN867x_H_
@@ -46,6 +46,7 @@ Microchip or any third party.
 ******************************************************************************/
 
 #include "driver/miim/drv_miim.h"
+#include "driver/ethphy/drv_ethphy.h"
 #include "driver/miim/src/drv_miim_local.h"
 
 /******************************************************************************
@@ -557,12 +558,14 @@ typedef struct {
 #define LAN867x_PHY_ID_REV_B1 (0x2)
 #define LAN867x_PHY_ID_REV_C1 (0x4)
 #define LAN867x_PHY_ID_REV_C2 (0x5)
+#define LAN867x_PHY_ID_REV_D0 (0x6)
 /******************************************************************************
 *  FUNCTION DECLARATIONS
 ******************************************************************************/
 
-DRV_MIIM_RESULT Lan867x_Write_Register(LAN867X_REG_OBJ *clientObj, const uint32_t regAddr, uint16_t wData);
-DRV_MIIM_RESULT Lan867x_Read_Register(LAN867X_REG_OBJ *clientObj, const uint32_t regAddr, uint16_t *rData);
-DRV_MIIM_RESULT Lan867x_Write_Bit_Register(LAN867X_REG_OBJ *clientObj, const uint32_t regAddr, uint16_t mask, uint16_t wData);
+DRV_MIIM_RESULT LAN867x_Write_Register(LAN867X_REG_OBJ *clientObj, const uint32_t regAddr, uint16_t wData);
+DRV_MIIM_RESULT LAN867x_Read_Register(LAN867X_REG_OBJ *clientObj, const uint32_t regAddr, uint16_t *rData);
+DRV_MIIM_RESULT LAN867x_Write_Bit_Register(LAN867X_REG_OBJ *clientObj, const uint32_t regAddr, uint16_t mask, uint16_t wData);
 
+extern const DRV_ETHPHY_OBJECT DRV_ETHPHY_OBJECT_LAN867x;
 #endif // LAN867x_H_

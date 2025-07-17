@@ -45,7 +45,6 @@ Microchip or any third party.
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 #include "driver/driver_common.h"
 #include "driver/spi/drv_spi_definitions.h"
 #include "tcpip/tcpip_mac.h"
@@ -120,10 +119,9 @@ typedef struct _DRV_LAN865X_Configuration
 // *****************************************************************************
 
 // *****************************************************************************
-/* LAN865X External MAC Virtualization Table
-extern const TCPIP_MAC_OBJECT DRV_LAN865X_MACObject;
-*/
-
+// supported MAC objects
+/* Data needed by the TCPIP Stack */
+extern const TCPIP_MAC_OBJECT DRV_LAN865X_MACObject_0;
 // *****************************************************************************
 // *****************************************************************************
 // Section: Interface Routines - System Level
@@ -558,7 +556,7 @@ TCPIP_MAC_RES DRV_LAN865X_ParametersGet(DRV_HANDLE hMac, TCPIP_MAC_PARAMETERS* p
   Remarks:
     The reported values are info only and change dynamically.
 */
-TCPIP_MAC_RES DRV_LAN865X_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, int nEntries, int* pHwEntries);
+TCPIP_MAC_RES DRV_LAN865X_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, size_t nEntries, size_t* pHwEntries);
 
 // *****************************************************************************
 /* LAN865X Get Configuration
@@ -775,6 +773,8 @@ TCPIP_MAC_RES DRV_LAN865X_WriteRegister(uint8_t idx, uint32_t addr, uint32_t val
 
 */
 TCPIP_MAC_RES DRV_LAN865X_ReadModifyWriteRegister(uint8_t idx, uint32_t addr, uint32_t value, uint32_t mask, bool protected, DRV_LAN865X_RegCallback_t modifyCallback, void *pTag);
+
+
 
 #ifdef __cplusplus
 }

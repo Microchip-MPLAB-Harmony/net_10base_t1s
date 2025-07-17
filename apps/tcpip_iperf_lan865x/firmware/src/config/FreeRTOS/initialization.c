@@ -15,7 +15,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -140,13 +140,13 @@ static const uint32_t drvSPI0remapClockPhase[] = { 0x10000000, 0x0 };
 
 static const DRV_SPI_INTERRUPT_SOURCES drvSPI0InterruptSources =
 {
-    /* Peripheral has more than one interrupt vectors */
+    /* Peripheral has more than one interrupt vector */
     .isSingleIntSrc                        = false,
 
     /* Peripheral interrupt lines */
-    .intSources.multi.spiTxReadyInt      = (int32_t)SERCOM0_0_IRQn,
-    .intSources.multi.spiTxCompleteInt   = (int32_t)SERCOM0_1_IRQn,
-    .intSources.multi.spiRxInt           = (int32_t)SERCOM0_2_IRQn,
+   .intSources.multi.spiTxReadyInt     = (int32_t)SERCOM0_0_IRQn,
+   .intSources.multi.spiTxCompleteInt  = (int32_t)SERCOM0_1_IRQn,
+   .intSources.multi.spiRxInt          = (int32_t)SERCOM0_2_IRQn,
     /* DMA Tx interrupt line */
     .intSources.multi.dmaTxChannelInt      = (int32_t)DMAC_0_IRQn,
     /* DMA Rx interrupt line */
@@ -253,7 +253,6 @@ const TCPIP_TCP_MODULE_CONFIG tcpipTCPInitData =
 
 
 
-
 /*** ICMP Server Initialization Data ***/
 const TCPIP_ICMP_MODULE_CONFIG tcpipICMPInitData = 
 {
@@ -297,9 +296,10 @@ const TCPIP_IPV4_MODULE_CONFIG  tcpipIPv4InitData =
 
 
 
+
 TCPIP_STACK_HEAP_INTERNAL_CONFIG tcpipHeapConfig =
 {
-    .heapType = TCPIP_STACK_HEAP_TYPE_INTERNAL_HEAP,
+    .heapType = TCPIP_STACK_HEAP_TYPE_INTERNAL,
     .heapFlags = TCPIP_STACK_HEAP_USE_FLAGS,
     .heapUsage = TCPIP_STACK_HEAP_USAGE_CONFIG,
     .malloc_fnc = TCPIP_STACK_MALLOC_FUNC,
@@ -344,7 +344,7 @@ const TCPIP_STACK_MODULE_CONFIG TCPIP_STACK_MODULE_CONFIG_TBL [] =
     { TCPIP_MODULE_MANAGER,         &tcpipHeapConfig },             // TCPIP_MODULE_MANAGER
 
 // MAC modules
-
+    {TCPIP_MODULE_MAC_LAN865X_0,       &drvLan865xInitData[0]},  // TCPIP_MODULE_MAC_LAN865x_0
 };
 
 const size_t TCPIP_STACK_MODULE_CONFIG_TBL_SIZE = sizeof (TCPIP_STACK_MODULE_CONFIG_TBL) / sizeof (*TCPIP_STACK_MODULE_CONFIG_TBL);
@@ -374,13 +374,14 @@ SYS_MODULE_OBJ TCPIP_STACK_Init(void)
 {
     TCPIP_STACK_INIT    tcpipInit;
 
+    (void)memset(&tcpipInit, 0, sizeof(tcpipInit));
     tcpipInit.pNetConf = TCPIP_HOSTS_CONFIGURATION;
     tcpipInit.nNets = TCPIP_HOSTS_CONFIGURATION_SIZE;
     tcpipInit.pModConfig = TCPIP_STACK_MODULE_CONFIG_TBL;
     tcpipInit.nModules = TCPIP_STACK_MODULE_CONFIG_TBL_SIZE;
-    tcpipInit.initCback = 0;
+    tcpipInit.initCback = NULL;
 
-    return TCPIP_STACK_Initialize(0, &tcpipInit.moduleInit);
+    return TCPIP_STACK_Initialize(0, &tcpipInit);
 }
 // </editor-fold>
 
@@ -440,10 +441,10 @@ static const SYS_CONSOLE_INIT sysConsole0Init =
 // </editor-fold>
 
 
-const SYS_CMD_INIT sysCmdInit =
+static const SYS_CMD_INIT sysCmdInit =
 {
     .moduleInit = {0},
-    .consoleCmdIOParam = SYS_CMD_SINGLE_CHARACTER_READ_CONSOLE_IO_PARAM,
+    .consoleCmdIOParam = (uint8_t) SYS_CMD_SINGLE_CHARACTER_READ_CONSOLE_IO_PARAM,
 	.consoleIndex = 0,
 };
 
@@ -523,7 +524,7 @@ void SYS_Initialize ( void* data )
      H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
         sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
    /* MISRAC 2012 deviation block end */
-    SYS_CMD_Initialize((SYS_MODULE_INIT*)&sysCmdInit);
+    sysObj.sysCommand = (uint32_t) SYS_CMD_Initialize((SYS_MODULE_INIT*)&sysCmdInit);
 
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
      H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/

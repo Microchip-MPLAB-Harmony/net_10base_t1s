@@ -72,44 +72,48 @@ Microchip or any third party.
 /******************************************************************************
 *  VARIABLES
 ******************************************************************************/
-
 // Data needed by the TCPIP Stack
-const TCPIP_MAC_OBJECT DRV_LAN865X_MACObject = {
-    .macId                               = TCPIP_MODULE_MAC_LAN865X,
-    .macType                             = TCPIP_MAC_TYPE_ETH,
-    .macName                             = "LAN865X",
-    .TCPIP_MAC_Initialize                = DRV_LAN865X_StackInitialize,
+const TCPIP_MAC_OBJECT DRV_LAN865X_MACObject_0= {
+    .macId                         = TCPIP_MODULE_MAC_LAN865X_0,
+    .macType                       = TCPIP_MAC_TYPE_ETH,
+    .macName                       = "LAN865X0",
+    .MAC_Initialize                = DRV_LAN865X_StackInitialize,
 #if (TCPIP_STACK_MAC_DOWN_OPERATION)
-    .TCPIP_MAC_Deinitialize              = DRV_LAN865X_Deinitialize,
-    .TCPIP_MAC_Reinitialize              = DRV_LAN865X_Reinitialize,
+    .MAC_Deinitialize              = DRV_LAN865X_Deinitialize,
+    .MAC_Reinitialize              = DRV_LAN865X_Reinitialize,
 #else
-    .TCPIP_MAC_Deinitialize              = 0,
-    .TCPIP_MAC_Reinitialize              = 0,
+    .MAC_Deinitialize              = 0,
+    .MAC_Reinitialize              = 0,
 #endif // (TCPIP_STACK_DOWN_OPERATION)
-    .TCPIP_MAC_Status                    = DRV_LAN865X_Status,
-    .TCPIP_MAC_Tasks                     = DRV_LAN865X_Tasks,
-    .TCPIP_MAC_Open                      = DRV_LAN865X_Open,
-    .TCPIP_MAC_Close                     = DRV_LAN865X_Close,
-    .TCPIP_MAC_LinkCheck                 = DRV_LAN865X_LinkCheck,
-    .TCPIP_MAC_RxFilterHashTableEntrySet = DRV_LAN865X_RxFilterHashTableEntrySet,
-    .TCPIP_MAC_PowerMode                 = DRV_LAN865X_PowerMode,
-    .TCPIP_MAC_PacketTx                  = DRV_LAN865X_PacketTx,
-    .TCPIP_MAC_PacketRx                  = DRV_LAN865X_PacketRx,
-    .TCPIP_MAC_Process                   = DRV_LAN865X_Process,
-    .TCPIP_MAC_StatisticsGet             = DRV_LAN865X_StatisticsGet,
-    .TCPIP_MAC_ParametersGet             = DRV_LAN865X_ParametersGet,
-    .TCPIP_MAC_RegisterStatisticsGet     = DRV_LAN865X_RegisterStatisticsGet,
-    .TCPIP_MAC_ConfigGet                 = DRV_LAN865X_ConfigGet,
-    .TCPIP_MAC_EventMaskSet              = DRV_LAN865X_EventMaskSet,
-    .TCPIP_MAC_EventAcknowledge          = DRV_LAN865X_EventAcknowledge,
-    .TCPIP_MAC_EventPendingGet           = DRV_LAN865X_EventPendingGet,
+    .MAC_Status                    = DRV_LAN865X_Status,
+    .MAC_Tasks                     = DRV_LAN865X_Tasks,
+    .MAC_Open                      = DRV_LAN865X_Open,
+    .MAC_Close                     = DRV_LAN865X_Close,
+    .MAC_LinkCheck                 = DRV_LAN865X_LinkCheck,
+    .MAC_RxFilterHashTableEntrySet = DRV_LAN865X_RxFilterHashTableEntrySet,
+    .MAC_PowerMode                 = DRV_LAN865X_PowerMode,
+    .MAC_PacketTx                  = DRV_LAN865X_PacketTx,
+    .MAC_PacketRx                  = DRV_LAN865X_PacketRx,
+    .MAC_Process                   = DRV_LAN865X_Process,
+    .MAC_StatisticsGet             = DRV_LAN865X_StatisticsGet,
+    .MAC_ParametersGet             = DRV_LAN865X_ParametersGet,
+    .MAC_RegisterStatisticsGet     = DRV_LAN865X_RegisterStatisticsGet,
+    .MAC_ConfigGet                 = DRV_LAN865X_ConfigGet,
+    .MAC_EventMaskSet              = DRV_LAN865X_EventMaskSet,
+    .MAC_EventAcknowledge          = DRV_LAN865X_EventAcknowledge,
+    .MAC_EventPendingGet           = DRV_LAN865X_EventPendingGet,
 };
+
+static const TCPIP_MAC_OBJECT* drvLAN865xObj[DRV_LAN865X_INSTANCES_NUMBER]= 
+{
+    &DRV_LAN865X_MACObject_0,
+};
+
 
 // Local information
 static DRV_LAN865X_DriverInfo drvLAN865XDrvInst[DRV_LAN865X_INSTANCES_NUMBER];
-
-extern const DRV_LAN865X_Configuration drvLan865xInitData[DRV_LAN865X_INSTANCES_NUMBER];
-
+static uint8_t drvLAN865xNumOfDrivers = 0;
+static OSAL_MUTEX_HANDLE_TYPE  drvLAN865xClntMutex;
 /******************************************************************************
 *  Local Function Prototypes
 ******************************************************************************/
@@ -174,29 +178,52 @@ static void _RxPacketAck(TCPIP_MAC_PACKET* pkt, const void* param);
 */
 SYS_MODULE_OBJ DRV_LAN865X_Initialize(SYS_MODULE_INDEX index, SYS_MODULE_INIT * init)
 {
-    (void)init;
-    DRV_LAN865X_DriverInfo *pDrvInst = NULL;
-    if (index < DRV_LAN865X_INSTANCES_NUMBER) {
-        SYS_ASSERT(index < (sizeof(drvLAN865XDrvInst) / sizeof(DRV_LAN865X_DriverInfo)), "DRV_LAN865X_Initialize (1) index out of bounce");
-        SYS_ASSERT(index < (sizeof(drvLan865xInitData) / sizeof(DRV_LAN865X_Configuration)), "DRV_LAN865X_Initialize (2) index out of bounce");
-        pDrvInst = &(drvLAN865XDrvInst[index]);
-        if (!pDrvInst->inUse) {
-            (void)memset(pDrvInst, 0, sizeof(*pDrvInst));
-            pDrvInst->magic = LAN865X_MAGIC;
-            pDrvInst->index = index;
-            pDrvInst->inUse = true;
-            OSAL_RESULT res;
-
-            res = OSAL_MUTEX_Create(&(pDrvInst->drvMutex));
-            (void)res;
-            SYS_ASSERT(res == OSAL_RESULT_TRUE, "Could not create the OSAL Mutex for driver protection");
-
-            (void)memcpy(&(pDrvInst->drvCfg), &drvLan865xInitData[index], sizeof(DRV_LAN865X_Configuration));
-            TCPIP_Helper_ProtectedSingleListInitialize(&pDrvInst->rxFreePackets);
-            TCPIP_Helper_ProtectedSingleListInitialize(&pDrvInst->rxWaitingForPickupPackets);
-        }
+   if (index >= DRV_LAN865X_INSTANCES_NUMBER)
+    {
+        return SYS_MODULE_OBJ_INVALID;
     }
-    return (NULL != pDrvInst) ?  (SYS_MODULE_OBJ)pDrvInst : SYS_MODULE_OBJ_INVALID;
+    if (init == NULL)
+    {
+        return SYS_MODULE_OBJ_INVALID;
+    }
+
+    DRV_LAN865X_DriverInfo * pDrvInst = &(drvLAN865XDrvInst[index]);
+    if (pDrvInst->inUse)
+    {
+        return SYS_MODULE_OBJ_INVALID;
+    }
+
+    // Clear out any cruft that might be in there
+    (void)memset(pDrvInst, 0, sizeof(*pDrvInst));
+    pDrvInst->pObj = drvLAN865xObj[index];
+    pDrvInst->magic = LAN865X_MAGIC;
+    pDrvInst->inUse = true;
+    pDrvInst->index = index;
+    OSAL_RESULT res;
+    if (drvLAN865xNumOfDrivers == 0)
+    {
+        res = OSAL_MUTEX_Create(&drvLAN865xClntMutex);
+        SYS_ASSERT(res == OSAL_RESULT_TRUE, "Could not create the OSAL Mutex for client protection");
+    }
+    drvLAN865xNumOfDrivers++;
+
+    res = OSAL_MUTEX_Create(&(pDrvInst->drvMutex));
+    res = res;
+    SYS_ASSERT(res == OSAL_RESULT_TRUE, "Could not create the OSAL Mutex for driver protection");
+
+    union
+    {
+        const SYS_MODULE_INIT * init;
+        DRV_LAN865X_Configuration* pDrvCfg;
+    }U_MOD_INIT_DRV_CFG;
+
+    U_MOD_INIT_DRV_CFG.init = init;
+    pDrvInst->drvCfg = *U_MOD_INIT_DRV_CFG.pDrvCfg;
+
+    (void)TCPIP_Helper_ProtSglListInitialize(&pDrvInst->rxFreePackets);
+    (void)TCPIP_Helper_ProtSglListInitialize(&pDrvInst->rxWaitingForPickupPackets);
+
+    return (SYS_MODULE_OBJ)pDrvInst;
 }
 
 // *****************************************************************************
@@ -381,7 +408,7 @@ void DRV_LAN865X_SetMacCtrlInfo(SYS_MODULE_OBJ object, TCPIP_MAC_MODULE_CTRL * i
         TCPIP_MAC_PACKET* pkt = (*pDrvInst->stackCfg.pktAllocF)(pDrvInst->drvCfg.rxDescBufferSize, pDrvInst->drvCfg.rxDescBufferSize, TCPIP_MAC_PKT_FLAG_STATIC);
         pkt->ackFunc = _RxPacketAck;
         pkt->ackParam = pDrvInst;
-        TCPIP_Helper_ProtectedSingleListTailAdd(&pDrvInst->rxFreePackets, (SGL_LIST_NODE*) pkt);
+        TCPIP_Helper_ProtSglListTailAdd(&pDrvInst->rxFreePackets, (SGL_LIST_NODE*) pkt);
     }
 }
 
@@ -457,7 +484,7 @@ SYS_MODULE_OBJ DRV_LAN865X_StackInitialize(SYS_MODULE_INDEX index, const SYS_MOD
 */
 DRV_HANDLE DRV_LAN865X_Open(SYS_MODULE_INDEX index, DRV_IO_INTENT intent)
 {
-    static DRV_LAN865X_ClientInfo drvLAN865XClntInst[DRV_LAN865X_CLIENT_INSTANCES_IDX0];
+    static DRV_LAN865X_ClientInfo drvLAN865XClntInst[DRV_LAN865X_INSTANCES_NUMBER][DRV_LAN865X_CLIENT_INSTANCES_IDX0];
     DRV_HANDLE result = DRV_HANDLE_INVALID;
     DRV_LAN865X_DriverInfo *pDrvInst;
     DRV_LAN865X_ClientInfo* ptr = NULL;
@@ -480,7 +507,7 @@ DRV_HANDLE DRV_LAN865X_Open(SYS_MODULE_INDEX index, DRV_IO_INTENT intent)
         }
 
         for (x = 0; success && (DRV_HANDLE_INVALID == result) && (x < DRV_LAN865X_CLIENT_INSTANCES_IDX0); x++) {
-            ptr = &drvLAN865XClntInst[x];
+            ptr = drvLAN865XClntInst[index - TCPIP_MODULE_MAC_LAN865X];
             if (LAN865X_CLIENT_MAGIC != ptr->clientMagic) {
                 if (-1 == _OpenInterface(pDrvInst)) {
                     SYS_ASSERT(false, "Could not initialize the SPI bus interface.");
@@ -745,9 +772,9 @@ TCPIP_MAC_PACKET* DRV_LAN865X_PacketRx(DRV_HANDLE hMac, TCPIP_MAC_RES* pRes, TCP
     SYS_ASSERT(pClient && (LAN865X_CLIENT_MAGIC == pClient->clientMagic), "Client pointer is invalid");
     pDrvInst = pClient->pDrvInst;
     SYS_ASSERT(pDrvInst && (LAN865X_MAGIC == pDrvInst->magic), "Driver info pointer is invalid");
-    if (!TCPIP_Helper_ProtectedSingleListIsEmpty(&pDrvInst->rxWaitingForPickupPackets)) {
+    if (!TCPIP_Helper_ProtSglListIsEmpty(&pDrvInst->rxWaitingForPickupPackets)) {
 
-        result = (TCPIP_MAC_PACKET*) TCPIP_Helper_ProtectedSingleListHeadRemove(&pDrvInst->rxWaitingForPickupPackets);
+        result = (TCPIP_MAC_PACKET*) TCPIP_Helper_ProtSglListHeadRemove(&pDrvInst->rxWaitingForPickupPackets);
     }
     if (NULL != pRes) {
         *pRes = (NULL != result) ? TCPIP_MAC_RES_OK : TCPIP_MAC_RES_NOT_READY_ERR;
@@ -894,7 +921,7 @@ TCPIP_MAC_RES DRV_LAN865X_ParametersGet(DRV_HANDLE hMac, TCPIP_MAC_PARAMETERS* p
   Remarks:
     The reported values are info only and change dynamically.
 */
-TCPIP_MAC_RES DRV_LAN865X_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, int nEntries, int* pHwEntries)
+TCPIP_MAC_RES DRV_LAN865X_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTICS_REG_ENTRY* pRegEntries, size_t nEntries, size_t* pHwEntries)
 {
     int entries = 0;
     DRV_LAN865X_ClientInfo *pClient = (DRV_LAN865X_ClientInfo*) hMac;
@@ -1095,7 +1122,7 @@ bool DRV_LAN865X_EventAcknowledge(DRV_HANDLE hMac, TCPIP_MAC_EVENT macEvents)
 
     pDrvInst->currentEvents &= ~macEvents;
 
-    if (!TCPIP_Helper_ProtectedSingleListIsEmpty(&pDrvInst->rxWaitingForPickupPackets)) {
+    if (!TCPIP_Helper_ProtSglListIsEmpty(&pDrvInst->rxWaitingForPickupPackets)) {
         pDrvInst->currentEvents |= pDrvInst->eventMask & TCPIP_MAC_EV_RX_DONE;
     }
 
@@ -1302,11 +1329,11 @@ void TC6_CB_OnRxEthernetSlice(TC6_t *pInst, const uint8_t *pRx, uint16_t offset,
     if (NULL != pDrvInst) {
         if (!pDrvInst->rxPacketInvalid) {
             if (NULL == pDrvInst->rxDescriptors.macPkt) {
-                if (true == TCPIP_Helper_ProtectedSingleListIsEmpty(&pDrvInst->rxFreePackets)) {
+                if (true == TCPIP_Helper_ProtSglListIsEmpty(&pDrvInst->rxFreePackets)) {
                     pDrvInst->rxPacketInvalid = true;
                     pDrvInst->rxStats.nRxBuffNotAvailable++;
                 } else {
-                    pDrvInst->rxDescriptors.macPkt = (TCPIP_MAC_PACKET*) TCPIP_Helper_ProtectedSingleListHeadRemove(&pDrvInst->rxFreePackets);
+                    pDrvInst->rxDescriptors.macPkt = (TCPIP_MAC_PACKET*) TCPIP_Helper_ProtSglListHeadRemove(&pDrvInst->rxFreePackets);
                     pDrvInst->rxDescriptors.macPkt->pDSeg->segLen = 0;
                 }
             }
@@ -1353,7 +1380,7 @@ void TC6_CB_OnRxEthernetPacket(TC6_t *pInst, bool success, uint16_t len, uint64_
             } else {
                 macPkt->pktFlags|= TCPIP_MAC_PKT_FLAG_UNICAST;
             }
-            TCPIP_Helper_ProtectedSingleListTailAdd(&pDrvInst->rxWaitingForPickupPackets, (SGL_LIST_NODE*) macPkt);
+            TCPIP_Helper_ProtSglListTailAdd(&pDrvInst->rxWaitingForPickupPackets, (SGL_LIST_NODE*) macPkt);
 
             pDrvInst->currentEvents |= TCPIP_MAC_EV_RX_DONE;
             (*pDrvInst->stackCfg.eventF)(pDrvInst->currentEvents, pDrvInst->stackCfg.eventParam);
@@ -2201,6 +2228,7 @@ static void _OnStatus1(TC6_t *pInst, bool success, uint32_t addr, uint32_t value
     if (success) {
         uint8_t i;
         bool reinit = false;
+        PRINT_LIMIT("LAN865x_%d ",pDrvInst->index);
         for (i = 0u; i < 32u; i++) {
             if (0u != (value & (1u << i))) {
                 switch (i) {
@@ -2294,6 +2322,7 @@ static void _OnStatus0(TC6_t *pInst, bool success, uint32_t addr, uint32_t value
         if (success) {
             bool reinit = false;
             uint8_t i;
+            PRINT_LIMIT("LAN865x_%d ",pDrvInst->index);
             while (!TC6_WriteRegister(pInst, addr, value, CONTROL_PROTECTION, _OnClearStatus0, NULL)) {
                 (void)TC6_Service(pInst, true);
             }
@@ -2393,6 +2422,6 @@ static void _RxPacketAck(TCPIP_MAC_PACKET* pkt, const void* param)
     if (NULL != pDrvInst) {
         pDrvInst->rxStats.nRxPendBuffers--;
         pDrvInst->rxStats.nRxOkPackets++;
-        TCPIP_Helper_ProtectedSingleListTailAdd(&pDrvInst->rxFreePackets, (SGL_LIST_NODE*) pkt);
+        TCPIP_Helper_ProtSglListTailAdd(&pDrvInst->rxFreePackets, (SGL_LIST_NODE*) pkt);
     }
 }

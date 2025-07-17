@@ -23,9 +23,9 @@
             <logicalFolder name="gmac" displayName="gmac" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
-                  <itemPath>../src/config/default/driver/gmac/src/dynamic/drv_gmac_lib.h</itemPath>
                   <itemPath>../src/config/default/driver/gmac/src/dynamic/_gmac_dcpt_lists.h</itemPath>
                   <itemPath>../src/config/default/driver/gmac/src/dynamic/drv_gmac_lib_sam.h</itemPath>
+                  <itemPath>../src/config/default/driver/gmac/src/dynamic/drv_gmac_lib.h</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/default/driver/gmac/src/drv_gmac_local.h</itemPath>
               </logicalFolder>
@@ -40,150 +40,144 @@
               </logicalFolder>
               <itemPath>../src/config/default/driver/miim/drv_miim.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/default/driver/driver_common.h</itemPath>
             <itemPath>../src/config/default/driver/driver.h</itemPath>
+            <itemPath>../src/config/default/driver/driver_common.h</itemPath>
           </logicalFolder>
           <logicalFolder name="library" displayName="library" projectFiles="true">
             <logicalFolder name="tcpip" displayName="tcpip" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="common" displayName="common" projectFiles="true">
-                  <itemPath>../src/config/default/library/tcpip/src/common/sys_fs_shell.h</itemPath>
                   <itemPath>../src/config/default/library/tcpip/src/common/helpers.h</itemPath>
+                  <itemPath>../src/config/default/library/tcpip/src/common/sys_fs_shell.h</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/default/library/tcpip/src/tftps_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/ftp_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/smtpc_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/http_net_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/dns_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/lldp_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/snmp_private.h</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/tcpip_heap_alloc.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tftpc_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/dhcp_server_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/link_list.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/lldp_tlv.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/ipv4_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_module_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/igmp_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcp_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/icmp_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_manager_control.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/icmpv6_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcp_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/dns_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/igmp_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/http_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_helpers_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/arp_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/oahash.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/dhcps_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/zero_conf_link_local_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/dhcpv6_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/ddns_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/ipv6_manager.h</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/ndp_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_commands_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/hash_fnv.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_types.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/snmpv3_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_reboot_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/dhcp_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/dnss_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/dhcp_server_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/ndp_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/ipv4_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/ipv4_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/ipv6_manager.h</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/ipv6_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/iperf_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tftpc_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/http_net_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/icmp_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/icmpv6_manager.h</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/arp_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/arp_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/udp_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/udp_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcp_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcp_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/dhcp_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/dhcp_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/dhcps_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/dhcps_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/dhcp_server_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/dhcp_server_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/zero_conf_helper.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/zero_conf_link_local_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/zero_conf_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/dns_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/dns_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/dnss_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/dnss_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/ftp_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/ftp_private.h</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/ftpc_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/smtp_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/ftpc_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/nbns_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/ddns_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/telnet_manager.h</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/sntp_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/http_net_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/http_net_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/snmp_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/snmp_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/snmpv3_private.h</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/tcpip_announce_manager.h</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/smtpc_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/dhcpv6_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/ftp_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/nbns_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_notify.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/zero_conf_helper.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/snmp_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/ipv4_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/udp_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_packet.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/lldp_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/udp_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/zero_conf_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/dhcps_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/smtpc_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/igmp_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/igmp_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tftpc_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tftpc_private.h</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/tftps_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/telnet_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/ftpc_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/http_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/dnss_private.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/dhcp_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tftps_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_reboot_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/iperf_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_commands_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/hash_fnv.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/link_list.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/oahash.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_helpers_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_manager_control.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_module_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_notify.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_packet.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_types.h</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/berkeley_manager.h</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/ndp_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/dhcpv6_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/dhcpv6_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/wsc_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/wsc_private.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
               </logicalFolder>
-              <itemPath>../src/config/default/library/tcpip/dhcp.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/udp.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/snmp.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/telnet.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/ipv4.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/tcp.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/arp.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/tcpip_common_ports.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/tcpip_mac.h</itemPath>
               <itemPath>../src/config/default/library/tcpip/tcpip_mac_object.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/ndp.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/tcpip_mac_bridge.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/zero_conf_link_local.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/ipv6.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/iperf.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/smtp.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/icmpv6.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/nbns.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/snmpv3.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/ftpc.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/igmp.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/berkeley_api.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/tcpip.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/dhcps.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/tcpip_commands.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/ftp.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/tcpip_manager.h</itemPath>
               <itemPath>../src/config/default/library/tcpip/tcpip_heap.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/zero_conf_multicast_dns.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/tcpip_announce.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/dnss.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/dhcpv6.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/lldp.h</itemPath>
               <itemPath>../src/config/default/library/tcpip/tcpip_helpers.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/ddns.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/tftps.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/icmp.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/smtpc.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/tcpip_reboot.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/ndp.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/ipv4.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/ipv6.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/icmpv6.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/dhcpv6.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/arp.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/udp.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/tcp.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/berkeley_api.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/dhcp.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/dhcps.h</itemPath>
               <itemPath>../src/config/default/library/tcpip/dhcp_server.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/zero_conf_link_local.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/zero_conf_multicast_dns.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/dns.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/dnss.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/ftp.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/ftpc.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/icmp.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/nbns.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/ddns.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/telnet.h</itemPath>
               <itemPath>../src/config/default/library/tcpip/sntp.h</itemPath>
               <itemPath>../src/config/default/library/tcpip/http_net.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/snmp.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/snmpv3.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/tcpip_announce.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/smtpc.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/igmp.h</itemPath>
               <itemPath>../src/config/default/library/tcpip/tftpc.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/tcpip_mac.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/dns.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/http.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/tcpip_manager.h</itemPath>
-              <itemPath>../src/config/default/library/tcpip/tcpip_common_ports.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/tftps.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/tcpip_reboot.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/iperf.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/tcpip_commands.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/tcpip.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/wsc.h</itemPath>
+              <itemPath>../src/config/default/library/tcpip/tcpip_mac_bridge.h</itemPath>
               <itemPath>../src/config/default/library/tcpip/tcpip_ethernet.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="net_pres" displayName="net_pres" projectFiles="true">
             <logicalFolder name="pres" displayName="pres" projectFiles="true">
-              <itemPath>../src/config/default/net_pres/pres/net_pres_socketapiconversion.h</itemPath>
-              <itemPath>../src/config/default/net_pres/pres/net_pres_socketapi.h</itemPath>
               <itemPath>../src/config/default/net_pres/pres/net_pres.h</itemPath>
+              <itemPath>../src/config/default/net_pres/pres/net_pres_socketapi.h</itemPath>
+              <itemPath>../src/config/default/net_pres/pres/net_pres_socketapiconversion.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="osal" displayName="osal" projectFiles="true">
             <itemPath>../src/config/default/osal/osal.h</itemPath>
-            <itemPath>../src/config/default/osal/osal_impl_basic.h</itemPath>
             <itemPath>../src/config/default/osal/osal_definitions.h</itemPath>
+            <itemPath>../src/config/default/osal/osal_impl_basic.h</itemPath>
           </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="clock" displayName="clock" projectFiles="true">
@@ -206,13 +200,16 @@
             </logicalFolder>
             <logicalFolder name="sercom" displayName="sercom" projectFiles="true">
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
-                <itemPath>../src/config/default/peripheral/sercom/usart/plib_sercom_usart_common.h</itemPath>
                 <itemPath>../src/config/default/peripheral/sercom/usart/plib_sercom1_usart.h</itemPath>
+                <itemPath>../src/config/default/peripheral/sercom/usart/plib_sercom_usart_common.h</itemPath>
               </logicalFolder>
             </logicalFolder>
+            <logicalFolder name="systick" displayName="systick" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/systick/plib_systick.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="tc" displayName="tc" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/tc/plib_tc0.h</itemPath>
               <itemPath>../src/config/default/peripheral/tc/plib_tc_common.h</itemPath>
+              <itemPath>../src/config/default/peripheral/tc/plib_tc0.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
@@ -223,10 +220,10 @@
               <itemPath>../src/config/default/system/command/sys_command.h</itemPath>
             </logicalFolder>
             <logicalFolder name="console" displayName="console" projectFiles="true">
-              <itemPath>../src/config/default/system/console/src/sys_console_local.h</itemPath>
               <itemPath>../src/config/default/system/console/src/sys_console_uart.h</itemPath>
-              <itemPath>../src/config/default/system/console/sys_console.h</itemPath>
               <itemPath>../src/config/default/system/console/src/sys_console_uart_definitions.h</itemPath>
+              <itemPath>../src/config/default/system/console/sys_console.h</itemPath>
+              <itemPath>../src/config/default/system/console/src/sys_console_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/default/system/debug/sys_debug.h</itemPath>
@@ -240,28 +237,28 @@
               <itemPath>../src/config/default/system/reset/sys_reset.h</itemPath>
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
+              <itemPath>../src/config/default/system/time/sys_time.h</itemPath>
               <itemPath>../src/config/default/system/time/sys_time_definitions.h</itemPath>
               <itemPath>../src/config/default/system/time/src/sys_time_local.h</itemPath>
-              <itemPath>../src/config/default/system/time/sys_time.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/default/system/system_common.h</itemPath>
-            <itemPath>../src/config/default/system/sys_random_h2_adapter.h</itemPath>
             <itemPath>../src/config/default/system/sys_time_h2_adapter.h</itemPath>
+            <itemPath>../src/config/default/system/sys_random_h2_adapter.h</itemPath>
             <itemPath>../src/config/default/system/system.h</itemPath>
+            <itemPath>../src/config/default/system/system_common.h</itemPath>
             <itemPath>../src/config/default/system/system_module.h</itemPath>
           </logicalFolder>
-          <itemPath>../src/config/default/config.h</itemPath>
-          <itemPath>../src/config/default/user.h</itemPath>
-          <itemPath>../src/config/default/system_definitions.h</itemPath>
-          <itemPath>../src/config/default/device_vectors.h</itemPath>
-          <itemPath>../src/config/default/device_cache.h</itemPath>
-          <itemPath>../src/config/default/sys_tasks.h</itemPath>
-          <itemPath>../src/config/default/definitions.h</itemPath>
-          <itemPath>../src/config/default/toolchain_specifics.h</itemPath>
           <itemPath>../src/config/default/device.h</itemPath>
-          <itemPath>../src/config/default/interrupts.h</itemPath>
-          <itemPath>../src/config/default/configuration.h</itemPath>
           <itemPath>../src/config/default/system_config.h</itemPath>
+          <itemPath>../src/config/default/system_definitions.h</itemPath>
+          <itemPath>../src/config/default/user.h</itemPath>
+          <itemPath>../src/config/default/configuration.h</itemPath>
+          <itemPath>../src/config/default/sys_tasks.h</itemPath>
+          <itemPath>../src/config/default/device_cache.h</itemPath>
+          <itemPath>../src/config/default/toolchain_specifics.h</itemPath>
+          <itemPath>../src/config/default/interrupts.h</itemPath>
+          <itemPath>../src/config/default/device_vectors.h</itemPath>
+          <itemPath>../src/config/default/config.h</itemPath>
+          <itemPath>../src/config/default/definitions.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="packs" displayName="packs" projectFiles="true">
@@ -269,131 +266,113 @@
                        displayName="ATSAME54P20A_DFP"
                        projectFiles="true">
           <logicalFolder name="component" displayName="component" projectFiles="true">
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/i2s.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/adc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/aes.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/can.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ccl.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/cmcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dmac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dsu.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/eic.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/evsys.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/freqm.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/fuses.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/gclk.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/icm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dac.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/gmac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/oscctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/trng.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ramecc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sercom.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/port.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/supc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pukcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/rstc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sdhc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/nvmctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pdec.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/rtc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/cmcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/wdt.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/can.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/mclk.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/usb.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/freqm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/aes.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ccl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/eic.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/hmatrixb.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/qspi.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dsu.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/dmac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/component/adc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/i2s.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/icm.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/mclk.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/nvmctrl.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/component/osc32kctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/oscctrl.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pdec.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pm.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/port.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/pukcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/qspi.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/ramecc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/rstc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/rtc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sdhc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/sercom.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/supc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/tcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/trng.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/usb.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/component/wdt.h</itemPath>
           </logicalFolder>
           <logicalFolder name="instance" displayName="instance" projectFiles="true">
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/dmac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/port.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/rtc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/icm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc5.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/osc32kctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/trng.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/freqm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc4.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/i2s.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc4.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/ccl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc7.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/aes.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/gclk.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc6.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/eic.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/can0.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc1.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/fuses.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/can1.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/supc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc0.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/dsu.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/rstc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/ramecc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc3.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc2.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pac.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/ac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom6.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/usb.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/hmatrix.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom7.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sdhc0.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pdec.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom4.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/qspi.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/adc0.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/adc1.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/aes.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/can0.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/can1.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/ccl.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/cmcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/dac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/dmac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/dsu.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/eic.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/evsys.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom5.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/freqm.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/fuses.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/gclk.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/gmac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/hmatrix.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/i2s.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/icm.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/mclk.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/nvmctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc2.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom2.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/wdt.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/adc1.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/gmac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc3.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/osc32kctrl.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/oscctrl.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom3.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pac.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pcc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pdec.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/pm.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/adc0.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc0.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/dac.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom0.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/port.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/qspi.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/ramecc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/rstc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/rtc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sdhc0.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sdhc1.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/cmcc.h</itemPath>
-            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc1.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom0.h</itemPath>
             <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom1.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom2.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom3.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom4.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom5.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom6.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/sercom7.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/supc.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc0.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc1.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc2.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc3.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc4.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc5.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc6.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tc7.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc0.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc1.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc2.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc3.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/tcc4.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/trng.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/usb.h</itemPath>
+            <itemPath>../src/packs/ATSAME54P20A_DFP/instance/wdt.h</itemPath>
           </logicalFolder>
           <logicalFolder name="pio" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/ATSAME54P20A_DFP/pio/same54p20a.h</itemPath>
           </logicalFolder>
           <itemPath>../src/packs/ATSAME54P20A_DFP/same54p20a.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
-          <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
-            <logicalFolder name="Core" displayName="Core" projectFiles="true">
-              <logicalFolder name="Include" displayName="Include" projectFiles="true">
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armcc.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm4.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
-              </logicalFolder>
-            </logicalFolder>
-          </logicalFolder>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="system" displayName="system" projectFiles="true">
@@ -403,151 +382,241 @@
       </logicalFolder>
       <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
         <logicalFolder name="port" displayName="port" projectFiles="true">
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEcDsa_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_typedef_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_sam6150.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_RedMod_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_ecc_pukcl.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha1_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_sam6156.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_rsa_pukcl.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccAdd_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Services_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccQuickDualMul_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Headers_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Square_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccAdd_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_ecc_ba414e.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_hwInt.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha512_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Div_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_PrimeGen_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha256_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_sam6149.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_CRT_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccMul_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Rng_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Fmult_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_rng_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha384_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccConv_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ExpMod_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_CondCopy_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_pukcl_definitions.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GCD_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Smult_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha224_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Fill_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccAddSub_pb.h</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/pic32mz-crypt.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Comp_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_FastCopy_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_mapping_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccMul_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_JumpTable_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Rc_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Swap_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEcDsa_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Hardware_pb.h</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_cf_pb.h</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ClearFlags_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccDbl_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_u2238.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_sam11105.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_crya_saml11.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_hwInt.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_hw.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccConv_pb.h</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_pukcl_functions.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Comp_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_CondCopy_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_CRT_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Div_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ExpMod_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_FastCopy_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Fill_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Fmult_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GCD_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccAdd_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccConv_pb.h</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccDbl_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEccMul_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_GF2NEcDsa_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Hardware_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Headers_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_JumpTable_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_mapping_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_PrimeGen_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Rc_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_RedMod_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Rng_pb.h</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_SelfTest_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Services_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Smult_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Square_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_Swap_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_typedef_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccAddSub_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccAdd_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccConv_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccDbl_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccMul_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEccQuickDualMul_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/CryptoLib_ZpEcDsa_pb.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_hwInt.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_sam6149.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_aes_u2238.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_crya_saml11.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_ecc_ba414e.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_ecc_pukcl.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_pukcl_definitions.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_pukcl_functions.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_rng_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_rsa_pukcl.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha1_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha224_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha256_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha384_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha512_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_sam11105.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_sha_sam6156.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_hw.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_hwInt.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_tdes_sam6150.h</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h</itemPath>
         </logicalFolder>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/logging.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/srp.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/aes.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ripemd.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/memory.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_port.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed448.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md5.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/arc4.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs12.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/certs_test.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha512.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-impl.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pwdbased.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/visibility.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/signature.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs11.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/tfm.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hmac.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed25519.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_operations.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/compress.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_class.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md4.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cmac.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve448.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/random.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_encrypt.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dh.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rsa.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/des3.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-int.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md2.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/kdf.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/asn.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_operations.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_superclass.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha3.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfmath.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/selftest.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp_int.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rc2.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/eccsi.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_448.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/integer.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/poly1305.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha256.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/settings.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/misc.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cpuid.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve25519.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/error-crypt.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ecc.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/camellia.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/falcon.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/asn_public.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_448.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfevent.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/siphash.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sakke.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hash.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/types.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs7.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fips_test.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-impl.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-int.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/camellia.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha20_poly1305.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dsa.h</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cryptocb.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cmac.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/coding.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/compress.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cpuid.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cryptocb.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve25519.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/des3.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dh.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dsa.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ecc.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/eccsi.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed25519.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/error-crypt.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/falcon.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_operations.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fips_test.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_448.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_operations.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hash.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hmac.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/integer.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/kdf.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/logging.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md2.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md4.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md5.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/memory.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mem_track.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/misc.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_class.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_superclass.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs11.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs12.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs7.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/poly1305.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pwdbased.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/random.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rc2.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ripemd.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rsa.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sakke.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/selftest.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha3.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/signature.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/siphash.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp_int.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/srp.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/tfm.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/visibility.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_encrypt.h</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_pkcs11.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfevent.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfmath.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/aes.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha256.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha512.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/types.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/settings.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_port.h</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/certs_test.h</itemPath>
       </logicalFolder>
       <itemPath>../src/app.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
+      <logicalFolder name="tcpip_ipfer_lan867x_default"
+                     displayName="tcpip_ipfer_lan867x_default"
+                     projectFiles="true">
+        <logicalFolder name="components" displayName="components" projectFiles="true">
+          <logicalFolder name="TCP_forwardSlash_IP STACK"
+                         displayName="TCP_forwardSlash_IP STACK"
+                         projectFiles="true">
+            <logicalFolder name="components" displayName="components" projectFiles="true">
+              <logicalFolder name="APPLICATION LAYER"
+                             displayName="APPLICATION LAYER"
+                             projectFiles="true">
+                <logicalFolder name="components" displayName="components" projectFiles="true">
+                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/components/tcpipDns.yml</itemPath>
+                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/components/tcpipIperf.yml</itemPath>
+                </logicalFolder>
+                <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/APPLICATION LAYER.yml</itemPath>
+              </logicalFolder>
+              <logicalFolder name="BASIC CONFIGURATION"
+                             displayName="BASIC CONFIGURATION"
+                             projectFiles="true">
+                <logicalFolder name="components" displayName="components" projectFiles="true">
+                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/components/tcpipCmd.yml</itemPath>
+                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/components/tcpipStack.yml</itemPath>
+                </logicalFolder>
+                <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/BASIC CONFIGURATION.yml</itemPath>
+              </logicalFolder>
+              <logicalFolder name="DATA LINK LAYER"
+                             displayName="DATA LINK LAYER"
+                             projectFiles="true">
+                <logicalFolder name="components" displayName="components" projectFiles="true">
+                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/tcpipNetConfig.yml</itemPath>
+                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvExtPhyLan867x.yml</itemPath>
+                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvMiim.yml</itemPath>
+                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvGmac.yml</itemPath>
+                </logicalFolder>
+                <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/DATA LINK LAYER.yml</itemPath>
+              </logicalFolder>
+              <logicalFolder name="NETWORK LAYER"
+                             displayName="NETWORK LAYER"
+                             projectFiles="true">
+                <logicalFolder name="components" displayName="components" projectFiles="true">
+                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIcmp.yml</itemPath>
+                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIPv4.yml</itemPath>
+                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipArp.yml</itemPath>
+                </logicalFolder>
+                <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/NETWORK LAYER.yml</itemPath>
+              </logicalFolder>
+              <logicalFolder name="PRESENTATION LAYER"
+                             displayName="PRESENTATION LAYER"
+                             projectFiles="true">
+                <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/PRESENTATION LAYER/PRESENTATION LAYER.yml</itemPath>
+              </logicalFolder>
+              <logicalFolder name="TRANSPORT LAYER"
+                             displayName="TRANSPORT LAYER"
+                             projectFiles="true">
+                <logicalFolder name="components" displayName="components" projectFiles="true">
+                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/components/tcpipUdp.yml</itemPath>
+                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/components/tcpipTcp.yml</itemPath>
+                </logicalFolder>
+                <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/TRANSPORT LAYER.yml</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/TCP_forwardSlash_IP STACK.yml</itemPath>
+          </logicalFolder>
+          <itemPath>tcpip_ipfer_lan867x_default/components/lib_crypto.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/sys_debug.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/sys_command.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/HarmonyCore.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/core.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/tc0.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/nvmctrl.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/sys_console_0.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/lib_wolfcrypt.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/cmsis.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/sercom1.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/dfp.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/evsys.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/sys_time.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/sys_console.yml</itemPath>
+          <itemPath>tcpip_ipfer_lan867x_default/components/tcpipNetConfig_0.yml</itemPath>
+        </logicalFolder>
+        <itemPath>tcpip_ipfer_lan867x_default/mcc-config.mc4</itemPath>
+      </logicalFolder>
+      <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/misc.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/evp.c</itemPath>
+      </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>tcpip_iperf_lan867x.mc3</itemPath>
-      <itemPath>mcc-manifest-generated-success.yml</itemPath>
+      <itemPath>../src/config/default/pin_configurations.csv</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="LibraryFiles"
+                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -579,7 +648,7 @@
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
                   <itemPath>../src/config/default/driver/gmac/src/dynamic/drv_gmac.c</itemPath>
-                  <itemPath>../src/config/default/driver/gmac/src/dynamic/drv_gmac_lib_samE5x.c</itemPath>
+                  <itemPath>../src/config/default/driver/gmac/src/dynamic/drv_gmac_lib_same5x.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
@@ -598,23 +667,23 @@
                 <logicalFolder name="common" displayName="common" projectFiles="true">
                   <itemPath>../src/config/default/library/tcpip/src/helpers.c</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_heap_internal.c</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_helpers.c</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/iperf.c</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_heap_alloc.c</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_manager.c</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/oahash.c</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/icmp.c</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/ipv4.c</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/hash_fnv.c</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/tcp.c</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/tcpip_commands.c</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/arp.c</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/udp.c</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_commands.c</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/iperf.c</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/ipv4.c</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_heap_alloc.c</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_heap_internal.c</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/dhcp.c</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/dns.c</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/hash_fnv.c</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/oahash.c</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_helpers.c</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/tcpip_manager.c</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/tcpip_notify.c</itemPath>
                 <itemPath>../src/config/default/library/tcpip/src/tcpip_packet.c</itemPath>
-                <itemPath>../src/config/default/library/tcpip/src/dhcp.c</itemPath>
+                <itemPath>../src/config/default/library/tcpip/src/udp.c</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -641,6 +710,9 @@
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/default/peripheral/sercom/usart/plib_sercom1_usart.c</itemPath>
               </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="systick" displayName="systick" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/systick/plib_systick.c</itemPath>
             </logicalFolder>
             <logicalFolder name="tc" displayName="tc" projectFiles="true">
               <itemPath>../src/config/default/peripheral/tc/plib_tc0.c</itemPath>
@@ -672,124 +744,118 @@
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/default/system/time/src/sys_time.c</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/default/system/sys_random_h2_adapter.c</itemPath>
             <itemPath>../src/config/default/system/sys_time_h2_adapter.c</itemPath>
+            <itemPath>../src/config/default/system/sys_random_h2_adapter.c</itemPath>
           </logicalFolder>
-          <itemPath>../src/config/default/libc_syscalls.c</itemPath>
-          <itemPath>../src/config/default/exceptions.c</itemPath>
-          <itemPath>../src/config/default/startup_xc32.c</itemPath>
-          <itemPath>../src/config/default/interrupts.c</itemPath>
           <itemPath>../src/config/default/tasks.c</itemPath>
           <itemPath>../src/config/default/initialization.c</itemPath>
+          <itemPath>../src/config/default/interrupts.c</itemPath>
+          <itemPath>../src/config/default/exceptions.c</itemPath>
+          <itemPath>../src/config/default/startup_xc32.c</itemPath>
+          <itemPath>../src/config/default/libc_syscalls.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
         <logicalFolder name="port" displayName="port" projectFiles="true">
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/pic32mz-crypt.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_aes_sam6149.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_aes_u2238.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_ecc_ba414e.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_ecc_pukcl.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_pukcl_functions.c</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rng_sam6334.c</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rng_u2242.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_aes_sam6149.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha224_sam6156.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha224_sam11105.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha1_sam11105.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha256_sam11105.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha1_sam6156.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_wolfcryptcb.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_aes_u2238.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_pukcl_functions.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha384_sam6156.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/pic32mz-crypt.c</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_rsa_pukcl.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_ecc_pukcl.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha512_sam6156.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha256_sam6156.c</itemPath>
-          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_ecc_ba414e.c</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sam_u2803.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha1_sam11105.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha1_sam6156.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha224_sam11105.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha224_sam6156.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha256_sam11105.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha256_sam6156.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha384_sam6156.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_sha512_sam6156.c</itemPath>
           <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_tdes_sam6150.c</itemPath>
+          <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/port/pic32/crypt_wolfcryptcb.c</itemPath>
         </logicalFolder>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha3.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/integer.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md4.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sakke.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha512.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cpuid.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_c32.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/aes.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/dsa.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md2.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_encrypt.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/des3.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/chacha.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/memory.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/rsa.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/kdf.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pwdbased.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/srp.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_c64.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_448.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/arc4.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/asm.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/asn.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/blake2b.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/blake2s.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/camellia.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/chacha.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/chacha20_poly1305.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cmac.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/coding.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/compress.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cpuid.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cryptocb.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_operations.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md5.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/curve25519.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/curve448.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/dh.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/dsa.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ecc.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/eccsi.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ecc_fp.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ed25519.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ed448.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/error.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/falcon.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_448.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_low_mem.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/evp.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_operations.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ecc.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/tfm.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/siphash.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/coding.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_port.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/chacha20_poly1305.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/dh.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/blake2b.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/camellia.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/asm.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ed25519.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_arm32.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/blake2s.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha256.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_int.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/fe_operations.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_448.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_low_mem.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ge_operations.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/hash.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/logging.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/curve25519.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_arm64.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_cortexm.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_pkcs11.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_armthumb.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_dsp.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/compress.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/poly1305.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/asn.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/random.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ed448.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pkcs7.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/curve448.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/misc.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/error.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wolfevent.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/cmac.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/falcon.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_x86_64.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/eccsi.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/rc2.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pkcs12.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ripemd.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wolfmath.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/hmac.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_dsp32.c</itemPath>
-        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ecc_fp.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/integer.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/kdf.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/logging.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md2.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md4.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/md5.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/memory.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pkcs12.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pkcs7.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/poly1305.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/pwdbased.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/rc2.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/ripemd.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/rsa.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sakke.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha3.c</itemPath>
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/signature.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/siphash.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_arm32.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_arm64.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_armthumb.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_c32.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_c64.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_cortexm.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_dsp32.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_int.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sp_x86_64.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/srp.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/tfm.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_dsp.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_encrypt.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_pkcs11.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wc_port.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wolfevent.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/wolfmath.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/aes.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/des3.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/random.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha256.c</itemPath>
+        <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/sha512.c</itemPath>
       </logicalFolder>
-      <itemPath>../src/main.c</itemPath>
       <itemPath>../src/app.c</itemPath>
-      <itemPath>../src/config/default/pin_configurations.csv</itemPath>
+      <itemPath>../src/main.c</itemPath>
     </logicalFolder>
   </logicalFolder>
-  <sourceRootList>
-    <Elem>.</Elem>
-  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="default" type="2">
@@ -800,12 +866,12 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.35</languageToolchainVersion>
+        <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAME54_DFP" vendor="Microchip" version="3.8.234"/>
-        <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
+        <pack name="SAME54_DFP" vendor="Microchip" version="3.9.244"/>
+        <pack name="CMSIS" vendor="ARM" version="6.1.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -838,23 +904,42 @@
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
         <property key="appendMe" value=""/>
+        <property key="cast-align" value="false"/>
+        <property key="code-model" value="default"/>
+        <property key="const-model" value="default"/>
+        <property key="data-model" value="default"/>
+        <property key="disable-instruction-scheduling" value="false"/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-procedural-abstraction" value="false"/>
+        <property key="enable-short-double" value="false"/>
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
+        <property key="expand-pragma-config" value="false"/>
         <property key="extra-include-directories"
                   value="../src;../src/config/default;../src/config/default/library;../src/config/default/library/tcpip/src;../src/config/default/library/tcpip/src/common;../src/packs/ATSAME54P20A_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
-        <property key="make-warnings-into-errors" value="false"/>
-        <property key="optimization-level" value="-O3"/>
+        <property key="keep-inline" value="false"/>
+        <property key="make-warnings-into-errors" value="true"/>
+        <property key="oXC16gcc-errata" value=""/>
+        <property key="oXC16gcc-large-aggregate" value="false"/>
+        <property key="oXC16gcc-mpa-lvl" value=""/>
+        <property key="oXC16gcc-name-text-sec" value=""/>
+        <property key="oXC16gcc-near-chars" value="false"/>
+        <property key="oXC16gcc-no-isr-warn" value="false"/>
+        <property key="oXC16gcc-sfr-warn" value="false"/>
+        <property key="oXC16gcc-smar-io-lvl" value="1"/>
+        <property key="oXC16gcc-smart-io-fmt" value=""/>
+        <property key="optimization-level" value="-O2"/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros"
                   value="HAVE_CONFIG_H;WOLFSSL_IGNORE_FILE_WARN"/>
+        <property key="scalar-model" value="default"/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>
         <property key="tentative-definitions" value="-fno-common"/>
@@ -879,12 +964,15 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="keep-locals" value="false"/>
         <property key="list-assembly" value="false"/>
+        <property key="list-section-info" value="false"/>
         <property key="list-source" value="false"/>
         <property key="list-symbols" value="false"/>
+        <property key="oXC16asm-extra-opts" value=""/>
         <property key="oXC32asm-list-to-file" value="false"/>
         <property key="omit-debug-dirs" value="false"/>
         <property key="omit-forms" value="false"/>
         <property key="preprocessor-macros" value=""/>
+        <property key="relax" value="false"/>
         <property key="warning-level" value=""/>
       </C32-AS>
       <C32-CO>
@@ -899,6 +987,8 @@
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
+        <property key="enable-data-init" value="true"/>
+        <property key="enable-default-isr" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
         <property key="exclude-standard-libraries" value="false"/>
         <property key="extra-lib-directories" value=""/>
@@ -919,9 +1009,13 @@
         <property key="linker-symbols" value=""/>
         <property key="map-file" value="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"/>
         <property key="no-device-startup-code" value="true"/>
+        <property key="no-ivt" value="false"/>
         <property key="no-startup-files" value="false"/>
+        <property key="oXC16ld-force-link" value="false"/>
+        <property key="oXC16ld-no-smart-io" value="false"/>
+        <property key="oXC16ld-stackguard" value="16"/>
         <property key="oXC32ld-extra-opts" value=""/>
-        <property key="optimization-level" value=""/>
+        <property key="optimization-level" value="-O3"/>
         <property key="preprocessor-macros" value=""/>
         <property key="remove-unused-sections" value="true"/>
         <property key="report-memory-usage" value="false"/>
@@ -965,13 +1059,20 @@
       </C32CPP>
       <C32Global>
         <property key="appendMe" value=""/>
+        <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
+        <property key="common-macros" value=""/>
+        <property key="dual-boot-partition" value="0"/>
+        <property key="generic-16-bit" value="false"/>
         <property key="gp-relative-option" value=""/>
         <property key="legacy-libc" value="false"/>
         <property key="mdtcm" value=""/>
         <property key="mitcm" value=""/>
+        <property key="mpreserve-all" value="false"/>
         <property key="mstacktcm" value="false"/>
         <property key="omit-pack-options" value="1"/>
+        <property key="preserve-all" value="false"/>
+        <property key="preserve-file" value=""/>
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
         <property key="stack-smashing" value=""/>
@@ -986,7 +1087,8 @@
         <property key="communication.speed" value="2.000"/>
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
-        <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="debugoptions.useswbreakpoints" value="true"/>
+        <property key="event.recorder.debugger.behavior" value="Running"/>
         <property key="event.recorder.enabled" value="false"/>
         <property key="event.recorder.scvd.files" value=""/>
         <property key="firmware.path"
@@ -1011,6 +1113,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-fffff"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="D:/SVN/net_10Base_t1s_mc4/apps/tcpip_iperf_lan867x/firmware/tcpip_ipfer_lan867x.X/debug/default/tcpip_ipfer_lan867x_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -1041,7 +1145,8 @@
         <property key="communication.speed" value="2.000"/>
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
-        <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="debugoptions.useswbreakpoints" value="true"/>
+        <property key="event.recorder.debugger.behavior" value="Running"/>
         <property key="event.recorder.enabled" value="false"/>
         <property key="event.recorder.scvd.files" value=""/>
         <property key="firmware.path"
@@ -1067,7 +1172,7 @@
         <property key="memories.programmemory.ranges" value="0-fffff"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmerToGoFilePath"
-                  value="D:/LAN867x_Rev_C1/firmware/tcpip_iperf_lan867x.X/debug/default/tcpip_iperf_lan867x_ptg"/>
+                  value="D:/SVN/net_10Base_t1s_mc4/apps/tcpip_iperf_lan867x/firmware/tcpip_ipfer_lan867x.X/debug/default/tcpip_ipfer_lan867x_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

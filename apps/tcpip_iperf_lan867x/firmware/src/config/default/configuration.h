@@ -149,6 +149,7 @@ extern "C" {
 #define DRV_ETHPHY_LAN867x_NEG_INIT_TMO	                  0
 #define DRV_ETHPHY_LAN867x_NEG_DONE_TMO                   0
 #define DRV_ETHPHY_LAN867x_RESET_CLR_TMO                  500
+
 #define DRV_ETHPHY_PLCA_ENABLED
 #define DRV_ETHPHY_PLCA_LOCAL_NODE_ID             0
 #define DRV_ETHPHY_PLCA_NODE_COUNT                8
@@ -319,7 +320,7 @@ extern "C" {
 #define TCPIP_STACK_USE_TCP
 #define TCPIP_STACK_USE_UDP
 
-#define TCPIP_STACK_TICK_RATE		        		5
+#define TCPIP_STACK_TICK_RATE		        		1
 #define TCPIP_STACK_SECURE_PORT_ENTRIES             10
 #define TCPIP_STACK_LINK_RATE		        		333
 
@@ -351,6 +352,7 @@ extern "C" {
 #define TCPIP_GMAC_RX_DESCRIPTORS_COUNT_DUMMY    1
 #define TCPIP_GMAC_RX_BUFF_SIZE_DUMMY            64
 #define TCPIP_GMAC_TX_BUFF_SIZE_DUMMY            64
+#define TCPIP_GMAC_QUEUE_0                                  true  
 /*** QUEUE 0 TX Configuration ***/
 #define TCPIP_GMAC_TX_DESCRIPTORS_COUNT_QUE0            8
 #define TCPIP_GMAC_MAX_TX_PKT_SIZE_QUE0                 1536
@@ -445,6 +447,7 @@ extern "C" {
 #define HAVE_HASHDRBG
 #define WC_NO_HARDEN
 #define SINGLE_THREADED
+#define NO_ASN
 #define NO_SIG_WRAPPER
 #define NO_ERROR_STRINGS
 #define WOLFSSL_MAX_ERROR_SZ 38 // Fix Mandatory Misra 21.18 caused by removing error strings with defining NO_ERROR_STRINGS

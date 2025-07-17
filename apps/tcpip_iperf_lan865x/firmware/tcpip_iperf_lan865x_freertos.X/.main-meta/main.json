@@ -1,0 +1,63 @@
+{
+   "metaDataVersion":"1.0.0",
+   "category":"com.microchip.ide.project",
+   "content":{
+      "metaDataVersion":"1.4.0",
+      "name":"com.microchip.mcu32.mplabx.project.net_10base_t1s_lan865x_tcpip_iperf_10baset1s_freertos",
+      "version":"1.4.0",
+      "displayName":"TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY in FreeRTOS environment",
+      "projectName":"TCP/IP Client using the LAN865x 10BASE-T1S Ethernet MAC-PHY in FreeRTOS environment",
+      "shortDescription":"TCP/IP Client with iperf support using the LAN865x 10BASE-T1S Ethernet MAC-PHY in FreeRTOS environment",
+      "ide":{
+         "name":"MPLABX",
+         "semverRange":">=6.25"
+      },
+      "compiler":{
+         "name":"XC32",
+         "semverRange":"^4.60"
+      },
+      "dfp":{
+         "name":"SAME54_DFP",
+         "semverRange":"^3.9.244"
+      },
+      "device":{
+         "metaDataVersion":"1.0.0",
+         "category":"com.microchip.portal.contentRef",
+         "content":{
+            "metaDataVersion":"1.0.0",
+            "category":"com.microchip.device",
+            "name":"ATSAME54P20A",
+            "versionRange":"*"
+         }
+      },
+	  "peripherals":[
+         "MAC",
+		 "PHY",
+		 "LAN865x",
+		 "SPI"
+      ],
+      "keywords":[
+         "MCC",
+		 "Harmony",
+		 "TCP/IP",
+		 "10BASE-T1S",
+		 "Ethernet MAC",
+		 "Middleware",
+		 "PHY",
+		 "MAC-PHY",
+		 "SPI",
+		 "FreeRTOS"
+      ],
+	  "additionalData": {
+            "longDescription": {
+                "metaDataVersion": "1.0.0",
+                "category": "com.microchip.portal.fileRef",
+                "content": {
+                    "metaDataVersion": "1.0.0",
+                    "fileName": "./../../readme.md",
+                    "mimeType": "text/markdown"
+				}
+			}
+	  }
+   }
+}

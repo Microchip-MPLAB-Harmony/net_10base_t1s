@@ -1,0 +1,64 @@
+configVersion: 1.0.0
+componentName: tcpipNetConfig
+coreVersion: 5.8.2
+device: ATSAME54P20A
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: tcpipNetConfig
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.1
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: DATA LINK LAYER
+    children:
+    - children:
+      - attributes:
+          id: tcpipNetConfig
+          x: '828'
+          y: '121'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    TCPIP_STACK_NETWORK_INTERAFCE_COUNT:
+      attributes:
+        id: TCPIP_STACK_NETWORK_INTERAFCE_COUNT
+      children:
+      - children:
+        - attributes:
+            id: tcpipNetConfig
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+    TCPIP_STACK_USE_MAC_BRIDGE:
+      attributes:
+        id: TCPIP_STACK_USE_MAC_BRIDGE
+      children:
+      - children:
+        - attributes:
+            id: tcpipNetConfig
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    TCPIP_STACK_NETWORK_MAC_BRIDGE_COUNT:
+      attributes:
+        id: TCPIP_STACK_NETWORK_MAC_BRIDGE_COUNT
+      children:
+      - children:
+        - attributes:
+            id: tcpipNetConfig
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}

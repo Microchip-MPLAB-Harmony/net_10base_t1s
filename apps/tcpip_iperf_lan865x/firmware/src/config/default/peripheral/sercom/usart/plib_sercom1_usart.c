@@ -61,7 +61,7 @@
 /* SERCOM1 USART baud value for 115200 Hz baud rate */
 #define SERCOM1_USART_INT_BAUD_VALUE            (63522UL)
 
-volatile static SERCOM_USART_RING_BUFFER_OBJECT sercom1USARTObj;
+static volatile SERCOM_USART_RING_BUFFER_OBJECT sercom1USARTObj;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -74,14 +74,14 @@ volatile static SERCOM_USART_RING_BUFFER_OBJECT sercom1USARTObj;
 #define SERCOM1_USART_RX_INT_DISABLE()      SERCOM1_REGS->USART_INT.SERCOM_INTENCLR = SERCOM_USART_INT_INTENCLR_RXC_Msk
 #define SERCOM1_USART_RX_INT_ENABLE()       SERCOM1_REGS->USART_INT.SERCOM_INTENSET = SERCOM_USART_INT_INTENSET_RXC_Msk
 
-volatile static uint8_t SERCOM1_USART_ReadBuffer[SERCOM1_USART_READ_BUFFER_SIZE];
+static volatile uint8_t SERCOM1_USART_ReadBuffer[SERCOM1_USART_READ_BUFFER_SIZE];
 
 #define SERCOM1_USART_WRITE_BUFFER_SIZE     1024U
 #define SERCOM1_USART_WRITE_BUFFER_9BIT_SIZE  (1024U >> 1U)
 #define SERCOM1_USART_TX_INT_DISABLE()      SERCOM1_REGS->USART_INT.SERCOM_INTENCLR = SERCOM_USART_INT_INTENCLR_DRE_Msk
 #define SERCOM1_USART_TX_INT_ENABLE()       SERCOM1_REGS->USART_INT.SERCOM_INTENSET = SERCOM_USART_INT_INTENSET_DRE_Msk
 
-volatile static uint8_t SERCOM1_USART_WriteBuffer[SERCOM1_USART_WRITE_BUFFER_SIZE];
+static volatile uint8_t SERCOM1_USART_WriteBuffer[SERCOM1_USART_WRITE_BUFFER_SIZE];
 
 void SERCOM1_USART_Initialize( void )
 {
@@ -279,7 +279,7 @@ void SERCOM1_USART_Disable( void )
     }
 }
 
-void static SERCOM1_USART_ErrorClear( void )
+static void SERCOM1_USART_ErrorClear( void )
 {
     uint16_t  u16dummyData = 0;
 
@@ -749,7 +749,7 @@ void SERCOM1_USART_WriteCallbackRegister( SERCOM_USART_RING_BUFFER_CALLBACK call
 
 
 
-void static __attribute__((used)) SERCOM1_USART_ISR_ERR_Handler( void )
+static void __attribute__((used)) SERCOM1_USART_ISR_ERR_Handler( void )
 {
     USART_ERROR errorStatus = (USART_ERROR)(SERCOM1_REGS->USART_INT.SERCOM_STATUS & (SERCOM_USART_INT_STATUS_PERR_Msk | SERCOM_USART_INT_STATUS_FERR_Msk | SERCOM_USART_INT_STATUS_BUFOVF_Msk ));
 
@@ -770,7 +770,7 @@ void static __attribute__((used)) SERCOM1_USART_ISR_ERR_Handler( void )
     }
 }
 
-void static __attribute__((used)) SERCOM1_USART_ISR_RX_Handler( void )
+static void __attribute__((used)) SERCOM1_USART_ISR_RX_Handler( void )
 {
 
 
@@ -787,7 +787,7 @@ void static __attribute__((used)) SERCOM1_USART_ISR_RX_Handler( void )
     }
 }
 
-void static __attribute__((used)) SERCOM1_USART_ISR_TX_Handler( void )
+static void __attribute__((used)) SERCOM1_USART_ISR_TX_Handler( void )
 {
     uint16_t wrByte;
 

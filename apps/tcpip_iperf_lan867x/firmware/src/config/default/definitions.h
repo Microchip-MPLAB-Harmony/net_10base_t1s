@@ -14,7 +14,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -50,6 +50,8 @@
 #include <stdbool.h>
 #include "crypto/crypto.h"
 #include "peripheral/nvmctrl/plib_nvmctrl.h"
+#include "driver/ethphy/drv_ethphy.h"
+#include "driver/ethphy/src/dynamic/drv_extphy_lan867x.h"
 #include "peripheral/tc/plib_tc0.h"
 #include "system/time/sys_time.h"
 #include "library/tcpip/tcpip.h"
@@ -67,6 +69,7 @@
 #include "peripheral/port/plib_port.h"
 #include "peripheral/clock/plib_clock.h"
 #include "peripheral/nvic/plib_nvic.h"
+#include "peripheral/systick/plib_systick.h"
 #include "peripheral/cmcc/plib_cmcc.h"
 #include "driver/miim/drv_miim.h"
 #include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
@@ -208,6 +211,9 @@ typedef struct
 
 
     SYS_MODULE_OBJ  tcpip;
+
+    SYS_MODULE_OBJ sysCommand;
+
    SYS_MODULE_OBJ  drvMiim_0;
 
     SYS_MODULE_OBJ  sysDebug;

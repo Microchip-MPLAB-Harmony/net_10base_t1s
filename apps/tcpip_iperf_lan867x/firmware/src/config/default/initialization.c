@@ -15,7 +15,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -177,7 +177,6 @@ const TCPIP_TCP_MODULE_CONFIG tcpipTCPInitData =
 
 
 
-
 /*** ICMP Server Initialization Data ***/
 const TCPIP_ICMP_MODULE_CONFIG tcpipICMPInitData = 
 {
@@ -221,9 +220,10 @@ const TCPIP_IPV4_MODULE_CONFIG  tcpipIPv4InitData =
 
 
 
+
 TCPIP_STACK_HEAP_INTERNAL_CONFIG tcpipHeapConfig =
 {
-    .heapType = TCPIP_STACK_HEAP_TYPE_INTERNAL_HEAP,
+    .heapType = TCPIP_STACK_HEAP_TYPE_INTERNAL,
     .heapFlags = TCPIP_STACK_HEAP_USE_FLAGS,
     .heapUsage = TCPIP_STACK_HEAP_USAGE_CONFIG,
     .malloc_fnc = TCPIP_STACK_MALLOC_FUNC,
@@ -269,7 +269,6 @@ const TCPIP_STACK_MODULE_CONFIG TCPIP_STACK_MODULE_CONFIG_TBL [] =
 
 // MAC modules
     {TCPIP_MODULE_MAC_PIC32C,       &tcpipGMACInitData},            // TCPIP_MODULE_MAC_PIC32C
-
 };
 
 const size_t TCPIP_STACK_MODULE_CONFIG_TBL_SIZE = sizeof (TCPIP_STACK_MODULE_CONFIG_TBL) / sizeof (*TCPIP_STACK_MODULE_CONFIG_TBL);
@@ -299,13 +298,14 @@ SYS_MODULE_OBJ TCPIP_STACK_Init(void)
 {
     TCPIP_STACK_INIT    tcpipInit;
 
+    (void)memset(&tcpipInit, 0, sizeof(tcpipInit));
     tcpipInit.pNetConf = TCPIP_HOSTS_CONFIGURATION;
     tcpipInit.nNets = TCPIP_HOSTS_CONFIGURATION_SIZE;
     tcpipInit.pModConfig = TCPIP_STACK_MODULE_CONFIG_TBL;
     tcpipInit.nModules = TCPIP_STACK_MODULE_CONFIG_TBL_SIZE;
-    tcpipInit.initCback = 0;
+    tcpipInit.initCback = NULL;
 
-    return TCPIP_STACK_Initialize(0, &tcpipInit.moduleInit);
+    return TCPIP_STACK_Initialize(0, &tcpipInit);
 }
 // </editor-fold>
 
@@ -314,7 +314,7 @@ uint8_t txPrioNumToQueIndxGmac [DRV_GMAC_NUMBER_OF_QUEUES];
 uint8_t rxPrioNumToQueIndxGmac [DRV_GMAC_NUMBER_OF_QUEUES];
 
 /*** GMAC Initialization Data ***/
-TCPIP_MODULE_GMAC_QUEUE_CONFIG  gmac_queue_config[DRV_GMAC_NUMBER_OF_QUEUES]=
+TCPIP_MODULE_GMAC_QUEUE_CONFIG  gmac_queue_cfg[DRV_GMAC_NUMBER_OF_QUEUES]=
 {
    {   /** QUEUE 0 Initialization**/
        .queueTxEnable = true,
@@ -333,7 +333,7 @@ TCPIP_MODULE_GMAC_QUEUE_CONFIG  gmac_queue_config[DRV_GMAC_NUMBER_OF_QUEUES]=
 
 const TCPIP_MODULE_MAC_PIC32C_CONFIG tcpipGMACInitData =
 { 
-       .gmac_queue_config = gmac_queue_config,
+       .gmac_queue_config = gmac_queue_cfg,
        .macQueNum = DRV_GMAC_NUMBER_OF_QUEUES, 
        .txPrioNumToQueIndx = txPrioNumToQueIndxGmac,
        .rxPrioNumToQueIndx = rxPrioNumToQueIndxGmac,
@@ -412,10 +412,10 @@ static const SYS_CONSOLE_INIT sysConsole0Init =
 // </editor-fold>
 
 
-const SYS_CMD_INIT sysCmdInit =
+static const SYS_CMD_INIT sysCmdInit =
 {
     .moduleInit = {0},
-    .consoleCmdIOParam = SYS_CMD_SINGLE_CHARACTER_READ_CONSOLE_IO_PARAM,
+    .consoleCmdIOParam = (uint8_t) SYS_CMD_SINGLE_CHARACTER_READ_CONSOLE_IO_PARAM,
 	.consoleIndex = 0,
 };
 
@@ -471,6 +471,7 @@ void SYS_Initialize ( void* data )
 
     EVSYS_Initialize();
 
+	SYSTICK_TimerInitialize();
 
     /* MISRAC 2012 deviation block start */
     /* Following MISRA-C rules deviated in this block  */
@@ -479,7 +480,7 @@ void SYS_Initialize ( void* data )
 
 
    /* Initialize the MIIM Driver Instance 0*/
-   sysObj.drvMiim_0 = DRV_MIIM_OBJECT_BASE_Default.DRV_MIIM_Initialize(DRV_MIIM_DRIVER_INDEX_0, (const SYS_MODULE_INIT *) &drvMiimInitData_0); 
+   sysObj.drvMiim_0 = DRV_MIIM_OBJECT_BASE_Default.miim_Initialize(DRV_MIIM_DRIVER_INDEX_0, (const SYS_MODULE_INIT *) &drvMiimInitData_0); 
 
 
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
@@ -492,7 +493,7 @@ void SYS_Initialize ( void* data )
      H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
         sysObj.sysConsole0 = SYS_CONSOLE_Initialize(SYS_CONSOLE_INDEX_0, (SYS_MODULE_INIT *)&sysConsole0Init);
    /* MISRAC 2012 deviation block end */
-    SYS_CMD_Initialize((SYS_MODULE_INIT*)&sysCmdInit);
+    sysObj.sysCommand = (uint32_t) SYS_CMD_Initialize((SYS_MODULE_INIT*)&sysCmdInit);
 
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
      H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/

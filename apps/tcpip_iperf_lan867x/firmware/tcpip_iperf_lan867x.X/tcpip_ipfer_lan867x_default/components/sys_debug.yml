@@ -1,0 +1,75 @@
+configVersion: 1.0.0
+componentName: sys_debug
+coreVersion: 5.8.2
+device: ATSAME54P20A
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: sys_debug
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.2
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: sys_debug_SYS_CONSOLE_dependency
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: sys_console_0
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: sys_console
+            type: String
+          type: Attributes
+        type: DirectDependency
+      type: Attachments
+    type: sys_debug
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: sys_debug
+          x: '630'
+          y: '413'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    SYS_CONSOLE_DEVICE:
+      attributes:
+        id: SYS_CONSOLE_DEVICE
+      children:
+      - children:
+        - attributes:
+            id: sys_debug
+            value: SYS_CONSOLE_0
+          type: Dynamic
+        type: Values
+      type: String
+    SYS_CONSOLE_INDEX:
+      attributes:
+        id: SYS_CONSOLE_INDEX
+      children:
+      - children:
+        - attributes:
+            id: sys_debug
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: String
+  userData: {}

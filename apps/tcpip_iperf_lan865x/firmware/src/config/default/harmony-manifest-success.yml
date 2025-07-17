@@ -4,22 +4,22 @@
 
 
 project: tcpip_iperf_lan865x
-creation_date: 2024-12-03T21:55:48.124+01:00[Europe/Berlin]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
-operating_system: Windows 10
+creation_date: 2025-07-17T19:16:52.048+02:00[Europe/Berlin]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
-mcc_version: v5.5.1
-mcc_core_version: v5.7.1
-mplabx_version: v6.20        # if MPLAB X plugin only
-harmony_version: v1.5.3
-compiler: XC32 4.45
+mcc_version: v5.6.2
+mcc_core_version: v5.8.2
+mplabx_version: v6.25        # if MPLAB X plugin only
+harmony_version: v5.6.2
+compiler: XC32 4.60
 
 modules:
-    - {name: "csp", version: "v3.20.0"}
-    - {name: "net_10base_t1s", version: "v1.3.2"}
-    - {name: "core", version: "v3.13.5"}
+    - {name: "csp", version: "v3.22.4"}
+    - {name: "net_10base_t1s", version: "v1.3.3"}
+    - {name: "core", version: "v3.15.2"}
     - {name: "CMSIS_5", version: "5.9.0"}
     - {name: "wolfssl", version: "v5.4.0"}
-    - {name: "net", version: "v3.12.3"}
+    - {name: "net", version: "v3.14.1"}
     - {name: "crypto", version: "v3.8.2"}
 
 packs:

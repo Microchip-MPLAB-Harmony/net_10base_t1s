@@ -1,0 +1,87 @@
+configVersion: 1.0.0
+componentName: lib_wolfcrypt
+coreVersion: 5.8.2
+device: ATSAME54P20A
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: lib_wolfcrypt
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: crypto
+  type: package
+  version: v3.8.2
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.4.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: lib_wolfcrypt
+          x: '1290'
+          y: '13'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    cryptoCrya_03710:
+      attributes:
+        id: cryptoCrya_03710
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptoCrya_U2803:
+      attributes:
+        id: cryptoCrya_U2803
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptoCrya_U2805:
+      attributes:
+        id: cryptoCrya_U2805
+      children:
+      - children:
+        - attributes:
+            id: lib_wolfcrypt
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    wolfcrypt_random:
+      attributes:
+        id: wolfcrypt_random
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: tcpipTcp
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+  userData: {}

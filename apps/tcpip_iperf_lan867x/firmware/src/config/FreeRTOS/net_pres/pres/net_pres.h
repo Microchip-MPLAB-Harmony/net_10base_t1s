@@ -19,7 +19,7 @@ MPLAB Harmony Networking Presentation Layer Header File
 
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2015-2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2015-2025, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -44,8 +44,8 @@ Microchip or any third party.
 
 //DOM-IGNORE-END
 
-#ifndef _NET_PRES_H_
-#define _NET_PRES_H_
+#ifndef H_NET_PRES_H_
+#define H_NET_PRES_H_
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -58,8 +58,8 @@ Microchip or any third party.
 extern "C" {
 #endif
 
-struct _NET_PRES_TransportObject;
-struct _NET_PRES_EncProviderObject;
+struct S_NET_PRES_TransportObject;
+struct S_NET_PRES_EncProviderObject;
 //DOM-IGNORE-END   
 
 // *****************************************************************************
@@ -83,21 +83,21 @@ struct _NET_PRES_EncProviderObject;
 
 typedef struct {
     // Pointer to the transport object that handles the stream server
-    const struct _NET_PRES_TransportObject * pTransObject_ss;  
+    const struct S_NET_PRES_TransportObject * pTransObject_ss;  
     // Pointer to the transport object that handles the stream client
-    const struct _NET_PRES_TransportObject * pTransObject_sc;  
+    const struct S_NET_PRES_TransportObject * pTransObject_sc;  
     // Pointer to the transport object that handles the datagram server
-    const struct _NET_PRES_TransportObject * pTransObject_ds;  
+    const struct S_NET_PRES_TransportObject * pTransObject_ds;  
     // Pointer to the transport object that handles the datagram client
-    const struct _NET_PRES_TransportObject * pTransObject_dc;  
+    const struct S_NET_PRES_TransportObject * pTransObject_dc;  
     // Pointer to the encryption provider object that handles the stream server
-    const struct _NET_PRES_EncProviderObject * pProvObject_ss;  
+    const struct S_NET_PRES_EncProviderObject * pProvObject_ss;  
     // Pointer to the encryption provider object that handles the stream client
-    const struct _NET_PRES_EncProviderObject * pProvObject_sc;  
+    const struct S_NET_PRES_EncProviderObject * pProvObject_sc;  
     // Pointer to the encryption provider object that handles the datagram server
-    const struct _NET_PRES_EncProviderObject * pProvObject_ds;  
+    const struct S_NET_PRES_EncProviderObject * pProvObject_ds;  
     // Pointer to the encryption provider object that handles the datagram client
-    const struct _NET_PRES_EncProviderObject * pProvObject_dc;  
+    const struct S_NET_PRES_EncProviderObject * pProvObject_dc;  
 }NET_PRES_INST_DATA;
 
 // *****************************************************************************
@@ -164,6 +164,21 @@ typedef uint16_t NET_PRES_SKT_PORT_T;
 typedef const void* NET_PRES_SIGNAL_HANDLE;
 
 // *****************************************************************************
+/* Net Presentation Callback Handle Type
+
+  Summary:
+    Type for the presentation layer callback handle.
+
+  Description:
+    This data type sets the type for the presentation layer callback handle.
+
+  Remarks:
+    None.
+*/
+
+typedef const void* NET_PRES_CBACK_HANDLE;
+
+// *****************************************************************************
 /* Net Presentation Socket Handle Type
 
   Summary:
@@ -227,6 +242,31 @@ typedef void    (*NET_PRES_SIGNAL_FUNCTION)(NET_PRES_SKT_HANDLE_T handle, NET_PR
                  uint16_t sigType, const void* param);
 
 // *****************************************************************************
+/*
+  Type:
+    NET_PRES_SNI_CALLBACK
+
+  Summary:
+    MPLAB Harmony Networking Presentation Layer SNI callback function.
+
+  Description:
+    Prototype of a SNI function needed for the TLS "Server Name Indication".
+    NET_PRES user can register a function to be used when SNI is needed.
+    The registered handler will be called at run time as needed
+    to communicate the hostname of the site to the server.
+
+  Parameters:
+    handle      - The presentation socket that is in use
+
+
+  Remarks:
+    None
+
+ */
+
+typedef const char*    (*NET_PRES_SNI_CALLBACK)(NET_PRES_SKT_HANDLE_T handle);
+
+// *****************************************************************************
 // *****************************************************************************
 // Section: Interface Routines - System Level
 // *****************************************************************************
@@ -248,15 +288,14 @@ typedef void    (*NET_PRES_SIGNAL_FUNCTION)(NET_PRES_SKT_HANDLE_T handle, NET_PR
   Parameters:
     index   - This is the index of the network presentation layer instance to be initialized.  
               Since there is only one network presentation layer, this parameter is ignored.
-    init    - This is a pointer to a NET_PRES_INIT_DATA structure
+    initData - This is a pointer to a NET_PRES_INIT_DATA structure
     
     Returns:
       - Valid handle to the presentation instance - If successful
       - SYS_MODULE_OBJ_INVALID                    - If unsuccessful 
 */
 
-SYS_MODULE_OBJ NET_PRES_Initialize( const SYS_MODULE_INDEX index,
-                                    const SYS_MODULE_INIT * const init );
+SYS_MODULE_OBJ NET_PRES_Initialize( const SYS_MODULE_INDEX index, const void* initData);
 
 // *****************************************************************************
 /* Network Presentation Layer Deinitialization
@@ -295,14 +334,14 @@ void NET_PRES_Deinitialize(SYS_MODULE_OBJ obj);
 
   Parameters:
     object  - The object valid passed back to NET_PRES_Initialize
-    init        - The new initialization structure
+    initData - The new initialization structure
 
     Returns:
     None.
       
     */
 
-void NET_PRES_Reinitialize(SYS_MODULE_OBJ obj, const SYS_MODULE_INIT * const init);
+void NET_PRES_Reinitialize(SYS_MODULE_OBJ obj, const void* initData);
 
 // *****************************************************************************
 /* MPLAB Harmony Networking Presentation Layer Tasks
@@ -361,10 +400,125 @@ void NET_PRES_Tasks(SYS_MODULE_OBJ obj);
 
 SYS_STATUS NET_PRES_Status ( SYS_MODULE_OBJ object );
 
+// *****************************************************************************
+/* 
+
+  Summary:
+    Returns the Network Presentation Layer object
+    
+  Description:
+    Returns the Network Presentation Layer object corresponding to the selected index.
+    
+  Preconditions:
+    The NET_PRES_Initialize function must have been called before calling
+    this function.
+
+  Parameters:
+    index   - This is the index of the network presentation layer instance object
+              Since there is only one network presentation layer, this parameter is ignored.
+    
+    Returns:
+      - Valid handle to the presentation instance - If successful
+      - SYS_MODULE_OBJ_INVALID                    - If unsuccessful 
+*/
+
+SYS_MODULE_OBJ NET_PRES_ModuleObjGet(const SYS_MODULE_INDEX index);
+
+//**************************************************************************
+/*
+
+  Summary:
+    Registers a SNI callback with the MPLAB Harmony Networking Presentation 
+    Layer.
+    <p><b>Implementation:</b> Dynamic</p>
+
+  Description:
+    This function registers a dynamic SNI callback with the MPLAB Harmony Net 
+    Presentation Layer.
+
+  Precondition:
+    The NET_PRES_Initialize function must have been called before calling
+    this function.
+
+  Parameters:
+    object - Layer object handle, returned from NET_PRES_Initialize
+    cBack  - callback to be registered
+
+  Returns:
+    - valid handle  - Indicates the call succeeded
+                      The handle could be used in a call to NET_PRES_SniCallbackDeregister 
+                        
+    - null handle   - Indicates the call failed (null callback, existent handler, etc.)
+
+  Remarks:
+    Currently only one registration is supported.
+    The user must call NET_PRES_SniCallbackDeregister before registering a new callback 
+*/
+NET_PRES_CBACK_HANDLE NET_PRES_SniCallbackRegister(SYS_MODULE_OBJ obj, NET_PRES_SNI_CALLBACK cBack); 
+
+//**************************************************************************
+/*
+
+  Summary:
+    Deregisters a SNI callback with the MPLAB Harmony Networking Presentation 
+    Layer.
+    <p><b>Implementation:</b> Dynamic</p>
+
+  Description:
+    This function deregisters a previously registered dynamic SNI callback with the MPLAB Harmony Net 
+    Presentation Layer.
+
+  Precondition:
+    The NET_PRES_Initialize function must have been called before calling
+    this function.
+
+  Parameters:
+    object      - Layer object handle, returned from NET_PRES_Initialize
+    cBackHandle - handle of the callback to be deregistered
+
+  Returns:
+    - true  - Indicates the call succeeded
+    - false - Indicates the call failed (callback mismatch, non-existent handler, etc.)
+
+  Remarks:
+    Currently only one registration is supported.
+    The user must call NET_PRES_SniCallbackDeregister before registering a new callback 
+*/
+bool NET_PRES_SniCallbackDeregister(SYS_MODULE_OBJ obj, NET_PRES_CBACK_HANDLE cBackHandle); 
+
+//**************************************************************************
+/*
+
+  Summary:
+    Gets a registered SNI callback with the MPLAB Harmony Networking Presentation 
+    Layer.
+    <p><b>Implementation:</b> Dynamic</p>
+
+  Description:
+    This function gets the currently registered SNI callback with the MPLAB Harmony Net 
+    Presentation Layer.
+
+  Precondition:
+    The NET_PRES_Initialize function must have been called before calling
+    this function.
+
+  Parameters:
+    object - Layer object handle, returned from NET_PRES_Initialize
+
+  Returns:
+    - valid handle  - Indicates the call succeeded
+                        
+    - null handle   - Indicates the call failed (null registered handle, etc.)
+
+  Remarks:
+    None
+*/
+NET_PRES_SNI_CALLBACK NET_PRES_SniCallbackGet(SYS_MODULE_OBJ obj);
+
 
 #ifdef __cplusplus
 }
 #endif
 
 
-#endif //_NET_PRES_H_
+#endif //H_NET_PRES_H_

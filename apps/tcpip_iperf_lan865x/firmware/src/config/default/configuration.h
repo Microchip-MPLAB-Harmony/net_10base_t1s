@@ -96,7 +96,7 @@ extern "C" {
 
 #define SYS_CMD_ENABLE
 #define SYS_CMD_DEVICE_MAX_INSTANCES       SYS_CONSOLE_DEVICE_MAX_INSTANCES
-#define SYS_CMD_PRINT_BUFFER_SIZE          1000U
+#define SYS_CMD_PRINT_BUFFER_SIZE          1024U
 #define SYS_CMD_BUFFER_DMA_READY
 
 
@@ -268,7 +268,7 @@ extern "C" {
                                                     TCPIP_NETWORK_CONFIG_DNS_CLIENT_ON |\
                                                     TCPIP_NETWORK_CONFIG_IP_STATIC
                                                     
-#define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0         DRV_LAN865X_MACObject
+#define TCPIP_NETWORK_DEFAULT_MAC_DRIVER_IDX0         DRV_LAN865X_MACObject_0
 
 
 

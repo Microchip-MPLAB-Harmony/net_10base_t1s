@@ -1,0 +1,67 @@
+configVersion: 1.0.0
+componentName: drvExtPhyLan867x
+coreVersion: 5.8.2
+device: ATSAME54P20A
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: drvExtPhyLan867x
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.1
+- dependencyPackage: ''
+  name: net_10base_t1s
+  type: package
+  version: v1.3.3
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: libdrvExtPhyLan867x
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: drvGmac
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: GMAC_PHY_Dependency
+            type: String
+          type: Attributes
+        type: DirectCapability
+      type: Attachments
+    type: drvExtPhyLan867x
+  elementPosition: {}
+  symbols:
+    DRV_ETHPHY_10BASE_T1S_MODE:
+      attributes:
+        id: DRV_ETHPHY_10BASE_T1S_MODE
+      children:
+      - children:
+        - attributes:
+            value: PLCA
+          type: User
+        type: Values
+      type: Combo
+    DRV_ETHPHY_PERIPHERAL_ID:
+      attributes:
+        id: DRV_ETHPHY_PERIPHERAL_ID
+      children:
+      - children:
+        - attributes:
+            id: drvExtPhyLan867x
+            value: GMAC_BASE_ADDRESS
+          type: Dynamic
+        type: Values
+      type: String
+  userData: {}

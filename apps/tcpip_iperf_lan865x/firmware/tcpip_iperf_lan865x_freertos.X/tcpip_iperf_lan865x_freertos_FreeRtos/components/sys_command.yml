@@ -1,0 +1,105 @@
+configVersion: 1.0.0
+componentName: sys_command
+coreVersion: 5.8.2
+device: ATSAME54P20A
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: sys_command
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.2
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: sys_command_SYS_CONSOLE_dependency
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: sys_console_0
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: sys_console
+            type: String
+          type: Attributes
+        type: DirectDependency
+      type: Attachments
+    type: sys_command
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: sys_command
+          x: '419'
+          y: '271'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    SYS_COMMAND_RTOS_STACK_SIZE:
+      attributes:
+        id: SYS_COMMAND_RTOS_STACK_SIZE
+      children:
+      - children:
+        - attributes:
+            value: '3072'
+          type: User
+        type: Values
+      type: Integer
+    SYS_COMMAND_RTOS_TASK_PRIORITY:
+      attributes:
+        id: SYS_COMMAND_RTOS_TASK_PRIORITY
+      children:
+      - children:
+        - attributes:
+            value: '2'
+          type: User
+        type: Values
+      type: Integer
+    SYS_CONSOLE_DEVICE:
+      attributes:
+        id: SYS_CONSOLE_DEVICE
+      children:
+      - children:
+        - attributes:
+            id: sys_command
+            value: SYS_CONSOLE_0
+          type: Dynamic
+        type: Values
+      type: String
+    SYS_CONSOLE_INDEX:
+      attributes:
+        id: SYS_CONSOLE_INDEX
+      children:
+      - children:
+        - attributes:
+            id: sys_command
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: String
+    SYS_COMMAND_PRINT_BUFFER_SIZE:
+      attributes:
+        id: SYS_COMMAND_PRINT_BUFFER_SIZE
+      children:
+      - children:
+        - attributes:
+            value: '1000'
+          type: User
+        type: Values
+      type: Integer
+  userData: {}

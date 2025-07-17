@@ -75,6 +75,7 @@ typedef enum _DRV_LAN865X_DRIVER_INIT_STATE
 } DRV_LAN865X_DRIVER_INIT_STATE;
 
 typedef struct _DRV_LAN865X_DriverInfo {
+    const TCPIP_MAC_OBJECT *        pObj;                   // safe cast to TCPIP_MAC_DCPT
     /* The mutex to protect the */
     OSAL_MUTEX_HANDLE_TYPE drvMutex;
     /* A copy of the driver configuration*/

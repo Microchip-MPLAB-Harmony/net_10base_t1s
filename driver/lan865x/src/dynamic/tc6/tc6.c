@@ -45,7 +45,7 @@ Microchip or any third party.
 #include "tc6-conf.h"
 #include "tc6.h"
 #include "tc6-queue.h"
-
+#include "driver/lan865x/src/dynamic/drv_lan865x_local.h"
 /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 /*                          USER ADJUSTABLE                             */
 /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -189,25 +189,23 @@ static void update_credit_cnt(TC6_t *g, const uint8_t *buff, uint16_t buf_len);
 
 TC6_t *TC6_Init(void *pGlobalTag)
 {
+    DRV_LAN865X_DriverInfo *pDrvInst = (DRV_LAN865X_DriverInfo*) pGlobalTag;
     static bool m_tc6Valid[TC6_MAX_INSTANCES] = { 0 };
-    uint8_t i;
     struct TC6_t *g = NULL;
-    for (i = 0; i < TC6_MAX_INSTANCES; i++) {
-        if (!m_tc6Valid[i]) {
+    if (!m_tc6Valid[pDrvInst->index]) {
             /* Setup memory */
-            m_tc6Valid[i] = true;
-            g = &m_tc6[i];
-            (void)memset(g, 0, sizeof(TC6_t));
-            g->instance = i;
-            g->magic = TC6_MAGIC;
-            g->txc = 24;
-            g->gTag = pGlobalTag;
-            init_qtxeth_queue(&g->eth_q, g->tx_eth_buffer, TC6_TX_ETH_QSIZE);
-            init_qspibuf_queue(&g->qSpi, g->spiBuf, SPI_FULL_BUFFERS);
-            init_regop_queue(&g->regop_q, g->regop_storage, REG_OP_ARRAY_SIZE);
-            break;
-        }
+        m_tc6Valid[pDrvInst->index] = true;
+        g = &m_tc6[pDrvInst->index];
+		(void)memset(g, 0, sizeof(TC6_t));
+        g->instance = pDrvInst->index;
+		g->magic = TC6_MAGIC;
+		g->txc = 24;
+		g->gTag = pGlobalTag;
+		init_qtxeth_queue(&g->eth_q, g->tx_eth_buffer, TC6_TX_ETH_QSIZE);
+		init_qspibuf_queue(&g->qSpi, g->spiBuf, SPI_FULL_BUFFERS);
+		init_regop_queue(&g->regop_q, g->regop_storage, REG_OP_ARRAY_SIZE);
     }
+
     if (!g) {
         TC6_ASSERT(false);
     }

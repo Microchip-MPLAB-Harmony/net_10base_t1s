@@ -66,7 +66,7 @@ extern "C" {
  * \brief Set the maximum amount of parallel TC6 instances. 1 means a single MACPHY hardware is attached
  */
 #ifndef TC6_MAX_INSTANCES
-#define TC6_MAX_INSTANCES   (1u)
+#define TC6_MAX_INSTANCES   (DRV_LAN865X_INSTANCES_NUMBER)
 #endif
 
 /**

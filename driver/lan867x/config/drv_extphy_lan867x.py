@@ -137,7 +137,7 @@ def instantiateComponent(drvExtPhyLan867xComponent):
     drvExtPhyLan867xPeripheralId.setReadOnly(True)
     
     # Operation mode
-    drvExtPhyLan867xMode = drvExtPhyLan867xComponent.createComboSymbol("DRV_ETHPHY_10BASE_T1S_MODE",None,["CSMA/CD", "PLCA"])
+    drvExtPhyLan867xMode = drvExtPhyLan867xComponent.createComboSymbol("DRV_ETHPHY_10BASE_T1S_MODE",None,["CSMA/CD", "PLCA","PLCA With No Fallback"])
     drvExtPhyLan867xMode.setLabel("10BASE-T1S Operation Mode")
     drvExtPhyLan867xMode.setVisible(True)
     drvExtPhyLan867xMode.setDefaultValue("CSMA/CD")
@@ -211,6 +211,15 @@ def instantiateComponent(drvExtPhyLan867xComponent):
     drvExtPhyLan867xHeaderFtl.setOutputName("core.LIST_SYSTEM_CONFIG_H_MIDDLEWARE_CONFIGURATION")
     drvExtPhyLan867xHeaderFtl.setMarkup(True)
     drvExtPhyLan867xHeaderFtl.setType("STRING")
+    
+    #Add to definitions.h
+    drvExtPhyLan867xHeaderFtl = drvExtPhyLan867xComponent.createFileSymbol(None, None)
+    drvExtPhyLan867xHeaderFtl.setSourcePath("driver/lan867x/config/system_definitions.h.ftl")
+    drvExtPhyLan867xHeaderFtl.setOutputName("core.LIST_SYSTEM_DEFINITIONS_H_INCLUDES")
+    drvExtPhyLan867xHeaderFtl.setMarkup(True)
+    drvExtPhyLan867xHeaderFtl.setType("STRING")
+
+    
     
     # file TCPIP_ETH_PHY_H "$HARMONY_VERSION_PATH/framework/driver/ethphy/drv_ethphy.h" to "$PROJECT_HEADER_FILES/framework/driver/ethphy/drv_ethphy.h"
     # Add drv_ethphy.h file to project

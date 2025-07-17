@@ -58,24 +58,26 @@ def instantiateComponent(drvExtMacLan865xCommonComponent):
     drvLan865xSystemDefObjFile.setSourcePath("driver/lan865x/templates/system/system_definitions_objects.h.ftl")
     drvLan865xSystemDefObjFile.setMarkup(True)
 
-    # file DRV_LAN865X_H "$HARMONY_VERSION_PATH/framework/driver/lan865x/drv_lan865x.h" to "$PROJECT_HEADER_FILES/framework/driver/lan865x/drv_lan865x.h"
+    # file DRV_LAN865X_H "$HARMONY_VERSION_PATH/framework/driver/lan865x/drv_lan865x.h.ftl" to "$PROJECT_HEADER_FILES/framework/driver/lan865x/drv_lan865x.h"
     drvLan865xHeaderFile = drvExtMacLan865xCommonComponent.createFileSymbol(None, None)
-    drvLan865xHeaderFile.setSourcePath("driver/lan865x/drv_lan865x.h")
+    drvLan865xHeaderFile.setSourcePath("driver/lan865x/drv_lan865x.h.ftl")
     drvLan865xHeaderFile.setOutputName("drv_lan865x.h")
     drvLan865xHeaderFile.setDestPath("driver/lan865x/")
     drvLan865xHeaderFile.setProjectPath("config/" + configName + "/driver/lan865x/")
     drvLan865xHeaderFile.setType("HEADER")
+    drvLan865xHeaderFile.setMarkup(True)
     drvLan865xHeaderFile.setOverwrite(True)
+    
+    # add "<#include \"/framework/driver/lan865x/config/drv_lan865x_api.c.ftl\">"  to "$PROJECT_SOURCE_FILES/framework/driver/lan865x/src/dynamic/drv_lan865x_api.c"
+    drvLan865xApiDataSourceFtl = drvExtMacLan865xCommonComponent.createFileSymbol(None, None)
+    drvLan865xApiDataSourceFtl.setSourcePath("driver/lan865x/src/dynamic/drv_lan865x_api.c.ftl")
+    drvLan865xApiDataSourceFtl.setOutputName("drv_lan865x_api.c")
+    drvLan865xApiDataSourceFtl.setDestPath("driver/lan865x/src/dynamic/")
+    drvLan865xApiDataSourceFtl.setProjectPath("config/" + configName + "/driver/lan865x/src/dynamic/")
+    drvLan865xApiDataSourceFtl.setType("SOURCE")
+    drvLan865xApiDataSourceFtl.setMarkup(True)
+    drvLan865xApiDataSourceFtl.setOverwrite(True)
 
-    # file DRV_LAN865X_API_C "$HARMONY_VERSION_PATH/framework/driver/lan865x/src/dynamic/drv_lan865x_api.c" to "$PROJECT_SOURCE_FILES/framework/driver/lan865x/src/dynamic/drv_lan865x_api.c"
-    drvLan865xApiSourceFile = drvExtMacLan865xCommonComponent.createFileSymbol(None, None)
-    drvLan865xApiSourceFile.setSourcePath("driver/lan865x/src/dynamic/drv_lan865x_api.c")
-    drvLan865xApiSourceFile.setOutputName("drv_lan865x_api.c")
-    drvLan865xApiSourceFile.setOverwrite(True)
-    drvLan865xApiSourceFile.setDestPath("driver/lan865x/src/dynamic/")
-    drvLan865xApiSourceFile.setProjectPath("config/" + configName + "/driver/lan865x/src/dynamic/")
-    drvLan865xApiSourceFile.setType("SOURCE")
-    drvLan865xApiSourceFile.setEnabled(True)
 
     # file DRV_LAN865X_LOCAL_H "$HARMONY_VERSION_PATH/framework/driver/lan865x/src/dynamic/drv_lan865x_local.h" to "$PROJECT_HEADER_FILES/framework/driver/lan865x/impl/drv_lan865x_local.h"
     drvLan865xLocalHeaderFile = drvExtMacLan865xCommonComponent.createFileSymbol(None, None)

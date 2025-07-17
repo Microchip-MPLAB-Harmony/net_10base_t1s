@@ -33,10 +33,6 @@ dependency:
   type: package
   version: v3.14.1
 - dependencyPackage: ''
-  name: net
-  type: package
-  version: v3.14.1
-- dependencyPackage: ''
   name: net_10base_t1s
   type: package
   version: v1.3.3

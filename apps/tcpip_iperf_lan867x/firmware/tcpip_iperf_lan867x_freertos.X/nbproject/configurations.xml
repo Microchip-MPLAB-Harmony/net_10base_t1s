@@ -585,9 +585,9 @@
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
                   <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvGmac.yml</itemPath>
-                  <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvMiim.yml</itemPath>
                   <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/tcpipNetConfig.yml</itemPath>
                   <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvExtPhyLan867x.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvMiim.yml</itemPath>
                 </logicalFolder>
                 <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/DATA LINK LAYER.yml</itemPath>
               </logicalFolder>
@@ -595,8 +595,8 @@
                              displayName="NETWORK LAYER"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIcmp.yml</itemPath>
                   <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipArp.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIcmp.yml</itemPath>
                   <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIPv4.yml</itemPath>
                 </logicalFolder>
                 <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/NETWORK LAYER.yml</itemPath>
@@ -618,23 +618,23 @@
             </logicalFolder>
             <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/TCP_forwardSlash_IP STACK/TCP_forwardSlash_IP STACK.yml</itemPath>
           </logicalFolder>
-          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/lib_crypto.yml</itemPath>
-          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/evsys.yml</itemPath>
-          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/tc0.yml</itemPath>
-          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/sys_console_0.yml</itemPath>
-          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/cmsis.yml</itemPath>
-          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/sys_time.yml</itemPath>
           <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/lib_wolfcrypt.yml</itemPath>
-          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/HarmonyCore.yml</itemPath>
-          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/sys_debug.yml</itemPath>
-          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/FreeRTOS.yml</itemPath>
-          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/sys_console.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/dfp.yml</itemPath>
           <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/tcpipNetConfig_0.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/evsys.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/sys_console_0.yml</itemPath>
           <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/sercom1.yml</itemPath>
           <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/core.yml</itemPath>
-          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/sys_command.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/tc0.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/HarmonyCore.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/sys_debug.yml</itemPath>
           <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/nvmctrl.yml</itemPath>
-          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/dfp.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/cmsis.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/sys_time.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/lib_crypto.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/sys_command.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/FreeRTOS.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/components/sys_console.yml</itemPath>
         </logicalFolder>
         <itemPath>tcpip_iperf_lan867x_freertos_FreeRTOS/mcc-config.mc4</itemPath>
       </logicalFolder>
@@ -678,8 +678,12 @@
             <logicalFolder name="gmac" displayName="gmac" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
+                  <logicalFolder name="drv_gmac_lib_same5x.c"
+                                 displayName="drv_gmac_lib_same5x.c"
+                                 projectFiles="true">
+                    <itemPath>../src/config/FreeRTOS/driver/gmac/src/dynamic/drv_gmac_lib_samE5x.c</itemPath>
+                  </logicalFolder>
                   <itemPath>../src/config/FreeRTOS/driver/gmac/src/dynamic/drv_gmac.c</itemPath>
-                  <itemPath>../src/config/FreeRTOS/driver/gmac/src/dynamic/drv_gmac_lib_same5x.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
@@ -919,14 +923,14 @@
         <targetDevice>ATSAME54P20A</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="6.1.0"/>
         <pack name="SAME54_DFP" vendor="Microchip" version="3.9.244"/>
+        <pack name="CMSIS" vendor="ARM" version="6.1.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>

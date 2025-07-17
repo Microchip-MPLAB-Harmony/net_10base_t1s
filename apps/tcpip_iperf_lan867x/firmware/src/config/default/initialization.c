@@ -471,7 +471,6 @@ void SYS_Initialize ( void* data )
 
     EVSYS_Initialize();
 
-	SYSTICK_TimerInitialize();
 
     /* MISRAC 2012 deviation block start */
     /* Following MISRA-C rules deviated in this block  */

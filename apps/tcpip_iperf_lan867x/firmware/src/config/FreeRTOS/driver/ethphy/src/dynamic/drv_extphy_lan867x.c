@@ -45,7 +45,6 @@ Microchip or any third party.
 #include "system/console/sys_console.h"
 #include "driver/ethphy/src/dynamic/drv_extphy_lan867x.h"
 #include "driver/ethphy/src/drv_ethphy_local.h"
-
 /******************************************************************************
  *  PRIVATE FUNCTION DECLARATIONS
  ******************************************************************************/
@@ -1116,27 +1115,30 @@ static DRV_ETHPHY_RESULT LAN867x_RevD_InitialSettings(const DRV_ETHPHY_OBJECT_BA
             miimRes = LAN867x_Write_Register(&clientObj, 0x1F0037, 0x1000);
             break;
          case 3:
-            miimRes = LAN867x_Write_Register(&clientObj, 0x1F008A, 0xBFA0);
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F008A, 0xBFA0u);
             break;
         case 4:
-            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0118, 0x0298);
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0118, 0x0298u);
             break;
         case 5:
-            miimRes = LAN867x_Write_Register(&clientObj, 0x1F00D6, 0x1000);
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F00D6, 0x1000u);
             break;
-//        case 6:
-//            miimRes = LAN867x_Write_Register(&clientObj, 0x1F00FD, 0x0C0B);
-//            break;
-//        case 7:
-//            miimRes = LAN867x_Write_Register(&clientObj, 0x1F00FD, 0x1C0B);
-//            break;
+        case 6:
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F00FD, 0x0C0Bu);
+            break;
+        case 7:
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F00FD, 0x8C0Bu);
+            break;
+        case 8:
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0091, 0x9660u);
+            break;
 #ifdef DRV_ETHPHY_PLCA_WITHOUT_FALLBACK
-        case 2:
-            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0035, 0xC000);
+        case 9:
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0035, 0xC000u);
             break;
 
-        case 3: /* disable collision detection */
-            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0087, 0x0083);
+        case 10: /* disable collision detection */
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0087, 0x0083u);
             break;
 #endif
         default:
@@ -1156,14 +1158,6 @@ static DRV_ETHPHY_RESULT LAN867x_RevD_InitialSettings(const DRV_ETHPHY_OBJECT_BA
         } else if(miimRes != DRV_MIIM_RES_OK) {
             res = DRV_ETHPHY_RES_PENDING;
         } else {
-//           switch(state)
-//            {
-//                case 6:
-//                    SYSTICK_DelayUs(5);
-//                    break;
-//                default:
-//                    break;
-//            }
             ++state;
             clientObj.vendorData = F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
             res = DRV_ETHPHY_RES_PENDING;

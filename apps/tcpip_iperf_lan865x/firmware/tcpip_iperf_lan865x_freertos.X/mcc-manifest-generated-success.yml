@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: tcpip_iperf_lan865x_freertos
-creation_date: 2025-07-17T19:11:21.389+02:00[Europe/Berlin]
+creation_date: 2025-07-17T22:00:44.642+02:00[Europe/Berlin]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25

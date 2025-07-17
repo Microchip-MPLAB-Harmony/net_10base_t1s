@@ -8,6 +8,7 @@
         <logicalFolder name="FreeRtos" displayName="FreeRtos" projectFiles="true">
           <logicalFolder name="crypto" displayName="crypto" projectFiles="true">
             <itemPath>../src/config/FreeRtos/crypto/crypto.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/crypto/crypto.h</itemPath>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
             <logicalFolder name="lan865x" displayName="lan865x" projectFiles="true">
@@ -17,19 +18,29 @@
                     <itemPath>../src/config/FreeRtos/driver/lan865x/src/dynamic/tc6/tc6.h</itemPath>
                     <itemPath>../src/config/FreeRtos/driver/lan865x/src/dynamic/tc6/tc6-conf.h</itemPath>
                     <itemPath>../src/config/FreeRtos/driver/lan865x/src/dynamic/tc6/tc6-queue.h</itemPath>
+                    <itemPath>../src/config/FreeRTOS/driver/lan865x/src/dynamic/tc6/tc6.h</itemPath>
+                    <itemPath>../src/config/FreeRTOS/driver/lan865x/src/dynamic/tc6/tc6-conf.h</itemPath>
+                    <itemPath>../src/config/FreeRTOS/driver/lan865x/src/dynamic/tc6/tc6-queue.h</itemPath>
                   </logicalFolder>
                   <itemPath>../src/config/FreeRtos/driver/lan865x/src/dynamic/drv_lan865x_local.h</itemPath>
+                  <itemPath>../src/config/FreeRTOS/driver/lan865x/src/dynamic/drv_lan865x_local.h</itemPath>
                 </logicalFolder>
               </logicalFolder>
               <itemPath>../src/config/FreeRtos/driver/lan865x/drv_lan865x.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/driver/lan865x/drv_lan865x.h</itemPath>
             </logicalFolder>
             <logicalFolder name="spi" displayName="spi" projectFiles="true">
               <itemPath>../src/config/FreeRtos/driver/spi/src/drv_spi_local.h</itemPath>
               <itemPath>../src/config/FreeRtos/driver/spi/drv_spi.h</itemPath>
               <itemPath>../src/config/FreeRtos/driver/spi/drv_spi_definitions.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/driver/spi/src/drv_spi_local.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/driver/spi/drv_spi.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/driver/spi/drv_spi_definitions.h</itemPath>
             </logicalFolder>
             <itemPath>../src/config/FreeRtos/driver/driver.h</itemPath>
             <itemPath>../src/config/FreeRtos/driver/driver_common.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/driver/driver.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/driver/driver_common.h</itemPath>
           </logicalFolder>
           <logicalFolder name="library" displayName="library" projectFiles="true">
             <logicalFolder name="tcpip" displayName="tcpip" projectFiles="true">
@@ -37,6 +48,8 @@
                 <logicalFolder name="common" displayName="common" projectFiles="true">
                   <itemPath>../src/config/FreeRtos/library/tcpip/src/common/helpers.h</itemPath>
                   <itemPath>../src/config/FreeRtos/library/tcpip/src/common/sys_fs_shell.h</itemPath>
+                  <itemPath>../src/config/FreeRTOS/library/tcpip/src/common/helpers.h</itemPath>
+                  <itemPath>../src/config/FreeRTOS/library/tcpip/src/common/sys_fs_shell.h</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/FreeRtos/library/tcpip/src/tcpip_heap_alloc.h</itemPath>
                 <itemPath>../src/config/FreeRtos/library/tcpip/src/ndp_manager.h</itemPath>
@@ -108,6 +121,76 @@
                 <itemPath>../src/config/FreeRtos/library/tcpip/src/wsc_private.h</itemPath>
                 <itemPath>../src/config/FreeRtos/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
                 <itemPath>../src/config/FreeRtos/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_heap_alloc.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ndp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ndp_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ipv4_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ipv4_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ipv6_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ipv6_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/icmp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/icmpv6_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/arp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/arp_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/udp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/udp_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcp_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcps_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcps_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp_server_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp_server_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/zero_conf_helper.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/zero_conf_link_local_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/zero_conf_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dns_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dns_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dnss_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dnss_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ftp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ftp_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ftpc_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ftpc_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/nbns_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ddns_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/telnet_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/sntp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/http_net_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/http_net_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/snmp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/snmp_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/snmpv3_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_announce_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/smtpc_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/smtpc_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/igmp_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/igmp_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tftpc_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tftpc_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tftps_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tftps_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_reboot_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/iperf_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_commands_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/hash_fnv.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/link_list.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/oahash.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_helpers_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_manager_control.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_module_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_notify.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_packet.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_types.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/berkeley_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcpv6_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcpv6_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/wsc_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/wsc_private.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_mac_bridge_manager.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_mac_bridge_private.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/FreeRtos/library/tcpip/tcpip_common_ports.h</itemPath>
               <itemPath>../src/config/FreeRtos/library/tcpip/tcpip_mac.h</itemPath>
@@ -153,6 +236,50 @@
               <itemPath>../src/config/FreeRtos/library/tcpip/wsc.h</itemPath>
               <itemPath>../src/config/FreeRtos/library/tcpip/tcpip_mac_bridge.h</itemPath>
               <itemPath>../src/config/FreeRtos/library/tcpip/tcpip_ethernet.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_common_ports.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_mac.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_mac_object.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_manager.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_heap.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_helpers.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/ndp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/ipv4.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/ipv6.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/icmpv6.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/dhcpv6.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/arp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/udp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/berkeley_api.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/dhcp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/dhcps.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/dhcp_server.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/zero_conf_link_local.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/zero_conf_multicast_dns.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/dns.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/dnss.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/ftp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/ftpc.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/icmp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/nbns.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/ddns.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/telnet.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/sntp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/http_net.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/snmp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/snmpv3.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_announce.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/smtpc.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/igmp.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tftpc.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tftps.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_reboot.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/iperf.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_commands.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/wsc.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_mac_bridge.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/library/tcpip/tcpip_ethernet.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="net_pres" displayName="net_pres" projectFiles="true">
@@ -160,92 +287,134 @@
               <itemPath>../src/config/FreeRtos/net_pres/pres/net_pres.h</itemPath>
               <itemPath>../src/config/FreeRtos/net_pres/pres/net_pres_socketapi.h</itemPath>
               <itemPath>../src/config/FreeRtos/net_pres/pres/net_pres_socketapiconversion.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/net_pres/pres/net_pres.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/net_pres/pres/net_pres_socketapi.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/net_pres/pres/net_pres_socketapiconversion.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="osal" displayName="osal" projectFiles="true">
             <itemPath>../src/config/FreeRtos/osal/osal.h</itemPath>
             <itemPath>../src/config/FreeRtos/osal/osal_definitions.h</itemPath>
             <itemPath>../src/config/FreeRtos/osal/osal_freertos.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/osal/osal.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/osal/osal_definitions.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/osal/osal_freertos.h</itemPath>
           </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="clock" displayName="clock" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/clock/plib_clock.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/clock/plib_clock.h</itemPath>
             </logicalFolder>
             <logicalFolder name="cmcc" displayName="cmcc" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/cmcc/plib_cmcc.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/cmcc/plib_cmcc.h</itemPath>
             </logicalFolder>
             <logicalFolder name="dmac" displayName="dmac" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/dmac/plib_dmac.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/dmac/plib_dmac.h</itemPath>
             </logicalFolder>
             <logicalFolder name="evsys" displayName="evsys" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/evsys/plib_evsys.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/evsys/plib_evsys.h</itemPath>
             </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/nvic/plib_nvic.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/nvic/plib_nvic.h</itemPath>
             </logicalFolder>
             <logicalFolder name="nvmctrl" displayName="nvmctrl" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/nvmctrl/plib_nvmctrl.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/nvmctrl/plib_nvmctrl.h</itemPath>
             </logicalFolder>
             <logicalFolder name="port" displayName="port" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/port/plib_port.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/port/plib_port.h</itemPath>
             </logicalFolder>
             <logicalFolder name="sercom" displayName="sercom" projectFiles="true">
               <logicalFolder name="spi_master" displayName="spi_master" projectFiles="true">
                 <itemPath>../src/config/FreeRtos/peripheral/sercom/spi_master/plib_sercom0_spi_master.h</itemPath>
                 <itemPath>../src/config/FreeRtos/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/peripheral/sercom/spi_master/plib_sercom0_spi_master.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h</itemPath>
               </logicalFolder>
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/FreeRtos/peripheral/sercom/usart/plib_sercom1_usart.h</itemPath>
                 <itemPath>../src/config/FreeRtos/peripheral/sercom/usart/plib_sercom_usart_common.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/peripheral/sercom/usart/plib_sercom1_usart.h</itemPath>
+                <itemPath>../src/config/FreeRTOS/peripheral/sercom/usart/plib_sercom_usart_common.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="tc" displayName="tc" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/tc/plib_tc_common.h</itemPath>
               <itemPath>../src/config/FreeRtos/peripheral/tc/plib_tc0.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/tc/plib_tc_common.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/tc/plib_tc0.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/cache/sys_cache.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/cache/sys_cache.h</itemPath>
             </logicalFolder>
             <logicalFolder name="command" displayName="command" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/command/sys_command.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/command/sys_command.h</itemPath>
             </logicalFolder>
             <logicalFolder name="console" displayName="console" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/console/src/sys_console_uart.h</itemPath>
               <itemPath>../src/config/FreeRtos/system/console/src/sys_console_uart_definitions.h</itemPath>
               <itemPath>../src/config/FreeRtos/system/console/sys_console.h</itemPath>
               <itemPath>../src/config/FreeRtos/system/console/src/sys_console_local.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/console/src/sys_console_uart.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/console/src/sys_console_uart_definitions.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/console/sys_console.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/console/src/sys_console_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/debug/sys_debug.h</itemPath>
               <itemPath>../src/config/FreeRtos/system/debug/src/sys_debug_local.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/debug/sys_debug.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/debug/src/sys_debug_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/dma/sys_dma.h</itemPath>
               <itemPath>../src/config/FreeRtos/system/dma/sys_dma_mapping.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/dma/sys_dma.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/dma/sys_dma_mapping.h</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/int/sys_int.h</itemPath>
               <itemPath>../src/config/FreeRtos/system/int/sys_int_mapping.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/int/sys_int.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/int/sys_int_mapping.h</itemPath>
             </logicalFolder>
             <logicalFolder name="ports" displayName="ports" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/ports/sys_ports.h</itemPath>
               <itemPath>../src/config/FreeRtos/system/ports/sys_ports_mapping.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/ports/sys_ports.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/ports/sys_ports_mapping.h</itemPath>
             </logicalFolder>
             <logicalFolder name="reset" displayName="reset" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/reset/sys_reset.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/reset/sys_reset.h</itemPath>
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/time/sys_time.h</itemPath>
               <itemPath>../src/config/FreeRtos/system/time/sys_time_definitions.h</itemPath>
               <itemPath>../src/config/FreeRtos/system/time/src/sys_time_local.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/time/sys_time.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/time/sys_time_definitions.h</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/time/src/sys_time_local.h</itemPath>
             </logicalFolder>
             <itemPath>../src/config/FreeRtos/system/sys_time_h2_adapter.h</itemPath>
             <itemPath>../src/config/FreeRtos/system/sys_random_h2_adapter.h</itemPath>
             <itemPath>../src/config/FreeRtos/system/system.h</itemPath>
             <itemPath>../src/config/FreeRtos/system/system_common.h</itemPath>
             <itemPath>../src/config/FreeRtos/system/system_module.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/system/sys_time_h2_adapter.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/system/sys_random_h2_adapter.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/system/system.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/system/system_common.h</itemPath>
+            <itemPath>../src/config/FreeRTOS/system/system_module.h</itemPath>
           </logicalFolder>
           <itemPath>../src/config/FreeRtos/device.h</itemPath>
           <itemPath>../src/config/FreeRtos/system_config.h</itemPath>
@@ -260,6 +429,19 @@
           <itemPath>../src/config/FreeRtos/device_vectors.h</itemPath>
           <itemPath>../src/config/FreeRtos/config.h</itemPath>
           <itemPath>../src/config/FreeRtos/FreeRTOSConfig.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/device.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/system_config.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/system_definitions.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/user.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/configuration.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/sys_tasks.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/device_cache.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/toolchain_specifics.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/definitions.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/interrupts.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/device_vectors.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/config.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/FreeRTOSConfig.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="FreeRTOS" displayName="FreeRTOS" projectFiles="true">
@@ -411,6 +593,7 @@
       <logicalFolder name="system" displayName="system" projectFiles="true">
         <logicalFolder name="tmr" displayName="tmr" projectFiles="true">
           <itemPath>../src/config/FreeRtos/system/tmr/sys_tmr.h</itemPath>
+          <itemPath>../src/config/FreeRTOS/system/tmr/sys_tmr.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
@@ -569,8 +752,8 @@
                              displayName="APPLICATION LAYER"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/components/tcpipDns.yml</itemPath>
                   <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/components/tcpipIperf.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/components/tcpipDns.yml</itemPath>
                 </logicalFolder>
                 <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/APPLICATION LAYER.yml</itemPath>
               </logicalFolder>
@@ -578,8 +761,8 @@
                              displayName="BASIC CONFIGURATION"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/components/tcpipCmd.yml</itemPath>
                   <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/components/tcpipStack.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/components/tcpipCmd.yml</itemPath>
                 </logicalFolder>
                 <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/BASIC CONFIGURATION.yml</itemPath>
               </logicalFolder>
@@ -587,9 +770,9 @@
                              displayName="DATA LINK LAYER"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/tcpipNetConfig.yml</itemPath>
-                  <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/sercom0.yml</itemPath>
                   <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvExtMacLan865x.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/sercom0.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/tcpipNetConfig.yml</itemPath>
                   <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drv_spi.yml</itemPath>
                 </logicalFolder>
                 <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/DATA LINK LAYER.yml</itemPath>
@@ -598,8 +781,8 @@
                              displayName="NETWORK LAYER"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIcmp.yml</itemPath>
                   <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIPv4.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIcmp.yml</itemPath>
                   <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipArp.yml</itemPath>
                 </logicalFolder>
                 <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/NETWORK LAYER.yml</itemPath>
@@ -616,25 +799,25 @@
             </logicalFolder>
             <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/TCP_forwardSlash_IP STACK/TCP_forwardSlash_IP STACK.yml</itemPath>
           </logicalFolder>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/tcpipNetConfig_0.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/sys_debug.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/drvExtMacLan865x_0.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/sys_console_0.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/core.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/FreeRTOS.yml</itemPath>
           <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/lib_wolfcrypt.yml</itemPath>
           <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/tc0.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/FreeRTOS.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/sys_command.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/lib_crypto.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/HarmonyCore.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/sys_time.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/cmsis.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/core.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/drv_spi_0.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/sys_console.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/sercom1.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/evsys.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/dfp.yml</itemPath>
           <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/nvmctrl.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/sercom1.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/sys_time.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/tcpipNetConfig_0.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/dfp.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/drvExtMacLan865x_0.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/cmsis.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/drv_spi_0.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/evsys.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/sys_console_0.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/sys_console.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/sys_debug.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/lib_crypto.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/sys_command.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/components/HarmonyCore.yml</itemPath>
         </logicalFolder>
         <itemPath>tcpip_iperf_lan865x_freertos_FreeRtos/mcc-config.mc4</itemPath>
       </logicalFolder>
@@ -644,6 +827,7 @@
       </logicalFolder>
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/FreeRtos/pin_configurations.csv</itemPath>
+      <itemPath>../src/config/FreeRTOS/pin_configurations.csv</itemPath>
     </logicalFolder>
     <logicalFolder name="LibraryFiles"
                    displayName="LibraryFiles"
@@ -655,6 +839,7 @@
       <logicalFolder name="config" displayName="config" projectFiles="true">
         <logicalFolder name="FreeRtos" displayName="FreeRtos" projectFiles="true">
           <itemPath>../src/config/FreeRtos/ATSAME54P20A.ld</itemPath>
+          <itemPath>../src/config/FreeRTOS/ATSAME54P20A.ld</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -665,6 +850,7 @@
         <logicalFolder name="FreeRtos" displayName="FreeRtos" projectFiles="true">
           <logicalFolder name="crypto" displayName="crypto" projectFiles="true">
             <itemPath>../src/config/FreeRtos/crypto/src/crypto.c</itemPath>
+            <itemPath>../src/config/FreeRTOS/crypto/src/crypto.c</itemPath>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
             <logicalFolder name="lan865x" displayName="lan865x" projectFiles="true">
@@ -672,13 +858,16 @@
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
                   <logicalFolder name="tc6" displayName="tc6" projectFiles="true">
                     <itemPath>../src/config/FreeRtos/driver/lan865x/src/dynamic/tc6/tc6.c</itemPath>
+                    <itemPath>../src/config/FreeRTOS/driver/lan865x/src/dynamic/tc6/tc6.c</itemPath>
                   </logicalFolder>
                   <itemPath>../src/config/FreeRtos/driver/lan865x/src/dynamic/drv_lan865x_api.c</itemPath>
+                  <itemPath>../src/config/FreeRTOS/driver/lan865x/src/dynamic/drv_lan865x_api.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="spi" displayName="spi" projectFiles="true">
               <itemPath>../src/config/FreeRtos/driver/spi/src/drv_spi.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/driver/spi/src/drv_spi.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="library" displayName="library" projectFiles="true">
@@ -686,6 +875,7 @@
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="common" displayName="common" projectFiles="true">
                   <itemPath>../src/config/FreeRtos/library/tcpip/src/helpers.c</itemPath>
+                  <itemPath>../src/config/FreeRTOS/library/tcpip/src/helpers.c</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/FreeRtos/library/tcpip/src/icmp.c</itemPath>
                 <itemPath>../src/config/FreeRtos/library/tcpip/src/tcp.c</itemPath>
@@ -704,77 +894,117 @@
                 <itemPath>../src/config/FreeRtos/library/tcpip/src/tcpip_notify.c</itemPath>
                 <itemPath>../src/config/FreeRtos/library/tcpip/src/tcpip_packet.c</itemPath>
                 <itemPath>../src/config/FreeRtos/library/tcpip/src/udp.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/icmp.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcp.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/arp.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_commands.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/iperf.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/ipv4.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_heap_alloc.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_heap_internal.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dhcp.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/dns.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/hash_fnv.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/oahash.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_helpers.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_manager.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_notify.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/tcpip_packet.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/library/tcpip/src/udp.c</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="osal" displayName="osal" projectFiles="true">
             <itemPath>../src/config/FreeRtos/osal/osal_freertos.c</itemPath>
+            <itemPath>../src/config/FreeRTOS/osal/osal_freertos.c</itemPath>
           </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="clock" displayName="clock" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/clock/plib_clock.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/clock/plib_clock.c</itemPath>
             </logicalFolder>
             <logicalFolder name="cmcc" displayName="cmcc" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/cmcc/plib_cmcc.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/cmcc/plib_cmcc.c</itemPath>
             </logicalFolder>
             <logicalFolder name="dmac" displayName="dmac" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/dmac/plib_dmac.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/dmac/plib_dmac.c</itemPath>
             </logicalFolder>
             <logicalFolder name="evsys" displayName="evsys" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/evsys/plib_evsys.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/evsys/plib_evsys.c</itemPath>
             </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/nvic/plib_nvic.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/nvic/plib_nvic.c</itemPath>
             </logicalFolder>
             <logicalFolder name="nvmctrl" displayName="nvmctrl" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/nvmctrl/plib_nvmctrl.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/nvmctrl/plib_nvmctrl.c</itemPath>
             </logicalFolder>
             <logicalFolder name="port" displayName="port" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/port/plib_port.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/port/plib_port.c</itemPath>
             </logicalFolder>
             <logicalFolder name="sercom" displayName="sercom" projectFiles="true">
               <logicalFolder name="spi_master" displayName="spi_master" projectFiles="true">
                 <itemPath>../src/config/FreeRtos/peripheral/sercom/spi_master/plib_sercom0_spi_master.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/peripheral/sercom/spi_master/plib_sercom0_spi_master.c</itemPath>
               </logicalFolder>
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/FreeRtos/peripheral/sercom/usart/plib_sercom1_usart.c</itemPath>
+                <itemPath>../src/config/FreeRTOS/peripheral/sercom/usart/plib_sercom1_usart.c</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="tc" displayName="tc" projectFiles="true">
               <itemPath>../src/config/FreeRtos/peripheral/tc/plib_tc0.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/peripheral/tc/plib_tc0.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="stdio" displayName="stdio" projectFiles="true">
             <itemPath>../src/config/FreeRtos/stdio/xc32_monitor.c</itemPath>
+            <itemPath>../src/config/FreeRTOS/stdio/xc32_monitor.c</itemPath>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/cache/sys_cache.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/cache/sys_cache.c</itemPath>
             </logicalFolder>
             <logicalFolder name="command" displayName="command" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/command/src/sys_command.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/command/src/sys_command.c</itemPath>
             </logicalFolder>
             <logicalFolder name="console" displayName="console" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/console/src/sys_console_uart.c</itemPath>
               <itemPath>../src/config/FreeRtos/system/console/src/sys_console.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/console/src/sys_console_uart.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/console/src/sys_console.c</itemPath>
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/debug/src/sys_debug.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/debug/src/sys_debug.c</itemPath>
             </logicalFolder>
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/dma/sys_dma.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/dma/sys_dma.c</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/int/src/sys_int.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/int/src/sys_int.c</itemPath>
             </logicalFolder>
             <logicalFolder name="reset" displayName="reset" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/reset/sys_reset.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/reset/sys_reset.c</itemPath>
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
               <itemPath>../src/config/FreeRtos/system/time/src/sys_time.c</itemPath>
+              <itemPath>../src/config/FreeRTOS/system/time/src/sys_time.c</itemPath>
             </logicalFolder>
             <itemPath>../src/config/FreeRtos/system/sys_time_h2_adapter.c</itemPath>
             <itemPath>../src/config/FreeRtos/system/sys_random_h2_adapter.c</itemPath>
+            <itemPath>../src/config/FreeRTOS/system/sys_time_h2_adapter.c</itemPath>
+            <itemPath>../src/config/FreeRTOS/system/sys_random_h2_adapter.c</itemPath>
           </logicalFolder>
           <itemPath>../src/config/FreeRtos/tasks.c</itemPath>
           <itemPath>../src/config/FreeRtos/initialization.c</itemPath>
@@ -783,6 +1013,13 @@
           <itemPath>../src/config/FreeRtos/startup_xc32.c</itemPath>
           <itemPath>../src/config/FreeRtos/libc_syscalls.c</itemPath>
           <itemPath>../src/config/FreeRtos/freertos_hooks.c</itemPath>
+          <itemPath>../src/config/FreeRTOS/tasks.c</itemPath>
+          <itemPath>../src/config/FreeRTOS/initialization.c</itemPath>
+          <itemPath>../src/config/FreeRTOS/interrupts.c</itemPath>
+          <itemPath>../src/config/FreeRTOS/exceptions.c</itemPath>
+          <itemPath>../src/config/FreeRTOS/startup_xc32.c</itemPath>
+          <itemPath>../src/config/FreeRTOS/libc_syscalls.c</itemPath>
+          <itemPath>../src/config/FreeRTOS/freertos_hooks.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="FreeRTOS" displayName="FreeRTOS" projectFiles="true">
@@ -956,7 +1193,6 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -1036,7 +1272,6 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1070,7 +1305,7 @@
         <property key="oXC32ld-extra-opts" value=""/>
         <property key="optimization-level" value="-O2"/>
         <property key="preprocessor-macros" value=""/>
-        <property key="remove-unused-sections" value="true"/>
+        <property key="remove-unused-sections" value="false"/>
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>
         <property key="serial-origin" value=""/>
@@ -1082,7 +1317,6 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -1111,7 +1345,6 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
-        <property key="appendMe" value=""/>
         <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
         <property key="common-macros" value=""/>
@@ -1166,8 +1399,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-fffff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="D:/SVN/Drivers/MPLAB_Harmony_3/net_10Base_t1s_mc4/apps/tcpip_iperf_lan865x/firmware/tcpip_iperf_lan865x_freertos.X/debug/FreeRtos/tcpip_iperf_lan865x_freertos_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -1224,6 +1455,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-fffff"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="D:/SVN/Drivers/MPLAB_Harmony_3/net_10Base_t1s_mc4/apps/tcpip_iperf_lan865x/firmware/tcpip_iperf_lan865x_freertos.X/debug/FreeRtos/tcpip_iperf_lan865x_freertos_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

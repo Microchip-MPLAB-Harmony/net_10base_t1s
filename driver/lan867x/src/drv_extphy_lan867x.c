@@ -45,7 +45,6 @@ Microchip or any third party.
 #include "system/console/sys_console.h"
 #include "driver/ethphy/src/dynamic/drv_extphy_lan867x.h"
 #include "driver/ethphy/src/drv_ethphy_local.h"
-#include "peripheral/systick/plib_systick.h"
 /******************************************************************************
  *  PRIVATE FUNCTION DECLARATIONS
  ******************************************************************************/
@@ -1159,14 +1158,6 @@ static DRV_ETHPHY_RESULT LAN867x_RevD_InitialSettings(const DRV_ETHPHY_OBJECT_BA
         } else if(miimRes != DRV_MIIM_RES_OK) {
             res = DRV_ETHPHY_RES_PENDING;
         } else {
-           switch(state)
-            {
-                case 6:
-                    SYSTICK_DelayUs(5);
-                    break;
-                default:
-                    break;
-            }
             ++state;
             clientObj.vendorData = F2R(IDLE_PHASE, VENDOR_INTERNAL_STATE, clientObj.vendorData);
             res = DRV_ETHPHY_RES_PENDING;

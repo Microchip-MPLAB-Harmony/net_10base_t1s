@@ -1,5 +1,26 @@
 ![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
+## 10BASE-T1S Release v1.4.0
+New features added in this release are as follows:
+
+- **Added support for LAN867x Rev. D0**
+- **Added support PLCA with no fallback mode for Rev. D0**
+- **Adjusted for net v3.14.2**
+
+The following table provides the list of changes in the v1.4.0 release:
+
+| Device  | Application          | Module             | Description                                                    |
+| ------  | ------               | ------             | ------                                                         |
+| LAN867x |tcpip_iperf_lan867x   | driver/lan867x/src | Added support for LAN867x Rev. D0 and PLCA with no fallback mode , sperated Initial settings for different version |
+| LAN867x |tcpip_iperf_lan867x   | apps               | Update LAN867x Rev.D0 example projects with latest MPLAB® Harmony package |
+| LAN865x |tcpip_iperf_lan865x   | driver/lan865x/src | Update driver for net 3.14.2 |
+| LAN865x |tcpip_iperf_lan865x   | apps               | Update example projects with latest MPLAB® Harmony package |
+
+### Dependencies
+* [MPLAB® X IDE v6.25](https://www.microchip.com/mplab/mplab-x-ide) or later
+* [MPLAB® XC32 C/C++ Compiler v4.60](https://www.microchip.com/mplab/compilers) or later
+**(OR)** [MPLAB® XC32 Functional Safety Compiler v4.09](https://www.microchip.com/mplab/compilers) or later
+* [net v3.14.2](https://github.com/Microchip-MPLAB-Harmony/net/tree/v3.14.2) or later
 
 # Microchip MPLAB® Harmony 3 Release Notes
 ## 10BASE-T1S Release v1.3.3

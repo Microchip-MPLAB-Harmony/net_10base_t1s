@@ -22,7 +22,7 @@ Refer to the following links for release notes, training materials,
 and interface reference information.
 
 - [Release Notes](release_notes.md)
-- [Microchip SLA](Microchip_SLA001.md)
+- [License](License.md)
 - [10BASE-T1S Support](https://www.microchip.com/support)
 
 To clone or download these applications from Github, go to the [main page of this repository](https://github.com/Microchip-MPLAB-Harmony/net_10base_t1s) and then click **Clone** button to clone this repository or download as zip file.

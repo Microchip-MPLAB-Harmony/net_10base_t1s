@@ -11,7 +11,7 @@ dependency:
 - dependencyPackage: ''
   name: net_10base_t1s
   type: package
-  version: v1.3.3
+  version: v1.4.0
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}

@@ -464,6 +464,7 @@ SYS_MODULE_OBJ DRV_GMAC_Initialize(const SYS_MODULE_INDEX index, const SYS_MODUL
     pMACDrv->sGmacData.pktAllocF = macControl->pktAllocF;
     pMACDrv->sGmacData.pktFreeF = macControl->pktFreeF;
     pMACDrv->sGmacData.pktAckF = macControl->pktAckF;
+    pMACDrv->sGmacData.pktRetrF = macControl->retrieveF;
 
     pMACDrv->sGmacData.macSynchF = macControl->synchF;
     
@@ -775,6 +776,12 @@ DRV_HANDLE DRV_GMAC_Open(const SYS_MODULE_INDEX drvIndex, const DRV_IO_INTENT in
                 pMACDrv->sGmacData.macFlags.macOpen = 1;
                 hMac = (DRV_HANDLE)pMACDrv;
             }
+#if defined(DRV_GMAC_MULTI_CLIENT) && (DRV_GMAC_MULTI_CLIENT != 0)
+            else
+            {   // allow multiple clients
+                hMac = (DRV_HANDLE)pMACDrv;
+            }
+#endif  // defined(DRV_GMAC_MULTI_CLIENT) && (DRV_GMAC_MULTI_CLIENT != 0)
 
         }
     }
@@ -946,11 +953,6 @@ TCPIP_MAC_PACKET* DRV_GMAC_PacketRx (DRV_HANDLE hMac, TCPIP_MAC_RES* pRes, TCPIP
         // first segment is always offset by Rx Data Offset
         pDSeg->segLoad = pDSeg->segBuffer + pMACDrv->sGmacData.dataOffset;
         
-        // segLen for the 1st packet        
-        // Ethernet MAC header(14 bytes) stored in data packet (or in first data buffer for multi-buffer data).
-        // reduce MAC header length to get data segment length
-        pDSeg->segLen = pDSeg->segLen - (uint16_t)sizeof(TCPIP_MAC_ETHERNET_HEADER);
-        
         //multiple data segments?
         if(pDSeg->next != NULL)
         {
@@ -973,10 +975,6 @@ TCPIP_MAC_PACKET* DRV_GMAC_PacketRx (DRV_HANDLE hMac, TCPIP_MAC_RES* pRes, TCPIP
             
         }
         
-        // Note: re-set pMacLayer and pNetLayer; IPv6 changes these pointers inside the packet!
-        pRxPkt->pMacLayer = pRxPkt->pDSeg->segLoad;
-        pRxPkt->pNetLayer = pRxPkt->pMacLayer + sizeof(TCPIP_MAC_ETHERNET_HEADER);
-
         pRxPkt->tStamp = SYS_TMR_TickCountGet();
         pRxPkt->pktFlags |= (uint32_t)TCPIP_MAC_PKT_FLAG_QUEUED;
 
@@ -1049,7 +1047,7 @@ static void F_DRV_GMAC_LinkStateStartLink(DRV_GMAC_DRIVER * pMACDrv)
     DRV_ETHPHY_RESULT phyRes;    
    
     phyRes = pMACDrv->sGmacData.gmacConfig.pPhyBase->phy_LinkStatusGet(pMACDrv->sGmacData.hPhyClient, DRV_ETHPHY_INF_IDX_ALL_EXTERNAL, &pMACDrv->sGmacData.negResult.linkStatus, false);
-    if((uint32_t)phyRes < 0U)
+    if((int32_t)phyRes < 0U)
     {   // some error occurred
         F_DRV_GMAC_LinkStateDown(pMACDrv);
         return;
@@ -1128,7 +1126,7 @@ static void F_DRV_GMAC_LinkStateWaitLinkUp(DRV_GMAC_DRIVER * pMACDrv)
     // after the re-negotiation is done
     // wait for negotiation complete
     phyRes = pMACDrv->sGmacData.gmacConfig.pPhyBase->phy_NegotiationIsComplete(pMACDrv->sGmacData.hPhyClient, DRV_ETHPHY_INF_IDX_ALL_EXTERNAL, false);
-    if((uint32_t)phyRes < 0U)
+    if((int32_t)phyRes < 0U)
     {   // some error occurred
         F_DRV_GMAC_LinkStateDown(pMACDrv);
     }
@@ -1161,7 +1159,7 @@ static void F_DRV_GMAC_LinkStateNegComplete(DRV_GMAC_DRIVER * pMACDrv)
 
     phyRes = pPhyBase->phy_NegotiationResultGet(pMACDrv->sGmacData.hPhyClient, DRV_ETHPHY_INF_IDX_ALL_EXTERNAL, &pMACDrv->sGmacData.negResult);
 
-    if((uint32_t)phyRes < 0U)
+    if((int32_t)phyRes < 0U)
     {   // some error occurred
         F_DRV_GMAC_LinkStateDown(pMACDrv);
     }
@@ -1197,7 +1195,7 @@ static void F_DRV_GMAC_LinkStateNegResult(DRV_GMAC_DRIVER * pMACDrv)
 
     if( ((uint32_t)pMACDrv->sGmacData.negResult.linkStatus & (uint32_t)DRV_ETHPHY_LINK_ST_UP) != 0U )
     {   
-        uint32_t tempLinkFlag;
+        uint32_t tempLinkFlag = (uint32_t)pMACDrv->sGmacData.negResult.linkFlags;
         // negotiation succeeded; properly update the MAC
         (void)pPhyBase->phy_HWConfigFlagsGet(pMACDrv->sGmacData.hPhyClient, &phyCfgFlags);
         if(((uint32_t)phyCfgFlags & (uint32_t)DRV_ETHPHY_CFG_GMII)!= 0U)
@@ -1218,7 +1216,7 @@ static void F_DRV_GMAC_LinkStateNegResult(DRV_GMAC_DRIVER * pMACDrv)
         }
         else
         {
-            tempLinkFlag = 0;
+            // keep the old flags
         }
         pMACDrv->sGmacData.negResult.linkFlags = (TCPIP_ETH_OPEN_FLAGS)tempLinkFlag;
         
@@ -1395,7 +1393,8 @@ TCPIP_MAC_RES DRV_GMAC_RegisterStatisticsGet(DRV_HANDLE hMac, TCPIP_MAC_STATISTI
         pHwRegDcpt = macPIC32CHwRegDcpt;
         for(ix = 0; ix < regLim; ix++)
         {
-            (void)strncpy(pRegEntries->registerName, pHwRegDcpt->regName, sizeof(pRegEntries->registerName));
+            (void)memcpy(pRegEntries->registerName, pHwRegDcpt->regName, sizeof(pRegEntries->registerName) - 1U);
+            pRegEntries->registerName[sizeof(pRegEntries->registerName) - 1U] = '\0';
             pRegEntries->registerValue = (*pHwRegDcpt->regFunc)(pMACDrv);
             pRegEntries++;
             pHwRegDcpt++;
@@ -2291,7 +2290,7 @@ static SYS_MODULE_OBJ F_DRV_GMAC_PHYInitialise(DRV_GMAC_DRIVER *pMACDrv)
         
     phyInitRes = pPhyBase->phy_Setup(hPhyClient, &phySetup, &pMACDrv->sGmacData.linkResFlags);
     
-    if((uint32_t)phyInitRes < 0U)
+    if((int32_t)phyInitRes < 0U)
     {   // some error occurred
         initRes = TCPIP_MAC_RES_PHY_INIT_FAIL;
         return (uint32_t)initRes;
@@ -2299,3 +2298,26 @@ static SYS_MODULE_OBJ F_DRV_GMAC_PHYInitialise(DRV_GMAC_DRIVER *pMACDrv)
     initRes = TCPIP_MAC_RES_OK;
     return (uint32_t)initRes;
 }
+
+TCPIP_MAC_PACKET * DRV_PIC32CGMAC_Buff2PktPtr(DRV_GMAC_DRIVER * pMACDrv, uintptr_t buffAdd, TCPIP_MAC_RETRIEVE_REQUEST retrReq)
+{
+    union
+    {
+        uintptr_t  buffAdd;
+        uint8_t * u8Ptr; 
+        TCPIP_MAC_SEGMENT_GAP_DCPT * pGap;              
+    }U_PTR8_SEG_GAP_DSC;
+    U_PTR8_SEG_GAP_DSC.buffAdd = buffAdd;
+
+    if(pMACDrv->sGmacData.pktRetrF != NULL)
+    {
+        return pMACDrv->sGmacData.pktRetrF(U_PTR8_SEG_GAP_DSC.u8Ptr, retrReq);
+    }
+
+    // regular pointer recovery
+    U_PTR8_SEG_GAP_DSC.buffAdd &= pMACDrv->sGmacData.dataOffsetMask;  // adjust the pointer to remove the data offset
+    U_PTR8_SEG_GAP_DSC.u8Ptr += pMACDrv->sGmacData.dcptOffset;      // add the gap descriptor
+
+    return U_PTR8_SEG_GAP_DSC.pGap->segmentPktPtr;
+}
+

@@ -374,6 +374,24 @@
           </logicalFolder>
           <itemPath>../src/packs/ATSAME54P20A_DFP/same54p20a.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
+          <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
+            <logicalFolder name="Core" displayName="Core" projectFiles="true">
+              <logicalFolder name="Include" displayName="Include" projectFiles="true">
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armcc.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm4.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
       </logicalFolder>
       <logicalFolder name="system" displayName="system" projectFiles="true">
         <logicalFolder name="tmr" displayName="tmr" projectFiles="true">
@@ -554,10 +572,10 @@
                              displayName="DATA LINK LAYER"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>tcpip_iperf_lan865x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvExtMacLan865x.yml</itemPath>
-                  <itemPath>tcpip_iperf_lan865x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/sercom0.yml</itemPath>
-                  <itemPath>tcpip_iperf_lan865x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/tcpipNetConfig.yml</itemPath>
                   <itemPath>tcpip_iperf_lan865x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drv_spi.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan865x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/tcpipNetConfig.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan865x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/sercom0.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan865x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvExtMacLan865x.yml</itemPath>
                 </logicalFolder>
                 <itemPath>tcpip_iperf_lan865x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/DATA LINK LAYER.yml</itemPath>
               </logicalFolder>
@@ -565,9 +583,9 @@
                              displayName="NETWORK LAYER"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>tcpip_iperf_lan865x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIPv4.yml</itemPath>
                   <itemPath>tcpip_iperf_lan865x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIcmp.yml</itemPath>
                   <itemPath>tcpip_iperf_lan865x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipArp.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan865x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIPv4.yml</itemPath>
                 </logicalFolder>
                 <itemPath>tcpip_iperf_lan865x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/NETWORK LAYER.yml</itemPath>
               </logicalFolder>
@@ -583,24 +601,24 @@
             </logicalFolder>
             <itemPath>tcpip_iperf_lan865x_default/components/TCP_forwardSlash_IP STACK/TCP_forwardSlash_IP STACK.yml</itemPath>
           </logicalFolder>
-          <itemPath>tcpip_iperf_lan865x_default/components/lib_crypto.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/tcpipNetConfig_0.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/sys_time.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/lib_wolfcrypt.yml</itemPath>
           <itemPath>tcpip_iperf_lan865x_default/components/dfp.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/drvExtMacLan865x_0.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/drv_spi_0.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/nvmctrl.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/core.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/sys_command.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/sys_debug.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/evsys.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/HarmonyCore.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/tc0.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/cmsis.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/sercom1.yml</itemPath>
-          <itemPath>tcpip_iperf_lan865x_default/components/sys_console_0.yml</itemPath>
           <itemPath>tcpip_iperf_lan865x_default/components/sys_console.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/sys_command.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/tcpipNetConfig_0.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/drvExtMacLan865x_0.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/lib_crypto.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/sys_time.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/evsys.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/tc0.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/drv_spi_0.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/cmsis.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/core.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/HarmonyCore.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/sys_console_0.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/lib_wolfcrypt.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/sys_debug.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/nvmctrl.yml</itemPath>
+          <itemPath>tcpip_iperf_lan865x_default/components/sercom1.yml</itemPath>
         </logicalFolder>
         <itemPath>tcpip_iperf_lan865x_default/mcc-config.mc4</itemPath>
       </logicalFolder>
@@ -856,14 +874,14 @@
         <targetDevice>ATSAME54P20A</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>EdbgTool</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.60</languageToolchainVersion>
+        <languageToolchainVersion>5.00</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="6.1.0"/>
-        <pack name="SAME54_DFP" vendor="Microchip" version="3.9.244"/>
+        <pack name="SAME54_DFP" vendor="Microchip" version="3.10.249"/>
+        <pack name="CMSIS" vendor="ARM" version="6.2.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -895,6 +913,7 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -974,6 +993,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1019,6 +1039,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -1047,6 +1068,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
+        <property key="appendMe" value=""/>
         <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
         <property key="common-macros" value=""/>

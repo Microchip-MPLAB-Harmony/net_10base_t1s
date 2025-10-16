@@ -264,6 +264,11 @@ extern "C" {
 
 
 
+#define TCPIP_NETWORK_VLAN_ID_IDX0         0
+#define TCPIP_NETWORK_VLAN_PCP_IDX0         0
+
+
+
 /*** iperf Configuration ***/
 #define TCPIP_STACK_USE_IPERF
 #define TCPIP_IPERF_TX_BUFFER_SIZE		4096
@@ -325,6 +330,8 @@ extern "C" {
 #define TCPIP_STACK_LINK_RATE		        		333
 
 #define TCPIP_STACK_ALIAS_INTERFACE_SUPPORT   false
+
+#define TCPIP_STACK_VLAN_INTERFACE_SUPPORT   false
 
 #define TCPIP_PACKET_LOG_ENABLE     0
 
@@ -389,6 +396,9 @@ extern "C" {
 #define TCPIP_GMAC_RX_PRIO_COUNT                1
 #define DRV_GMAC_NUMBER_OF_QUEUES               1
 #define DRV_GMAC_RMII_MODE                      0
+
+
+#define DRV_GMAC_MULTI_CLIENT        			false
 
 
 

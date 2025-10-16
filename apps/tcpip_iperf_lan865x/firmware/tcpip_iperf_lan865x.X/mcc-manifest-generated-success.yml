@@ -2,12 +2,12 @@
 
 manifest_file_version: 1.0.0
 project: tcpip_iperf_lan865x
-creation_date: 2025-07-17T22:08:50.949+02:00[Europe/Berlin]
+creation_date: 2025-10-16T21:00:45.764+02:00[Europe/Berlin]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
 device_name: ATSAME54P20A
-compiler: XC32 4.60
+compiler: XC32 5.00
 mcc_version: 5.6.2
 mcc_core_version: 5.8.2
 content_manager_version: 6.0.2
@@ -18,10 +18,10 @@ device_library: {library_class: com.microchip.mcc.harmony.Harmony3Library, name:
   version: Bundled}
 packs: {name: SAME54_DFP, version: 3.9.244}
 modules:
-- {name: csp, type: HARMONY, version: v3.22.4}
-- {name: net_10base_t1s, type: HARMONY, version: v1.3.3}
-- {name: core, type: HARMONY, version: v3.15.2}
+- {name: csp, type: HARMONY, version: v3.23.0}
+- {name: net_10base_t1s, type: HARMONY, version: v1.4.0}
+- {name: core, type: HARMONY, version: v3.15.5}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
 - {name: wolfssl, type: HARMONY, version: v5.4.0}
-- {name: net, type: HARMONY, version: v3.14.1}
+- {name: net, type: HARMONY, version: v3.14.4}
 - {name: crypto, type: HARMONY, version: v3.8.2}

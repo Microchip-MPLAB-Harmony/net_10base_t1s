@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: tcpip_iperf_lan867x_freertos
-creation_date: 2025-07-17T23:33:46.915+02:00[Europe/Berlin]
+creation_date: 2025-10-16T20:47:52.761+02:00[Europe/Berlin]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
@@ -18,11 +18,11 @@ device_library: {library_class: com.microchip.mcc.harmony.Harmony3Library, name:
   version: Bundled}
 packs: {name: SAME54_DFP, version: 3.9.244}
 modules:
-- {name: csp, type: HARMONY, version: v3.22.4}
-- {name: net_10base_t1s, type: HARMONY, version: v1.3.3}
-- {name: core, type: HARMONY, version: v3.15.2}
+- {name: csp, type: HARMONY, version: v3.23.0}
+- {name: net_10base_t1s, type: HARMONY, version: v1.4.0}
+- {name: core, type: HARMONY, version: v3.15.5}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: FreeRTOS-Kernel, type: HARMONY, version: V11.1.0}
+- {name: FreeRTOS-Kernel, type: HARMONY, version: V11.2.0}
 - {name: wolfssl, type: HARMONY, version: v5.4.0}
-- {name: net, type: HARMONY, version: v3.14.1}
+- {name: net, type: HARMONY, version: v3.14.4}
 - {name: crypto, type: HARMONY, version: v3.8.2}

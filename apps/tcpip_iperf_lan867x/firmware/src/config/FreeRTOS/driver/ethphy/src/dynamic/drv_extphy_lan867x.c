@@ -983,7 +983,7 @@ static DRV_ETHPHY_RESULT LAN867x_RevC_InitialSettings(const DRV_ETHPHY_OBJECT_BA
             break;
 
         case 16:
-            miimRes = LAN867x_Write_Register(&clientObj, 0x1F00F8, 0x9B00u);
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F00F8, 0xB900u);
             break;
 
         case 17:
@@ -1079,7 +1079,6 @@ static DRV_ETHPHY_RESULT LAN867x_RevD_InitialSettings(const DRV_ETHPHY_OBJECT_BA
     (void) cFlags;
     uint16_t state = 0;
     LAN867X_REG_OBJ clientObj = {0};
-    uint16_t registerValue = 0;
     DRV_MIIM_RESULT miimRes = DRV_MIIM_RES_OK;
     DRV_ETHPHY_RESULT res = DRV_ETHPHY_RES_OK;
     bool inProgress = true;
@@ -1104,34 +1103,39 @@ static DRV_ETHPHY_RESULT LAN867x_RevD_InitialSettings(const DRV_ETHPHY_OBJECT_BA
 
 
     switch(state) {
-        
-        case 0: // configuration Link Status
-            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0012, 0x0800);
+        case 0:
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0037, 0x8000);
             break;
-        case 1: // read Link Status
-            miimRes = LAN867x_Read_Register(&clientObj, 0x1F0012, &registerValue);
+         case 1:
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F008A, 0xBFC0u);
             break;
         case 2:
-            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0037, 0x1000);
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0118, 0x029Cu);
             break;
-         case 3:
-            miimRes = LAN867x_Write_Register(&clientObj, 0x1F008A, 0xBFA0u);
+        case 3:
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F00D6, 0x1001u);
             break;
         case 4:
-            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0118, 0x0298u);
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0082, 0x100Cu);
             break;
         case 5:
-            miimRes = LAN867x_Write_Register(&clientObj, 0x1F00D6, 0x1000u);
-            break;
-        case 6:
             miimRes = LAN867x_Write_Register(&clientObj, 0x1F00FD, 0x0C0Bu);
             break;
-        case 7:
-            miimRes = LAN867x_Write_Register(&clientObj, 0x1F00FD, 0x8C0Bu);
+        case 6:
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F00FD, 0x8C07u);
             break;
-        case 8:
+        case 7:
             miimRes = LAN867x_Write_Register(&clientObj, 0x1F0091, 0x9660u);
             break;
+#ifdef DRV_ETHPHY_PLCA_ENABLED
+        case 8:
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0012, 0x0800u);   
+            break;
+#else
+         case 8:
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0012, 0x1001u);
+            break;   
+#endif
 #ifdef DRV_ETHPHY_PLCA_WITHOUT_FALLBACK
         case 9:
             miimRes = LAN867x_Write_Register(&clientObj, 0x1F0035, 0xC000u);

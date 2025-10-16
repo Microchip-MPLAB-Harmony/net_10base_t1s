@@ -4,7 +4,7 @@
 
 
 project: tcpip_ipfer_lan867x
-creation_date: 2025-07-18T08:31:19.025+02:00[Europe/Berlin]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-10-16T20:53:45.963+02:00[Europe/Berlin]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.6.2
@@ -14,12 +14,12 @@ harmony_version: v5.6.2
 compiler: XC32 4.60
 
 modules:
-    - {name: "csp", version: "v3.22.4"}
-    - {name: "net_10base_t1s", version: "v1.3.3"}
-    - {name: "core", version: "v3.15.2"}
+    - {name: "csp", version: "v3.23.0"}
+    - {name: "net_10base_t1s", version: "v1.4.0"}
+    - {name: "core", version: "v3.15.5"}
     - {name: "CMSIS_5", version: "5.9.0"}
     - {name: "wolfssl", version: "v5.4.0"}
-    - {name: "net", version: "v3.14.1"}
+    - {name: "net", version: "v3.14.4"}
     - {name: "crypto", version: "v3.8.2"}
 
 packs:

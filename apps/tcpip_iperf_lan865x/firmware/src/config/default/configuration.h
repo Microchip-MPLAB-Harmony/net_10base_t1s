@@ -272,6 +272,11 @@ extern "C" {
 
 
 
+#define TCPIP_NETWORK_VLAN_ID_IDX0         0
+#define TCPIP_NETWORK_VLAN_PCP_IDX0         0
+
+
+
 /*** iperf Configuration ***/
 #define TCPIP_STACK_USE_IPERF
 #define TCPIP_IPERF_TX_BUFFER_SIZE		4096
@@ -333,6 +338,8 @@ extern "C" {
 #define TCPIP_STACK_LINK_RATE		        		333
 
 #define TCPIP_STACK_ALIAS_INTERFACE_SUPPORT   false
+
+#define TCPIP_STACK_VLAN_INTERFACE_SUPPORT   false
 
 #define TCPIP_PACKET_LOG_ENABLE     0
 

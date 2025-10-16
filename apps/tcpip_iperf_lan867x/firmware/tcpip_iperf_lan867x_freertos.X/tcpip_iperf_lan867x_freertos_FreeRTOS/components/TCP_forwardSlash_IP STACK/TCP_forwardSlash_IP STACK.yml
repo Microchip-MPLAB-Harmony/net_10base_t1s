@@ -15,11 +15,19 @@ dependency:
 - dependencyPackage: ''
   name: FreeRTOS-Kernel
   type: package
-  version: V11.1.0
+  version: V11.2.0
+- dependencyPackage: ''
+  name: FreeRTOS-Kernel
+  type: package
+  version: V11.2.0
 - dependencyPackage: ''
   name: core
   type: package
-  version: v3.15.2
+  version: v3.15.5
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
 - dependencyPackage: ''
   name: crypto
   type: package
@@ -27,15 +35,27 @@ dependency:
 - dependencyPackage: ''
   name: csp
   type: package
-  version: v3.22.4
+  version: v3.23.0
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
 - dependencyPackage: ''
   name: net
   type: package
-  version: v3.14.1
+  version: v3.14.4
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.4
 - dependencyPackage: ''
   name: net_10base_t1s
   type: package
-  version: v1.3.3
+  version: v1.4.0
+- dependencyPackage: ''
+  name: net_10base_t1s
+  type: package
+  version: v1.4.0
 - dependencyPackage: ''
   name: wolfssl
   type: package

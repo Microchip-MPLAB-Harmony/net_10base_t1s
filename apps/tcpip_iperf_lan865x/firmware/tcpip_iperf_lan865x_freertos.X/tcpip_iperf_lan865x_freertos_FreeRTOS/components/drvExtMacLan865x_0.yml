@@ -1,0 +1,123 @@
+configVersion: 1.0.0
+componentName: drvExtMacLan865x_0
+coreVersion: 5.8.2
+device: ATSAME54P20A
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: drvExtMacLan865x_0
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: net_10base_t1s
+  type: package
+  version: v1.4.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: LAN865x_SPI_Dependency
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: drv_spi_0
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: drv_spi
+            type: String
+          type: Attributes
+        type: DirectDependency
+      - attributes:
+          id: libdrvExtMacLan865x
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: tcpipNetConfig_0
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: NETCONFIG_MAC_Dependency
+            type: String
+          type: Attributes
+        type: DirectCapability
+      type: Attachments
+    type: drvExtMacLan865x_0
+  elementPosition: {}
+  symbols:
+    DRV_LAN865X_INTERRUPT_PIN_IDX0:
+      attributes:
+        id: DRV_LAN865X_INTERRUPT_PIN_IDX0
+      children:
+      - children:
+        - attributes:
+            id: drvExtMacLan865x_0
+            value: '0'
+          type: Dynamic
+        - attributes:
+            value: '74'
+          type: User
+        type: Values
+      type: KeyValueSet
+    DRV_LAN865X_RESET_PIN_IDX0:
+      attributes:
+        id: DRV_LAN865X_RESET_PIN_IDX0
+      children:
+      - children:
+        - attributes:
+            id: drvExtMacLan865x_0
+            value: '0'
+          type: Dynamic
+        - attributes:
+            value: '78'
+          type: User
+        type: Values
+      type: KeyValueSet
+    DRV_LAN865X_SPI_CS_IDX0:
+      attributes:
+        id: DRV_LAN865X_SPI_CS_IDX0
+      children:
+      - children:
+        - attributes:
+            id: drvExtMacLan865x_0
+            value: '0'
+          type: Dynamic
+        - attributes:
+            value: '75'
+          type: User
+        type: Values
+      type: KeyValueSet
+    DRV_LAN865X_SPI_DRIVER_INSTANCE_IDX0:
+      attributes:
+        id: DRV_LAN865X_SPI_DRIVER_INSTANCE_IDX0
+      children:
+      - children:
+        - attributes:
+            id: drvExtMacLan865x_0
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    DRV_LAN865X_TX_CUT_THROUGH_IDX0:
+      attributes:
+        id: DRV_LAN865X_TX_CUT_THROUGH_IDX0
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+  userData: {}

@@ -1,0 +1,126 @@
+configVersion: 1.0.0
+componentName: drv_spi
+coreVersion: 5.8.2
+device: ATSAME54P20A
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: drv_spi
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: DATA LINK LAYER
+    children:
+    - children:
+      - attributes:
+          id: drv_spi
+          x: '275'
+          y: '11'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    DRV_SPI_ASYNC_HEADER_LOCAL:
+      attributes:
+        id: DRV_SPI_ASYNC_HEADER_LOCAL
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    DRV_SPI_ASYNC_SOURCE:
+      attributes:
+        id: DRV_SPI_ASYNC_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    DRV_SPI_COMMON_MODE:
+      attributes:
+        id: DRV_SPI_COMMON_MODE
+      children:
+      - children:
+        - attributes:
+            value: Asynchronous
+          type: User
+        type: Values
+      type: Combo
+    DRV_SPI_SYNC_HEADER_LOCAL:
+      attributes:
+        id: DRV_SPI_SYNC_HEADER_LOCAL
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
+    DRV_SPI_SYNC_SOURCE:
+      attributes:
+        id: DRV_SPI_SYNC_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
+    DRV_SPI_SYS_DMA_CODE_ENABLE:
+      attributes:
+        id: DRV_SPI_SYS_DMA_CODE_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: drv_spi
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    DRV_SPI_SYS_DMA_ENABLE:
+      attributes:
+        id: DRV_SPI_SYS_DMA_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: drv_spi
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    DRV_SPI_SYS_DMA_ENABLE_CNTR:
+      attributes:
+        id: DRV_SPI_SYS_DMA_ENABLE_CNTR
+      children:
+      - children:
+        - attributes:
+            id: drv_spi
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}

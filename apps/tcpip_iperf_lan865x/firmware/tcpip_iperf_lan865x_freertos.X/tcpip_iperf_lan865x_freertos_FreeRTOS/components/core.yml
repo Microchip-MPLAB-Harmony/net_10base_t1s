@@ -1,0 +1,858 @@
+configVersion: 1.0.0
+componentName: core
+coreVersion: 5.8.2
+device: ATSAME54P20A
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: core
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition: {}
+  symbols:
+    PIN_111_MODE:
+      attributes:
+        id: PIN_111_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_111_FUNCTION_TYPE:
+      attributes:
+        id: PIN_111_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            value: SERCOM1_PAD0
+          type: User
+        type: Values
+      type: String
+    PORT_GROUP_2_PMUX13:
+      attributes:
+        id: PORT_GROUP_2_PMUX13
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x20'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PAD_27:
+      attributes:
+        id: PORT_GROUP_2_PAD_27
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: PC27
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PINCFG27:
+      attributes:
+        id: PORT_GROUP_2_PINCFG27
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x1'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PIN_27_USED:
+      attributes:
+        id: PORT_GROUP_2_PIN_27_USED
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PIN_111_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_111_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            value: C
+          type: User
+        type: Values
+      type: String
+    PIN_112_MODE:
+      attributes:
+        id: PIN_112_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_112_FUNCTION_TYPE:
+      attributes:
+        id: PIN_112_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            value: SERCOM1_PAD1
+          type: User
+        type: Values
+      type: String
+    PORT_GROUP_2_PMUX14:
+      attributes:
+        id: PORT_GROUP_2_PMUX14
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x2'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PAD_28:
+      attributes:
+        id: PORT_GROUP_2_PAD_28
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: PC28
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PINCFG28:
+      attributes:
+        id: PORT_GROUP_2_PINCFG28
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x1'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PIN_28_USED:
+      attributes:
+        id: PORT_GROUP_2_PIN_28_USED
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PIN_112_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_112_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            value: C
+          type: User
+        type: Values
+      type: String
+    PIN_111_FUNCTION_NAME:
+      attributes:
+        id: PIN_111_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            value: USART_TX
+          type: User
+        type: Values
+      type: String
+    PIN_112_FUNCTION_NAME:
+      attributes:
+        id: PIN_112_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            value: USART_RX
+          type: User
+        type: Values
+      type: String
+    PIN_58_MODE:
+      attributes:
+        id: PIN_58_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_58_FUNCTION_TYPE:
+      attributes:
+        id: PIN_58_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            value: GPIO
+          type: User
+        type: Values
+      type: String
+    PORT_GROUP_2_PMUX7:
+      attributes:
+        id: PORT_GROUP_2_PMUX7
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x0'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PAD_14:
+      attributes:
+        id: PORT_GROUP_2_PAD_14
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: PC14
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PINCFG14:
+      attributes:
+        id: PORT_GROUP_2_PINCFG14
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x6'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PIN_14_USED:
+      attributes:
+        id: PORT_GROUP_2_PIN_14_USED
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PIN_58_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_58_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            value: GPIO
+          type: User
+        type: Values
+      type: String
+    PIN_58_FUNCTION_NAME:
+      attributes:
+        id: PIN_58_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            value: LAN865x_INT
+          type: User
+        type: Values
+      type: String
+    PORT_GROUP_2_DIR:
+      attributes:
+        id: PORT_GROUP_2_DIR
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x48000'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_OUT:
+      attributes:
+        id: PORT_GROUP_2_OUT
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x4c000'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PINCFG15:
+      attributes:
+        id: PORT_GROUP_2_PINCFG15
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x40'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PIN_15_USED:
+      attributes:
+        id: PORT_GROUP_2_PIN_15_USED
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PORT_GROUP_2_PAD_15:
+      attributes:
+        id: PORT_GROUP_2_PAD_15
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: PC15
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_59_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_59_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            value: GPIO
+          type: User
+        type: Values
+      type: String
+    PIN_58_INEN:
+      attributes:
+        id: PIN_58_INEN
+      children:
+      - children:
+        - attributes:
+            value: 'True'
+          type: User
+        type: Values
+      type: String
+    PIN_58_DIR:
+      attributes:
+        id: PIN_58_DIR
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_58_PULLEN:
+      attributes:
+        id: PIN_58_PULLEN
+      children:
+      - children:
+        - attributes:
+            value: 'True'
+          type: User
+        type: Values
+      type: String
+    PIN_58_LAT:
+      attributes:
+        id: PIN_58_LAT
+      children:
+      - children:
+        - attributes:
+            value: High
+          type: User
+        type: Values
+      type: String
+    PIN_59_MODE:
+      attributes:
+        id: PIN_59_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_59_FUNCTION_TYPE:
+      attributes:
+        id: PIN_59_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            value: GPIO
+          type: User
+        type: Values
+      type: String
+    PIN_59_INEN:
+      attributes:
+        id: PIN_59_INEN
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_59_DIR:
+      attributes:
+        id: PIN_59_DIR
+      children:
+      - children:
+        - attributes:
+            value: Out
+          type: User
+        type: Values
+      type: String
+    PIN_59_FUNCTION_NAME:
+      attributes:
+        id: PIN_59_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            value: LAN865x_CS
+          type: User
+        type: Values
+      type: String
+    PIN_59_LAT:
+      attributes:
+        id: PIN_59_LAT
+      children:
+      - children:
+        - attributes:
+            value: High
+          type: User
+        type: Values
+      type: String
+    PIN_59_DRVSTR:
+      attributes:
+        id: PIN_59_DRVSTR
+      children:
+      - children:
+        - attributes:
+            value: '1'
+          type: User
+        type: Values
+      type: KeyValueSet
+    PIN_72_MODE:
+      attributes:
+        id: PIN_72_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_72_FUNCTION_TYPE:
+      attributes:
+        id: PIN_72_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            value: GPIO
+          type: User
+        type: Values
+      type: String
+    PORT_GROUP_2_PINCFG18:
+      attributes:
+        id: PORT_GROUP_2_PINCFG18
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x0'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PIN_18_USED:
+      attributes:
+        id: PORT_GROUP_2_PIN_18_USED
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PIN_72_INEN:
+      attributes:
+        id: PIN_72_INEN
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_72_DIR:
+      attributes:
+        id: PIN_72_DIR
+      children:
+      - children:
+        - attributes:
+            value: Out
+          type: User
+        type: Values
+      type: String
+    PORT_GROUP_2_PMUX9:
+      attributes:
+        id: PORT_GROUP_2_PMUX9
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x0'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PAD_18:
+      attributes:
+        id: PORT_GROUP_2_PAD_18
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: PC18
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_72_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_72_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            value: GPIO
+          type: User
+        type: Values
+      type: String
+    PIN_72_FUNCTION_NAME:
+      attributes:
+        id: PIN_72_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            value: LAN865x_RESET
+          type: User
+        type: Values
+      type: String
+    PIN_72_LAT:
+      attributes:
+        id: PIN_72_LAT
+      children:
+      - children:
+        - attributes:
+            value: High
+          type: User
+        type: Values
+      type: String
+    PIN_100_MODE:
+      attributes:
+        id: PIN_100_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_100_FUNCTION_TYPE:
+      attributes:
+        id: PIN_100_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            value: SERCOM0_PAD0
+          type: User
+        type: Values
+      type: String
+    PORT_GROUP_1_PMUX12:
+      attributes:
+        id: PORT_GROUP_1_PMUX12
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x22'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_1_PAD_24:
+      attributes:
+        id: PORT_GROUP_1_PAD_24
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: PB24
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_1_PINCFG24:
+      attributes:
+        id: PORT_GROUP_1_PINCFG24
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x41'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_1_PIN_24_USED:
+      attributes:
+        id: PORT_GROUP_1_PIN_24_USED
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PIN_100_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_100_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            value: C
+          type: User
+        type: Values
+      type: String
+    PIN_101_MODE:
+      attributes:
+        id: PIN_101_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_101_FUNCTION_TYPE:
+      attributes:
+        id: PIN_101_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            value: SERCOM0_PAD1
+          type: User
+        type: Values
+      type: String
+    PORT_GROUP_1_PAD_25:
+      attributes:
+        id: PORT_GROUP_1_PAD_25
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: PB25
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_1_PINCFG25:
+      attributes:
+        id: PORT_GROUP_1_PINCFG25
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x41'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_1_PIN_25_USED:
+      attributes:
+        id: PORT_GROUP_1_PIN_25_USED
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PIN_101_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_101_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            value: C
+          type: User
+        type: Values
+      type: String
+    PIN_100_DRVSTR:
+      attributes:
+        id: PIN_100_DRVSTR
+      children:
+      - children:
+        - attributes:
+            value: '1'
+          type: User
+        type: Values
+      type: KeyValueSet
+    PIN_101_DRVSTR:
+      attributes:
+        id: PIN_101_DRVSTR
+      children:
+      - children:
+        - attributes:
+            value: '1'
+          type: User
+        type: Values
+      type: KeyValueSet
+    PIN_100_FUNCTION_NAME:
+      attributes:
+        id: PIN_100_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            value: LAN865x_MOSI
+          type: User
+        type: Values
+      type: String
+    PIN_101_FUNCTION_NAME:
+      attributes:
+        id: PIN_101_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            value: LAN865x_SCK
+          type: User
+        type: Values
+      type: String
+    PIN_109_MODE:
+      attributes:
+        id: PIN_109_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_109_FUNCTION_TYPE:
+      attributes:
+        id: PIN_109_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            value: SERCOM0_PAD3
+          type: User
+        type: Values
+      type: String
+    PORT_GROUP_2_PMUX12:
+      attributes:
+        id: PORT_GROUP_2_PMUX12
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x20'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PAD_25:
+      attributes:
+        id: PORT_GROUP_2_PAD_25
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: PC25
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PINCFG25:
+      attributes:
+        id: PORT_GROUP_2_PINCFG25
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x41'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_GROUP_2_PIN_25_USED:
+      attributes:
+        id: PORT_GROUP_2_PIN_25_USED
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PIN_109_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_109_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            value: C
+          type: User
+        type: Values
+      type: String
+    PIN_109_DRVSTR:
+      attributes:
+        id: PIN_109_DRVSTR
+      children:
+      - children:
+        - attributes:
+            value: '1'
+          type: User
+        type: Values
+      type: KeyValueSet
+    PIN_109_FUNCTION_NAME:
+      attributes:
+        id: PIN_109_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            value: LAN865x_MISO
+          type: User
+        type: Values
+      type: String
+    XC32_HEAP_SIZE:
+      attributes:
+        id: XC32_HEAP_SIZE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '1024'
+          type: Dynamic
+        - attributes:
+            value: '44960'
+          type: User
+        type: Values
+      type: Integer
+  userData:
+    children:
+    - attributes:
+        canvasHeight: '0'
+        canvasWidth: '0'
+      type: GraphSettings
+    - children:
+      - attributes:
+          id: profile0
+          name: Main
+        type: Profile
+      type: PowerProfiles
+    type: UserData

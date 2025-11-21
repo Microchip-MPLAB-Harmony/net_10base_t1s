@@ -1,6 +1,25 @@
 ![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
+## 10BASE-T1S Release v1.4.2
+### Bug Fixes
+
+- **Update register values in initial settings for LAN867x Rev.D0**
+
+The following table provides the list of changes in the v1.4.2 release:
+
+| Device  | Application                 | Module             | Description                                                    |
+| ------  | ------                      | ------             | ------                                                         |
+| LAN867x |tcpip_iperf_lan867x          | driver/lan867x/src | Update register values in initial settings for LAN867x Rev.D0  |
+| LAN867x |tcpip_iperf_lan867x          | apps               | Update LAN867x Rev.D0 example projects with latest MPLAB® Harmony package |
+
+### Dependencies
+* [MPLAB® X IDE v6.25](https://www.microchip.com/mplab/mplab-x-ide) or later
+* [MPLAB® XC32 C/C++ Compiler v5.00](https://www.microchip.com/mplab/compilers) or later
+**(OR)** [MPLAB® XC32 Functional Safety Compiler v4.39](https://www.microchip.com/mplab/compilers) or later
+* [net v3.14.4](https://github.com/Microchip-MPLAB-Harmony/net/tree/v3.14.4) or later
+
+
 ## 10BASE-T1S Release v1.4.1
 New features added in this release are as follows:
 
@@ -11,7 +30,7 @@ The following table provides the list of changes in the v1.4.1 release:
 
 | Device  | Application                 | Module             | Description                                                    |
 | ------  | ------                      | ------             | ------                                                         |
-| LAN867x |tcpip_iperf_lan867x          | driver/lan867x/src | Update Initial settings for LAN867x Rev C and Rev. D0** |
+| LAN867x |tcpip_iperf_lan867x          | driver/lan867x/src | Update Initial settings for LAN867x Rev C and Rev. D0          |
 | LAN867x |tcpip_iperf_lan867x          | apps               | Update LAN867x Rev.D0 example projects with latest MPLAB® Harmony package |
 | LAN867x |tcpip_iperf_lan867x_freertos | apps               | Change tcpip_iperf_lan867x_freertos configuration name "FreeRtos" to "FreeRTOS"|
 | LAN865x |tcpip_iperf_lan865x          | driver/lan865x/src | Update LAN867x Rev.D0 example projects with latest MPLAB® Harmony package |

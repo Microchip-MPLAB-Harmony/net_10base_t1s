@@ -1104,7 +1104,7 @@ static DRV_ETHPHY_RESULT LAN867x_RevD_InitialSettings(const DRV_ETHPHY_OBJECT_BA
 
     switch(state) {
         case 0:
-            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0037, 0x8000);
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0037, 0x0800);
             break;
          case 1:
             miimRes = LAN867x_Write_Register(&clientObj, 0x1F008A, 0xBFC0u);
@@ -1116,7 +1116,7 @@ static DRV_ETHPHY_RESULT LAN867x_RevD_InitialSettings(const DRV_ETHPHY_OBJECT_BA
             miimRes = LAN867x_Write_Register(&clientObj, 0x1F00D6, 0x1001u);
             break;
         case 4:
-            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0082, 0x100Cu);
+            miimRes = LAN867x_Write_Register(&clientObj, 0x1F0082, 0x001Cu);
             break;
         case 5:
             miimRes = LAN867x_Write_Register(&clientObj, 0x1F00FD, 0x0C0Bu);

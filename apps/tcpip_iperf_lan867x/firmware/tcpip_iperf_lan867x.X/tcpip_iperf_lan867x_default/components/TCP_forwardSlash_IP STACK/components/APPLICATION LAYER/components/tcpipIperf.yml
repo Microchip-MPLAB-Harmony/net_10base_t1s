@@ -1,0 +1,31 @@
+configVersion: 1.0.0
+componentName: tcpipIperf
+coreVersion: 5.8.3
+device: ATSAME54P20A
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: tcpipIperf
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: net
+  type: package
+  version: v3.14.4
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: APPLICATION LAYER
+    children:
+    - children:
+      - attributes:
+          id: tcpipIperf
+          x: '174'
+          y: '5'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols: {}
+  userData: {}

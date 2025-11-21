@@ -14,3 +14,11 @@ mcc-manifest-autosave.yml
 **/*.X/build
 **/*.X/.generated_files
 **/*.code-workspace
+/apps/tcpip_iperf_lan867x/firmware/tcpip_iperf_lan867x.X/tcpip_iperf_lan867x_default.bak0/components
+/apps/tcpip_iperf_lan867x/firmware/tcpip_iperf_lan867x.X/tcpip_iperf_lan867x_default.bak1/components
+/apps/tcpip_iperf_lan867x/firmware/tcpip_iperf_lan867x_freertos.X/tcpip_iperf_lan867x_freertos_FreeRTOS.bak0/components
+/apps/tcpip_iperf_lan867x/firmware/tcpip_iperf_lan867x_freertos.X/tcpip_iperf_lan867x_freertos_FreeRTOS.bak0
+/apps/tcpip_iperf_lan867x/firmware/tcpip_iperf_lan867x_freertos.X/tcpip_iperf_lan867x_freertos_FreeRTOS.bak1/components
+/apps/tcpip_iperf_lan867x/firmware/tcpip_iperf_lan867x.X/tcpip_iperf_lan867x_default.bak0/mcc-config.mc4
+/apps/tcpip_iperf_lan867x/firmware/tcpip_iperf_lan867x.X/tcpip_iperf_lan867x_default.bak1/mcc-config.mc4
+/apps/tcpip_iperf_lan867x/firmware/tcpip_iperf_lan867x_freertos.X/tcpip_iperf_lan867x_freertos_FreeRTOS.bak1/mcc-config.mc4

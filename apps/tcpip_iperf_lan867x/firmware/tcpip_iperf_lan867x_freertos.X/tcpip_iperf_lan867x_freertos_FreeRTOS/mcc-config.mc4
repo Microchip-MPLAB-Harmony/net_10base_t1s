@@ -1,9 +1,8 @@
 configVersion: 1.0.0
-coreVersion: 5.8.2
-spaHostVersion: 1.0.0
+coreVersion: 5.8.3
+spaHostVersion: 1.2.0
 device: ATSAME54P20A
-deviceLibrary:
-  className: null
+deviceLibrary: {}
 groupModules:
 - group: APPLICATION LAYER
   modules:
@@ -56,9 +55,7 @@ modules:
 - tcpipNetConfig_0
 generatedFileHashHistoryMap:
 - file: ..\src\app.c
-  hash: null
 - file: ..\src\app.h
-  hash: null
 - file: ..\src\config\FreeRTOS\ATSAME54P20A.ld
   hash: ba1b5ba1b9c97c94416b0198dc30e928c5a66c926c3ad7695f9bbe3b798adaba
 - file: ..\src\config\FreeRTOS\FreeRTOSConfig.h
@@ -90,7 +87,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\driver\ethphy\src\dynamic\drv_ethphy.c
   hash: 6fe4940248b04ce0004ca61a543418e2ee507fe97e925e32d18da3e38fda0961
 - file: ..\src\config\FreeRTOS\driver\ethphy\src\dynamic\drv_extphy_lan867x.c
-  hash: 176dc3f947bb030161239f61723994956bc4b95f9b4c3bbd1a7ff338f4d6eee6
+  hash: b857d3d46b31bd62a1649ff2eca5714554c275b8eac0d3ee44f55fd8af398c79
 - file: ..\src\config\FreeRTOS\driver\ethphy\src\dynamic\drv_extphy_lan867x.h
   hash: f23e15a35e1765546922d5686bfb146a2c60eda461e00cbb4f3f185682044065
 - file: ..\src\config\FreeRTOS\driver\ethphy\src\dynamic\drv_extphy_regs.h
@@ -528,7 +525,6 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\user.h
   hash: 451e0878e9fcf6cf9fab046c1452ea662757988346c7f39e6bc98478ca25f995
 - file: ..\src\main.c
-  hash: null
 - file: ..\src\packs\ATSAME54P20A_DFP\component\ac.h
   hash: f157f4448aa3fa1bcd7e772c8d8ec7320ad5f17a8b9ac40b4eb881b2e207a932
 - file: ..\src\packs\ATSAME54P20A_DFP\component\adc.h

@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>tcpip_ipfer_lan867x</name>
+            <name>tcpip_iperf_lan867x</name>
             <creation-uuid>a8685e6a-cf82-49d2-bb84-9933f76abf79</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

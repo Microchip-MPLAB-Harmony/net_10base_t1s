@@ -539,8 +539,8 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
-      <logicalFolder name="tcpip_ipfer_lan867x_default"
-                     displayName="tcpip_ipfer_lan867x_default"
+      <logicalFolder name="tcpip_iperf_lan867x_default"
+                     displayName="tcpip_iperf_lan867x_default"
                      projectFiles="true">
         <logicalFolder name="components" displayName="components" projectFiles="true">
           <logicalFolder name="TCP_forwardSlash_IP STACK"
@@ -551,76 +551,76 @@
                              displayName="APPLICATION LAYER"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/components/tcpipDns.yml</itemPath>
-                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/components/tcpipIperf.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/components/tcpipDns.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/components/tcpipIperf.yml</itemPath>
                 </logicalFolder>
-                <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/APPLICATION LAYER.yml</itemPath>
+                <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/APPLICATION LAYER/APPLICATION LAYER.yml</itemPath>
               </logicalFolder>
               <logicalFolder name="BASIC CONFIGURATION"
                              displayName="BASIC CONFIGURATION"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/components/tcpipCmd.yml</itemPath>
-                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/components/tcpipStack.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/components/tcpipCmd.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/components/tcpipStack.yml</itemPath>
                 </logicalFolder>
-                <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/BASIC CONFIGURATION.yml</itemPath>
+                <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/BASIC CONFIGURATION/BASIC CONFIGURATION.yml</itemPath>
               </logicalFolder>
               <logicalFolder name="DATA LINK LAYER"
                              displayName="DATA LINK LAYER"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvGmac.yml</itemPath>
-                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/tcpipNetConfig.yml</itemPath>
-                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvMiim.yml</itemPath>
-                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvExtPhyLan867x.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvMiim.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvExtPhyLan867x.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/drvGmac.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/components/tcpipNetConfig.yml</itemPath>
                 </logicalFolder>
-                <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/DATA LINK LAYER.yml</itemPath>
+                <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/DATA LINK LAYER/DATA LINK LAYER.yml</itemPath>
               </logicalFolder>
               <logicalFolder name="NETWORK LAYER"
                              displayName="NETWORK LAYER"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipArp.yml</itemPath>
-                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIcmp.yml</itemPath>
-                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIPv4.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIcmp.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipArp.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/components/tcpipIPv4.yml</itemPath>
                 </logicalFolder>
-                <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/NETWORK LAYER.yml</itemPath>
+                <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/NETWORK LAYER/NETWORK LAYER.yml</itemPath>
               </logicalFolder>
               <logicalFolder name="PRESENTATION LAYER"
                              displayName="PRESENTATION LAYER"
                              projectFiles="true">
-                <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/PRESENTATION LAYER/PRESENTATION LAYER.yml</itemPath>
+                <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/PRESENTATION LAYER/PRESENTATION LAYER.yml</itemPath>
               </logicalFolder>
               <logicalFolder name="TRANSPORT LAYER"
                              displayName="TRANSPORT LAYER"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/components/tcpipTcp.yml</itemPath>
-                  <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/components/tcpipUdp.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/components/tcpipUdp.yml</itemPath>
+                  <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/components/tcpipTcp.yml</itemPath>
                 </logicalFolder>
-                <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/TRANSPORT LAYER.yml</itemPath>
+                <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/components/TRANSPORT LAYER/TRANSPORT LAYER.yml</itemPath>
               </logicalFolder>
             </logicalFolder>
-            <itemPath>tcpip_ipfer_lan867x_default/components/TCP_forwardSlash_IP STACK/TCP_forwardSlash_IP STACK.yml</itemPath>
+            <itemPath>tcpip_iperf_lan867x_default/components/TCP_forwardSlash_IP STACK/TCP_forwardSlash_IP STACK.yml</itemPath>
           </logicalFolder>
-          <itemPath>tcpip_ipfer_lan867x_default/components/nvmctrl.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/HarmonyCore.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/sercom1.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/core.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/sys_console_0.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/sys_command.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/tcpipNetConfig_0.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/lib_crypto.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/sys_debug.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/tc0.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/dfp.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/lib_wolfcrypt.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/cmsis.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/sys_time.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/sys_console.yml</itemPath>
-          <itemPath>tcpip_ipfer_lan867x_default/components/evsys.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/evsys.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/lib_wolfcrypt.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/core.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/sys_debug.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/sys_console_0.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/sys_time.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/HarmonyCore.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/sercom1.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/dfp.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/tcpipNetConfig_0.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/nvmctrl.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/sys_console.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/sys_command.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/cmsis.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/lib_crypto.yml</itemPath>
+          <itemPath>tcpip_iperf_lan867x_default/components/tc0.yml</itemPath>
         </logicalFolder>
-        <itemPath>tcpip_ipfer_lan867x_default/mcc-config.mc4</itemPath>
+        <itemPath>tcpip_iperf_lan867x_default/mcc-config.mc4</itemPath>
       </logicalFolder>
       <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
         <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/misc.c</itemPath>
@@ -662,12 +662,8 @@
             <logicalFolder name="gmac" displayName="gmac" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <logicalFolder name="dynamic" displayName="dynamic" projectFiles="true">
-                  <logicalFolder name="drv_gmac_lib_same5x.c"
-                                 displayName="drv_gmac_lib_same5x.c"
-                                 projectFiles="true">
-                    <itemPath>../src/config/default/driver/gmac/src/dynamic/drv_gmac_lib_samE5x.c</itemPath>
-                  </logicalFolder>
                   <itemPath>../src/config/default/driver/gmac/src/dynamic/drv_gmac.c</itemPath>
+                  <itemPath>../src/config/default/driver/gmac/src/dynamic/drv_gmac_lib_same5x.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
@@ -880,7 +876,7 @@
         <targetDevice>ATSAME54P20A</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>5.00</languageToolchainVersion>
         <platform>3</platform>
@@ -948,7 +944,7 @@
         <property key="oXC16gcc-sfr-warn" value="false"/>
         <property key="oXC16gcc-smar-io-lvl" value="1"/>
         <property key="oXC16gcc-smart-io-fmt" value=""/>
-        <property key="optimization-level" value="-O2"/>
+        <property key="optimization-level" value="-O3"/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -1135,6 +1131,7 @@
         <property key="programoptions.preserveprogramrange" value="false"/>
         <property key="programoptions.preserveuserid" value="false"/>
         <property key="programoptions.programuserotp" value="false"/>
+        <property key="programoptions.smart.program" value="When debugging only"/>
         <property key="script.has_reset" value="true"/>
         <property key="script.log_level" value="1"/>
         <property key="script.reset_delay" value="0"/>
@@ -1182,7 +1179,7 @@
         <property key="memories.programmemory.ranges" value="0-fffff"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmerToGoFilePath"
-                  value="D:/SVN/net_10Base_t1s_mc4/apps/tcpip_iperf_lan867x/firmware/tcpip_ipfer_lan867x.X/debug/default/tcpip_ipfer_lan867x_ptg"/>
+                  value="D:/SVN/net_10Base_t1s_mc4/apps/tcpip_iperf_lan867x/firmware/tcpip_iperf_lan867x.X/debug/default/tcpip_iperf_lan867x_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -1193,6 +1190,7 @@
         <property key="programoptions.preserveprogramrange" value="false"/>
         <property key="programoptions.preserveuserid" value="false"/>
         <property key="programoptions.programuserotp" value="false"/>
+        <property key="programoptions.smart.program" value="When debugging only"/>
         <property key="script.has_reset" value="true"/>
         <property key="script.log_level" value="1"/>
         <property key="script.reset_delay" value="0"/>

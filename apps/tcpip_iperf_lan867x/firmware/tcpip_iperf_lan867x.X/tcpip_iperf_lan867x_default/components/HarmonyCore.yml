@@ -1,0 +1,491 @@
+configVersion: 1.0.0
+componentName: HarmonyCore
+coreVersion: 5.8.3
+device: ATSAME54P20A
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: HarmonyCore
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.16.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: HarmonyCore
+          x: '6'
+          y: '70'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    APP0_C:
+      attributes:
+        id: APP0_C
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    APP0_H:
+      attributes:
+        id: APP0_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    CONFIGURATION_H:
+      attributes:
+        id: CONFIGURATION_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    DRIVER_COMMON:
+      attributes:
+        id: DRIVER_COMMON
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    DRIVER_ROOT:
+      attributes:
+        id: DRIVER_ROOT
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    ENABLE_APP_FILE:
+      attributes:
+        id: ENABLE_APP_FILE
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_DRV_COMMON:
+      attributes:
+        id: ENABLE_DRV_COMMON
+      children:
+      - children:
+        - attributes:
+            id: tcpipStack
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_OSAL:
+      attributes:
+        id: ENABLE_OSAL
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_CACHE:
+      attributes:
+        id: ENABLE_SYS_CACHE
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_COMMON:
+      attributes:
+        id: ENABLE_SYS_COMMON
+      children:
+      - children:
+        - attributes:
+            id: tcpipStack
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_INT:
+      attributes:
+        id: ENABLE_SYS_INT
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_RESET:
+      attributes:
+        id: ENABLE_SYS_RESET
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    GEN_APP_TASKS:
+      attributes:
+        id: GEN_APP_TASKS
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    INT_DEF:
+      attributes:
+        id: INT_DEF
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    INT_HEADER:
+      attributes:
+        id: INT_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    INT_MAPPING:
+      attributes:
+        id: INT_MAPPING
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    INT_SOURCE:
+      attributes:
+        id: INT_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    OSAL_DEFINITIONS_H:
+      attributes:
+        id: OSAL_DEFINITIONS_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    OSAL_H:
+      attributes:
+        id: OSAL_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    OSAL_IMPL_BASIC_H:
+      attributes:
+        id: OSAL_IMPL_BASIC_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    OSAL_SYSDEF_H:
+      attributes:
+        id: OSAL_SYSDEF_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    OSAL_TIMEOUT_PERIPHERAL:
+      attributes:
+        id: OSAL_TIMEOUT_PERIPHERAL
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: ''
+          type: Dynamic
+        type: Values
+      type: String
+    RESET_DEF:
+      attributes:
+        id: RESET_DEF
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    RESET_HEADER:
+      attributes:
+        id: RESET_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    RESET_MAPPING:
+      attributes:
+        id: RESET_MAPPING
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYSTEM_COMMON:
+      attributes:
+        id: SYSTEM_COMMON
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYSTEM_MODULE:
+      attributes:
+        id: SYSTEM_MODULE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYSTEM_ROOT:
+      attributes:
+        id: SYSTEM_ROOT
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_CACHE_DEF:
+      attributes:
+        id: SYS_CACHE_DEF
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_CACHE_HEADER:
+      attributes:
+        id: SYS_CACHE_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_CACHE_SOURCE:
+      attributes:
+        id: SYS_CACHE_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_DEBUG_DEF_HEADER:
+      attributes:
+        id: SYS_DEBUG_DEF_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_DEBUG_HEADER:
+      attributes:
+        id: SYS_DEBUG_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_TASKS_H:
+      attributes:
+        id: SYS_TASKS_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    TASKS_C:
+      attributes:
+        id: TASKS_C
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    USER_H:
+      attributes:
+        id: USER_H
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+  userData: {}

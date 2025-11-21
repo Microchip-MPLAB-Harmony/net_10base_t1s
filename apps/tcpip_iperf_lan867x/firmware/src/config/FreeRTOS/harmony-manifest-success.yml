@@ -4,19 +4,19 @@
 
 
 project: tcpip_iperf_lan867x_freertos
-creation_date: 2025-10-16T20:47:52.873+02:00[Europe/Berlin]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-11-21T11:58:46.734+01:00[Europe/Berlin]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
-mcc_version: v5.6.2
-mcc_core_version: v5.8.2
+mcc_version: v5.6.3
+mcc_core_version: v5.8.3
 mplabx_version: v6.25        # if MPLAB X plugin only
-harmony_version: v5.6.2
-compiler: XC32 4.60
+harmony_version: v5.6.3
+compiler: XC32 5.00
 
 modules:
-    - {name: "csp", version: "v3.23.0"}
-    - {name: "net_10base_t1s", version: "v1.4.0"}
-    - {name: "core", version: "v3.15.5"}
+    - {name: "csp", version: "v3.24.0"}
+    - {name: "net_10base_t1s", version: "v1.4.1"}
+    - {name: "core", version: "v3.16.0"}
     - {name: "CMSIS_5", version: "5.9.0"}
     - {name: "FreeRTOS-Kernel", version: "V11.2.0"}
     - {name: "wolfssl", version: "v5.4.0"}

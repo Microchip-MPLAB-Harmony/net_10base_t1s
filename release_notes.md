@@ -1,5 +1,22 @@
 ![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
+## 10BASE-T1S Release v1.4.3
+### Bug Fixes
+
+- **Update register values in initial settings for LAN865x Rev.B1**
+
+The following table provides the list of changes in the v1.4.3 release:
+
+| Device  | Application                 | Module             | Description                                                    |
+| ------  | ------                      | ------             | ------                                                         |
+| LAN865x |tcpip_iperf_lan865x          | driver/lan865x/src | Update register values in initial settings for LAN865x Rev.B1  |
+| LAN865x |tcpip_iperf_lan865x          | apps               | Update LAN865x Rev.B1 example projects with latest MPLAB® Harmony package |
+
+### Dependencies
+* [MPLAB® X IDE v6.30](https://www.microchip.com/mplab/mplab-x-ide) or later
+* [MPLAB® XC32 C/C++ Compiler v5.00](https://www.microchip.com/mplab/compilers) or later
+**(OR)** [MPLAB® XC32 Functional Safety Compiler v4.39](https://www.microchip.com/mplab/compilers) or later
+* [net v3.14.5](https://github.com/Microchip-MPLAB-Harmony/net/tree/v3.14.5) or later
 
 ## 10BASE-T1S Release v1.4.2
 ### Bug Fixes

@@ -53,14 +53,14 @@ TCPIP_MAC_POWER_MODE TCPIP_Helper_StringToPowerMode(const char* str);
 
 const char*     TCPIP_Helper_PowerModeToString(TCPIP_MAC_POWER_MODE mode);
 
-/* MISRA C-2012 Rule 8.6 deviated:1 Deviation record ID -  H3_MISRAC_2012_R_8_6_NET_DR_19 */
+/* MISRA C-2023 Rule 8.6 deviated:1 Deviation record ID -  H3_MISRAC_2023_R_8_6_NET_DR_19 */
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunknown-pragmas"
-#pragma coverity compliance block deviate:1 "MISRA C-2012 Rule 8.6" "H3_MISRAC_2012_R_8_6_NET_DR_19" 
+#pragma coverity compliance block deviate:1 "MISRA C-2023 Rule 8.6" "H3_MISRAC_2023_R_8_6_NET_DR_19" 
 uint16_t        TCPIP_Helper_CalcIPChecksum(const uint8_t* dataBuffer, uint16_t len, uint16_t seed);
-#pragma coverity compliance end_block "MISRA C-2012 Rule 8.6"
+#pragma coverity compliance end_block "MISRA C-2023 Rule 8.6"
 #pragma GCC diagnostic pop
-/* MISRAC 2012 deviation block end */
+/* MISRAC 2023 deviation block end */
 
 
 #if defined(__mips__)
@@ -120,6 +120,18 @@ static __inline__ TCPIP_MAC_ETHERNET_HEADER* __attribute__((always_inline)) FC_U
     {
         uint8_t*    uptr;
         TCPIP_MAC_ETHERNET_HEADER* pHdr;
+    }U_UPTR_MAC_ETH_HDR;
+
+    U_UPTR_MAC_ETH_HDR.uptr = uptr;
+    return U_UPTR_MAC_ETH_HDR.pHdr;
+}
+
+static __inline__ TCPIP_MAC_ETHERNET_VLAN_HEADER* __attribute__((always_inline)) FC_Uptr2MacEthVlanHdr(uint8_t* uptr)
+{
+    union
+    {
+        uint8_t*    uptr;
+        TCPIP_MAC_ETHERNET_VLAN_HEADER* pHdr;
     }U_UPTR_MAC_ETH_HDR;
 
     U_UPTR_MAC_ETH_HDR.uptr = uptr;

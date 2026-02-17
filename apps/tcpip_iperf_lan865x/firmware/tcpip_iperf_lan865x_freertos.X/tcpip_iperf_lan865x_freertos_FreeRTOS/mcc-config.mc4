@@ -1,9 +1,8 @@
 configVersion: 1.0.0
-coreVersion: 5.8.2
-spaHostVersion: 1.0.0
+coreVersion: 5.8.4
+spaHostVersion: 1.2.1
 device: ATSAME54P20A
-deviceLibrary:
-  className: null
+deviceLibrary: {}
 groupModules:
 - group: APPLICATION LAYER
   modules:
@@ -57,9 +56,7 @@ modules:
 - tcpipNetConfig_0
 generatedFileHashHistoryMap:
 - file: ..\src\app.c
-  hash: null
 - file: ..\src\app.h
-  hash: null
 - file: ..\src\config\FreeRTOS\ATSAME54P20A.ld
   hash: ba1b5ba1b9c97c94416b0198dc30e928c5a66c926c3ad7695f9bbe3b798adaba
 - file: ..\src\config\FreeRTOS\FreeRTOSConfig.h
@@ -75,7 +72,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\definitions.h
   hash: e4a4b32d569307e269c2426892ef86c012496c941bfffe791d3b14b14c23a9c0
 - file: ..\src\config\FreeRTOS\device.h
-  hash: b8fdcc4ed83daa65a6f38614a689c97d414774be19ae106e6da07556c50a2c82
+  hash: 67a6bee1094722da22e7fbc3885c7336ffedf29e6499c111ce29eb928d54bee6
 - file: ..\src\config\FreeRTOS\device_cache.h
   hash: e2914501b361bbc93a56d6915b1bf4fac00277e61f31fdee87a587bc15dea5b6
 - file: ..\src\config\FreeRTOS\device_vectors.h
@@ -87,7 +84,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\driver\lan865x\drv_lan865x.h
   hash: 688a076310dc3be435fde44541b44ab5b30461cc454f66562f90b655c54a9506
 - file: ..\src\config\FreeRTOS\driver\lan865x\src\dynamic\drv_lan865x_api.c
-  hash: b27993231afcccc1e77b0b0a3759bacf789319d4ff9fd3d45fa200c4e4c96e9f
+  hash: 9468c053f8fef749e006586a6af6f8db2fafdd341a0b11ed0e4bff5d71507511
 - file: ..\src\config\FreeRTOS\driver\lan865x\src\dynamic\drv_lan865x_local.h
   hash: 3d1628619e2261830bd098b56f97fbc37bb73bc16fabe15d49312e6f09593689
 - file: ..\src\config\FreeRTOS\driver\lan865x\src\dynamic\tc6\tc6-conf.h
@@ -107,17 +104,17 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\driver\spi\src\drv_spi_local.h
   hash: ad0de54fbffad399c5a1cf1b803300cb4e4cbf2d0e611387deec39c24ce74f4f
 - file: ..\src\config\FreeRTOS\exceptions.c
-  hash: a565e8d25d218b3e1069267ae9cc317161d062683a27c64e3cb454757bb82fd9
+  hash: 251729130964d6a74b7a9ee99700b57a16c0e1b5d31029678e06ecd3d8dedc9e
 - file: ..\src\config\FreeRTOS\freertos_hooks.c
   hash: c97b8f92ad60ff513a27ac7a27b3c6824b75005eb8f7b85fe5ae18deaf568c4e
 - file: ..\src\config\FreeRTOS\initialization.c
-  hash: ddf71afe65757e83bb4c8c955a7f11a6ef18e06db1a7ac5a9d6e0d857e1bb7b5
+  hash: c413cdcb7624a6e177d338a6f1151c9337255694c8cd1d644587aedd066ce0d9
 - file: ..\src\config\FreeRTOS\interrupts.c
-  hash: d95a6f69f7f40ce4656455f239264f3273d6dfa81e789cd5c8900e04394f2c70
+  hash: 43b84e5c34b560a67c8b370386f05a36d9cfff336ddcc1d8f663262c30ee9fd5
 - file: ..\src\config\FreeRTOS\interrupts.h
   hash: 460f94bc0938bf1a4c4c54ba845022ee1c81ae1c4feee4fc6cfaa765e058eb43
 - file: ..\src\config\FreeRTOS\libc_syscalls.c
-  hash: 88bb2e34c939601b5b7ad076556e3ee0fcedf388436b8cddb6d6fd3e9d07472f
+  hash: c9afc1b1257829415a1a6746ce3744f0a768b339d59fff2ab3ca1fab58b2a916
 - file: ..\src\config\FreeRTOS\library\tcpip\arp.h
   hash: 450ad6b0a80ffdcf33eab32bf8f662318da13ad5df0896a845cc28a490ff83a6
 - file: ..\src\config\FreeRTOS\library\tcpip\berkeley_api.h
@@ -127,7 +124,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\library\tcpip\dhcp.h
   hash: b28c883cdd3ece1554e71c5a476ec234a8d6b0c0c8e3ca81fa3836c9da2aeb8c
 - file: ..\src\config\FreeRTOS\library\tcpip\dhcp_server.h
-  hash: 6df67ca37153e8661d6289fe1cc365e30ddef6ab232a401589c76d1938b1f44e
+  hash: 9f4e4ea2254cde5fe926dccc2ece253927353dfe55f30d6a52fb1283634eb286
 - file: ..\src\config\FreeRTOS\library\tcpip\dhcps.h
   hash: b9982926e550e7a24aa8eefebeb144eb8ef32072dd190b8ad6221d639b10a39a
 - file: ..\src\config\FreeRTOS\library\tcpip\dhcpv6.h
@@ -141,7 +138,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\library\tcpip\ftpc.h
   hash: 1f29fc839603249f24b2530ab279e2179cf91608c04d0805da63c35456f1802e
 - file: ..\src\config\FreeRTOS\library\tcpip\http_net.h
-  hash: 34375be99aee3038a02ccbcffa6156cf1c87589b15037852a19ed838edd0ec87
+  hash: c39e0a910da7c42726f3d472e6033d0b29f70f8c398dd1fd3bc683bdce3b6fb9
 - file: ..\src\config\FreeRTOS\library\tcpip\icmp.h
   hash: f15acf15fe8db38e0a310fb7e682917db781779a532d735eb7f9c55988987e94
 - file: ..\src\config\FreeRTOS\library\tcpip\icmpv6.h
@@ -153,17 +150,17 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\library\tcpip\ipv4.h
   hash: f1575f977fbe2bf9667b96653e945a3eb7c61a8d63c3e281fa112b4022bfe457
 - file: ..\src\config\FreeRTOS\library\tcpip\ipv6.h
-  hash: bbe55fbeaf8e0dd3544c52bf6156a836251994eda28f06dff59e35b6aa356901
+  hash: d4571d5af4da10690914693d5d08bc1acc5254812f5dde14d3dbbbfe57f72ed2
 - file: ..\src\config\FreeRTOS\library\tcpip\nbns.h
   hash: 5b155004c3059779591e85f1bf6ae6ccb25a8b77623fc2fe76f79fd26cccf363
 - file: ..\src\config\FreeRTOS\library\tcpip\ndp.h
   hash: 64737eb115b13a3350c77ca841ad539771757f6218ab218f2498496c9f96b9d1
 - file: ..\src\config\FreeRTOS\library\tcpip\smtpc.h
-  hash: 35a90921d5ef73bbd1343350c4ee94e1c7699dc219d7fbb0c6d4b56a5094f53d
+  hash: 28c37e0a5dd79291af7465929d24819f3e187ce5560bb6d918ab93d3e876904e
 - file: ..\src\config\FreeRTOS\library\tcpip\snmp.h
-  hash: d90393597ac4e0698248ab4517a59c3ce6fd8fd6fee250aff9b28f473563db22
+  hash: 9a6a489a2f623826cab2d6d0ee4e512f0ae4ba26944989aecc3a87255c52d56e
 - file: ..\src\config\FreeRTOS\library\tcpip\snmpv3.h
-  hash: cce52297200205344c268abaae8c0c4fed46d0ca8641e5d012645e0e0383e64f
+  hash: c6af6936984d17fde2bc3e55f904989048540aeb978a04e1ca109df530d89c6a
 - file: ..\src\config\FreeRTOS\library\tcpip\sntp.h
   hash: 6281c1b3ae81d36891176b49fcade669bf466d3d2b9cd0f060db5ed8c2da884a
 - file: ..\src\config\FreeRTOS\library\tcpip\src\arp.c
@@ -189,7 +186,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\library\tcpip\src\dhcp_server_manager.h
   hash: f1cedd71f447e3189991976cebb38b35648f6ee9395025e8d1525e68aef7a992
 - file: ..\src\config\FreeRTOS\library\tcpip\src\dhcp_server_private.h
-  hash: 6a4550f4cac4c26606bfb09edba08e1861c6ff4412237d7633cecf76cb6eb79f
+  hash: 77226eeb178d447018cbec58bf001e3eeac91346a27093ccd75f5c125c53d130
 - file: ..\src\config\FreeRTOS\library\tcpip\src\dhcps_manager.h
   hash: 2d4a5e759ab76c9dcd0ba53ee3a1a48dfd0996eb0f291f80002707942438457c
 - file: ..\src\config\FreeRTOS\library\tcpip\src\dhcps_private.h
@@ -221,7 +218,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\library\tcpip\src\hash_fnv.h
   hash: 2b2711f7333a2d9d9871a28b7fb892977eabc95e7eec94be388489b7e52f74e2
 - file: ..\src\config\FreeRTOS\library\tcpip\src\helpers.c
-  hash: 46229b193b4f76f81e6251bbda9bc561751caa155f8c1cb23778fff49e692c0d
+  hash: b4ebfc03b3ff6b85ada8210e4d486665d83d862f1521a4230b6fab8b6bfa164a
 - file: ..\src\config\FreeRTOS\library\tcpip\src\http_net_manager.h
   hash: 609c9766621bc1e0cdc4f60e15e1277000b10468175714db094028bd8b39feb3
 - file: ..\src\config\FreeRTOS\library\tcpip\src\http_net_private.h
@@ -269,39 +266,39 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\library\tcpip\src\snmp_manager.h
   hash: 53e4d630d06173b2e4bb4f999cce51f0ecf384fed4872c9a58fbd6e49dcfdccb
 - file: ..\src\config\FreeRTOS\library\tcpip\src\snmp_private.h
-  hash: 93e7ede3de5d3ca337cb4c59635bc40daf880a5a091b890e9530ba6e8fbd1d5f
+  hash: 40f02fc6e5e9ed5f3f8c9e9cd9e81ca59fead7b3c551b4dc51411af91412226e
 - file: ..\src\config\FreeRTOS\library\tcpip\src\snmpv3_private.h
   hash: abc871b12690c2898ed238c713a7ff3a0f1b4186166367d0f919cbcf4da18a85
 - file: ..\src\config\FreeRTOS\library\tcpip\src\sntp_manager.h
   hash: 246b539db2d08028ec642e23fab652a23d617c71617a88a1886ef6d5569fafdf
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcp.c
-  hash: 4edcea358bcad4f87fa6cd13049955a820df0bb2b0f91915184f817fb8b5da64
+  hash: 44bc9525f41c8dab92e1a5a3cb2c932d7cbe2360df23ec32b43bbbbbd1ba9d76
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcp_manager.h
-  hash: 233332129743ea5f6faaa921b8673b035bc8a46b87d9039512e4bfbfd7046c7c
+  hash: b5c944efedacaef2f9d2d58acab2c34ccfe052458c7c7cb0819bfd4e9071cf24
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcp_private.h
-  hash: 3d4756f7316044fb4aa60d46866f0f4424b4664428c10df70c5868ba15c24b08
+  hash: f69256f977542715123dcba4135d611451bbd104587c488629561819d3a2d757
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_announce_manager.h
   hash: 3f0a86ad803b406ba5d10db3ebf37581c789770a248f7401630959f8b7c17993
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_commands.c
-  hash: caafe6b18613091748a0ae437785dfe087295bf068119035d86fac80e91014bd
+  hash: 9e1987d8f51b2e3b3ee95b189a20677e82d3e2b6bb6c2e2de59d8b134e612515
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_commands_manager.h
   hash: 0fa5fe865a716515dd6853e152c6f04ae32679d67fe6381992db6910cb5287fb
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_heap_alloc.c
-  hash: 931713c11d8b6a8dfc16cde720ba6fe3f65f9234be1e9527351c61cf49e41ef3
+  hash: 223fa5d899a62d0e33728818af42848385bdb28f55608e44604c0d7f7bb4b03c
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_heap_alloc.h
   hash: f6cedd79f1cb5fbd6f75072b562a3ef53c638cc99e68386f914bbe81d15b349b
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_heap_internal.c
-  hash: 449479e6d6cf0daf9056f4d65eaf6c0ca2c2090243822d3edd2e017c3107898b
+  hash: d4b02f867eabfbc8c96dd952ea3bac8ffaed2adc00e5ac2a9ad52c391a8c8a8e
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_helpers.c
-  hash: 1d4adc667c6e74d0139a6c1944372bc018b542a10aac15678b144276bc5aee6a
+  hash: fed10c443dce036cfc22dc375650d94e9ffdd080b183fb187885c16e7580adbb
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_helpers_private.h
-  hash: 5b866d9773e187fe7e147457f6872745cdc7451c05f6b4b4eb3759c530872147
+  hash: 7143c10241cc548eb8d284ba590bd6b65310d9921afb7119f5b22087839916cc
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_mac_bridge_manager.h
   hash: 85c01b632193be93838f91c7b73e3ba3ef5579d7133fa6bbc209136ba7b96e62
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_mac_bridge_private.h
   hash: 5c6d0671b39be47922853f2e2da9e104b6dc0846c8b0a8de2e53e07bf3db5341
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_manager.c
-  hash: 7ee5cb63e12ea192594e92b52f0adfa0f11ab78a1e63a1980edbc0670f859721
+  hash: 2e516e6001ceb28abab8ddbe5cc35a91ea3859a1c44b9636517b7e1d4492e507
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_manager_control.h
   hash: 638b3ebb46efe6567f8e50a87922802738c6e0afcd582a3c57263168ca6d6086
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_module_manager.h
@@ -313,9 +310,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_packet.c
   hash: d9806fa88ed73b307bc5d5a690a9dc4f37ab89b9ea44c34f71c320c8a9fb3f37
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_packet.h
-  hash: ce7efe0bbc8647facf76639fedff6fd7e0937b87fb81d5124a6dc1292115893d
+  hash: 2e5fb1156038bcc08245c1fd0270d7f40678fa005f0855653c94cb030053f3c0
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_private.h
-  hash: 8dad6ed9280dfa0833ecc22bb4d631357065d3c31b19cdc922f26e32f9c7e59f
+  hash: acb6a1a99592b29879f7dc942039300ba4a9b823ecbf1af7de58394e65a59675
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_reboot_manager.h
   hash: ae0c90024a3a67c01b1e3b624f620ccc2f216577879f5f4977bf400f6c0e33a7
 - file: ..\src\config\FreeRTOS\library\tcpip\src\tcpip_types.h
@@ -347,7 +344,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\library\tcpip\src\zero_conf_manager.h
   hash: 8fca0a795bc4967de3dfebb6fcb4c2f85e25de71e337eee0d849160d027d5112
 - file: ..\src\config\FreeRTOS\library\tcpip\tcp.h
-  hash: 75c1d426acd52f9fd107ec961efd73151346425967c32a9ee2b72344f5bf64ac
+  hash: e33c13ce23cdc23473bef55b68ac033f1abc6fcbff919ca82b4af97801137e59
 - file: ..\src\config\FreeRTOS\library\tcpip\tcpip.h
   hash: bf34ba5f140ea82a6d31df265d5c82ca8ba1071d3160577139c7ce75391f5e22
 - file: ..\src\config\FreeRTOS\library\tcpip\tcpip_announce.h
@@ -361,9 +358,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\library\tcpip\tcpip_heap.h
   hash: 922023fa4287979ea8b53039069285edb6e837279bffd82bac8ae1af8e8b9f6f
 - file: ..\src\config\FreeRTOS\library\tcpip\tcpip_helpers.h
-  hash: d1ff16d63f3a47023c425fce03ebd8be235d9f5bbbf2044b335ce573e99f1e8d
+  hash: 81201017ab939365098e393fbb6a16b45fc332b078be8381573b28ac58b98cfb
 - file: ..\src\config\FreeRTOS\library\tcpip\tcpip_mac.h
-  hash: 17311f5e526c0d99899d736f085ca3aee0da741af75b70610594af9cd3cfcc18
+  hash: 2d8a1a7d945b450b262d67352c5ad97d574163bbdcbb49eaccfcf82c2afe95cc
 - file: ..\src\config\FreeRTOS\library\tcpip\tcpip_mac_bridge.h
   hash: f20db2e4f02e72a5ad8bb0f1220bcf5f46d80ad3cc4ae939341de31520b27126
 - file: ..\src\config\FreeRTOS\library\tcpip\tcpip_mac_object.h
@@ -389,7 +386,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\net_pres\pres\net_pres.h
   hash: 00bfb807c77bf87f5143862267e25971f1702ea6928a66b324f66488f8528076
 - file: ..\src\config\FreeRTOS\net_pres\pres\net_pres_socketapi.h
-  hash: 00481cb6ce191dafb03a986813eb08423427da56946469dcd25f02de2d14f0f5
+  hash: ff3e2ebd024aa2108ec02da04201f5a5d492996fa360387b031aac588c43ade1
 - file: ..\src\config\FreeRTOS\net_pres\pres\net_pres_socketapiconversion.h
   hash: fea956ce0a826b0123329a90f2b70e13d18f21e08e0ba8f90b661122ac3e3703
 - file: ..\src\config\FreeRTOS\osal\osal.h
@@ -401,7 +398,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\osal\osal_freertos.h
   hash: f9d8c97ce37bbb7516242ec37c4b0db387090cfed54580af683bc0ce126094e0
 - file: ..\src\config\FreeRTOS\peripheral\clock\plib_clock.c
-  hash: 36fcc1c6587ce3ff6efc42d3553af78768d934a3d06259d7193474f9a4e787ef
+  hash: 9a90a593969e4e260b873c6a2767dc9601b06d3d20cb5c31cdfdc316aebc75dc
 - file: ..\src\config\FreeRTOS\peripheral\clock\plib_clock.h
   hash: 59322a99314cb17c6b595d51d18769582e61189140188aa053acfdc671487f21
 - file: ..\src\config\FreeRTOS\peripheral\cmcc\plib_cmcc.c
@@ -449,7 +446,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\pin_configurations.csv
   hash: 5e1eeb7d1a606746b6c51c52de60f33faccfd3b7465ae5bd36af615865aec8c4
 - file: ..\src\config\FreeRTOS\startup_xc32.c
-  hash: f374b97d65f92553f1b75d8c9239b8b0f8581c710f78ea47b02c7f6fa6f74c74
+  hash: 2916a631dd72c23f29daf3ec7ebc84abec03a29948825df0b1505d670d73fe50
 - file: ..\src\config\FreeRTOS\stdio\xc32_monitor.c
   hash: 858f8710d4287200a5ee7f3b3ad7c24f505aed9c05c16956ab0ff9f7bb162a6a
 - file: ..\src\config\FreeRTOS\sys_tasks.h
@@ -501,13 +498,13 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\system\reset\sys_reset.h
   hash: 962efce739387d25aacb5dc3aa90e90f216a478bcf19b57237540fd72bce2748
 - file: ..\src\config\FreeRTOS\system\sys_random_h2_adapter.c
-  hash: 044c4ff6cc719425fc9a5c81be0bc2f8f05b73c2d2205fd36ff452386cef8232
+  hash: b54cfa958e910c4a69dc894c62bddce98c519a8670d91735a261322ca0d61bbf
 - file: ..\src\config\FreeRTOS\system\sys_random_h2_adapter.h
-  hash: 0216eb4843f37e09b75994edf688ac53902417edead950348e95f560ba4791aa
+  hash: d14d04912a2b27bfce8cc1f4fec624893456530b12de2e0276004f444a255593
 - file: ..\src\config\FreeRTOS\system\sys_time_h2_adapter.c
-  hash: f2236dd84a36edaaae270355a1f78e7e2eb6d29123889682b7346d717ae8ec59
+  hash: 6cf16d476d47b2481a4b121d8f8021ca690ca3f8bbcd1c808daf42d45b8bfc82
 - file: ..\src\config\FreeRTOS\system\sys_time_h2_adapter.h
-  hash: 0c22cea8804e12b7d465f417e37450300f5a84def28077a689344a4b17670f05
+  hash: dbbf320912e0fcbe68538fbfcbac213d59e5a797d0b5b2f7b4b4d58f6c201a76
 - file: ..\src\config\FreeRTOS\system\system.h
   hash: 2b75f8e370e5cb2c54f70da7351ee149f0d5a7673e700f39b373099716b31b55
 - file: ..\src\config\FreeRTOS\system\system_common.h
@@ -533,9 +530,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\FreeRTOS\toolchain_specifics.h
   hash: 6fc0551b0fa3362678b3d7a227386fafa343140d31e4da3ad4af972e61cd0acb
 - file: ..\src\config\FreeRTOS\user.h
-  hash: null
 - file: ..\src\main.c
-  hash: null
 - file: ..\src\packs\ATSAME54P20A_DFP\component\ac.h
   hash: f157f4448aa3fa1bcd7e772c8d8ec7320ad5f17a8b9ac40b4eb881b2e207a932
 - file: ..\src\packs\ATSAME54P20A_DFP\component\adc.h

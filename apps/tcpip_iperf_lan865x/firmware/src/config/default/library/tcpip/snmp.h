@@ -101,6 +101,12 @@ Microchip or any third party.
 /*This macro is used for SNMP version 3 with authentication and privacy  */
 #define SNMP_V3         (3)
 
+/* This macro is used for configuring SNMP version 1, 2c, 3 */
+#define SNMP_V1_V2C_V3		(0U)
+
+/* This macro is used for Configuring SNMP version 3*/
+#define SNMP_V3_ONLY        (1U)
+
 
 // *****************************************************************************
 /*
@@ -166,10 +172,10 @@ typedef enum
     IPV6_SNMP_TRAP,
 }SNMP_TRAP_IP_ADDRESS_TYPE;
 
-/* MISRA C-2012 Rule 5.6 deviated:1 Deviation record ID -  H3_MISRAC_2012_R_5_6_NET_DR_14 */
+/* MISRA C-2023 Rule 5.6 deviated:1 Deviation record ID -  H3_MISRAC_2023_R_5_6_NET_DR_14 */
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunknown-pragmas"
-#pragma coverity compliance block deviate:1 "MISRA C-2012 Rule 5.6" "H3_MISRAC_2012_R_5_6_NET_DR_14" 
+#pragma coverity compliance block deviate:1 "MISRA C-2023 Rule 5.6" "H3_MISRAC_2023_R_5_6_NET_DR_14" 
 // *****************************************************************************
 /*
   Union:
@@ -191,10 +197,9 @@ typedef union
     uint8_t  byte;                  //byte value
     uint8_t  v[sizeof(uint32_t)];   //byte array
 } SNMP_VAL;
-#pragma coverity compliance end_block "MISRA C-2012 Rule 5.6"
+#pragma coverity compliance end_block "MISRA C-2023 Rule 5.6"
 #pragma GCC diagnostic pop
-/* MISRAC 2012 deviation block end */
-
+/* MISRAC 2023 deviation block end */
 
 
 // *****************************************************************************
@@ -309,7 +314,7 @@ typedef enum
 */
 typedef struct
 {
-    uint8_t oidstr[16];
+    uint8_t oidstr[TCPIP_SNMP_OID_MAX_LEN];
     uint8_t version;
 }SNMP_NON_MIB_RECD_INFO;
 
@@ -1505,6 +1510,54 @@ bool TCPIP_SNMP_IsTrapEnabled(void);
     This function is used by the customer function.
 */
 bool TCPIP_SNMP_ValidateTrapIntf(TCPIP_NET_HANDLE pIf);
+
+//****************************************************************************
+/*
+  Function:
+    bool  TCPIP_SNMP_SnmpVersionSet(uint8_t snmpVer);
+
+  Summary:
+    Sets the SNMP version to be supported.
+
+  Description:
+    This function is used to set the SNMP version to be supported.
+
+  Precondition  :
+    TCPIP_SNMP_Initialize is already called.
+
+  Parameters:
+    snmpVer  -  Snmp version - SNMP_V1_V2C_V3. or SNMP_V3_ONLY
+
+  Returns:
+    - true  - if the snmpVer is valid
+    - false - if the snmpVer is invalid
+
+  Remarks:
+    None.
+ */
+bool  TCPIP_SNMP_SnmpVersionSet(uint8_t snmpVer);
+
+//****************************************************************************
+/*
+  Function:
+    uint8_t  TCPIP_SNMP_SnmpVersionGet(void);
+
+  Summary:
+    Gets the SNMP version supported.
+
+  Description:
+    This function is used to get the SNMP version supported by the Agent.
+
+  Precondition  :
+    TCPIP_SNMP_Initialize is already called.
+
+  Return:
+    Snmp version - SNMP_V1_V2C_V3. or SNMP_V3_ONLY
+
+  Remarks:
+    None.
+ */
+uint8_t  TCPIP_SNMP_SnmpVersionGet(void);
 
 // *****************************************************************************
 /*
